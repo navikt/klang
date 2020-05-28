@@ -1,6 +1,6 @@
 export interface Bruker {
     id?: string;
-    fødselsnummer: string;
+    foedselsnummer: string;
     navn: Navn;
     adresse: Adresse;
     kontaktinformasjon?: Kontaktinformasjon;

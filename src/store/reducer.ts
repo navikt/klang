@@ -13,7 +13,7 @@ export const initialState: Store = {
 
     person: {
         id: '',
-        fødselsnummer: '',
+        foedselsnummer: '',
         navn: {
             fornavn: '',
             etternavn: ''
