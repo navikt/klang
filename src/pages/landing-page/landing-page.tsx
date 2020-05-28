@@ -43,12 +43,19 @@ const LandingPage = (props: any) => {
     }, [dispatch]);
 
     useEffect(() => {
+        const setVedtak = () => {
+            let query = queryString.parse(props.location.search);
+            if (instanceOfVedtak(query)) {
+                setChosenVedtak(getChosenVedtak(query));
+            }
+        };
+
         if (props.location.search !== '') {
             setVedtak();
         } else {
             getData();
         }
-    });
+    }, [props.location.search]);
 
     if (loading) {
         return <NavFrontendSpinner type={'XL'} />;
@@ -57,13 +64,6 @@ const LandingPage = (props: any) => {
     const getData = async () => {
         const FOUND_VEDTAK = await getVedtak();
         setFoundVedtak(FOUND_VEDTAK);
-    };
-
-    const setVedtak = () => {
-        let query = queryString.parse(props.location.search);
-        if (instanceOfVedtak(query)) {
-            setChosenVedtak(getChosenVedtak(query));
-        }
     };
 
     const getChosenVedtak = (query: any): Vedtak => {
