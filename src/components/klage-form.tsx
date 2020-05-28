@@ -15,11 +15,24 @@ const KlageForm = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [tmpInput, setTmpInput] = useState<Klage>({
         id: getRandomSimpleId(),
-        userFirstName: person.navn.fornavn || '',
-        userLastName: person.navn.etternavn || '',
-        userAddress: '',
-        userFodselsnummer: '',
-        userPhone: '',
+        person: {
+            navn: {
+                fornavn: person.navn.fornavn || '',
+                etternavn: person.navn.etternavn || ''
+            },
+            adresse: {
+                adressenavn: '',
+                postnummer: '',
+                poststed: '',
+                husnummer: '',
+                husbokstav: ''
+            },
+            fødselsnummer: '',
+            kontaktinformasjon: {
+                telefonnummer: '',
+                epost: ''
+            }
+        },
         NAVEnhetNavn: '',
         vedteksdato: '',
         NAVReference: '',
@@ -54,34 +67,34 @@ const KlageForm = () => {
                 <Input
                     name="userFirstName"
                     label="Fornavn"
-                    value={tmpInput.userFirstName}
+                    value={tmpInput.person.navn.fornavn}
                     onChange={e => handleFormChange(e.target.name, e.target.value)}
                 />
                 <Input
                     name="userLastName"
                     label="Etternavn"
-                    value={tmpInput.userLastName}
+                    value={tmpInput.person.navn.etternavn}
                     onChange={e => handleFormChange(e.target.name, e.target.value)}
                 />
                 <Input
                     name="userAddress"
-                    label="Addresse"
-                    value={tmpInput.userAddress}
+                    label="Adresse"
+                    value={tmpInput.person.adresse.adressenavn}
                     onChange={e => handleFormChange(e.target.name, e.target.value)}
                 />
                 <FnrInput
                     name="userFodselsnummer"
                     label="Fødselsnummer (11 siffer)"
                     bredde="S"
-                    value={tmpInput.userFodselsnummer}
+                    value={tmpInput.person.fødselsnummer}
                     onChange={e => handleFormChange(e.target.name, e.target.value)}
                     onValidate={valid => setIsValid(valid)}
-                    feil={isValid || !tmpInput.userFodselsnummer ? undefined : 'Ugyldig fødselsnummer'}
+                    feil={isValid || !tmpInput.person.fødselsnummer ? undefined : 'Ugyldig fødselsnummer'}
                 />
                 <Input
                     name="userPhone"
                     label="Telefonnummer"
-                    value={tmpInput.userPhone}
+                    value={tmpInput.person.kontaktinformasjon?.telefonnummer}
                     onChange={e => handleFormChange(e.target.name, e.target.value)}
                 />
             </SkjemaGruppe>
