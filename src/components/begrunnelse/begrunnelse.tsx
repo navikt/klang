@@ -7,7 +7,7 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 const veilederText = `All informasjon du har sendt inn tidligere i denne saken vil følge med klagen din. Om du har ny eller oppdatert informasjon du ønsker å legge ved kan det lastes opp her.`;
 
 const Begrunnelse = (props: any) => {
-    const [activeBegrunnelse, setActiveBegrunnelse] = useState<string>('');
+    const [activeBegrunnelse, setActiveBegrunnelse] = useState<string>(props.activeBegrunnelse ?? '');
 
     const uploadAttachment = (event: any) => {
         event.preventDefault();

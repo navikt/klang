@@ -9,7 +9,7 @@ import Steps from '../../components/steps/steps';
 import { Systemtittel } from 'nav-frontend-typografi';
 import OppsummeringSkjemaPage from '../oppsummering-skjema-page/oppsummering-skjema-page';
 import { constructKlage } from '../../types/klage';
-import { postKlage } from '../../services/klageService';
+import { postKlage, getKlager } from '../../services/klageService';
 
 const IkkeValgtVedtakForm = (props: any) => {
     const [activeStep, setActiveStep] = useState<number>(props.activeStep || 0);
@@ -21,6 +21,10 @@ const IkkeValgtVedtakForm = (props: any) => {
 
     const next = () => {
         setActiveStep(activeStep + 1);
+    };
+
+    const chooseStep = (step: number) => {
+        setActiveStep(step);
     };
 
     const setVedtak = (activeVedtak: Vedtak) => {
@@ -37,6 +41,9 @@ const IkkeValgtVedtakForm = (props: any) => {
     const submitDraft = () => {
         // Submit form as DRAFT
         let klage = constructKlage(props.person, activeVedtak, activeBegrunnelse, true);
+        getKlager().then(e => {
+            console.log('e : ', e);
+        });
         postKlage(klage).then(e => {
             console.log('e: ', e);
         });
@@ -52,7 +59,7 @@ const IkkeValgtVedtakForm = (props: any) => {
     return (
         <>
             <MarginContentContainer>
-                <Steps activeRoutes={activeRoutes} activeStep={activeStep} />
+                <Steps activeRoutes={activeRoutes} activeStep={activeStep} chooseStep={chooseStep} />
             </MarginContentContainer>
             <MarginContentContainer>
                 <CenteredContentContainer>
@@ -64,11 +71,13 @@ const IkkeValgtVedtakForm = (props: any) => {
                 {activeStep === 1 && (
                     <VedtaketPage
                         foundVedtak={props.foundVedtak}
+                        activeVedtak={activeVedtak}
                         submitVedtak={(activeVedtak: Vedtak) => setVedtak(activeVedtak)}
                     />
                 )}
                 {activeStep === 2 && (
                     <BegrunnelsePage
+                        activeBegrunnelse={activeBegrunnelse}
                         submitBegrunnelse={(activeBegrunnelse: string) => setBegrunnelse(activeBegrunnelse)}
                     />
                 )}
