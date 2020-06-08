@@ -3,7 +3,7 @@ import { Textarea } from 'nav-frontend-skjema';
 import VeilederInfo from '../general/veileder-info';
 import { MarginContentContainer, CenteredContentContainer } from '../../styled-components/main-styled-components';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import { addVedleggToKlage } from '../../services/fileService';
+// import { addVedleggToKlage } from '../../services/fileService';
 
 const veilederText = `All informasjon du har sendt inn tidligere i denne saken vil følge med klagen din. Om du har ny eller oppdatert informasjon du ønsker å legge ved kan det lastes opp her.`;
 
