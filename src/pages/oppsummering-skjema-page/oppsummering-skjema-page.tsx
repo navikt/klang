@@ -32,10 +32,6 @@ const OppsummeringSkjemaPage = () => {
             });
     };
 
-    const submitKlage = (event: any) => {
-        // TODO: POST KLAGE
-    };
-
     return (
         <ContentContainer>
             <MarginContainer>
