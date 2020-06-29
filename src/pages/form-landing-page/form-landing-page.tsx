@@ -16,8 +16,8 @@ const FormLandingPage = (props: any) => {
     const [chosenVedtak, setChosenVedtak] = useState<Vedtak>();
 
     useEffect(() => {
-        dispatch(checkAuth());
-    }, [dispatch]);
+        dispatch(checkAuth(props.location.pathname));
+    }, [dispatch, props.location.pathname]);
 
     const getChosenVedtak = (query: any): Vedtak => {
         return elementAsVedtak(query);

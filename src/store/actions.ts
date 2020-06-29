@@ -25,13 +25,13 @@ export type ActionTypes =
           value: any;
       };
 
-export function checkAuth() {
+export function checkAuth(pathBeforeRedirect: string) {
     return function (dispatch: Dispatch<ActionTypes>) {
         return fetch(getUserDataUrl(), {
             method: 'GET',
             credentials: 'include'
         })
-            .then(sjekkAuth)
+            .then(res => sjekkAuth(res, pathBeforeRedirect))
             .then(sjekkHttpFeil)
             .then(response => response.json())
             .then(json => {
@@ -71,9 +71,9 @@ export function updateKlage(klage: Klage) {
     };
 }
 
-const sjekkAuth = (response: Response): any => {
+const sjekkAuth = (response: Response, pathBeforeRedirect: string): any => {
     if (response.status === 401 || response.status === 403) {
-        window.location.assign(getLoginserviceRedirectUrl());
+        window.location.assign(getLoginserviceRedirectUrl(pathBeforeRedirect ?? ''));
     }
     return response;
 };
