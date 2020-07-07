@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Textarea } from 'nav-frontend-skjema';
+import { Textarea, RadioPanelGruppe } from 'nav-frontend-skjema';
 import {
     MarginContainer,
     CenteredContainer,
-    FlexCenteredContainer
+    FlexCenteredContainer,
+    DoubleMarginContainer
 } from '../../styled-components/main-styled-components';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
@@ -16,6 +17,7 @@ import { addVedleggToKlage, deleteVedlegg } from '../../services/fileService';
 import { Klage, constructKlage } from '../../types/klage';
 import { toISOString } from '../../utils/date-util';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
+import { datoValg } from './datoValg';
 
 const Begrunnelse = (props: any) => {
     const dispatch = useDispatch();
@@ -25,6 +27,7 @@ const Begrunnelse = (props: any) => {
     const [activeDatoISO, setActiveDatoISO] = useState<string>(
         activeKlage.vedtaksdato ? toISOString(activeKlage.vedtaksdato) : toISOString(new Date())
     );
+    const [dateOption, setDateOption] = useState<string>();
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     useEffect(() => {
@@ -56,7 +59,7 @@ const Begrunnelse = (props: any) => {
 
     const fileInput = useRef<HTMLInputElement>(null);
 
-    const handleClick = (event: any) => {
+    const handleAttachmentClick = (event: any) => {
         event.preventDefault();
         let node = fileInput.current;
         if (node) {
@@ -64,6 +67,12 @@ const Begrunnelse = (props: any) => {
         } else {
             return;
         }
+    };
+
+    const handleDateOptionClick = (event: any, value: string) => {
+        console.log('event: ', event);
+        console.log('value: ', value);
+        setDateOption(value);
     };
 
     const uploadAttachment = (event: any) => {
@@ -136,24 +145,39 @@ const Begrunnelse = (props: any) => {
                 </MarginContainer>
             )}
 
-            <Undertittel>Begrunn klagen din</Undertittel>
-            <Textarea
-                name="begrunnelse"
-                value={activeBegrunnelse}
-                description={INPUTDESCRIPTION}
-                placeholder="Skriv inn din begrunnelse her."
-                onChange={e => setActiveBegrunnelse(e.target.value)}
-                maxLength={0}
-                textareaClass="expanded-height"
-                feil={submitted && !validBegrunnelse() && 'Du må skrive en begrunnelse før du går videre.'}
-            />
+            <MarginContainer>
+                <Undertittel>Hvilket vedtak gjelder klagen?</Undertittel>
+            </MarginContainer>
+            <MarginContainer>
+                <RadioPanelGruppe
+                    name="datoValg"
+                    radios={datoValg}
+                    checked={dateOption}
+                    onChange={(event: any, value: string) => handleDateOptionClick(event, value)}
+                />
+            </MarginContainer>
+
+            <DoubleMarginContainer>
+                <Undertittel>Begrunn klagen din</Undertittel>
+                <Textarea
+                    name="begrunnelse"
+                    value={activeBegrunnelse}
+                    description={INPUTDESCRIPTION}
+                    placeholder="Skriv inn din begrunnelse her."
+                    onChange={e => setActiveBegrunnelse(e.target.value)}
+                    maxLength={0}
+                    textareaClass="expanded-height"
+                    feil={submitted && !validBegrunnelse() && 'Du må skrive en begrunnelse før du går videre.'}
+                />
+            </DoubleMarginContainer>
+
             <MarginContainer>
                 <Undertittel>Vedlegg</Undertittel>
                 <MarginContainer>
                     <VedleggVisning vedlegg={activeVedlegg} deleteAction={vedlegg => removeAttachment(vedlegg)} />
                 </MarginContainer>
                 <MarginContainer>
-                    <Knapp onClick={e => handleClick(e)}>Last opp nytt vedlegg</Knapp>
+                    <Knapp onClick={e => handleAttachmentClick(e)}>Last opp nytt vedlegg</Knapp>
                     <input
                         type="file"
                         multiple
