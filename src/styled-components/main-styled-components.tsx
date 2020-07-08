@@ -21,9 +21,19 @@ export const device = {
     desktopL: `(min-width: ${size.desktop})`
 };
 
+export const matchMediaQueries = {
+    mobileS: window.matchMedia(`(max-width: ${size.mobileM})`),
+    mobileM: window.matchMedia(`(max-width: ${size.mobileL})`),
+    mobileL: window.matchMedia(`(max-width: ${size.tablet})`),
+    tablet: window.matchMedia(`(max-width: ${size.laptop})`),
+    laptop: window.matchMedia(`(max-width: ${size.laptopL})`),
+    laptopL: window.matchMedia(`(max-width: ${size.desktop})`),
+    desktop: window.matchMedia(`(max-width: ${size.desktop})`)
+};
+
 export const ContentContainer = styled.div`
     margin: 0 auto;
-    @media ${device.mobileL} {
+    @media ${device.mobileS} {
         max-width: 85%;
     }
     @media ${device.tablet} {
@@ -79,5 +89,16 @@ export const PointsFlexListContainer = styled(FlexContainer)`
         flex-basis: 40%;
         flex-grow: 1;
         margin-bottom: 20px;
+    }
+`;
+
+export const ButtonFlexContainer = styled(FlexContainer)`
+    justify-content: flex-start;
+    > button {
+        margin-bottom: 20px;
+        margin-right: 10px;
+    }
+    > button:last-of-kind {
+        margin-right: 0;
     }
 `;
