@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Desklamp from '../../assets/images/icons/Desklamp';
 import { Systemtittel, Normaltekst } from 'nav-frontend-typografi';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import {
     MarginContainer,
     matchMediaQueries,
     ButtonFlexContainer,
-    device
+    device,
+    FlexWithSpacingContainer
 } from '../../styled-components/main-styled-components';
 import { useHistory } from 'react-router-dom';
-import View from '../../assets/images/icons/View';
-import Book from '../../assets/images/icons/Book';
+import ViewDesklampBook from '../../assets/images/icons/ViewDesklampBook';
+import QuestionActive from '../../assets/images/icons/QuestionActive';
+import QuestionInactive from '../../assets/images/icons/QuestionInactive';
+import Popover from 'nav-frontend-popover';
 
 export const BoxHeader = styled.div`
     background-color: #c1b5d0;
@@ -23,16 +25,6 @@ export const BoxHeader = styled.div`
         right: 20px;
     }
     svg:nth-of-type(3) {
-    }
-    @media ${device.mobileS} {
-        svg {
-            max-width: 70px;
-        }
-    }
-    @media ${device.mobileL} {
-        svg {
-            max-width: none;
-        }
     }
 `;
 
@@ -54,6 +46,8 @@ const InngangInfoBox = (props: Props) => {
     const history = useHistory();
     const [mediaumMobileMode, setMediumMobileMode] = useState<boolean>(matchMediaQueries.mobileM.matches);
     const [smallMobileMode, setSmallMobileMode] = useState<boolean>(matchMediaQueries.mobileS.matches);
+    const [questionActive, setQuestionActive] = useState<boolean>(false);
+    const [popoverAnker, setPopoverAnker] = useState<HTMLElement | undefined>(undefined);
 
     matchMediaQueries.mobileM.addListener(width => {
         setMediumMobileMode(width.matches);
@@ -63,12 +57,15 @@ const InngangInfoBox = (props: Props) => {
         setSmallMobileMode(width.matches);
     });
 
+    const toggleQuestionActive = (anker: HTMLElement) => {
+        setPopoverAnker(questionActive ? undefined : anker);
+        setQuestionActive(!questionActive);
+    };
+
     return (
         <div>
             <BoxHeader>
-                <View />
-                <Desklamp />
-                <Book />
+                <ViewDesklampBook />
             </BoxHeader>
             <BoxContent>
                 <Systemtittel>Klage - {props.ytelse}</Systemtittel>
@@ -99,7 +96,23 @@ const InngangInfoBox = (props: Props) => {
                         </ButtonFlexContainer>
                     </MarginContainer>
                     <MarginContainer>
-                        <Normaltekst>Jeg har ikke elektronisk ID</Normaltekst>
+                        <FlexWithSpacingContainer>
+                            <div>
+                                <Normaltekst>Jeg har ikke elektronisk ID</Normaltekst>
+                            </div>
+                            <span
+                                id="withPopover"
+                                onClick={e => toggleQuestionActive(e.currentTarget)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                {questionActive ? <QuestionActive /> : <QuestionInactive />}
+                            </span>
+                            <Popover ankerEl={popoverAnker} onRequestClose={() => {}} autoFokus={false}>
+                                <p style={{ padding: '1rem' }}>
+                                    For å søke på nett må du ha BankID fra banken din eller en annen elektronisk ID.
+                                </p>
+                            </Popover>
+                        </FlexWithSpacingContainer>
                     </MarginContainer>
                 </MarginContainer>
             </BoxContent>

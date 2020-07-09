@@ -79,6 +79,15 @@ export const FlexContainer = styled.div`
     flex-flow: row wrap;
 `;
 
+export const FlexWithSpacingContainer = styled(FlexContainer)`
+    > * {
+        margin-right: 10px;
+    }
+    > *:last-child {
+        margin-right: 0;
+    }
+`;
+
 export const FlexCenteredContainer = styled(FlexContainer)`
     justify-content: center;
 `;

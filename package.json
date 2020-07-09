@@ -35,6 +35,8 @@
         "nav-frontend-lenker": "^1.0.40",
         "nav-frontend-lenker-style": "^0.2.29",
         "nav-frontend-paneler-style": "^0.3.21",
+        "nav-frontend-popover": "0.0.27",
+        "nav-frontend-popover-style": "0.0.5",
         "nav-frontend-skjema": "^2.0.19",
         "nav-frontend-skjema-style": "^2.0.9",
         "nav-frontend-spinner": "^2.0.2",
