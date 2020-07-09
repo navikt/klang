@@ -36,7 +36,7 @@ export const ContentContainer = styled.div`
     @media ${device.mobileS} {
         max-width: 85%;
     }
-    @media ${device.tablet} {
+    @media ${device.laptop} {
         max-width: 800px;
     }
 `;

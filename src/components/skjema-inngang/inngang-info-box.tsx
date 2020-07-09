@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import desk_lamp from '../../assets/images/icons/desklamp.svg';
+import Desklamp from '../../assets/images/icons/Desklamp';
 import { Systemtittel, Normaltekst } from 'nav-frontend-typografi';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import {
@@ -10,10 +10,30 @@ import {
     device
 } from '../../styled-components/main-styled-components';
 import { useHistory } from 'react-router-dom';
+import View from '../../assets/images/icons/View';
+import Book from '../../assets/images/icons/Book';
 
 export const BoxHeader = styled.div`
     background-color: #c1b5d0;
     padding: 5px 30px;
+    svg:nth-of-type(1) {
+    }
+    svg:nth-of-type(2) {
+        position: relative;
+        right: 20px;
+    }
+    svg:nth-of-type(3) {
+    }
+    @media ${device.mobileS} {
+        svg {
+            max-width: 70px;
+        }
+    }
+    @media ${device.mobileL} {
+        svg {
+            max-width: none;
+        }
+    }
 `;
 
 export const BoxContent = styled.div`
@@ -21,7 +41,7 @@ export const BoxContent = styled.div`
     .infoBox {
         max-width: 500px;
     }
-    @media ${device.mobileM} {
+    @media ${device.mobileS} {
         padding: 45px 0;
     }
 `;
@@ -32,16 +52,23 @@ interface Props {
 
 const InngangInfoBox = (props: Props) => {
     const history = useHistory();
-    const [mobileMode, setMobileMode] = useState<boolean>(matchMediaQueries.mobileM.matches);
+    const [mediaumMobileMode, setMediumMobileMode] = useState<boolean>(matchMediaQueries.mobileM.matches);
+    const [smallMobileMode, setSmallMobileMode] = useState<boolean>(matchMediaQueries.mobileS.matches);
 
     matchMediaQueries.mobileM.addListener(width => {
-        setMobileMode(width.matches);
+        setMediumMobileMode(width.matches);
+    });
+
+    matchMediaQueries.mobileS.addListener(width => {
+        setSmallMobileMode(width.matches);
     });
 
     return (
         <div>
             <BoxHeader>
-                <img src={desk_lamp} alt="Desk lamp" />
+                <View />
+                <Desklamp />
+                <Book />
             </BoxHeader>
             <BoxContent>
                 <Systemtittel>Klage - {props.ytelse}</Systemtittel>
@@ -58,11 +85,17 @@ const InngangInfoBox = (props: Props) => {
 
                     <MarginContainer>
                         <ButtonFlexContainer>
-                            <Hovedknapp kompakt={mobileMode} onClick={() => history.push(`${props.ytelse}/klage`)}>
+                            <Hovedknapp
+                                kompakt={mediaumMobileMode}
+                                mini={smallMobileMode}
+                                onClick={() => history.push(`${props.ytelse}/klage`)}
+                            >
                                 Fortsett til innlogget skjema
                             </Hovedknapp>
 
-                            <Knapp kompakt={mobileMode}>Jeg klager på vegne av andre</Knapp>
+                            <Knapp kompakt={mediaumMobileMode} mini={smallMobileMode}>
+                                Jeg klager på vegne av andre
+                            </Knapp>
                         </ButtonFlexContainer>
                     </MarginContainer>
                     <MarginContainer>
