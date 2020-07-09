@@ -49,9 +49,17 @@ export const CenteredContainer = styled.div`
     text-align: center;
 `;
 
+export const MarginTopContainer = styled.div`
+    margin-top: 20px;
+`;
+
 export const MarginContainer = styled.div`
     margin-top: 20px;
     margin-bottom: 20px;
+`;
+
+export const DoubleMarginTopContainer = styled.div`
+    margin-top: 40px;
 `;
 
 export const DoubleMarginContainer = styled.div`
@@ -103,11 +111,13 @@ export const PointsFlexListContainer = styled(FlexContainer)`
 
 export const ButtonFlexContainer = styled(FlexContainer)`
     justify-content: flex-start;
+    > a,
     > button {
         margin-bottom: 20px;
         margin-right: 10px;
     }
-    > button:last-of-kind {
+    > a:last-child,
+    > button:last-child {
         margin-right: 0;
     }
 `;

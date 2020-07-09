@@ -14,6 +14,9 @@ import ViewDesklampBook from '../../assets/images/icons/ViewDesklampBook';
 import QuestionActive from '../../assets/images/icons/QuestionActive';
 import QuestionInactive from '../../assets/images/icons/QuestionInactive';
 import Popover from 'nav-frontend-popover';
+import Lenke from 'nav-frontend-lenker';
+import ModalWrapper from 'nav-frontend-modal';
+import ModalElektroniskId from './modal-elektronisk-id';
 
 export const BoxHeader = styled.div`
     background-color: #c1b5d0;
@@ -48,6 +51,7 @@ const InngangInfoBox = (props: Props) => {
     const [smallMobileMode, setSmallMobileMode] = useState<boolean>(matchMediaQueries.mobileS.matches);
     const [questionActive, setQuestionActive] = useState<boolean>(false);
     const [popoverAnker, setPopoverAnker] = useState<HTMLElement | undefined>(undefined);
+    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
     matchMediaQueries.mobileM.addListener(width => {
         setMediumMobileMode(width.matches);
@@ -76,7 +80,17 @@ const InngangInfoBox = (props: Props) => {
                             på vegne av andre må du fylle inn personopplysninger manuelt.
                         </Normaltekst>
                         <MarginContainer>
-                            <Normaltekst>Les mer om dine klagerettigheter på våre tema-sider.</Normaltekst>
+                            <Normaltekst>
+                                Les mer om{' '}
+                                <Lenke
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/klage-ris-og-ros/klagerettigheter"
+                                >
+                                    dine klagerettigheter på våre tema-sider
+                                </Lenke>
+                                .
+                            </Normaltekst>
                         </MarginContainer>
                     </div>
 
@@ -98,7 +112,23 @@ const InngangInfoBox = (props: Props) => {
                     <MarginContainer>
                         <FlexWithSpacingContainer>
                             <div>
-                                <Normaltekst>Jeg har ikke elektronisk ID</Normaltekst>
+                                <Normaltekst>
+                                    <Lenke
+                                        className="no-background-style"
+                                        href="#"
+                                        onClick={() => setModalIsOpen(true)}
+                                    >
+                                        Jeg har ikke elektronisk ID
+                                    </Lenke>
+                                </Normaltekst>
+                                <ModalWrapper
+                                    isOpen={modalIsOpen}
+                                    onRequestClose={() => setModalIsOpen(false)}
+                                    closeButton={true}
+                                    contentLabel="Min modalrute"
+                                >
+                                    <ModalElektroniskId />
+                                </ModalWrapper>
                             </div>
                             <span
                                 id="withPopover"
