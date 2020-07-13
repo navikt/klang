@@ -60,6 +60,8 @@ export const MarginContainer = styled.div`
 
 export const DoubleMarginTopContainer = styled.div`
     margin-top: 40px;
+    width: 100%;
+    display: inline-block;
 `;
 
 export const DoubleMarginContainer = styled.div`

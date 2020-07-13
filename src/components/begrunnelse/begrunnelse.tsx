@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Textarea, RadioPanelGruppe } from 'nav-frontend-skjema';
 import {
     MarginContainer,
-    CenteredContainer,
     FlexCenteredContainer,
-    DoubleMarginContainer
+    DoubleMarginContainer,
+    DoubleMarginTopContainer
 } from '../../styled-components/main-styled-components';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel, Element } from 'nav-frontend-typografi';
@@ -219,15 +219,15 @@ const Begrunnelse = (props: any) => {
                 </Normaltekst>
             </MarginContainer>
 
-            <MarginContainer>
-                <CenteredContainer>
+            <DoubleMarginTopContainer>
+                <DoubleMarginTopContainer>
                     <FlexCenteredContainer>
                         <Hovedknapp className="row-element" onClick={(event: any) => submitBegrunnelseOgDato(event)}>
                             Gå videre
                         </Hovedknapp>
                     </FlexCenteredContainer>
-                </CenteredContainer>
-            </MarginContainer>
+                </DoubleMarginTopContainer>
+            </DoubleMarginTopContainer>
         </>
     );
 };
