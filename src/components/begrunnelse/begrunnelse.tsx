@@ -3,8 +3,8 @@ import { Textarea, RadioPanelGruppe } from 'nav-frontend-skjema';
 import {
     MarginContainer,
     FlexCenteredContainer,
-    DoubleMarginContainer,
-    DoubleMarginTopContainer
+    Margin40Container,
+    Margin80TopContainer
 } from '../../styled-components/main-styled-components';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel, Element } from 'nav-frontend-typografi';
@@ -178,7 +178,7 @@ const Begrunnelse = (props: any) => {
                 </MarginContainer>
             )}
 
-            <DoubleMarginContainer>
+            <Margin40Container>
                 <Undertittel>Begrunn klagen din</Undertittel>
                 <Textarea
                     name="begrunnelse"
@@ -190,7 +190,7 @@ const Begrunnelse = (props: any) => {
                     textareaClass="expanded-height"
                     feil={submitted && !validBegrunnelse() && 'Du må skrive en begrunnelse før du går videre.'}
                 />
-            </DoubleMarginContainer>
+            </Margin40Container>
 
             <MarginContainer>
                 <Undertittel>Vedlegg</Undertittel>
@@ -219,15 +219,13 @@ const Begrunnelse = (props: any) => {
                 </Normaltekst>
             </MarginContainer>
 
-            <DoubleMarginTopContainer>
-                <DoubleMarginTopContainer>
-                    <FlexCenteredContainer>
-                        <Hovedknapp className="row-element" onClick={(event: any) => submitBegrunnelseOgDato(event)}>
-                            Gå videre
-                        </Hovedknapp>
-                    </FlexCenteredContainer>
-                </DoubleMarginTopContainer>
-            </DoubleMarginTopContainer>
+            <Margin80TopContainer>
+                <FlexCenteredContainer>
+                    <Hovedknapp className="row-element" onClick={(event: any) => submitBegrunnelseOgDato(event)}>
+                        Gå videre
+                    </Hovedknapp>
+                </FlexCenteredContainer>
+            </Margin80TopContainer>
         </>
     );
 };
