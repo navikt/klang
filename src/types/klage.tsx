@@ -56,7 +56,7 @@ export const klageSkjemaTilKlage = (klageskjema: KlageSkjema): Klage => {
             result +=
                 foundDatoAlternativ.value +
                 (foundDatoAlternativ.id === 'tidligereVedtak' ? ' - ' + formatDate(vedtaksdatoobjekt) : '');
-        } else if (foundDatoAlternativ === undefined && vedtaksdatoobjekt) {
+        } else if (vedtaksdatoobjekt) {
             result +=
                 datoValg.find(valg => valg.id === 'tidligereVedtak')?.value + ' - ' + formatDate(vedtaksdatoobjekt);
         }
