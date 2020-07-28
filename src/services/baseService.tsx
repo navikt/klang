@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {Klage} from '../types/klage';
-import {logError, logInfo} from "../utils/logger/frontendLogger";
+import { Klage } from '../types/klage';
+import { logError, logInfo } from '../utils/logger/frontendLogger';
 
 const getOptions = {
     withCredentials: true
@@ -26,7 +26,7 @@ export async function get(resource: string) {
     try {
         return await response.data;
     } catch (error) {
-        logError(error, "Error from get call", {"resource": resource});
+        logError(error, 'Error from get call', { resource: resource });
         throw error;
     }
 }
@@ -36,20 +36,20 @@ export async function post(resource: string) {
     try {
         return await response;
     } catch (error) {
-        logError(error, "Error from post call", {"resource": resource});
+        logError(error, 'Error from post call', { resource: resource });
         throw error;
     }
 }
 
 export async function postKlage(resource: string, item: Klage): Promise<Klage> {
     // TODO: Needed to test frontend logger, remove when verified
-    logInfo("Posting new klage", {"klage": item});
+    logInfo('Posting new klage', { klage: item });
     let response = await axios.post(resource, JSON.stringify(item), postOptions);
     try {
         let res = await response;
         return res.data;
     } catch (error) {
-        logError(error, "Error from post klage call", {"resource": resource, "klage": item});
+        logError(error, 'Error from post klage call', { resource: resource, klage: item });
         throw error;
     }
 }
@@ -60,7 +60,7 @@ export async function putKlage(resource: string, item: Klage): Promise<Klage> {
         let res = await response;
         return res.data;
     } catch (error) {
-        logError(error, "Error from put klage call", {"resource": resource, "klage": item});
+        logError(error, 'Error from put klage call', { resource: resource, klage: item });
         throw error;
     }
 }
@@ -70,7 +70,7 @@ export async function postVedlegg(resource: string, vedlegg: FormData) {
     try {
         return await response;
     } catch (error) {
-        logError(error, "Error from post klage call", {"resource": resource});
+        logError(error, 'Error from post klage call', { resource: resource });
         throw error;
     }
 }
@@ -80,7 +80,7 @@ export async function deleteVedlegg(resource: string) {
     try {
         return await response;
     } catch (error) {
-        logError(error, "Error from post klage call", {"resource": resource});
+        logError(error, 'Error from post klage call', { resource: resource });
         throw error;
     }
 }
