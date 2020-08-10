@@ -60,16 +60,12 @@ const OppsummeringSkjemaPage = (props: any) => {
             </CenteredContainer>
 
             <WithLoading loading={loading}>
-                <div className="outlined">
+                <div className="framed">
                     <Ekspanderbartpanel
                         border={false}
                         apen={false}
                         className="form-expand"
-                        tittel={
-                            <Undertittel>
-                                Opplysninger fra Folkeregisteret og Kontakt- og reserverasjonsregisteret
-                            </Undertittel>
-                        }
+                        tittel={<Undertittel>Person&shy;opplysninger</Undertittel>}
                     >
                         <PersonligeOpplysningerSummary person={person} />
                         <div className="list-align-right">
