@@ -22,6 +22,7 @@ import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { datoValg } from './datoValg';
 import { Datovelger } from 'nav-datovelger';
 import NavFrontendSpinner from 'nav-frontend-spinner';
+import { Tema } from '../../types/tema';
 
 const Begrunnelse = (props: any) => {
     const dispatch = useDispatch();
@@ -37,11 +38,6 @@ const Begrunnelse = (props: any) => {
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     useEffect(() => {
-        const erFamilieOgPensjonEnhet = (): boolean => {
-            // TODO: Litt midlertidlig losning
-            return ['foreldrepenger', 'engangsstønad', 'svangerskapspenger'].indexOf(props.ytelse) > -1;
-        };
-
         if (!activeKlage || !activeKlage.id) {
             let klageskjema: KlageSkjema;
             if (props.chosenVedtak) {
@@ -49,8 +45,8 @@ const Begrunnelse = (props: any) => {
             } else {
                 klageskjema = {
                     fritekst: activeBegrunnelse,
-                    tema: erFamilieOgPensjonEnhet() ? 'FOR' : 'UKJ',
-                    ytelse: '',
+                    tema: 'FOR',
+                    ytelse: Tema['FOR'],
                     datoalternativ: datoalternativ,
                     saksnummer: ''
                 };

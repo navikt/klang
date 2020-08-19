@@ -1,6 +1,8 @@
+import { Tema } from './tema';
+
 export const validYtelser = ['foreldrepenger', 'engangsstønad', 'svangerskapspenger'];
 
-export const defaultYtelse = 'foreldrepenger';
+export const defaultYtelse = Tema['FOR'];
 
 export const ytelseUrlMap = {
     foreldrepenger:

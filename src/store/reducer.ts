@@ -3,6 +3,7 @@ import { Bruker } from '../types/bruker';
 import { KlageSkjema, Klage } from '../types/klage';
 import { VedleggProps } from '../types/vedlegg';
 import { defaultYtelse } from '../types/ytelse';
+import { Tema } from '../types/tema';
 
 export interface Store {
     loading: boolean;
@@ -42,14 +43,14 @@ export const initialState: Store = {
 
     activeKlage: {
         fritekst: '',
-        tema: 'UKJ',
-        ytelse: ''
+        tema: 'FOR',
+        ytelse: Tema['FOR']
     },
 
     activeKlageSkjema: {
         fritekst: '',
-        tema: 'UKJ',
-        ytelse: '',
+        tema: 'FOR',
+        ytelse: Tema['FOR'],
         datoalternativ: ''
     },
 
