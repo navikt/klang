@@ -3,6 +3,7 @@ require("console-stamp")(console, "[HH:MM:ss.l]");
 require("dotenv").config({ path: "../.env" });
 const jsdom = require('jsdom');
 const express = require("express");
+const helmet = require('helmet');
 const path = require("path");
 const mustacheExpress = require("mustache-express");
 const getDecorator = require("./dekorator");
@@ -22,6 +23,9 @@ server.engine("html", mustacheExpress());
 
 // Parse application/json
 server.use(express.json());
+
+// Use helmet for security options
+server.use(helmet());
 
 // Static files
 server.use('/', express.static(buildPath, { index: false }));
