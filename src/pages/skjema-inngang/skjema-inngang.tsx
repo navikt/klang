@@ -18,7 +18,6 @@ const SkjemaInngang = (props: any) => {
     getBruker()
         .then(() => {
             history.push(`/klage${props.location.search}`);
-            setLoading(false);
         })
         .catch(err => {
             console.log('User is not logged in');
