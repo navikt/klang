@@ -3,7 +3,6 @@ require("console-stamp")(console, "[HH:MM:ss.l]");
 require("dotenv").config({ path: "../.env" });
 const jsdom = require('jsdom');
 const express = require("express");
-const helmet = require('helmet');
 const path = require("path");
 const mustacheExpress = require("mustache-express");
 const getDecorator = require("./dekorator");
@@ -19,13 +18,14 @@ const frontendloggerScript = () => {
 
 server.set("views", `${__dirname}/../build`);
 server.set("view engine", "mustache");
+server.set("X-Frame-Options", "SAMEORIGIN");
+server.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+server.set("X-Content-Type-Options", "nosniff");
+server.set("X-XSS-Protection", "1; mode=block");
 server.engine("html", mustacheExpress());
 
 // Parse application/json
 server.use(express.json());
-
-// Use helmet for security options
-server.use(helmet());
 
 // Static files
 server.use('/', express.static(buildPath, { index: false }));
