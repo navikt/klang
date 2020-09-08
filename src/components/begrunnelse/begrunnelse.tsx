@@ -44,6 +44,7 @@ const Begrunnelse = (props: any) => {
             let klageskjema: KlageSkjema;
             if (props.chosenVedtak) {
                 klageskjema = klageSkjemaBasertPaaVedtak(props.chosenVedtak);
+                klageskjema.referrer = referrer;
             } else {
                 klageskjema = {
                     fritekst: activeBegrunnelse,
