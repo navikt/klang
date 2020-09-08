@@ -6,13 +6,10 @@ import { setReferrer } from '../../store/actions';
 
 const SkjemaInngang = (props: any) => {
     const query = queryString.parse(props.location.search);
-    const referrer = document.referrer;
-
-    console.log('i have found referrer ', referrer);
 
     useEffect(() => {
-        setReferrer(referrer);
-    }, [referrer]);
+        setReferrer(document.referrer ?? '');
+    }, []);
 
     return (
         <Margin80TopContainer>
