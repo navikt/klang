@@ -11,20 +11,19 @@ import Error from '../../components/error/error';
 
 const FormLanding = (props: any) => {
     const dispatch = useDispatch();
-    const { loading, chosenYtelse, referrer } = useSelector((state: Store) => state);
+    const { loading, chosenYtelse } = useSelector((state: Store) => state);
 
     const [chosenVedtak, setChosenVedtak] = useState<Vedtak>();
     const [temaNotSet, setTemaNotSet] = useState<boolean>(false);
 
     useEffect(() => {
         if (validVedtakQuery(props.query)) {
-            sessionStorage.setItem('referrer', referrer);
             dispatch(checkAuth(props.location.search));
             setChosenVedtak(elementAsVedtak(props.query));
         } else {
             setTemaNotSet(true);
         }
-    }, [dispatch, props.location.search, props.query, referrer]);
+    }, [dispatch, props.location.search, props.query]);
 
     logInfo('Form landing page visited.', { chosenYtelse: chosenYtelse, referrer: document.referrer });
 
