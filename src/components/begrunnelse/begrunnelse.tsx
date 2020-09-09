@@ -39,7 +39,6 @@ const Begrunnelse = (props: any) => {
     const [submitted, setSubmitted] = useState<boolean>(false);
 
     useEffect(() => {
-        console.log('ive got ', referrer);
         if (!activeKlage || !activeKlage.id) {
             let klageskjema: KlageSkjema;
             if (props.chosenVedtak) {
