@@ -30,9 +30,7 @@ const MainFormPage = (props: Props) => {
         return 'Your work will be lost.';
     };
 
-    const chooseStep = (step: number) => {
-        setActiveStep(step);
-    };
+    const chooseStep = (step: number) => setActiveStep(step);
 
     const next = () => {
         history.push(activeRoutes[activeStep + 1].path);
@@ -58,7 +56,7 @@ const MainFormPage = (props: Props) => {
                         previous={() => previous()}
                     />
                 )}
-                {activeRoute.label === 'Oppsummering' && <OppsummeringSkjemaPage previous={() => previous()} />}
+                {activeRoute.label === 'Oppsummering' && <OppsummeringSkjemaPage previous={previous} />}
             </MarginContainer>
         </>
     );

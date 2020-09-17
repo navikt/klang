@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, RouteComponentProps } from 'react-router-dom';
 import { routesConfig } from './utils/routes.config';
 import Layout from './components/general/layout';
 import { withRouter } from 'react-router-dom';
@@ -12,7 +12,7 @@ import NotFoundPage from './pages/not-found/not-found-page';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import { CenteredContainer } from './styled-components/main-styled-components';
 
-const App = (props: any) => {
+const App = (props: RouteComponentProps) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [errorState, setErrorState] = useState<boolean>(false);
     const dispatch = useDispatch();

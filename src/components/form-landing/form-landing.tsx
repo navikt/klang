@@ -5,11 +5,18 @@ import { checkAuth, getExistingKlage, setKlageId } from '../../store/actions';
 import { Store } from '../../store/reducer';
 import WithLoading from '../../components/general/loading/withLoading';
 import { logInfo } from '../../utils/logger/frontendLogger';
-import { validVedtakQuery, elementAsVedtak } from '../../mock-api/get/vedtak';
+import { getKlageId, queryToVedtak } from '../../mock-api/get/vedtak';
 import MainFormPage from '../../pages/form-landing-page/main-form-page';
 import Error from '../../components/error/error';
+import queryString from 'query-string';
 
-const FormLanding = (props: any) => {
+interface Props {
+    query: queryString.ParsedQuery<string>;
+    location: Location;
+    path: string;
+}
+
+const FormLanding = (props: Props) => {
     const dispatch = useDispatch();
     const { loading, chosenTema, chosenYtelse, getKlageError } = useSelector((state: Store) => state);
 
@@ -17,17 +24,22 @@ const FormLanding = (props: any) => {
     const [temaNotSet, setTemaNotSet] = useState<boolean>(false);
 
     useEffect(() => {
-        if (validVedtakQuery(props.query)) {
+        const klageId = getKlageId(props.query);
+        if (klageId !== null) {
             dispatch(checkAuth(props.location.search));
-            if (props.query.klageid) {
-                dispatch(setKlageId(props.query.klageid as string))
-                dispatch(getExistingKlage(parseInt(props.query.klageid as string)))
-            } else {
-                setChosenVedtak(elementAsVedtak(props.query));
-            }
-        } else {
-            setTemaNotSet(chosenTema === '');
+            dispatch(setKlageId(klageId));
+            dispatch(getExistingKlage(parseInt(klageId)));
+            return;
         }
+
+        const vedtak = queryToVedtak(props.query);
+        if (vedtak !== null) {
+            dispatch(checkAuth(props.location.search));
+            setChosenVedtak(vedtak);
+            return;
+        }
+
+        setTemaNotSet(chosenTema === '');
     }, [dispatch, props.location.search, props.query, chosenTema]);
 
     logInfo('Form landing page visited.', { chosenYtelse: chosenYtelse, referrer: document.referrer });
@@ -49,8 +61,7 @@ const FormLanding = (props: any) => {
             <Error
                 error={{
                     code: 400,
-                    text:
-                        'Klagen du ba om kan ikke hentes. Prøv på nytt fra lenken på Ditt NAV.'
+                    text: 'Klagen du ba om kan ikke hentes. Prøv på nytt fra lenken på Ditt NAV.'
                 }}
             />
         );

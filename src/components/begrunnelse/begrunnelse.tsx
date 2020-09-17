@@ -11,13 +11,13 @@ import {
 } from '../../styled-components/main-styled-components';
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Normaltekst, Undertittel, Element, Undertekst } from 'nav-frontend-typografi';
-import { VEDLEGG_STATUS, VedleggProps, toVedleggProps, VedleggErrorMessages } from '../../types/vedlegg';
+import { toFiles, VEDLEGG_ERROR_MESSAGES, VedleggFile } from '../../types/vedlegg';
 import VedleggVisning from './vedlegg';
 import { postNewKlage, updateKlage } from '../../store/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { Store } from '../../store/reducer';
 import { addVedleggToKlage, deleteVedlegg } from '../../services/fileService';
-import { klageSkjemaBasertPaaVedtak, KlageSkjema } from '../../types/klage';
+import { klageSkjemaBasedOnVedtak } from '../../types/klage';
 import { toISOString } from '../../utils/date-util';
 import { AlertStripeFeil } from 'nav-frontend-alertstriper';
 import { datoValg } from './datoValg';
@@ -26,14 +26,22 @@ import NavFrontendSpinner from 'nav-frontend-spinner';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Tema } from '../../types/tema';
 import { getReferrer } from '../../services/klageService';
+import { Vedtak } from '../../types/vedtak';
 
-const Begrunnelse = (props: any) => {
+interface Props {
+    ytelse: string;
+    chosenVedtak?: Vedtak;
+    next: () => void;
+    previous: () => void;
+}
+
+const Begrunnelse = (props: Props) => {
     const dispatch = useDispatch();
     const { activeKlage, activeKlageSkjema, activeVedlegg, klageId } = useSelector((state: Store) => state);
 
     const [activeBegrunnelse, setActiveBegrunnelse] = useState<string>(activeKlageSkjema.fritekst ?? '');
     const [activeDatoISO, setActiveDatoISO] = useState<string>(
-        activeKlageSkjema.vedtaksdatoobjekt ? toISOString(activeKlageSkjema.vedtaksdatoobjekt) : ''
+        activeKlageSkjema.vedtaksdato ? toISOString(activeKlageSkjema.vedtaksdato) : ''
     );
     const [datoalternativ, setDatoalternativ] = useState<string>(activeKlageSkjema.datoalternativ ?? '');
     const [vedleggLoading, setVedleggLoading] = useState<boolean>(false);
@@ -42,33 +50,32 @@ const Begrunnelse = (props: any) => {
 
     useEffect(() => {
         if ((!activeKlage || !activeKlage.id) && klageId === '') {
-            let klageskjema: KlageSkjema;
-            if (props.chosenVedtak) {
-                klageskjema = klageSkjemaBasertPaaVedtak(props.chosenVedtak);
+            if (typeof props.chosenVedtak !== 'undefined') {
+                const klageskjema = klageSkjemaBasedOnVedtak(props.chosenVedtak);
                 klageskjema.referrer = getReferrer();
+                dispatch(postNewKlage(klageskjema));
             } else {
-                klageskjema = {
-                    fritekst: activeBegrunnelse,
-                    tema: 'UKJ',
-                    ytelse: Tema['UKJ'],
-                    datoalternativ: datoalternativ,
-                    saksnummer: '',
-                    referrer: getReferrer()
-                };
-                if (activeDatoISO !== '') {
-                    klageskjema.vedtaksdatoobjekt = new Date(activeDatoISO);
-                } else {
-                    klageskjema.vedtaksdatoobjekt = undefined;
-                }
+                dispatch(
+                    postNewKlage({
+                        id: activeKlage.id,
+                        fritekst: activeBegrunnelse,
+                        tema: 'UKJ',
+                        ytelse: Tema['UKJ'],
+                        datoalternativ: datoalternativ,
+                        saksnummer: '',
+                        vedlegg: activeKlage.vedlegg,
+                        referrer: getReferrer(),
+                        vedtaksdato: activeDatoISO !== '' ? new Date(activeDatoISO) : undefined
+                    })
+                );
             }
-            dispatch(postNewKlage(klageskjema));
         }
     }, [activeKlage, dispatch, activeBegrunnelse, activeDatoISO, datoalternativ, props.chosenVedtak, klageId]);
     useEffect(() => {
         setActiveBegrunnelse(activeKlage.fritekst);
         setDatoalternativ(activeKlageSkjema.datoalternativ);
-        if (activeKlageSkjema.vedtaksdatoobjekt) {
-            setActiveDatoISO(toISOString(activeKlageSkjema.vedtaksdatoobjekt));
+        if (activeKlageSkjema.vedtaksdato) {
+            setActiveDatoISO(toISOString(activeKlageSkjema.vedtaksdato));
         }
     }, [activeKlage, activeKlageSkjema]);
 
@@ -77,69 +84,55 @@ const Begrunnelse = (props: any) => {
 
     const fileInput = useRef<HTMLInputElement>(null);
 
-    const handleAttachmentClick = (event: any) => {
+    const handleAttachmentClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
-        let node = fileInput.current;
-        if (node) {
-            node?.click();
-        } else {
+        fileInput.current?.click();
+    };
+
+    const uploadAttachment = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault();
+
+        const files = event.target.files;
+        if (files === null || files.length === 0) {
             return;
         }
-    };
 
-    const handleDatoalternativClick = (event: any, value: string) => {
-        setDatoalternativ(value);
-    };
-
-    const uploadAttachment = (event: any) => {
-        event.preventDefault();
-        if (event.target.files.length > 0) {
-            setVedleggLoading(true);
-            setVedleggFeilmelding('');
-        }
-        for (let key of Object.keys(event.target.files)) {
-            if (key !== 'length') {
-                const formData = new FormData();
-                const vedlegg = event.target.files[key];
-                formData.append('vedlegg', vedlegg);
-
-                addVedleggToKlage(activeKlage.id!!, formData)
-                    .then(response => {
-                        console.log(response);
-                        dispatch({
-                            type: 'VEDLEGG_ADD_SUCCESS',
-                            value: { status: VEDLEGG_STATUS.OK, vedlegg: toVedleggProps(response) }
-                        });
-                        setVedleggLoading(false);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        setVedleggFeilmelding(err.response.data.message);
-                        setVedleggLoading(false);
-                    });
-            }
-        }
-    };
-
-    const removeAttachment = (vedlegg: VedleggProps) => {
         setVedleggLoading(true);
         setVedleggFeilmelding('');
-        deleteVedlegg(vedlegg.vedlegg)
-            .then(response => {
-                console.log(response);
+
+        const uploads = Array.from(files).map(async file => {
+            try {
+                const vedlegg = await addVedleggToKlage(activeKlage.id, file);
                 dispatch({
-                    type: 'VEDLEGG_REMOVE',
+                    type: 'VEDLEGG_ADD_SUCCESS',
                     value: vedlegg
                 });
-                setVedleggLoading(false);
-            })
-            .catch(err => {
-                console.log(err);
-                setVedleggLoading(false);
-            });
+            } catch (err) {
+                console.error(err);
+                setVedleggFeilmelding(err.response.data.message);
+            }
+        });
+
+        Promise.all(uploads).then(() => setVedleggLoading(false));
     };
 
-    const submitBegrunnelseOgDato = (event: any) => {
+    const removeAttachment = async (vedlegg: VedleggFile) => {
+        setVedleggLoading(true);
+        setVedleggFeilmelding('');
+        try {
+            await deleteVedlegg(vedlegg.klageId, vedlegg.id);
+            dispatch({
+                type: 'VEDLEGG_REMOVE',
+                value: vedlegg
+            });
+            setVedleggLoading(false);
+        } catch (err) {
+            console.error(err);
+            setVedleggLoading(false);
+        }
+    };
+
+    const submitBegrunnelseOgDato = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
         setSubmitted(true);
         if (!validForm()) {
@@ -150,26 +143,18 @@ const Begrunnelse = (props: any) => {
                 ...activeKlageSkjema,
                 fritekst: activeBegrunnelse,
                 datoalternativ: datoalternativ,
-                vedtaksdatoobjekt: new Date(activeDatoISO)
+                vedtaksdato: new Date(activeDatoISO)
             })
         );
         props.next();
     };
 
-    const validForm = (): boolean => {
-        return validBegrunnelse() && validDatoalternativ();
-    };
+    const validForm = () => validBegrunnelse() && validDatoalternativ();
+    const validBegrunnelse = () => activeBegrunnelse !== null && activeBegrunnelse !== '';
+    const validDatoalternativ = () => datoalternativ !== '';
 
-    const validBegrunnelse = (): boolean => {
-        return activeBegrunnelse !== null && activeBegrunnelse !== '';
-    };
-
-    const validDatoalternativ = (): boolean => {
-        return datoalternativ !== '';
-    };
-
-    const getFeilmeldinger = (): string[] => {
-        let feilmeldinger = [];
+    const getFeilmeldinger = () => {
+        const feilmeldinger: string[] = [];
         if (!validDatoalternativ()) {
             feilmeldinger.push('Du må velge hvilket vedtak du ønsker å klage på før du går videre.');
         }
@@ -203,7 +188,7 @@ const Begrunnelse = (props: any) => {
                     name="datoValg"
                     radios={datoValg}
                     checked={datoalternativ}
-                    onChange={(event: any, value: string) => handleDatoalternativClick(event, value)}
+                    onChange={(_, value: string) => setDatoalternativ(value)}
                     feil={submitted && !validDatoalternativ() && 'Du må velge hvilket vedtak du ønsker å klage på.'}
                 />
             </MarginContainer>
@@ -212,7 +197,7 @@ const Begrunnelse = (props: any) => {
                 <MarginContainer>
                     <Element>Vedtaksdato (valgfritt)</Element>
                     <Datovelger
-                        onChange={(dateISO: any) => setActiveDatoISO(dateISO)}
+                        onChange={dateISO => setActiveDatoISO(dateISO ?? '')}
                         valgtDato={activeDatoISO}
                         visÅrVelger={true}
                         avgrensninger={{
@@ -239,7 +224,7 @@ const Begrunnelse = (props: any) => {
             <MarginContainer>
                 <Undertittel>Vedlegg ({activeVedlegg.length || '0'})</Undertittel>
 
-                <VedleggVisning vedlegg={activeVedlegg} deleteAction={vedlegg => removeAttachment(vedlegg)} />
+                <VedleggVisning vedlegg={toFiles(activeVedlegg)} deleteAction={vedlegg => removeAttachment(vedlegg)} />
                 {vedleggLoading && (
                     <CenteredContainer>
                         <NavFrontendSpinner type={'XL'} />
@@ -262,7 +247,7 @@ const Begrunnelse = (props: any) => {
                     <MarginContainer>
                         <AlertStripeFeil>
                             <p className="no-margin">
-                                {VedleggErrorMessages[vedleggFeilmelding] ?? vedleggFeilmelding}
+                                {VEDLEGG_ERROR_MESSAGES[vedleggFeilmelding] ?? vedleggFeilmelding}
                             </p>
                         </AlertStripeFeil>
                     </MarginContainer>
@@ -275,7 +260,6 @@ const Begrunnelse = (props: any) => {
                     type="file"
                     multiple
                     accept="image/png, image/jpeg, image/jpg, .pdf"
-                    id="uploadbutton"
                     ref={fileInput}
                     onChange={e => {
                         uploadAttachment(e);
@@ -299,7 +283,7 @@ const Begrunnelse = (props: any) => {
 
             <Margin48TopContainer className="override-overlay">
                 <FlexCenteredContainer>
-                    <Hovedknapp className="row-element" onClick={(event: any) => submitBegrunnelseOgDato(event)}>
+                    <Hovedknapp className="row-element" onClick={event => submitBegrunnelseOgDato(event)}>
                         Gå videre
                     </Hovedknapp>
                 </FlexCenteredContainer>

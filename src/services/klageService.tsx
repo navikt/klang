@@ -7,11 +7,11 @@ import {
     getKlageJournalpostIdUrl,
     getTemaObjectUrl
 } from '../clients/apiUrls';
-import { Klage } from '../types/klage';
+import { Klage, KlageDraft } from '../types/klage';
 
 export const getKlager = () => baseService.get(getKlagerUrl());
 
-export const postKlage = (klage: Klage) => baseService.postKlage(getAddKlageUrl(), klage);
+export const postKlage = (klage: KlageDraft) => baseService.postKlage(getAddKlageUrl(), klage);
 
 export const putKlage = (klage: Klage) => baseService.putKlage(getKlageByIdUrl(klage.id!!), klage);
 
@@ -31,6 +31,6 @@ interface TemaObject {
     value: string;
 }
 
-interface FinalizedKlage {
+export interface FinalizedKlage {
     finalizedDate: string;
 }
