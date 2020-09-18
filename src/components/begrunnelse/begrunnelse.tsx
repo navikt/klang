@@ -27,6 +27,7 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { Tema } from '../../types/tema';
 import { getReferrer } from '../../services/klageService';
 import { Vedtak } from '../../types/vedtak';
+import { logError } from '../../utils/logger/frontendLogger';
 
 interface Props {
     ytelse: string;
@@ -108,7 +109,7 @@ const Begrunnelse = (props: Props) => {
                     value: vedlegg
                 });
             } catch (err) {
-                console.error(err);
+                logError(err);
                 setVedleggFeilmelding(err.response.data.message);
             }
         });
@@ -127,7 +128,7 @@ const Begrunnelse = (props: Props) => {
             });
             setVedleggLoading(false);
         } catch (err) {
-            console.error(err);
+            logError(err);
             setVedleggLoading(false);
         }
     };
