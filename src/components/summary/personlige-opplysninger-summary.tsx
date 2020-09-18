@@ -29,11 +29,8 @@ const PERSONLIGE_OPPLYSNINGER_POINTS = [
     }
 ];
 
-const combineFirstMiddleName = (person: Bruker): string => {
-    let name = person.navn.fornavn ?? '';
-    name += person.navn.mellomnavn ? ' ' + person.navn.mellomnavn : '';
-    return name;
-};
+const combineFirstMiddleName = ({ navn: { fornavn, mellomnavn } }: Bruker) =>
+    [fornavn, mellomnavn].filter(n => !!n?.trim()).join(' ');
 
 const AddressPointBox = ({ adress }: { adress: Adresse }) => (
     <div>
@@ -46,22 +43,18 @@ interface Props {
     person: Bruker;
 }
 
-const PersonligeOpplysningerSummary = (props: Props) => {
-    return (
-        <>
-            <PointsFlexListContainer>
-                {PERSONLIGE_OPPLYSNINGER_POINTS.map(point => {
-                    return (
-                        <InformationPointBox
-                            key={point.displayName}
-                            header={point.displayName}
-                            info={point.content(props.person)}
-                        />
-                    );
-                })}
-            </PointsFlexListContainer>
-        </>
-    );
-};
+const PersonligeOpplysningerSummary = (props: Props) => (
+    <>
+        <PointsFlexListContainer>
+            {PERSONLIGE_OPPLYSNINGER_POINTS.map(point => (
+                <InformationPointBox
+                    key={point.displayName}
+                    header={point.displayName}
+                    info={point.content(props.person)}
+                />
+            ))}
+        </PointsFlexListContainer>
+    </>
+);
 
 export default PersonligeOpplysningerSummary;

@@ -23,7 +23,7 @@ const init = async () => {
         document.body.innerHTML = document.body.innerHTML.replace('{{{NAV_SCRIPTS}}}', scripts);
 
         // Execute client.js
-        let script = document.createElement('script');
+        const script = document.createElement('script');
         script.src = 'https://www.nav.no/dekoratoren/client.js';
         document.body.appendChild(script);
     }

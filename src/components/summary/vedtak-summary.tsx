@@ -28,23 +28,21 @@ const emptyReferanse = (point: VedtakOpplysningPoint, props: Props) => {
     return point.displayName === 'Saksnummer' && !props.klage.saksnummer;
 };
 
-const VedtakSummary = (props: Props) => {
-    return (
-        <PointsFlexListContainer>
-            {VEDTAK_OPPLYSNINGER_POINTS.map(point => {
-                if (emptyReferanse(point, props)) {
-                    return null;
-                }
-                return (
-                    <InformationPointBox
-                        key={point.displayName}
-                        header={point.displayName}
-                        info={point.content(props.klage)}
-                    />
-                );
-            })}
-        </PointsFlexListContainer>
-    );
-};
+const VedtakSummary = (props: Props) => (
+    <PointsFlexListContainer>
+        {VEDTAK_OPPLYSNINGER_POINTS.map(point => {
+            if (emptyReferanse(point, props)) {
+                return null;
+            }
+            return (
+                <InformationPointBox
+                    key={point.displayName}
+                    header={point.displayName}
+                    info={point.content(props.klage)}
+                />
+            );
+        })}
+    </PointsFlexListContainer>
+);
 
 export default VedtakSummary;
