@@ -71,6 +71,7 @@ export function postNewKlage(klageskjema: KlageSkjema) {
     return function (dispatch: Dispatch<ActionTypes>) {
         return postKlage(klageSkjemaTilKlage(klageskjema))
             .then(response => {
+                setKlageId((response.id as unknown) as string, response.tema, response.ytelse);
                 dispatch({ type: 'KLAGE_POST_SUCCESS', payload: response, klageskjema: klageskjema });
             })
             .catch(err => {
@@ -99,6 +100,9 @@ export function getExistingKlage(klageId: number) {
             })
             .catch(err => {
                 logError(err, 'Get existing klage failed');
+                sessionStorage.removeItem('nav.klage.klageId');
+                sessionStorage.removeItem('nav.klage.tema');
+                sessionStorage.removeItem('nav.klage.ytelse');
                 dispatch({ type: 'KLAGE_GET_ERROR' });
             });
     };
@@ -116,7 +120,16 @@ export function setValgtTema(tema: string) {
     };
 }
 
-export function setKlageId(klageId: string) {
+export function setKlageId(klageId: string, tema: string = '*UNKNOWN*', ytelse: string = '*UNKNOWN*') {
+    sessionStorage.removeItem('nav.klage.klageId');
+    sessionStorage.setItem('nav.klage.klageId', klageId);
+    if (tema !== '*UNKNOWN*' && ytelse !== '*UNKNOWN*') {
+        sessionStorage.removeItem('nav.klage.tema');
+        sessionStorage.setItem('nav.klage.tema', tema);
+        sessionStorage.removeItem('nav.klage.ytelse');
+        sessionStorage.setItem('nav.klage.ytelse', ytelse);
+    }
+
     return function (dispatch: Dispatch<ActionTypes>) {
         return dispatch({ type: 'KLAGE_ID_SET', value: klageId });
     };
