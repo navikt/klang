@@ -17,42 +17,27 @@ const KvitteringPage = (props: RouteComponentProps<{}, StaticContext, FinalizedK
     const { activeKlage } = useSelector((state: Store) => state);
 
     useEffect(() => {
-        let waitingJoark = true;
-
-        // Melding om at den fortsatt jobber etter 8 sek
-        setTimeout(() => {
-            setInformStillWorking(true);
-        }, 8000);
-
-        // Gi opp med å vente på journalpost-ID etter 15 sek
-        setTimeout(() => {
-            waitingJoark = false;
-        }, 15000);
-
-        const waitForJournalpostId = (klageId: number) => {
-            getJournalpostId(klageId)
-                .then(response => {
-                    if (response === '') {
-                        if (waitingJoark) {
-                            // Spør etter journalpost-ID hvert sekund
-                            setTimeout(() => waitForJournalpostId(klageId), 1000);
-                        } else {
-                            setWaitingForJoark(false);
-                        }
-                    } else {
-                        setSuccess(true);
-                        setWaitingForJoark(false);
-                        setJournalPostId(response);
-                        waitingJoark = false;
-                    }
-                })
-                .catch(err => logError(err));
-        };
-
-        if (waitingForJoark && activeKlage.id) {
-            waitForJournalpostId(activeKlage.id);
+        if (!activeKlage.id) {
+            return;
         }
-    }, [waitingForJoark, activeKlage.id]);
+
+        // Melding om at den fortsatt jobber etter 8 sek.
+        const stillWorkingTimerId = setTimeout(() => setInformStillWorking(true), 8000);
+
+        waitForJournalpostId(activeKlage.id)
+            .then(journalpostId => {
+                setSuccess(true);
+                setJournalPostId(journalpostId);
+            })
+            .catch((err: Error) => logError(err))
+            .finally(() => {
+                setWaitingForJoark(false);
+                clearTimeout(stillWorkingTimerId);
+            });
+
+        // Cleanup function.
+        return () => clearTimeout(stillWorkingTimerId);
+    }, [activeKlage.id]);
 
     if (!activeKlage.id) {
         return <Redirect to="/" />;
@@ -73,3 +58,23 @@ const KvitteringPage = (props: RouteComponentProps<{}, StaticContext, FinalizedK
 };
 
 export default KvitteringPage;
+
+const MAX_TRIES = 15;
+const waitForJournalpostId = async (klageId: number) => {
+    let tries = 0;
+    while (klageId && tries < MAX_TRIES) {
+        tries++;
+        try {
+            const journalPostId = await getJournalpostId(klageId);
+            if (journalPostId.length !== 0) {
+                return journalPostId;
+            }
+
+            // Wait one second before next attempt.
+            await new Promise<never>(resolve => setTimeout(resolve, 1000));
+        } catch (err) {
+            logError(err, `Failed to get journalpost ID for klage ${klageId}.`);
+        }
+    }
+    throw new Error('Get journalpost ID timed out after 15 seconds.');
+};

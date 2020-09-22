@@ -41,20 +41,21 @@ export const klageSkjemaBasedOnVedtak = (vedtak: Vedtak): KlageSkjema => ({
 });
 
 const getVedtaksDato = (klageSkjema: KlageSkjema): string => {
-    let result = '';
-    let foundDatoAlternativ = datoValg.find(valg => valg.value === klageSkjema.datoalternativ);
-
-    let vedtaksdato = klageSkjema.vedtaksdato;
+    const foundDatoAlternativ = datoValg.find(valg => valg.value === klageSkjema.datoalternativ);
+    const { vedtaksdato } = klageSkjema;
 
     if (foundDatoAlternativ !== undefined) {
-        result +=
+        return (
             foundDatoAlternativ.value +
-            (foundDatoAlternativ.id === 'tidligereVedtak' ? ' - ' + formatDate(vedtaksdato) : '');
-    } else if (vedtaksdato) {
-        result += datoValg.find(valg => valg.id === 'tidligereVedtak')?.value + ' - ' + formatDate(vedtaksdato);
+            (foundDatoAlternativ.id === 'tidligereVedtak' ? ' - ' + formatDate(vedtaksdato) : '')
+        );
     }
 
-    return result;
+    if (vedtaksdato) {
+        return datoValg.find(valg => valg.id === 'tidligereVedtak')?.value + ' - ' + formatDate(vedtaksdato);
+    }
+
+    return '';
 };
 
 export const klageSkjemaToKlageDraft = (klageSkjema: KlageSkjema): KlageDraft => ({
