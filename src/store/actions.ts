@@ -130,7 +130,6 @@ export function setKlageId(
     ytelse: string = '*UNKNOWN*',
     saksnr: string = ''
 ) {
-    sessionStorage.removeItem('nav.klage.klageId');
     sessionStorage.setItem('nav.klage.klageId', klageId);
     if (tema !== '*UNKNOWN*' && ytelse !== '*UNKNOWN*') {
         setStorageContent(tema, ytelse, saksnr);
@@ -142,11 +141,8 @@ export function setKlageId(
 }
 
 export function setStorageContent(tema: string, ytelse: string, saksnr: string) {
-    sessionStorage.removeItem('nav.klage.tema');
     sessionStorage.setItem('nav.klage.tema', tema);
-    sessionStorage.removeItem('nav.klage.ytelse');
     sessionStorage.setItem('nav.klage.ytelse', ytelse);
-    sessionStorage.removeItem('nav.klage.saksnr');
     sessionStorage.setItem('nav.klage.saksnr', saksnr);
 }
 
