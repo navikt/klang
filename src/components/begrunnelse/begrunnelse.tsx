@@ -29,7 +29,7 @@ import { Store } from "../../store/reducer";
 import { addVedleggToKlage, deleteVedlegg } from "../../services/fileService";
 import { klageSkjemaBasertPaaVedtak, KlageSkjema } from "../../types/klage";
 import { toISOString } from "../../utils/date-util";
-import { AlertStripeFeil } from "nav-frontend-alertstriper";
+import AlertStripe, { AlertStripeFeil } from "nav-frontend-alertstriper";
 import { datoValg } from "./datoValg";
 import { Datovelger } from "nav-datovelger";
 import NavFrontendSpinner from "nav-frontend-spinner";
