@@ -13,7 +13,7 @@ import { Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import { Element, Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi';
 import { toVedleggProps, VEDLEGG_STATUS, VedleggErrorMessages, VedleggProps } from '../../types/vedlegg';
 import VedleggVisning from './vedlegg';
-import { postNewKlage, updateKlage } from '../../store/actions';
+import { postNewKlage, setKlageId, updateKlage } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '../../store/reducer';
 import { addVedleggToKlage, deleteVedlegg } from '../../services/fileService';
@@ -52,10 +52,13 @@ const Begrunnelse = (props: any) => {
     useEffect(() => {
         setActiveBegrunnelse(activeKlage.fritekst);
         setDatoalternativ(activeKlageSkjema.datoalternativ);
+        if (activeKlage.id !== undefined) {
+            dispatch(setKlageId(String(activeKlage.id)));
+        }
         if (activeKlageSkjema.vedtaksdatoobjekt) {
             setActiveDatoISO(toISOString(activeKlageSkjema.vedtaksdatoobjekt));
         }
-    }, [activeKlage, activeKlageSkjema]);
+    }, [dispatch, activeKlage, activeKlageSkjema]);
 
     const INPUTDESCRIPTION =
         'Skriv inn hvilke endringer du ønsker i vedtaket, og beskriv hva du begrunner klagen med. Legg ved dokumenter som du mener kan være til støtte for klagen.';
