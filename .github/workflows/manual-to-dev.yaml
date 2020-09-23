@@ -36,8 +36,8 @@ jobs:
         run: |
           curl -X POST --data-urlencode "payload={\"channel\": \"$CHANNEL\", \"text\": \"$MESSAGE\", \"icon_emoji\": \":ghost:\"}" $WEBHOOK_URL
         env:
-          MESSAGE: "Bygg av klage-dittnav feilet"
-          CHANNEL: "#klage-notifications"
+          MESSAGE: 'Bygg av klage-dittnav feilet'
+          CHANNEL: '#klage-notifications'
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
   deploypreprod:
     name: Deploy to dev-gcp
@@ -57,6 +57,6 @@ jobs:
         run: |
           curl -X POST --data-urlencode "payload={\"channel\": \"$CHANNEL\", \"text\": \"$MESSAGE\", \"icon_emoji\": \":ghost:\"}" $WEBHOOK_URL
         env:
-          MESSAGE: "Deploy av klage-dittnav til dev-gcp feilet"
-          CHANNEL: "#klage-notifications"
+          MESSAGE: 'Deploy av klage-dittnav til dev-gcp feilet'
+          CHANNEL: '#klage-notifications'
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}

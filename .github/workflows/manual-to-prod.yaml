@@ -38,6 +38,6 @@ jobs:
         run: |
           curl -X POST --data-urlencode "payload={\"channel\": \"$CHANNEL\", \"text\": \"$MESSAGE\", \"icon_emoji\": \":ghost:\"}" $WEBHOOK_URL
         env:
-          MESSAGE: "Deploy av klage-dittnav til prod-gcp feilet"
-          CHANNEL: "#klage-notifications"
+          MESSAGE: 'Deploy av klage-dittnav til prod-gcp feilet'
+          CHANNEL: '#klage-notifications'
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}

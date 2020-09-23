@@ -6,5 +6,13 @@
     "useTabs": false,
     "trailingComma": "none",
     "arrowParens": "avoid",
-    "bracketSpacing": true
+    "bracketSpacing": true,
+    "overrides": [
+        {
+            "files": ["*.yaml", "*.yml"],
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
 }
