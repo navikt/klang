@@ -96,7 +96,10 @@ const Begrunnelse = (props: any) => {
                         console.log(response);
                         dispatch({
                             type: 'VEDLEGG_ADD_SUCCESS',
-                            value: { status: VEDLEGG_STATUS.OK, vedlegg: toVedleggProps(response) }
+                            value: {
+                                status: VEDLEGG_STATUS.OK,
+                                vedlegg: toVedleggProps(response)
+                            }
                         });
                         setVedleggLoading(false);
                     })
