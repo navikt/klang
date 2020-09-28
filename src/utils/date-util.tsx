@@ -1,11 +1,9 @@
 export const formatDate = (date: Date | null): string => {
-    if (date !== null && isValidDate(date)) {
-        const year = date.getFullYear();
-        const month = pad(date.getMonth() + 1);
-        const day = date.getDate();
-        return `${day}.${month}.${year}`;
+    const parsed = parseDate(date);
+    if (parsed === null) {
+        return 'Ingen dato satt';
     }
-    return 'Ingen dato satt';
+    return `${parsed.date}.${parsed.month}.${parsed.year}`;
 };
 
 const isValidDate = (date: Date): boolean => {
@@ -17,19 +15,45 @@ export const isValidDateString = (date: string): boolean => {
 };
 
 export const toISOString = (date: Date): string => {
-    return isValidDate(date)
-        ? new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().substring(0, 10)
-        : '';
+    const parsed = parseDate(date);
+    if (parsed === null) {
+        return '';
+    }
+    return `${parsed.year}-${parsed.month}-${parsed.date}`;
 };
 
 const dateRegex = /^\d{2}.\d{2}\.\d{4}$/;
 
-export const parseDate = (formattedDate: string): Date | null => {
+export const parseDateString = (formattedDate: string): Date | null => {
     if (!dateRegex.test(formattedDate)) {
         return null;
     }
     const toParse = formattedDate.split('.').reverse().join('-');
-    return new Date(toParse);
+    const parsed = new Date(toParse);
+    if (isValidDate(parsed)) {
+        return parsed;
+    }
+    return null;
+};
+
+export interface ParsedDate {
+    year: string;
+    month: string;
+    date: string;
+}
+
+export const parseDate = (date: Date | null): ParsedDate | null => {
+    if (date !== null && isValidDate(date)) {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return {
+            year: year.toString(),
+            month: pad(month),
+            date: pad(day)
+        };
+    }
+    return null;
 };
 
 function pad(number: number): string {
