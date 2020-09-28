@@ -1,6 +1,6 @@
 import { Vedlegg } from './vedlegg';
 import { Vedtak } from './vedtak';
-import { formattedDateToDateObject, formatDate } from '../utils/date-util';
+import { parseDate, formatDate } from '../utils/date-util';
 import { datoValg } from '../components/begrunnelse/datoValg';
 
 export enum KlageStatus {
@@ -98,7 +98,7 @@ const getVedtaksDatoObjekt = (vedtak: string) => {
         // Will have a string 'Tidligere vedtak - <date>'
         let splitString = vedtak.split(' ');
         const dateString = splitString[splitString.length - 1];
-        return formattedDateToDateObject(dateString);
+        return parseDate(dateString);
     }
 };
 
