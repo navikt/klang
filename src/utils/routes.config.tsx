@@ -75,7 +75,7 @@ export const routesPages: RouteType[] = [
         exact: true
     },
     {
-        path: `/:kategori/:tema`,
+        path: `/:kategori/:tema/:ytelse`,
         component: KlageEllerAnkeInnsending,
         exact: true
     },

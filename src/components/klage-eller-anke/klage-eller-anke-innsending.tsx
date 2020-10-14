@@ -3,44 +3,48 @@ import React from 'react';
 import BookWithShield from '../../assets/images/icons/BookWithShield';
 import LetterOpened from '../../assets/images/icons/LetterOpened';
 import { Margin40Container, MarginContainer, MarginTopContainer } from '../../styled-components/main-styled-components';
-import { ensureStringIsTema, Tema, TemaKey } from '../../types/tema';
+import { ensureStringIsTema, TemaKey } from '../../types/tema';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import Lenke from 'nav-frontend-lenker';
 import MobilePhone from '../../assets/images/icons/MobilePhone';
 import { RouteComponentProps } from 'react-router-dom';
-import { getKategori, hasDigitalForm } from '../../data/klage-eller-anke-temaer';
+import {
+    getKategori,
+    getUnderkategoriTitleFromPath,
+    hasDigitalForm,
+    ytelseInTema
+} from '../../data/klage-eller-anke-temaer';
 import NotFoundPage from '../../pages/not-found/not-found-page';
 import KlageLinkPanel from '../link/link';
 
 interface MatchParams {
     kategori: string;
     tema: string;
+    ytelse: string;
 }
 
 interface Props extends RouteComponentProps<MatchParams> {}
 
 const KlageEllerAnkeInnsending = (props: Props) => {
-    const kategori = getKategori(props.match.params.kategori);
-    if (kategori === null) {
-        return <NotFoundPage />;
-    }
-
+    const kategoriObj = getKategori(props.match.params.kategori);
     const tema = ensureStringIsTema(props.match.params.tema);
-    if (tema === null) {
+    const ytelse = props.match.params.ytelse;
+
+    if (kategoriObj === null || tema === null || ytelse === null || !ytelseInTema(kategoriObj, tema, ytelse)) {
         return <NotFoundPage />;
     }
 
-    const isDigital = hasDigitalForm(kategori, tema);
+    const ytelseTitle = getUnderkategoriTitleFromPath(kategoriObj, ytelse);
 
-    const ytelse = Tema[tema];
+    const isDigital = hasDigitalForm(kategoriObj, tema);
 
     return (
         <div>
-            <Sidetittel>{ytelse}</Sidetittel>
+            <Sidetittel>{ytelseTitle}</Sidetittel>
             <Margin40Container>
                 <Intro isDigital />
             </Margin40Container>
-            <DigitalContent isDigital={isDigital} tema={tema} />
+            <DigitalContent isDigital={isDigital} tema={tema} ytelse={ytelse} />
             <Margin40Container>
                 <LenkepanelBase href="#" border>
                     <div className="lenkepanel-content-with-image">
@@ -92,6 +96,7 @@ const KlageEllerAnkeInnsending = (props: Props) => {
 interface DigitalContentProps {
     isDigital: boolean;
     tema: TemaKey;
+    ytelse: string;
 }
 
 const DigitalContent = (props: DigitalContentProps) => {
@@ -100,7 +105,7 @@ const DigitalContent = (props: DigitalContentProps) => {
     }
     return (
         <MarginContainer>
-            <KlageLinkPanel href={'/klage?tema=' + props.tema} border>
+            <KlageLinkPanel href={'/klage?tema=' + props.tema + '&ytelse=' + props.ytelse} border>
                 <div className="lenkepanel-content-with-image">
                     <div className="icon-container">
                         <MobilePhone />

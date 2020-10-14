@@ -112,6 +112,57 @@ const FormLanding = (props: Props) => {
         setTemaNotSet(chosenTema === null);
     }, [dispatch, props.location.search, props.location.pathname, props.query, chosenTema, klageId, activeKlage]);
 
+    useEffect(() => {
+        const { klageId, tema, ytelse, saksnummer } = getResumeState(
+            props.location.search,
+            sessionStorage,
+            props.location.pathname
+        );
+        setStorageContent(klageId, tema, ytelse, saksnummer);
+
+        if (ytelse !== null) {
+            dispatch(setValgtYtelse(ytelse));
+        }
+        if (tema !== null) {
+            dispatch(setValgtTema(tema));
+        }
+
+        if (klageId !== null) {
+            dispatch(setKlageId(klageId));
+            setIsLoading(false);
+        } else if (ytelse !== null && tema !== null) {
+            const klageSkjema: KlageSkjema = {
+                id: null,
+                ytelse,
+                tema,
+                saksnummer: saksnummer,
+                datoalternativ: DatoValg.INGEN,
+                vedtak: null,
+                fritekst: '',
+                vedlegg: [],
+                referrer: getReferrer()
+            };
+            dispatch(postNewKlage(klageSkjema));
+            setIsLoading(false);
+        } else if (tema !== null) {
+            getTemaObject(tema)
+                .then(temaObject => {
+                    dispatch(setValgtYtelse(ytelse ?? temaObject.value));
+                    setIsLoading(false);
+                })
+                .catch((err: AxiosError) => {
+                    if (err.response?.status === 404) {
+                        setErrorState(true);
+                        setIsLoading(false);
+                        return;
+                    }
+                    logError(err);
+                });
+        } else {
+            setIsLoading(false);
+        }
+    }, [dispatch, props.location.search, props.location.pathname]);
+
     logInfo('Form landing page visited.', { chosenYtelse: chosenYtelse, referrer: document.referrer });
 
     if (loading || isLoadingDraft) {

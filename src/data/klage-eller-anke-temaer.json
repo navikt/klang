@@ -8,6 +8,7 @@
                 {
                     "tema": "AAP",
                     "tittel": "Arbeidsavklaringspenger (AAP)",
+                    "ytelsePath": "arbeidsavklaringspenger-aap",
                     "skjemaveileder": false,
                     "digital": false,
                     "bareAnke": false
@@ -15,6 +16,7 @@
                 {
                     "tema": "DAG",
                     "tittel": "Dagpenger",
+                    "ytelsePath": "dagpenger",
                     "skjemaveileder": false,
                     "digital": false,
                     "bareAnke": false
@@ -29,6 +31,7 @@
                 {
                     "tema": "FOR",
                     "tittel": "Foreldrepenger, engangsstønad og svangerskapspenger",
+                    "ytelsePath": "foreldrepenger-engangsstønad-svangerskapspenger",
                     "skjemaveileder": false,
                     "digital": true,
                     "bareAnke": false

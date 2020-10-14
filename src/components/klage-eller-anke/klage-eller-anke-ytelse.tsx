@@ -40,10 +40,15 @@ const KlageEllerAnkeYtelse = (props: Props) => {
 };
 
 const getLinks = (kategori: string, underkategorier: KategoriTema[]) =>
-    underkategorier.map(tema => (
-        <KlageLinkPanel key={tema.tittel} href={`${kategori}/${tema.tema}`} className="lenkepanel-flex" border>
+    underkategorier.map(underkategori => (
+        <KlageLinkPanel
+            key={underkategori.tittel}
+            href={`${kategori}/${underkategori.tema}/${underkategori.ytelsePath}`}
+            className="lenkepanel-flex"
+            border
+        >
             <div>
-                <Undertittel className="lenkepanel__heading">{tema.tittel}</Undertittel>
+                <Undertittel className="lenkepanel__heading">{underkategori.tittel}</Undertittel>
             </div>
         </KlageLinkPanel>
     ));
