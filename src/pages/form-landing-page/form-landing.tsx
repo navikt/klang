@@ -13,26 +13,23 @@ import {
 import { Store } from '../../store/reducer';
 import { logError, logInfo } from '../../utils/logger/frontendLogger';
 import { queryToVedtak } from '../../mock-api/get/vedtak';
-import MainFormPage from '../../pages/form-landing-page/main-form-page';
+import MainFormPage from './main-form-page';
 import Error from '../../components/error/error';
 import queryString from 'query-string';
-import * as H from 'history';
 import { AxiosError } from 'axios';
 import { getReferrer, getTemaObject } from '../../services/klageService';
 import { KlageSkjema } from '../../types/klage';
 import { getResumeState } from '../../utils/get-resume-state';
-import { DatoValg } from '../begrunnelse/datoValg';
+import { DatoValg } from '../../components/begrunnelse/datoValg';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import { CenteredContainer } from '../../styled-components/main-styled-components';
-import NotFoundPage from '../../pages/not-found/not-found-page';
+import NotFoundPage from '../not-found/not-found-page';
+import { useLocation } from 'react-router-dom';
 
-interface Props {
-    query: queryString.ParsedQuery<string>;
-    location: H.Location;
-    path: string;
-}
-
-const FormLanding = (props: Props) => {
+const FormLanding = () => {
+    const location = useLocation();
+    const query = queryString.parse(location.search);
+    const path = location.pathname;
     const dispatch = useDispatch();
     const { loading, chosenTema, chosenYtelse, getKlageError, klageId, activeKlage } = useSelector(
         (state: Store) => state
@@ -44,12 +41,12 @@ const FormLanding = (props: Props) => {
     const [errorState, setErrorState] = useState<boolean>(false);
 
     useEffect(() => {
-        dispatch(checkAuth(props.location.search));
+        dispatch(checkAuth(location.search));
 
         const { klageId, tema, ytelse, saksnummer } = getResumeState(
-            props.location.search,
+            location.search,
             sessionStorage,
-            props.location.pathname
+            location.pathname
         );
         setStorageContent(klageId, tema, ytelse, saksnummer);
 
@@ -104,13 +101,13 @@ const FormLanding = (props: Props) => {
             dispatch(getExistingKlage(klageId));
         }
 
-        const vedtak = queryToVedtak(props.query);
+        const vedtak = queryToVedtak(query);
         if (vedtak !== null) {
             setChosenVedtak(vedtak);
         }
 
         setTemaNotSet(chosenTema === null);
-    }, [dispatch, props.location.search, props.location.pathname, props.query, chosenTema, klageId, activeKlage]);
+    }, [dispatch, location.search, location.pathname, query, chosenTema, klageId, activeKlage]);
 
     logInfo('Form landing page visited.', { chosenYtelse: chosenYtelse, referrer: document.referrer });
 
@@ -149,7 +146,7 @@ const FormLanding = (props: Props) => {
         );
     }
 
-    return <MainFormPage path={props.path} ytelse={chosenYtelse} chosenVedtak={chosenVedtak} />;
+    return <MainFormPage path={path} ytelse={chosenYtelse} chosenVedtak={chosenVedtak} />;
 };
 
 export default FormLanding;

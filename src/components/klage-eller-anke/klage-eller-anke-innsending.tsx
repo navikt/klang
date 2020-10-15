@@ -7,7 +7,7 @@ import { ensureStringIsTema, Tema, TemaKey } from '../../types/tema';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import Lenke from 'nav-frontend-lenker';
 import MobilePhone from '../../assets/images/icons/MobilePhone';
-import { RouteComponentProps } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getKategori, hasDigitalForm } from '../../data/klage-eller-anke-temaer';
 import NotFoundPage from '../../pages/not-found/not-found-page';
 import KlageLinkPanel from '../link/link';
@@ -17,15 +17,14 @@ interface MatchParams {
     tema: string;
 }
 
-interface Props extends RouteComponentProps<MatchParams> {}
-
-const KlageEllerAnkeInnsending = (props: Props) => {
-    const kategori = getKategori(props.match.params.kategori);
+const KlageEllerAnkeInnsending = () => {
+    const match = useParams<MatchParams>();
+    const kategori = getKategori(match.kategori);
     if (kategori === null) {
         return <NotFoundPage />;
     }
 
-    const tema = ensureStringIsTema(props.match.params.tema);
+    const tema = ensureStringIsTema(match.tema);
     if (tema === null) {
         return <NotFoundPage />;
     }

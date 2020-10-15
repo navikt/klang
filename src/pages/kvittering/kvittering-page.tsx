@@ -4,11 +4,12 @@ import { useSelector } from 'react-redux';
 import { Store } from '../../store/reducer';
 import KvitteringLoading from '../../components/kvittering/kvitteringLoading';
 import { getJournalpostId, FinalizedKlage } from '../../services/klageService';
-import { StaticContext } from 'react-router';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
+import { useLocation } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import { logError } from '../../utils/logger/frontendLogger';
 
-const KvitteringPage = (props: RouteComponentProps<{}, StaticContext, FinalizedKlage>) => {
+const KvitteringPage = () => {
+    const location = useLocation<FinalizedKlage>();
     const [waitingForJoark, setWaitingForJoark] = useState<boolean>(true);
     const [informStillWorking, setInformStillWorking] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
@@ -64,7 +65,7 @@ const KvitteringPage = (props: RouteComponentProps<{}, StaticContext, FinalizedK
                 <Kvittering
                     klageId={activeKlage.id}
                     journalPostId={journalPostId}
-                    finalizedDate={props.location.state.finalizedDate}
+                    finalizedDate={location.state.finalizedDate}
                     success={success}
                 />
             );

@@ -6,7 +6,7 @@ import {
     Margin40TopContainer,
     PointsFlexListContainer
 } from '../../styled-components/main-styled-components';
-import { RouteComponentProps } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import NotFoundPage from '../../pages/not-found/not-found-page';
 import KlageLinkPanel from '../link/link';
 
@@ -14,10 +14,9 @@ interface MatchParams {
     kategori: string;
 }
 
-interface Props extends RouteComponentProps<MatchParams> {}
-
-const KlageEllerAnkeYtelse = (props: Props) => {
-    const kategori = getKategori(props.match.params.kategori);
+const KlageEllerAnkeYtelse = () => {
+    const match = useParams<MatchParams>();
+    const kategori = getKategori(match.kategori);
     if (kategori === null) {
         return <NotFoundPage />;
     }
@@ -32,16 +31,19 @@ const KlageEllerAnkeYtelse = (props: Props) => {
                     <Systemtittel>Hvilken tjeneste eller ytelse gjelder det?</Systemtittel>
                 </Margin40Container>
             </div>
-            <PointsFlexListContainer>
-                {getLinks(props.match.params.kategori, kategori.underkategorier)}
-            </PointsFlexListContainer>
+            <PointsFlexListContainer>{getLinks(match.kategori, kategori.underkategorier)}</PointsFlexListContainer>
         </section>
     );
 };
 
 const getLinks = (kategori: string, underkategorier: KategoriTema[]) =>
     underkategorier.map(tema => (
-        <KlageLinkPanel key={tema.tittel} href={`${kategori}/${tema.tema}`} className="lenkepanel-flex" border>
+        <KlageLinkPanel
+            key={tema.tittel}
+            href={`/klage-anke/${kategori}/${tema.tema}`}
+            className="lenkepanel-flex"
+            border
+        >
             <div>
                 <Undertittel className="lenkepanel__heading">{tema.tittel}</Undertittel>
             </div>
