@@ -6,11 +6,11 @@ describe('Formatting in root page', () => {
             tittel: 'Familie og barn',
             path: 'familie-og-barn',
             beskrivelse: 'Barnetrygd, foreldrepenger, pleie',
-            underkategorier: [
+            ytelser: [
                 {
-                    tema: 'FOR',
                     tittel: 'Foreldrepenger, engangsstønad og svangerskapspenger',
-                    ytelsePath: 'foreldrepenger-engangsstønad-svangerskapspenger',
+                    path: 'foreldrepenger-engangsstønad-svangerskapspenger',
+                    temakode: 'FOR',
                     skjemaveileder: false,
                     digital: true,
                     bareAnke: false
@@ -26,11 +26,11 @@ describe('Formatting in root page', () => {
             tittel: 'Arbeid',
             path: 'arbeid',
             beskrivelse: 'Dagpenger, AAP, egen bedrift',
-            underkategorier: [
+            ytelser: [
                 {
-                    tema: 'FOR',
                     tittel: 'Foreldrepenger, engangsstønad og svangerskapspenger',
-                    ytelsePath: 'foreldrepenger-engangsstønad-svangerskapspenger',
+                    path: 'foreldrepenger-engangsstønad-svangerskapspenger',
+                    temakode: 'FOR',
                     skjemaveileder: false,
                     digital: true,
                     bareAnke: false
@@ -51,11 +51,11 @@ describe('Formatting in root page', () => {
             tittel: 'Arbeid',
             path: 'arbeid',
             beskrivelse: 'Dagpenger, AAP, egen bedrift',
-            underkategorier: [
+            ytelser: [
                 {
-                    tema: 'FOR',
                     tittel: 'Foreldrepenger, engangsstønad og svangerskapspenger',
-                    ytelsePath: 'foreldrepenger-engangsstønad-svangerskapspenger',
+                    path: 'foreldrepenger-engangsstønad-svangerskapspenger',
+                    temakode: 'FOR',
                     skjemaveileder: false,
                     digital: true,
                     bareAnke: false

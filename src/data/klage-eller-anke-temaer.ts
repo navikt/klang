@@ -1,38 +1,38 @@
 import { TemaKey } from '../types/tema';
 import * as data from './klage-eller-anke-temaer.json';
-export interface KategoriTema {
-    tema: TemaKey;
+export interface InngangYtelse {
     tittel: string;
-    ytelsePath: string;
+    path: string;
+    temakode: TemaKey;
     skjemaveileder: boolean;
     digital: boolean;
     bareAnke: boolean;
 }
 
-interface KlageAnkeTema {
+interface InngangKategori {
     tittel: string;
     path: string;
     beskrivelse: string;
-    underkategorier: KategoriTema[];
+    ytelser: InngangYtelse[];
 }
 
-export const KLAGE_ELLER_ANKE_TEMAER: KlageAnkeTema[] = JSON.parse(JSON.stringify(data.temaer));
+export const INNGANG_KATEGORIER: InngangKategori[] = JSON.parse(JSON.stringify(data.kategorier));
 
-export const getKategori = (kategori: string) => KLAGE_ELLER_ANKE_TEMAER.find(({ path }) => path === kategori) ?? null;
+export const getKategori = (kategori: string) => INNGANG_KATEGORIER.find(({ path }) => path === kategori) ?? null;
 
-export const hasDigitalForm = (kategori: KlageAnkeTema, tema: TemaKey) =>
-    kategori.underkategorier.some(t => t.digital && t.tema === tema);
+export const hasDigitalForm = (kategori: InngangKategori, tema: TemaKey) =>
+    kategori.ytelser.some(t => t.digital && t.temakode === tema);
 
-export const ytelseInTema = (kategoriObj: KlageAnkeTema, temaKode: string, ytelse: string) => {
-    return kategoriObj.underkategorier.some(({ tema, ytelsePath }) => tema === temaKode && ytelsePath === ytelse);
+export const ytelseInTema = (kategoriObj: InngangKategori, tema: string, ytelse: string) => {
+    return kategoriObj.ytelser.some(({ temakode, path }) => temakode === tema && path === ytelse);
 };
 
-export const getUnderkategoriTitleFromPath = (kategori: KlageAnkeTema, underkategoriPath: string) => {
+export const getUnderkategoriTitleFromPath = (kategori: InngangKategori, underkategoriPath: string) => {
     if (kategori === null) {
         return null;
     }
-    if (kategori.underkategorier) {
-        return kategori.underkategorier.find(({ ytelsePath }) => ytelsePath === underkategoriPath)?.tittel || '';
+    if (kategori.ytelser) {
+        return kategori.ytelser.find(({ path }) => path === underkategoriPath)?.tittel || '';
     }
     return '';
 };

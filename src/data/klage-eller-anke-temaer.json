@@ -1,22 +1,22 @@
 {
-    "temaer": [
+    "kategorier": [
         {
             "tittel": "Arbeid",
             "path": "arbeid",
             "beskrivelse": "Dagpenger, AAP, egen bedrift",
-            "underkategorier": [
+            "ytelser": [
                 {
-                    "tema": "AAP",
                     "tittel": "Arbeidsavklaringspenger (AAP)",
-                    "ytelsePath": "arbeidsavklaringspenger-aap",
+                    "path": "arbeidsavklaringspenger-aap",
+                    "temakode": "AAP",
                     "skjemaveileder": false,
                     "digital": false,
                     "bareAnke": false
                 },
                 {
-                    "tema": "DAG",
                     "tittel": "Dagpenger",
-                    "ytelsePath": "dagpenger",
+                    "path": "dagpenger",
+                    "temakode": "DAG",
                     "skjemaveileder": false,
                     "digital": false,
                     "bareAnke": false
@@ -27,11 +27,11 @@
             "tittel": "Familie og barn",
             "path": "familie-og-barn",
             "beskrivelse": "Barnetrygd, foreldrepenger, pleie",
-            "underkategorier": [
+            "ytelser": [
                 {
-                    "tema": "FOR",
                     "tittel": "Foreldrepenger, engangsstønad og svangerskapspenger",
-                    "ytelsePath": "foreldrepenger-engangsstønad-svangerskapspenger",
+                    "path": "foreldrepenger-engangsstønad-svangerskapspenger",
+                    "temakode": "FOR",
                     "skjemaveileder": false,
                     "digital": true,
                     "bareAnke": false

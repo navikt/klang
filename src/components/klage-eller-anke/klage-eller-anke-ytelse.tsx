@@ -1,6 +1,6 @@
 import { Sidetittel, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import React from 'react';
-import { getKategori, KategoriTema } from '../../data/klage-eller-anke-temaer';
+import { getKategori, InngangYtelse } from '../../data/klage-eller-anke-temaer';
 import {
     Margin40Container,
     Margin40TopContainer,
@@ -33,17 +33,17 @@ const KlageEllerAnkeYtelse = (props: Props) => {
                 </Margin40Container>
             </div>
             <PointsFlexListContainer>
-                {getLinks(props.match.params.kategori, kategori.underkategorier)}
+                {getLinkPanels(props.match.params.kategori, kategori.ytelser)}
             </PointsFlexListContainer>
         </section>
     );
 };
 
-const getLinks = (kategori: string, underkategorier: KategoriTema[]) =>
+const getLinkPanels = (kategori: string, underkategorier: InngangYtelse[]) =>
     underkategorier.map(underkategori => (
         <KlageLinkPanel
             key={underkategori.tittel}
-            href={`${kategori}/${underkategori.tema}/${underkategori.ytelsePath}`}
+            href={`${kategori}/${underkategori.temakode}/${underkategori.path}`}
             className="lenkepanel-flex"
             border
         >
