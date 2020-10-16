@@ -44,7 +44,7 @@ const KlageEllerAnkeInnsending = (props: Props) => {
             <Margin40Container>
                 <Intro isDigital />
             </Margin40Container>
-            <DigitalContent isDigital={isDigital} tema={tema} ytelse={ytelse} />
+            <DigitalContent isDigital={isDigital} tema={tema} ytelse={ytelseTitle} />
             <Margin40Container>
                 <LenkepanelBase href="#" border>
                     <div className="lenkepanel-content-with-image">
@@ -96,16 +96,22 @@ const KlageEllerAnkeInnsending = (props: Props) => {
 interface DigitalContentProps {
     isDigital: boolean;
     tema: TemaKey;
-    ytelse: string;
+    ytelse: string | null;
 }
 
 const DigitalContent = (props: DigitalContentProps) => {
     if (!props.isDigital) {
         return null;
     }
+
+    let redirectUrl = '/klage?tema=' + props.tema;
+    if (props.ytelse !== null) {
+        redirectUrl += '&ytelse=' + props.ytelse;
+    }
+
     return (
         <MarginContainer>
-            <KlageLinkPanel href={'/klage?tema=' + props.tema + '&ytelse=' + props.ytelse} border>
+            <KlageLinkPanel href={redirectUrl} border>
                 <div className="lenkepanel-content-with-image">
                     <div className="icon-container">
                         <MobilePhone />
