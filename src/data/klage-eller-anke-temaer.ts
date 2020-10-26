@@ -28,11 +28,5 @@ export const ytelseInTema = (kategoriObj: InngangKategori, tema: string, ytelse:
 };
 
 export const getUnderkategoriTitleFromPath = (kategori: InngangKategori, underkategoriPath: string) => {
-    if (kategori === null) {
-        return null;
-    }
-    if (kategori.ytelser) {
-        return kategori.ytelser.find(({ path }) => path === underkategoriPath)?.tittel || '';
-    }
-    return '';
+    return kategori.ytelser.find(({ path }) => path === underkategoriPath)?.tittel || '';
 };
