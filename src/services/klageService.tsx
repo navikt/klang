@@ -8,6 +8,7 @@ import {
     getTemaObjectUrl
 } from '../clients/apiUrls';
 import { Klage, KlageDraft } from '../types/klage';
+import { ISODate } from '../utils/date';
 
 export const getKlager = () => baseService.get(getKlagerUrl());
 
@@ -30,5 +31,5 @@ interface TemaObject {
 }
 
 export interface FinalizedKlage {
-    finalizedDate: string;
+    finalizedDate: ISODate;
 }

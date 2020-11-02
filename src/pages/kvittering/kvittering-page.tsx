@@ -13,7 +13,7 @@ const KvitteringPage = () => {
     const [success, setSuccess] = useState<boolean>(false);
     const [journalPostId, setJournalPostId] = useState<string>('');
 
-    const { activeKlage, finalizedDate } = useSelector((state: Store) => state);
+    const { activeKlage } = useSelector((state: Store) => state);
 
     useEffect(() => {
         let waitingJoark = true;
@@ -56,14 +56,14 @@ const KvitteringPage = () => {
     if (typeof activeKlage === 'undefined') {
         return <Redirect to="/" />;
     } else {
-        if (waitingForJoark || finalizedDate === null) {
+        if (waitingForJoark || activeKlage.finalizedDate === null) {
             return <KvitteringLoading informStillWorking={informStillWorking} />;
         } else {
             return (
                 <Kvittering
                     klageId={activeKlage.id}
                     journalPostId={journalPostId}
-                    finalizedDate={finalizedDate}
+                    finalizedDate={activeKlage.finalizedDate}
                     success={success}
                 />
             );

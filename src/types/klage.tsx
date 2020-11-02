@@ -1,6 +1,6 @@
 import { Vedlegg } from './vedlegg';
 import { DatoValg } from '../components/begrunnelse/datoValg';
-import { isoDateToPretty, prettyDateToISO } from '../utils/date';
+import { ISODate, isoDateToPretty, prettyDateToISO } from '../utils/date';
 
 export interface KlageDraft {
     fritekst: string;
@@ -10,6 +10,7 @@ export interface KlageDraft {
     saksnummer: string | null;
     vedlegg: Vedlegg[];
     journalpostId: string | null;
+    finalizedDate: ISODate | null;
 }
 
 export interface Klage extends KlageDraft {
@@ -34,7 +35,8 @@ export const klageSkjemaToKlageDraft = (klageSkjema: KlageSkjema): KlageDraft =>
     vedtak: dateToVedtakText(klageSkjema),
     saksnummer: klageSkjema.saksnummer,
     vedlegg: klageSkjema.vedlegg,
-    journalpostId: null
+    journalpostId: null,
+    finalizedDate: null
 });
 
 export const klageSkjemaToKlage = (klageSkjema: KlageSkjema): Klage => {
@@ -49,7 +51,8 @@ export const klageSkjemaToKlage = (klageSkjema: KlageSkjema): Klage => {
         vedtak: dateToVedtakText(klageSkjema),
         saksnummer: klageSkjema.saksnummer,
         vedlegg: klageSkjema.vedlegg,
-        journalpostId: null
+        journalpostId: null,
+        finalizedDate: null
     };
 };
 
@@ -100,7 +103,7 @@ export const dateToVedtakText = (klageSkjema: KlageSkjema): string => {
 
 export interface ParsedVedtakText {
     dateChoice: DatoValg;
-    isoDate: string | null;
+    isoDate: ISODate | null;
 }
 
 const tidligereVedtakRegex = /\d{2}.\d{2}.\d{4}$/;
