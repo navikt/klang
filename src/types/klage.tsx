@@ -1,6 +1,6 @@
 import { Vedlegg } from './vedlegg';
 import { DatoValg } from '../components/begrunnelse/datoValg';
-import { ISODate, isoDateToPretty, prettyDateToISO } from '../utils/date';
+import { ISODate, ISODateTime, isoDateToPretty, prettyDateToISO } from '../utils/date';
 
 export interface KlageDraft {
     fritekst: string;
@@ -15,6 +15,7 @@ export interface KlageDraft {
 
 export interface Klage extends KlageDraft {
     readonly id: string | number;
+    readonly modifiedByUser?: ISODateTime;
 }
 
 export interface KlageSkjema {
