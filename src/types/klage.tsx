@@ -2,6 +2,12 @@ import { Vedlegg } from './vedlegg';
 import { DatoValg } from '../components/begrunnelse/datoValg';
 import { ISODate, ISODateTime, isoDateToPretty, prettyDateToISO } from '../utils/date';
 
+export enum KlageStatus {
+    DRAFT,
+    DONE,
+    DELETED
+}
+
 export interface KlageDraft {
     fritekst: string;
     tema: string;
@@ -16,6 +22,7 @@ export interface KlageDraft {
 export interface Klage extends KlageDraft {
     readonly id: string | number;
     readonly modifiedByUser?: ISODateTime;
+    readonly status: KlageStatus;
 }
 
 export interface KlageSkjema {
@@ -53,6 +60,7 @@ export const klageSkjemaToKlage = (klageSkjema: KlageSkjema): Klage => {
         saksnummer: klageSkjema.saksnummer,
         vedlegg: klageSkjema.vedlegg,
         journalpostId: null,
+        status: KlageStatus.DRAFT,
         finalizedDate: null
     };
 };
