@@ -23,8 +23,6 @@ export interface Store {
     klageId?: string;
 
     getKlageError: boolean;
-
-    finalizedDate: string | null;
 }
 
 export const initialState: Store = {
@@ -48,9 +46,7 @@ export const initialState: Store = {
 
     activeVedlegg: [],
 
-    getKlageError: false,
-
-    finalizedDate: null
+    getKlageError: false
 };
 
 const reducer = (state = initialState, action: ActionTypes): Store => {
@@ -123,9 +119,15 @@ const reducer = (state = initialState, action: ActionTypes): Store => {
                 klageId: action.value
             };
         case 'SET_FINALIZED_DATE':
+            if (typeof state.activeKlage === 'undefined') {
+                return state;
+            }
             return {
                 ...state,
-                finalizedDate: action.value
+                activeKlage: {
+                    ...state.activeKlage,
+                    finalizedDate: action.value
+                }
             };
         case 'SET_LOADING':
             return {
