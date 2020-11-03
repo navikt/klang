@@ -5,12 +5,12 @@ exports[`Welcome klage Renders correctly when there is no data 1`] = `
   className="sc-AxjAm iJhWxX"
 >
   <div
-    className="sc-fznZeY sc-fzokOt kkKxji"
+    className="sc-fzokOt sc-fzqBZW ftFonj"
   >
     <section>
       <div>
         <div
-          className="sc-AxgMl sc-fzozJi ycSJu"
+          className="sc-AxheI sc-fzoLsD jJmkkk"
         >
           <h1
             className="typo-sidetittel"
@@ -19,7 +19,7 @@ exports[`Welcome klage Renders correctly when there is no data 1`] = `
           </h1>
         </div>
         <div
-          className="sc-AxgMl sc-fzozJi ycSJu"
+          className="sc-AxheI sc-fzoLsD jJmkkk"
         >
           <div
             className="nav-veilederpanel nav-veilederpanel--kompakt nav-veilederpanel--plakat"
@@ -48,7 +48,7 @@ exports[`Welcome klage Renders correctly when there is no data 1`] = `
           </div>
         </div>
         <div
-          className="sc-AxheI sc-fzoLsD ghDDDu"
+          className="sc-Axmtr sc-fzpans dcVwZu"
         >
           <h2
             className="typo-systemtittel"
@@ -58,7 +58,7 @@ exports[`Welcome klage Renders correctly when there is no data 1`] = `
         </div>
       </div>
       <div
-        className="sc-fzqNJr sc-fznxsB jjiZDc"
+        className="sc-fzoyAV sc-fznJRM bFbvvw"
       >
         <a
           className="lenkepanel lenkepanel-flex lenkepanel--border"
