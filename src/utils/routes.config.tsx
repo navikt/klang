@@ -84,3 +84,8 @@ function getInngangInnsendingComponent({ digital, title, temaKey }: Kategori) {
     }
     return <InngangInnsendingPost temaKey={temaKey} title={title} />;
 }
+
+export function pathIsPartOfInngang(path: string) {
+    const leadPart = path.split('/')[1];
+    return leadPart !== 'begrunnelse' && leadPart !== 'oppsummering' && leadPart !== 'kvittering';
+}

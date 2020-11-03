@@ -2,9 +2,11 @@ import React from 'react';
 import { Sidetittel, Systemtittel, Undertittel } from 'nav-frontend-typografi';
 import { InngangKategori } from '../../data/kategorier';
 import {
+    CenterInMobileContainer,
     Margin40Container,
     Margin40TopContainer,
-    PointsFlexListContainer
+    PointsFlexListContainer,
+    WhiteBackgroundContainer
 } from '../../styled-components/main-styled-components';
 import { PageIdentifier } from '../../utils/logger/amplitude';
 import { useLogPageView } from '../../utils/logger/use-log-page-view';
@@ -18,15 +20,21 @@ const InngangKategorier = ({ inngangkategori }: Props) => {
     useLogPageView(PageIdentifier.INNGANG_KATEGORIER);
     return (
         <section>
-            <div>
-                <Margin40TopContainer>
+            <Margin40TopContainer>
+                <CenterInMobileContainer>
                     <Sidetittel>{inngangkategori.title}</Sidetittel>
-                </Margin40TopContainer>
-                <Margin40Container>
+                </CenterInMobileContainer>
+            </Margin40TopContainer>
+
+            <Margin40Container>
+                <WhiteBackgroundContainer>
                     <Systemtittel>Hvilken tjeneste eller ytelse gjelder det?</Systemtittel>
-                </Margin40Container>
-            </div>
-            <PointsFlexListContainer>{getLinks(inngangkategori)}</PointsFlexListContainer>
+
+                    <Margin40TopContainer>
+                        <PointsFlexListContainer>{getLinks(inngangkategori)}</PointsFlexListContainer>
+                    </Margin40TopContainer>
+                </WhiteBackgroundContainer>
+            </Margin40Container>
         </section>
     );
 };

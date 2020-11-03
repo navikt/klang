@@ -1,7 +1,14 @@
 import { Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import LetterOpened from '../../assets/images/icons/LetterOpened';
-import { Margin40Container, MarginContainer, MarginTopContainer } from '../../styled-components/main-styled-components';
+import {
+    CenterInMobileContainer,
+    Margin40Container,
+    Margin40TopContainer,
+    MarginContainer,
+    MarginTopContainer,
+    WhiteBackgroundContainer
+} from '../../styled-components/main-styled-components';
 import { Tema, TemaKey } from '../../types/tema';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import Lenke from 'nav-frontend-lenker';
@@ -25,44 +32,52 @@ const InngangInnsendingDigital = ({ temaKey, title = Tema[temaKey], saksnummer =
 
     return (
         <div>
-            <Sidetittel>{title}</Sidetittel>
+            <CenterInMobileContainer>
+                <Sidetittel>{title}</Sidetittel>
+            </CenterInMobileContainer>
             <Margin40Container>
-                <Normaltekst>
-                    For å fylle ut og sende inn en klage må du logge inn med elektronisk ID. Hvis du skal sende en anke
-                    eller du skal søke på vegne av andre må du fylle inn personopplysninger manuelt og sende skjema i
-                    posten.
-                </Normaltekst>
-            </Margin40Container>
-            <DigitalContent temaKey={temaKey} saksnummer={saksnummer} />
-            <Margin40Container>
-                <LenkepanelBase href={paperUrl} border>
-                    <div className="lenkepanel-content-with-image">
-                        <div className="icon-container">
-                            <LetterOpened />
-                        </div>
-                        <div>
-                            <Systemtittel className="lenkepanel__heading">Klage via post</Systemtittel>
-                            <MarginTopContainer>
-                                <Normaltekst>
-                                    Klageskjema som sendes inn via post. Også for deg som skal klage på vegne av andre.
-                                </Normaltekst>
-                            </MarginTopContainer>
-                        </div>
-                    </div>
-                </LenkepanelBase>
-            </Margin40Container>
+                <WhiteBackgroundContainer>
+                    <Normaltekst>
+                        For å fylle ut og sende inn en klage må du logge inn med elektronisk ID. Hvis du skal sende en
+                        anke eller du skal søke på vegne av andre må du fylle inn personopplysninger manuelt og sende
+                        skjema i posten.
+                    </Normaltekst>
 
-            <div>
-                Les mer om{' '}
-                <Lenke
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/klage-ris-og-ros/klagerettigheter"
-                >
-                    dine klagerettigheter på våre tema-sider
-                </Lenke>
-                .
-            </div>
+                    <Margin40TopContainer>
+                        <DigitalContent temaKey={temaKey} saksnummer={saksnummer} />
+                    </Margin40TopContainer>
+                    <Margin40Container>
+                        <LenkepanelBase href={paperUrl} border>
+                            <div className="lenkepanel-content-with-image">
+                                <div className="icon-container">
+                                    <LetterOpened />
+                                </div>
+                                <div>
+                                    <Systemtittel className="lenkepanel__heading">Klage via post</Systemtittel>
+                                    <MarginTopContainer>
+                                        <Normaltekst>
+                                            Klageskjema som sendes inn via post. Også for deg som skal klage på vegne av
+                                            andre.
+                                        </Normaltekst>
+                                    </MarginTopContainer>
+                                </div>
+                            </div>
+                        </LenkepanelBase>
+                    </Margin40Container>
+
+                    <div>
+                        Les mer om{' '}
+                        <Lenke
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/klage-ris-og-ros/klagerettigheter"
+                        >
+                            dine klagerettigheter på våre tema-sider
+                        </Lenke>
+                        .
+                    </div>
+                </WhiteBackgroundContainer>
+            </Margin40Container>
         </div>
     );
 };
@@ -97,7 +112,7 @@ const DigitalContent = ({ temaKey, saksnummer }: DigitalContentProps) => {
                 </div>
             </KlageLinkPanel>
             <Lenke target="_blank" rel="noopener noreferrer" href="https://www.norge.no/elektronisk-id">
-                Jeg har ikke elektronisk ID
+                Slik skaffer du deg elektronisk ID
             </Lenke>
         </MarginContainer>
     );

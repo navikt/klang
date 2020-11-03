@@ -180,3 +180,18 @@ export const ButtonFlexContainer = styled(FlexContainer)`
         margin-right: 0;
     }
 `;
+
+export const WhiteBackgroundContainer = styled.div`
+    background-color: #fff;
+    padding: 32px;
+`;
+
+export const CenterInMobileContainer = styled.div`
+    margin: 0 auto;
+    @media ${device.mobileS} {
+        text-align: center;
+    }
+    @media ${device.laptop} {
+        text-align: initial;
+    }
+`;
