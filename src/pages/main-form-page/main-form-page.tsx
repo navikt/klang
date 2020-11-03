@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import BegrunnelsePage from '../begrunnelse/begrunnelse-page';
 import { formSteps } from '../../utils/routes.config';
-import { MarginContainer } from '../../styled-components/main-styled-components';
+import { Margin32Container, MarginContainer } from '../../styled-components/main-styled-components';
 import Steps from '../../components/steps/steps';
 import OppsummeringSkjemaPage from '../oppsummering-skjema-page/oppsummering-skjema-page';
 import { useHistory } from 'react-router-dom';
+import FormTitle from '../../components/form-landing/form-title';
 
 interface Props {
     path: string;
+    ytelse: string;
 }
 
 const MainFormPage = (props: Props) => {
@@ -37,9 +39,11 @@ const MainFormPage = (props: Props) => {
 
     return (
         <>
-            <MarginContainer>
+            <FormTitle ytelse={props.ytelse} />
+            <Margin32Container>
                 <Steps activeRoutes={activeRoutes} activeStep={activeStep} chooseStep={chooseStep} />
-            </MarginContainer>
+            </Margin32Container>
+
             <MarginContainer>
                 {activeRoute.label === 'Begrunnelse' && <BegrunnelsePage next={() => next()} />}
                 {activeRoute.label === 'Oppsummering' && <OppsummeringSkjemaPage previous={previous} />}
