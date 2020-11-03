@@ -93,7 +93,7 @@ const FormLanding = () => {
         );
     }
 
-    return <MainFormPage ytelse={chosenYtelse} path={location.pathname} />;
+    return <MainFormPage ytelse={klage?.ytelse ?? ''} path={location.pathname} />;
 };
 
 export default FormLanding;
