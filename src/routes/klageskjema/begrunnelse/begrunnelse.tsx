@@ -26,6 +26,7 @@ import { ApiError, CustomError } from '../../../api/errors';
 import { AppContext } from '../../../app-context/app-context';
 import { ISODate, ISODateTime } from '../../../date/date';
 import { Klage, KlageStatus, UpdateKlage, VedtakType } from '../../../klage/klage';
+import { useConfirmUnload } from '../use-confirm-unload';
 
 interface UploadError {
     timestamp: ISODateTime;
@@ -58,6 +59,8 @@ const Begrunnelse = ({ klage }: Props) => {
             history.replace(`/${klage.id}/oppsummering`);
         }
     }, [klage, history]);
+
+    useConfirmUnload();
 
     useEffect(() => window.scrollTo(0, 0), []);
 
