@@ -32,7 +32,7 @@ export const INNGANG_KATEGORIER: InngangKategori[] = [
                 temaKey: TemaKey.PER,
                 titleKey: 'LONNSKOMPENSASJON',
                 allowsAnke: false,
-                digitalKlage: [],
+                digitalKlage: [EnvString.PROD, EnvString.DEV, EnvString.LOCAL],
                 digitalKlageFullmakt: false,
                 path: 'lonnskompensasjon',
                 mailKlageUrl: 'https://www.nav.no/soknader/nb/person/korona/lonnskompensasjon-ettersendelse-klage'
