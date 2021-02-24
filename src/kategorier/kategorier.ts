@@ -29,7 +29,7 @@ export const INNGANG_KATEGORIER: InngangKategori[] = [
         beskrivelse: 'Midlertidige ordninger',
         kategorier: [
             {
-                temaKey: TemaKey.PER,
+                temaKey: TemaKey.DAG,
                 titleKey: 'LONNSKOMPENSASJON',
                 allowsAnke: false,
                 digitalKlage: [EnvString.PROD, EnvString.DEV, EnvString.LOCAL],
