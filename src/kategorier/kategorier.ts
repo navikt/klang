@@ -85,7 +85,7 @@ export const INNGANG_KATEGORIER: InngangKategori[] = [
         beskrivelse: {
             [Languages.nb]: 'Dagpenger, AAP, tiltakspenger',
             [Languages.en]:
-                'Uemployment benefit (dagpenger), work assessmentallowance (AAP), benefits while participating in employment schemes (tiltakspenger)'
+                'Uemployment benefit (dagpenger), work assessment allowance (AAP), benefits while participating in employment schemes (tiltakspenger)'
         },
         kategorier: [
             {

@@ -28,7 +28,7 @@ export const nb = {
                 ],
                 estimate: [
                     'Du kan se ',
-                    <ExternalLink href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/klage-ris-og-ros/klagerettigheter">
+                    <ExternalLink href="https://www.nav.no/no/nav-og-samfunn/om-nav/saksbehandlingstider-i-nav/relatert-informasjon/klage-og-anke">
                         forventet saksbehandlingstid for klage og anke
                     </ExternalLink>,
                     ' i egen oversikt.'
@@ -209,7 +209,7 @@ export const nb = {
             ],
             see_estimate: [
                 'Du kan se ',
-                <ExternalLink href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/klage-ris-og-ros/klagerettigheter">
+                <ExternalLink href="https://www.nav.no/no/nav-og-samfunn/om-nav/saksbehandlingstider-i-nav/relatert-informasjon/klage-og-anke">
                     forventet saksbehandlingstid for klage og anke
                 </ExternalLink>,
                 ' i egen oversikt.'

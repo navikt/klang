@@ -20,14 +20,14 @@ export const en: Language = {
             common: {
                 read_more: [
                     'Read more about ',
-                    <ExternalLink href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/klage-ris-og-ros/klagerettigheter">
+                    <ExternalLink href="https://www.nav.no/en/home/rules-and-regulations/appeals">
                         your right to complain on our topic pages
                     </ExternalLink>,
                     '.'
                 ],
                 estimate: [
                     'You can see ',
-                    <ExternalLink href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/klage-ris-og-ros/klagerettigheter">
+                    <ExternalLink href="https://www.nav.no/no/nav-og-samfunn/om-nav/saksbehandlingstider-i-nav/relatert-informasjon/klage-og-anke">
                         the expected case processing time for complaints and appeals
                     </ExternalLink>,
                     ' in a separate overview.'
@@ -200,14 +200,14 @@ export const en: Language = {
             },
             read_more: [
                 'You can read more about the further processing of your complaint on our ',
-                <ExternalLink href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/klage-ris-og-ros/klagerettigheter">
+                <ExternalLink href="https://www.nav.no/en/home/rules-and-regulations/appeals">
                     topic pages about complaints and appeals
                 </ExternalLink>,
                 '.'
             ],
             see_estimate: [
                 'You can see ',
-                <ExternalLink href="https://www.nav.no/no/nav-og-samfunn/kontakt-nav/klage-ris-og-ros/klagerettigheter">
+                <ExternalLink href="https://www.nav.no/no/nav-og-samfunn/om-nav/saksbehandlingstider-i-nav/relatert-informasjon/klage-og-anke">
                     the expected case processing time for complaints and appeals
                 </ExternalLink>,
                 ' in a separate overview.'
