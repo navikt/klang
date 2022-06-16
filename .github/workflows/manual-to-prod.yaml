@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 env:
-  BASEIMAGE: docker.pkg.github.com/${{ github.repository }}/klage-dittnav
+  BASEIMAGE: ghcr.io/${{ github.repository }}/klage-dittnav
 jobs:
   deployprod:
     name: Deploy to prod-gcp
