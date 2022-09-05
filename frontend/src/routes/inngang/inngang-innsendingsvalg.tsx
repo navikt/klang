@@ -44,7 +44,7 @@ export const InngangInnsending = React.memo(
     supportsDigitalKlage = false,
     supportsDigitalAnke = false,
   }: Props) => {
-    useLogPageView(PageIdentifier.INNGANG_INNSENDING_DIGITAL, temaKey, titleKey ?? temaKey);
+    useLogPageView(PageIdentifier.INNGANG_INNSENDING, temaKey, titleKey ?? temaKey);
     const [title] = useTitleOrTemaName(temaKey, titleKey);
     const lang = useLanguage();
     const { inngang } = useTranslation();
