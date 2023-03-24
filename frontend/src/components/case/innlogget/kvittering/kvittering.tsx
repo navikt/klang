@@ -1,4 +1,4 @@
-import { FileContent } from '@navikt/ds-icons';
+import { FileTextIcon } from '@navikt/aksel-icons';
 import { Alert, BodyShort, Heading } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
@@ -61,7 +61,7 @@ export const Journalpost = ({ caseId, finalizedDate, translations, basePath }: J
   <>
     <BodyShort>
       <ExternalLink href={`${basePath}/${caseId}/pdf`} onClick={() => addAppEvent(AppEventEnum.DOWNLOAD)}>
-        <FileContent />
+        <FileTextIcon />
         <span>{translations.kvittering.download}</span>
       </ExternalLink>
     </BodyShort>

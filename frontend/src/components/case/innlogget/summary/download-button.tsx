@@ -1,4 +1,4 @@
-import { Download, Login } from '@navikt/ds-icons';
+import { DownloadIcon, EnterIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +26,7 @@ export const DownloadButton = ({ id, subPath }: Props) => {
     };
 
     return (
-      <Button variant="primary" onClick={onClick} icon={<Login />} iconPosition="left">
+      <Button variant="primary" onClick={onClick} icon={<EnterIcon />} iconPosition="left">
         {common.log_in}
       </Button>
     );
@@ -44,7 +44,7 @@ export const DownloadButton = ({ id, subPath }: Props) => {
       variant="primary"
       target="_blank"
       onClick={onClick}
-      icon={<Download />}
+      icon={<DownloadIcon />}
       iconPosition="left"
     >
       {common.download}

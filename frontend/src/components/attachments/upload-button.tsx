@@ -1,4 +1,4 @@
-import { Upload } from '@navikt/ds-icons';
+import { UploadIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { captureException } from '@sentry/react';
@@ -78,7 +78,7 @@ export const UploadButton = ({
         loading={isLoading}
         id="upload-attachment"
       >
-        <Upload /> {upload_button_text}
+        <UploadIcon /> {upload_button_text}
       </StyledUploadButton>
       <StyledUploadInput
         id={inputId}

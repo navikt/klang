@@ -1,4 +1,4 @@
-import { Home } from '@navikt/ds-icons';
+import { HouseIcon } from '@navikt/aksel-icons';
 import { Button, Heading } from '@navikt/ds-react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ export const NotFoundPage = () => {
       <Heading size="large" level="2">
         {not_found_page.title}
       </Heading>
-      <StyledButton onClick={onClick} icon={<Home aria-hidden />}>
+      <StyledButton onClick={onClick} icon={<HouseIcon aria-hidden />}>
         {not_found_page.go_back}
       </StyledButton>
     </Container>

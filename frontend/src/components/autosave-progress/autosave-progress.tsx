@@ -1,7 +1,10 @@
-import { ErrorColored, SuccessColored } from '@navikt/ds-icons';
 import { Popover } from '@navikt/ds-react';
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import {
+  CheckmarkCircleFillIconColored,
+  XMarkOctagonFillIconColored,
+} from '@app/components/colored-icons/colored-icons';
 import { Language } from '@app/language/language';
 import { Ellipsis } from '@app/styled-components/ellipsis';
 
@@ -58,7 +61,7 @@ const getContent = (status: StatusProps, saving: string, saved: string, failed: 
   if (status.isSuccess) {
     return (
       <>
-        <SuccessColored />
+        <CheckmarkCircleFillIconColored />
         <>{saved}</>
       </>
     );
@@ -67,7 +70,7 @@ const getContent = (status: StatusProps, saving: string, saved: string, failed: 
   if (status.isError) {
     return (
       <>
-        <ErrorColored />
+        <XMarkOctagonFillIconColored />
         {failed}
       </>
     );
