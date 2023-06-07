@@ -1,3 +1,4 @@
+import { LogLevel, faro } from '@grafana/faro-web-sdk';
 import { ENVIRONMENT } from '@app/environment/environment';
 import { isNotUndefined } from '@app/functions/is-not-type-guards';
 import { parseJSON } from '@app/functions/parse-json';
@@ -90,53 +91,57 @@ class ErrorReport {
     const maxRouteLength = this.maxRouteLength();
     const maxCount = this.maxCount();
 
+    const body = JSON.stringify({
+      ...this.errorReport,
+      user_events: this.errorReport.user_events
+        .reverse()
+        .map((line) => {
+          switch (line.type) {
+            case 'navigation': {
+              return formatEvent({ ...line, msg: 'Navigate to' }, { maxRouteLength, maxCount });
+            }
+            case 'app': {
+              return formatEvent({ ...line, msg: line.action }, { maxRouteLength, maxCount });
+            }
+            case 'error': {
+              const stack = [line.error_stack, line.component_stack]
+                .filter(isNotUndefined)
+                .map((s) => `\t${s}`)
+                .join('\n---\n');
+
+              const msg = `Error: ${line.error_message}`;
+
+              return formatEvent({ ...line, stack, msg }, { maxRouteLength, maxCount });
+            }
+            case 'api': {
+              const msg = `${line.request} ${typeof line.message === 'string' ? `- ${line.message}` : ''}`;
+
+              return formatEvent({ ...line, msg }, { maxRouteLength, maxCount });
+            }
+            case 'session': {
+              return formatEvent({ ...line, msg: line.action }, { maxRouteLength, maxCount });
+            }
+            case 'restore-error-report': {
+              const msg = `Restored. Referrer: "${line.referrer}".`;
+
+              return formatEvent({ ...line, msg }, { maxRouteLength, maxCount });
+            }
+          }
+
+          return '';
+        })
+        .join('\n'),
+    });
+
+    faro.api.pushLog([body], { level: LogLevel.WARN });
+
     try {
       const res = await fetch('/error-report', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...this.errorReport,
-          user_events: this.errorReport.user_events
-            .reverse()
-            .map((line) => {
-              switch (line.type) {
-                case 'navigation': {
-                  return formatEvent({ ...line, msg: 'Navigate to' }, { maxRouteLength, maxCount });
-                }
-                case 'app': {
-                  return formatEvent({ ...line, msg: line.action }, { maxRouteLength, maxCount });
-                }
-                case 'error': {
-                  const stack = [line.error_stack, line.component_stack]
-                    .filter(isNotUndefined)
-                    .map((s) => `\t${s}`)
-                    .join('\n---\n');
-
-                  const msg = `Error: ${line.error_message}`;
-
-                  return formatEvent({ ...line, stack, msg }, { maxRouteLength, maxCount });
-                }
-                case 'api': {
-                  const msg = `${line.request} ${typeof line.message === 'string' ? `- ${line.message}` : ''}`;
-
-                  return formatEvent({ ...line, msg }, { maxRouteLength, maxCount });
-                }
-                case 'session': {
-                  return formatEvent({ ...line, msg: line.action }, { maxRouteLength, maxCount });
-                }
-                case 'restore-error-report': {
-                  const msg = `Restored. Referrer: "${line.referrer}".`;
-
-                  return formatEvent({ ...line, msg }, { maxRouteLength, maxCount });
-                }
-              }
-
-              return '';
-            })
-            .join('\n'),
-        }),
+        body,
       });
 
       if (!res.ok) {
@@ -145,6 +150,7 @@ class ErrorReport {
     } catch (e) {
       if (e instanceof Error) {
         console.error(e);
+        faro.api.pushError(e, { type: 'failed_to_log_user_events' });
       } else {
         console.error('Failed to log user events.');
       }

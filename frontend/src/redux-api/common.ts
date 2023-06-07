@@ -1,3 +1,4 @@
+import { faro } from '@grafana/faro-web-sdk';
 import { FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { isNotUndefined } from '@app/functions/is-not-type-guards';
 import { addApiEvent, sendErrorReport } from '@app/logging/error-report/error-report';
@@ -14,6 +15,7 @@ const staggeredBaseQuery = (baseUrl: string) => {
   });
 
   return retry(
+    // eslint-disable-next-line complexity
     async (args: string | FetchArgs, api, extraOptions) => {
       const result = await fetch(args, api, extraOptions);
 
@@ -32,8 +34,9 @@ const staggeredBaseQuery = (baseUrl: string) => {
         [title, detail].filter(isNotUndefined).join(' - ')
       );
 
-      if (result.meta?.response?.ok !== true) {
+      if (typeof result.meta?.response !== 'undefined' && result.meta.response.ok !== true) {
         sendErrorReport();
+        faro.api.pushEvent('request_error', { status: result.meta.response.status.toString() });
       }
 
       if (typeof result.error === 'undefined') {

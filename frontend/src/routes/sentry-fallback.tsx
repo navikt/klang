@@ -1,3 +1,4 @@
+import { faro } from '@grafana/faro-web-sdk';
 import { Alert, BodyShort } from '@navikt/ds-react';
 import { FallbackRender } from '@sentry/react';
 import React from 'react';

@@ -1,3 +1,4 @@
+import { initializeFaro } from '@grafana/faro-web-sdk';
 import { injectDecoratorClientSide } from '@navikt/nav-dekoratoren-moduler';
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
@@ -6,6 +7,20 @@ import { createRoot } from 'react-dom/client';
 import { createRoutesFromChildren, matchRoutes, useLocation, useNavigationType } from 'react-router-dom';
 import { App } from './app/app';
 import { ENVIRONMENT } from './environment/environment';
+
+const getFaroUrl = () => {
+  if (ENVIRONMENT.isProduction) {
+    return 'https://telemetry.nav.no/collect';
+  }
+
+  if (ENVIRONMENT.isDevelopment) {
+    return 'https://telemetry.ekstern.dev.nav.no/collect';
+  }
+
+  return 'http://localhost:12347/collect';
+};
+
+initializeFaro({ url: getFaroUrl(), app: { name: 'klage-dittnav' } });
 
 if (ENVIRONMENT.isLocal) {
   injectDecoratorClientSide({

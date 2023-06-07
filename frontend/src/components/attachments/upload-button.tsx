@@ -1,3 +1,4 @@
+import { faro } from '@grafana/faro-web-sdk';
 import { Upload } from '@navikt/ds-icons';
 import { Button } from '@navikt/ds-react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
@@ -54,6 +55,8 @@ export const UploadButton = ({
     setLoading(true);
 
     const uploads = Array.from(files).map(async (file) => {
+      faro.api.pushMeasurement({ type: 'upload_file_size', values: { measurement: file.size } });
+
       try {
         await uploadAttachment({ caseId, file }).unwrap();
       } catch (err) {

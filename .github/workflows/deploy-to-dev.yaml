@@ -56,7 +56,9 @@ jobs:
         run: |
           cd frontend
           npm ci
-      
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}   
+          
       - name: Build frontend
         shell: bash
         env:

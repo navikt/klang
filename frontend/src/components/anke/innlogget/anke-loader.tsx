@@ -1,3 +1,4 @@
+import { faro } from '@grafana/faro-web-sdk';
 import { Alert } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import React, { useEffect, useState } from 'react';
@@ -26,6 +27,7 @@ export const AnkeLoader = ({ Component }: Props) => {
       addErrorEvent(e.message, e.stack);
       sendErrorReport();
       setError(anke_loader.format_error('INGEN', e));
+      faro.api.pushError(e, { type: 'id_for_anke_is_missing' });
 
       return;
     }
@@ -39,6 +41,7 @@ export const AnkeLoader = ({ Component }: Props) => {
       addErrorEvent(e.message, e.stack);
       sendErrorReport();
       setError(anke_loader.format_error(ankeId, e));
+      faro.api.pushError(e, { type: 'anke_not_found' });
     }
   }, [ankeId, anke, anke_loader, updateAnke, isLoading]);
 

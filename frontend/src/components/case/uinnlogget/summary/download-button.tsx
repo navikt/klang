@@ -1,3 +1,4 @@
+import { faro } from '@grafana/faro-web-sdk';
 import { Download } from '@navikt/ds-icons';
 import { Button } from '@navikt/ds-react';
 import dayjs from 'dayjs';
@@ -73,6 +74,7 @@ export const DownloadButton = ({ caseData, type, validForm }: Props) => {
     } catch (e) {
       if (e instanceof Error) {
         addErrorEvent(`(${type}) ${e.message}`, e.stack);
+        faro.api.pushError(e, { type: 'failed_to_generate_pdf' });
       } else {
         addErrorEvent(`Failed to generate PDF for ${type}.`);
       }

@@ -1,3 +1,4 @@
+import { faro } from '@grafana/faro-web-sdk';
 import { Alert } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import React, { useEffect, useState } from 'react';
@@ -26,6 +27,7 @@ export const KlageLoader = ({ Component }: Props) => {
       addErrorEvent(e.message, e.stack);
       sendErrorReport();
       setError(klage_loader.format_error('INGEN', e));
+      faro.api.pushError(e, { type: 'id_for_klage_is_missing' });
 
       return;
     }
@@ -39,6 +41,7 @@ export const KlageLoader = ({ Component }: Props) => {
       addErrorEvent(e.message, e.stack);
       sendErrorReport();
       setError(klage_loader.format_error(klageId, e));
+      faro.api.pushError(e, { type: 'klage_not_found' });
     }
   }, [klageId, klage, klage_loader, updateKlage, isLoading]);
 
