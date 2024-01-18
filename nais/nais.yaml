@@ -25,11 +25,6 @@ spec:
     enabled: true
   idporten:
     enabled: true
-    clientURI: {{ingress}}
-    postLogoutRedirectURIs:
-      - {{ingress}}
-    accessTokenLifetime: 3600
-    sessionLifetime: 7200
     sidecar:
       enabled: true
   prometheus:
@@ -46,7 +41,3 @@ spec:
   envFrom:
     - secret: amplitude
     - secret: slack-url
-  liveness:
-    path: /isAlive
-  readiness:
-    path: /isReady
