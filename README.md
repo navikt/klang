@@ -113,6 +113,7 @@ https://klage.nav.no/en/anke/ny/DAGPENGER?saksnummer=12345
 | OPPFOSTRINGSBIDRAG | Oppfostringsbidrag | Upbringing support (Oppfostringsbidrag) |
 | OPPHOLD_ELLER_ARBEID_I_NORGE | Opphold eller arbeid i Norge | Residence or work in Norway |
 | OPPHOLD_ELLER_ARBEID_UTENFOR_NORGE | Opphold eller arbeid utenfor Norge | Residence or work outside Norway |
+| OMSTILLINGSSTOENAD | Omstillingsstønad | Adjustment allowance (Omstillingsstønad) |
 | SUPPLERENDE_STONAD | Supplerende stønad til personer over 67 år med kort botid i Norge | Supplementary benefit for persons over 67 who have only lived a short period of time in Norway |
 | SUPPLERENDE_STONAD_UFORE_FLYKTNINGER | Supplerende stønad til uføre flyktninger | Supplementary benefit for disabled refugees |
 | SVANGERSKAPSPENGER | Svangerskapspenger | Pregnancy benefit (Svangerskapspenger) |
