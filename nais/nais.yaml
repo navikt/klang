@@ -39,5 +39,4 @@ spec:
   ingresses:
     - {{ingress}}
   envFrom:
-    - secret: amplitude
     - secret: slack-url
