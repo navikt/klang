@@ -1,3 +1,4 @@
+import { describe, expect, it, jest } from '@jest/globals';
 import { redirectMiddleware } from '@app/middleware/redirect/redirect';
 import { Request, Response } from '@app/types/http';
 
@@ -62,7 +63,6 @@ const EXTERNAL_REDIRECT_URLS = [
   '/nb/ettersendelse/uinnlogget',
   '/nb/ettersendelse/ny',
 ];
-
 describe('redirect', () => {
   it('should not redirect other methods than GET', async () => {
     expect.assertions(3);
