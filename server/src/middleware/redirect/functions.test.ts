@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals';
 import { removeSaksnummer } from '@app/middleware/redirect/functions';
 
 describe('redirect', () => {
