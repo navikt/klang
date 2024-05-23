@@ -1,3 +1,4 @@
+import { describe, expect, it } from '@jest/globals';
 import { validNpid } from './valid-npid';
 
 describe('npid', () => {
