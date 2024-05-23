@@ -142,7 +142,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: E2E
-        uses: navikt/klage-dittnav-e2e-tests/.github/actions/run@main
+        uses: navikt/klang-e2e-tests/.github/actions/run@main
         with:
           e2e_tag: ${{ inputs.e2e_tag }}
           nais_deploy_api_key: ${{ secrets.NAIS_DEPLOY_API_KEY }}

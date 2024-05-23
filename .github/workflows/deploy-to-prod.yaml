@@ -36,7 +36,7 @@ jobs:
       - name: Generate image name
         id: image
         shell: bash
-        run: echo "image=${{ steps.image-registry.outputs.registry }}/klage-dittnav-frontend:${{ github.sha }}" >> $GITHUB_OUTPUT
+        run: echo "image=${{ steps.image-registry.outputs.registry }}/klang-frontend:${{ github.sha }}" >> $GITHUB_OUTPUT
 
       - name: Deploy to prod
         uses: nais/deploy/actions/deploy@v1
