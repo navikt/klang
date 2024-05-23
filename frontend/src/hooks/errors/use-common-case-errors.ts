@@ -8,12 +8,12 @@ import { ErrorState, INITIAL_ERRORS, ValidateFnFactory } from '@app/hooks/errors
 import { Case, CaseType } from '@app/redux-api/case/types';
 
 export const useValidateCommonCaseFn: ValidateFnFactory<Case | ISessionCase> = (type: CaseType) => {
-  const { validateCaseIsAtKa, validateEnhet, validateVedtakDateRequired, validateVedtakDate } = useValidators();
+  const { validateCaseIsAtKa, validateVedtakDateRequired, validateVedtakDate } = useValidators();
 
   return useCallback(
     (data) => {
       const errors: ErrorState = { ...INITIAL_ERRORS };
-      const { enhetsnummer, vedtakDate, caseIsAtKA } = data;
+      const { vedtakDate, caseIsAtKA } = data;
 
       if (type === CaseType.ANKE || type === CaseType.ETTERSENDELSE_ANKE) {
         const date = vedtakDate === null ? null : parse(vedtakDate, FORMAT, new Date());
@@ -27,12 +27,8 @@ export const useValidateCommonCaseFn: ValidateFnFactory<Case | ISessionCase> = (
         errors[FormFieldsIds.CASE_IS_AT_KA] = validateCaseIsAtKa(caseIsAtKA);
       }
 
-      if (caseIsAtKA === true || type === CaseType.ANKE || type === CaseType.ETTERSENDELSE_ANKE) {
-        errors[FormFieldsIds.ENHETSNUMMER] = validateEnhet(enhetsnummer);
-      }
-
       return errors;
     },
-    [type, validateCaseIsAtKa, validateEnhet, validateVedtakDate, validateVedtakDateRequired],
+    [type, validateCaseIsAtKa, validateVedtakDate, validateVedtakDateRequired],
   );
 };

@@ -10,7 +10,6 @@ export const INITIAL_ERRORS: ErrorState = {
   [FormFieldsIds.ETTERNAVN]: undefined,
   [FormFieldsIds.VEDTAK_DATE]: undefined,
   [FormFieldsIds.CASE_IS_AT_KA]: undefined,
-  [FormFieldsIds.ENHETSNUMMER]: undefined,
   [FormFieldsIds.SAKSNUMMER]: undefined,
   [FormFieldsIds.FRITEKST]: undefined,
   [FormFieldsIds.VEDLEGG]: undefined,

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { EttersendelseKaEnhet } from '@app/components/case/common/ettersendelse-ka-enhet';
-import { KaEnhet } from '@app/components/case/common/ka-enhet';
 import { VedtakDate } from '@app/components/case/common/vedtak-date';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { INITIAL_ERRORS } from '@app/hooks/errors/types';
@@ -92,8 +91,6 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
   const { steps } = skjema;
 
   const isKlage = data.type === CaseType.KLAGE;
-  const isAnke = data.type === CaseType.ANKE;
-  const isEttersendelseAnke = data.type === CaseType.ETTERSENDELSE_ANKE;
   const isEttersendelseKlage = data.type === CaseType.ETTERSENDELSE_KLAGE;
 
   return (
@@ -126,24 +123,11 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
         type={data.type}
       />
 
-      {isAnke || isEttersendelseAnke ? (
-        <KaEnhet
-          enhet={data.enhetsnummer}
-          error={errors[FormFieldsIds.ENHETSNUMMER]}
-          onChange={(enhetsnummer) => updateCase({ enhetsnummer })}
-          type={data.type}
-        />
-      ) : null}
-
       {isEttersendelseKlage ? (
         <EttersendelseKaEnhet
-          enhet={data.enhetsnummer}
           caseIsAtKA={data.caseIsAtKA}
-          onEnhetChange={(enhetsnummer) => updateCase({ enhetsnummer })}
           onIsAtKaChange={(caseIsAtKA) => updateCase({ caseIsAtKA })}
           error={errors[FormFieldsIds.CASE_IS_AT_KA]}
-          enhetError={errors[FormFieldsIds.ENHETSNUMMER]}
-          type={data.type}
         />
       ) : null}
 

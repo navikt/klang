@@ -10,7 +10,6 @@ export interface ISessionCase {
   readonly foedselsnummer: string;
   readonly navn: IName;
   readonly caseIsAtKA: boolean | null;
-  readonly enhetsnummer: string | null;
   readonly fritekst: string;
   readonly userSaksnummer: string | null;
   readonly internalSaksnummer: string | null;

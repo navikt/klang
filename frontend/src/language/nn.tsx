@@ -91,16 +91,6 @@ export const nn: Translations = {
       klageenhet: {
         radio_title:
           'Har du motteke eit brev frå NAV Klageinstans eller ei anna eining i NAV om at saka di er sendt til NAV Klageinstans?',
-        none: 'Inga eining valt',
-        title_required: 'Kva eining mottok du brevet frå?',
-        title_optional: 'Kva eining i NAV Klageinstans er klaga hos?',
-        title: {
-          [CaseType.KLAGE]: undefined,
-          [CaseType.ANKE]: 'Eining oppgitt i klagevedtaket under informasjon om retten til å anke',
-          [CaseType.ETTERSENDELSE_KLAGE]: 'Kva eining i NAV Klageinstans er klaga hos?',
-          [CaseType.ETTERSENDELSE_ANKE]: 'Eining oppgitt i klagevedtaket under informasjon om retten til å anke',
-        },
-        not_received: 'Ikkje motteke brev',
       },
       begrunnelse_text: {
         title: {
@@ -155,7 +145,6 @@ export const nn: Translations = {
           },
           saksnummer: 'Saksnummer',
           from_system: 'Henta frå internt system',
-          klageenhet: 'Eining oppgitt i klagevedtaket under informasjon om retten til å anke',
         },
         begrunnelse: {
           title: {
@@ -338,7 +327,6 @@ export const nn: Translations = {
       etternavn: 'Du må fylle inn etternamn.',
       begrunnelse: 'Du må skrive ei grunngiving før du går vidare.',
       case_is_at_ka: 'Du må velje om du har motteke brev.',
-      enhet: 'Du må velje ein enhet.',
       vedleggEllerFritekstLoggedIn: 'Du må laste opp minst eitt vedlegg eller skrive ei grunngiving før du går vidare.',
       vedleggEllerFritekstLoggedOut:
         'Du må enten velje at du skal sende med vedlegg eller skrive ei grunngiving før du går vidare.',

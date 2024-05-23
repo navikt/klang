@@ -26,5 +26,4 @@ export const createSessionCase = (
   hasVedlegg: false,
   modifiedByUser: new Date().toISOString(),
   caseIsAtKA: null,
-  enhetsnummer: null,
 });

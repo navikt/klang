@@ -11,7 +11,6 @@ export type CreateCaseParams = Pick<
   | 'hasVedlegg'
   | 'type'
   | 'caseIsAtKA'
-  | 'enhetsnummer'
   | 'checkboxesSelected'
   | 'language'
 >;
