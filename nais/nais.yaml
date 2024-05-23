@@ -32,7 +32,7 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        - application: klage-dittnav-api
+        - application: klang-api
         - application: klage-kodeverk-api
         - application: nav-dekoratoren
           namespace: personbruker

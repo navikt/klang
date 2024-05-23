@@ -6,7 +6,7 @@ import { Request, Response } from '@app/types/http';
 
 const log = getLogger('auth-check');
 
-const AUTH_URL = 'http://klage-dittnav-api/api/bruker/authenticated';
+const AUTH_URL = 'http://klang-api/api/bruker/authenticated';
 
 interface Authenticated {
   authenticated: boolean;

@@ -8,7 +8,7 @@ export const slack = {
   messagePrefix: `${requiredEnvString('NAIS_APP_NAME', 'klang').toUpperCase()} frontend NodeJS -`,
 };
 
-export const KLAGE_DITTNAV_API_CLIENT_ID = 'klage-dittnav-api';
+export const KLAGE_DITTNAV_API_CLIENT_ID = 'klang-api';
 export const OBO_CLIENT_IDS = [KLAGE_DITTNAV_API_CLIENT_ID];
 export const PROXIED_CLIENT_IDS = [KLAGE_DITTNAV_API_CLIENT_ID, 'klage-kodeverk-api'];
 

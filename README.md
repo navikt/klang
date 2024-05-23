@@ -170,7 +170,7 @@ https://klage.nav.no/{språk}/{type}/{innsendingsytelse}?saksnummer={saksnummer}
 
 ## Legge til ny ytelse
 
-Om ingen av ytelse som støttes passer deres behov er det mulig å opprette en PR i [klage-dittnav-api](https://github.com/navikt/klage-dittnav-api)-prosjektet eller kontakte teamet på Slack i kanalen [#team-digital-klage](https://nav-it.slack.com/archives/C01L59AQVQA).
+Om ingen av ytelse som støttes passer deres behov er det mulig å opprette en PR i [klang-api](https://github.com/navikt/klang-api)-prosjektet eller kontakte teamet på Slack i kanalen [#team-digital-klage](https://nav-it.slack.com/archives/C01L59AQVQA).
 
 > Merk at alle ytelser må legges inn på norsk og engelsk.
 
@@ -209,4 +209,4 @@ Under visse ytelser vil inngangen for klage gi bruker muligheten til å trykke p
 
 ## Videre flyt
 
-Denne klienten interagerer med https://github.com/navikt/klage-dittnav-api, som igjen sender info videre til https://github.com/navikt/klage-arkiver-journalpost. Se `README` i sistnevnte for informasjon om hvordan journalposter opprettes i Joark.
+Denne klienten interagerer med https://github.com/navikt/klang-api, som igjen sender info videre til https://github.com/navikt/klage-arkiver-journalpost. Se `README` i sistnevnte for informasjon om hvordan journalposter opprettes i Joark.

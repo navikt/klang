@@ -64,5 +64,5 @@ const staggeredBaseQuery = (baseUrl: string) => {
   );
 };
 
-export const API_PATH = '/api/klage-dittnav-api/api';
+export const API_PATH = '/api/klang-api/api';
 export const API_BASE_QUERY = staggeredBaseQuery(API_PATH);
