@@ -36,9 +36,6 @@ export const useValidators = () => {
     const validateCaseIsAtKa: Validator<boolean | null> = (value) =>
       value === null ? error_messages.skjema.case_is_at_ka : undefined;
 
-    const validateEnhet: Validator<string | null> = (value) =>
-      value !== null && value.length !== 0 ? undefined : error_messages.skjema.enhet;
-
     const validateVedleggOrFritekst: Validator<{ hasVedlegg: boolean; fritekst: string; isLoggedIn: boolean }> = ({
       hasVedlegg,
       fritekst,
@@ -62,7 +59,6 @@ export const useValidators = () => {
       validateVedtakDate,
       validateVedtakDateRequired,
       validateCaseIsAtKa,
-      validateEnhet,
       validateVedleggOrFritekst,
     };
   }, [error_messages.skjema]);

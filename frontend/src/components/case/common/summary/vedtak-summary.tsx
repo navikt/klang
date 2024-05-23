@@ -3,36 +3,12 @@ import React, { useMemo } from 'react';
 import { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { ISODate, isoDateToPretty } from '@app/domain/date/date';
 import { useTranslation } from '@app/language/use-translation';
-import { Case, CaseType } from '@app/redux-api/case/types';
-import { useKlageenheter } from '@app/simple-api-state/use-kodeverk';
+import { Case } from '@app/redux-api/case/types';
 import { SpaceBetweenFlexListContainer } from '@app/styled-components/common';
 import { InformationPointBox } from '../../../information-point-box/information-point-box';
 
-export const VedtakSummary = ({
-  vedtakDate,
-  internalSaksnummer,
-  userSaksnummer,
-  enhetsnummer,
-  caseIsAtKA,
-  type,
-}: Case | ISessionCase) => {
+export const VedtakSummary = ({ vedtakDate, internalSaksnummer, userSaksnummer, type }: Case | ISessionCase) => {
   const { skjema, common } = useTranslation();
-
-  const hasEnhet = useMemo(() => {
-    if (enhetsnummer === null) {
-      return false;
-    }
-
-    if (type === CaseType.ANKE || type === CaseType.ETTERSENDELSE_ANKE) {
-      return true;
-    }
-
-    if (type === CaseType.ETTERSENDELSE_KLAGE) {
-      return caseIsAtKA === true;
-    }
-
-    return false;
-  }, [caseIsAtKA, enhetsnummer, type]);
 
   return (
     <SpaceBetweenFlexListContainer>
@@ -40,23 +16,7 @@ export const VedtakSummary = ({
       <InformationPointBox header={skjema.summary.sections.case.vedtak[type]}>
         <BodyShort>{useDateToVedtakText(vedtakDate, common.not_specified)}</BodyShort>
       </InformationPointBox>
-      {hasEnhet ? <Klageenhet enhetsnummer={enhetsnummer} /> : null}
     </SpaceBetweenFlexListContainer>
-  );
-};
-
-interface KlageenhetProps {
-  enhetsnummer: string | null;
-}
-
-const Klageenhet = ({ enhetsnummer }: KlageenhetProps) => {
-  const { skjema } = useTranslation();
-  const name = useKlageenhetName(enhetsnummer);
-
-  return (
-    <InformationPointBox header={skjema.summary.sections.case.klageenhet}>
-      <BodyShort>{name}</BodyShort>
-    </InformationPointBox>
   );
 };
 
@@ -99,18 +59,3 @@ const useDateToVedtakText = (isoDate: ISODate | null, noDateText: string): strin
 
     return prettyDate;
   }, [isoDate, noDateText]);
-
-const useKlageenhetName = (id: string | null): string => {
-  const { data, isLoading } = useKlageenheter();
-  const { common } = useTranslation();
-
-  if (id === null) {
-    return common.not_specified;
-  }
-
-  if (isLoading || data === undefined) {
-    return '';
-  }
-
-  return data.find((enhet) => enhet.id === id)?.navn ?? id;
-};

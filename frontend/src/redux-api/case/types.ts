@@ -32,37 +32,32 @@ export interface BaseCase {
   readonly type: CaseType;
   readonly checkboxesSelected: Reason[];
   readonly caseIsAtKA: boolean | null;
-  readonly enhetsnummer: string | null;
 }
 
 export type CaseUpdatable = Pick<
   BaseCase,
-  'vedtakDate' | 'checkboxesSelected' | 'userSaksnummer' | 'hasVedlegg' | 'fritekst' | 'caseIsAtKA' | 'enhetsnummer'
+  'vedtakDate' | 'checkboxesSelected' | 'userSaksnummer' | 'hasVedlegg' | 'fritekst' | 'caseIsAtKA'
 >;
 
 export interface Klage extends BaseCase {
   readonly type: CaseType.KLAGE;
   readonly checkboxesSelected: Reason[];
   readonly caseIsAtKA: never;
-  readonly enhetsnummer: never;
 }
 
 export interface Anke extends BaseCase {
   readonly type: CaseType.ANKE;
   readonly caseIsAtKA: never;
-  readonly enhetsnummer: string | null;
 }
 
 export interface EttersendelseKlage extends BaseCase {
   readonly type: CaseType.ETTERSENDELSE_KLAGE;
   readonly caseIsAtKA: boolean | null;
-  readonly enhetsnummer: string | null;
 }
 
 export interface EttersendelseAnke extends BaseCase {
   readonly type: CaseType.ETTERSENDELSE_ANKE;
   readonly caseIsAtKA: never;
-  readonly enhetsnummer: string | null;
 }
 
 export type Case = Klage | Anke | EttersendelseKlage | EttersendelseAnke;

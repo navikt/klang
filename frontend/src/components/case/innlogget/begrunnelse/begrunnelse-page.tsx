@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AttachmentsSection } from '@app/components/attachments/attachments';
 import { EttersendelseKaEnhet } from '@app/components/case/common/ettersendelse-ka-enhet';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
-import { KaEnhet } from '@app/components/case/common/ka-enhet';
 import { Reasons } from '@app/components/case/common/reasons';
 import { DebouncedSaksnummer } from '@app/components/case/common/saksnummer';
 import { VedtakDate } from '@app/components/case/common/vedtak-date';
@@ -88,8 +87,6 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
   const { title_fragment, page_title } = skjema.common;
 
   const isKlage = data.type === CaseType.KLAGE;
-  const isAnke = data.type === CaseType.ANKE;
-  const isEttersendelseAnke = data.type === CaseType.ETTERSENDELSE_ANKE;
   const isEttersendelseKlage = data.type === CaseType.ETTERSENDELSE_KLAGE;
 
   const modified = parseISO(data.modifiedByUser);
@@ -136,24 +133,11 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         onChange={(vedtakDate) => onChange('vedtakDate', vedtakDate)}
       />
 
-      {isAnke || isEttersendelseAnke ? (
-        <KaEnhet
-          enhet={data.enhetsnummer}
-          error={errors[FormFieldsIds.ENHETSNUMMER]}
-          onChange={(enhetsnummer) => onChange('enhetsnummer', enhetsnummer)}
-          type={data.type}
-        />
-      ) : null}
-
       {isEttersendelseKlage ? (
         <EttersendelseKaEnhet
-          enhet={data.enhetsnummer}
           caseIsAtKA={data.caseIsAtKA}
-          onEnhetChange={(enhetsnummer) => onChange('enhetsnummer', enhetsnummer)}
           onIsAtKaChange={(caseIsAtKA) => onChange('caseIsAtKA', caseIsAtKA)}
           error={errors[FormFieldsIds.CASE_IS_AT_KA]}
-          enhetError={errors[FormFieldsIds.ENHETSNUMMER]}
-          type={data.type}
         />
       ) : null}
 

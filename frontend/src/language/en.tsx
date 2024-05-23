@@ -89,17 +89,6 @@ export const en: Translations = {
       klageenhet: {
         radio_title:
           'Have you received a letter from NAV Klageinstans or another unit in NAV stating that your case has been sent to NAV Klageinstans?',
-        none: 'No unit selected',
-        title_required: 'Which unit did you receive the letter from?',
-        title_optional: 'Which unit in NAV Klageinstans is the complaint at?',
-        title: {
-          [CaseType.KLAGE]: undefined,
-          [CaseType.ANKE]: 'Unit stated in the complaint decision under information on the right to appeal',
-          [CaseType.ETTERSENDELSE_KLAGE]: 'Which unit in NAV Klageinstans is the complaint at?',
-          [CaseType.ETTERSENDELSE_ANKE]:
-            'Unit stated in the complaint decision under information on the right to appeal',
-        },
-        not_received: 'No letter received',
       },
       begrunnelse_text: {
         title: {
@@ -154,7 +143,6 @@ export const en: Translations = {
             [CaseType.ETTERSENDELSE_ANKE]: 'Date of the complaint decision from NAV Klageinstans',
           },
           saksnummer: 'Case number',
-          klageenhet: 'Unit stated in the complaint decision under information on the right to appeal',
           from_system: 'Obtained from internal system',
         },
         begrunnelse: {
@@ -337,7 +325,6 @@ export const en: Translations = {
       etternavn: 'You must input a surname.',
       begrunnelse: 'You must state a reason before continuing.',
       case_is_at_ka: 'You must select whether you have received a letter.',
-      enhet: 'You must select a unit.',
       vedleggEllerFritekstLoggedIn:
         'You must either upload at least one attachment or write a reason before continuing.',
       vedleggEllerFritekstLoggedOut:
