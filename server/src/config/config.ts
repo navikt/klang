@@ -5,7 +5,7 @@ import { requiredEnvString, requiredEnvUrl } from './env-var';
 export const slack = {
   url: isDeployed ? requiredEnvUrl('SLACK_URL') : '',
   channel: '#klage-notifications',
-  messagePrefix: `${requiredEnvString('NAIS_APP_NAME', 'klage-dittnav').toUpperCase()} frontend NodeJS -`,
+  messagePrefix: `${requiredEnvString('NAIS_APP_NAME', 'klang').toUpperCase()} frontend NodeJS -`,
 };
 
 export const KLAGE_DITTNAV_API_CLIENT_ID = 'klage-dittnav-api';
