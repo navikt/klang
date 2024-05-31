@@ -2,8 +2,8 @@ import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React, { useState } from 'react';
 import { useTranslation } from '@app/language/use-translation';
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addAppEvent } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
 
 interface Props {
   onDelete: () => void;
@@ -28,7 +28,7 @@ export const DeleteCaseButton = ({ onDelete, isLoading, title }: Props) => {
   }
 
   const deleteCase = () => {
-    addAppEvent(AppEventEnum.DELETE_CASE);
+    appEvent(AppEventEnum.CASE_DELETE);
     onDelete();
   };
 

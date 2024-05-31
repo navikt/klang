@@ -1,13 +1,18 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 import { ISessionCase } from '@app/components/case/uinnlogget/types';
-import { addSessionEvent } from '@app/logging/error-report/error-report';
+import { sessionEvent } from '@app/logging/logger';
+import { SessionAction } from '@app/logging/types';
 import { State } from '@app/redux/session/type';
 import { createSessionCase, getSessionCaseKey } from './helpers';
 import { readSessionCase, removeSessionCase, saveSessionCase } from './storage';
 import { SessionCaseCreate, SessionCaseLoad, SessionCasePayload, SessionCaseRemove, SessionCaseUpdate } from './types';
 
+const RATE_LIMIT = 30_000;
+let lastUpdated = 0;
+
 const setSessionCase: CaseReducer<State, PayloadAction<SessionCasePayload>> = (state, { payload }) => {
-  addSessionEvent('Set session case');
+  lastUpdated = 0;
+  sessionEvent(SessionAction.SET);
 
   const { type, innsendingsytelse, data } = payload;
 
@@ -17,7 +22,11 @@ const setSessionCase: CaseReducer<State, PayloadAction<SessionCasePayload>> = (s
 };
 
 const updateSessionCase: CaseReducer<State, PayloadAction<SessionCaseUpdate>> = (state, { payload }) => {
-  addSessionEvent('Update session case');
+  // Rate limit updates.
+  if (Date.now() - lastUpdated > RATE_LIMIT) {
+    sessionEvent(SessionAction.UPDATE);
+    lastUpdated = Date.now();
+  }
 
   const { type, innsendingsytelse, data } = payload;
 
@@ -36,7 +45,8 @@ const updateSessionCase: CaseReducer<State, PayloadAction<SessionCaseUpdate>> = 
 };
 
 const loadSessionCase: CaseReducer<State, PayloadAction<SessionCaseLoad>> = (state, { payload }) => {
-  addSessionEvent('Load session case');
+  lastUpdated = 0;
+  sessionEvent(SessionAction.LOAD);
 
   const { innsendingsytelse, type } = payload;
 
@@ -52,7 +62,7 @@ const loadSessionCase: CaseReducer<State, PayloadAction<SessionCaseLoad>> = (sta
 
 // Read from session storage if it exists, otherwise save to session storage.
 const loadOrCreateSessionCase: CaseReducer<State, PayloadAction<SessionCaseCreate>> = (state, { payload }) => {
-  addSessionEvent('Load or create session case');
+  lastUpdated = 0;
 
   const { innsendingsytelse, data, type } = payload;
 
@@ -64,7 +74,13 @@ const loadOrCreateSessionCase: CaseReducer<State, PayloadAction<SessionCaseCreat
 
     const key = saveSessionCase(innsendingsytelse, newCase);
 
+    sessionEvent(SessionAction.CREATE);
+
     return setState(state, key, newCase);
+  }
+
+  if (state[sessionKey]?.id !== savedCase.id) {
+    sessionEvent(SessionAction.LOAD);
   }
 
   return setState(state, sessionKey, savedCase);
@@ -85,7 +101,7 @@ const updateSessionCaseData = <T extends ISessionCase>(data: T, update: Partial<
 });
 
 const deleteSessionCase: CaseReducer<State, PayloadAction<SessionCaseRemove>> = (state, { payload }) => {
-  addSessionEvent('Delete session case');
+  sessionEvent(SessionAction.DELETE);
 
   const key = removeSessionCase(getSessionCaseKey(payload.type, payload.innsendingsytelse));
 

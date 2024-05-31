@@ -1,6 +1,6 @@
 import { Alert, BodyShort } from '@navikt/ds-react';
 import React, { Component, ErrorInfo } from 'react';
-import { addErrorEvent, sendErrorReport } from '@app/logging/error-report/error-report';
+import { errorEvent } from '@app/logging/logger';
 
 interface Props {
   children: React.ReactNode;
@@ -18,8 +18,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    addErrorEvent(error.message, error.stack);
-    sendErrorReport();
+    errorEvent(error.message, error.stack);
     console.error('Uncaught error:', error, errorInfo);
   }
 

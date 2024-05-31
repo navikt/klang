@@ -5,8 +5,8 @@ import React, { useRef } from 'react';
 import { styled } from 'styled-components';
 import { isError } from '@app/functions/is-api-error';
 import { useTranslation } from '@app/language/use-translation';
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addAppEvent } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
 import { useUploadAttachmentMutation } from '@app/redux-api/case/api';
 
 interface Props {
@@ -24,14 +24,14 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId 
 
   const handleAttachmentClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    addAppEvent(AppEventEnum.CLICK_UPLOAD_ATTACHMENT);
+    appEvent(AppEventEnum.UPLOAD_FILES_CLICK);
     fileInput.current?.click();
   };
 
   const upload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
-    addAppEvent(AppEventEnum.START_UPLOAD_FILES);
+    appEvent(AppEventEnum.UPLOAD_FILES_START);
 
     const { files } = event.target;
 
@@ -55,6 +55,7 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId 
 
     await Promise.all(uploads);
     setLoading(false);
+    appEvent(AppEventEnum.UPLOAD_FILES_DONE);
   };
 
   return (

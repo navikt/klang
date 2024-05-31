@@ -7,8 +7,8 @@ import { displayBytes } from '@app/functions/display';
 import { isApiError, isError } from '@app/functions/is-api-error';
 import { isErrorMessageKey } from '@app/language/error-messages';
 import { useTranslation } from '@app/language/use-translation';
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addAppEvent } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
 import { DeleteAttachmentParams } from '@app/redux-api/case/params';
 import { Attachment } from '@app/redux-api/case/types';
 import { ExternalLink } from '../link/link';
@@ -31,7 +31,7 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
   const [attachmentErrors, setAttachmentErrors] = useState<FetchBaseQueryError[]>([]);
 
   const deleteAttachment = (attachmentId: number) => {
-    addAppEvent(AppEventEnum.DELETE_ATTACHMENT);
+    appEvent(AppEventEnum.ATTACHMENT_DELETE);
     onDelete({ caseId, attachmentId });
   };
 
@@ -49,7 +49,7 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
           <StyledListItem key={id}>
             <ExternalLink
               href={`${basePath}/${caseId}/vedlegg/${id}`}
-              onClick={() => addAppEvent(AppEventEnum.DOWNLOAD_ATTACHMENT)}
+              onClick={() => appEvent(AppEventEnum.ATTACHMENT_DOWNLOAD)}
             >
               <FileIcon contentType={contentType} />
               <span>
@@ -100,7 +100,7 @@ const ShowErrors = ({ errors, clear }: ShowErrorsProps) => {
 
   const clearErrors = () => {
     clear();
-    addAppEvent(AppEventEnum.CLEAR_ERRORS);
+    appEvent(AppEventEnum.CLEAR_ERRORS);
   };
 
   return (

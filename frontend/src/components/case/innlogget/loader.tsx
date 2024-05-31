@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { useTranslation } from '@app/language/use-translation';
-import { addErrorEvent, sendErrorReport } from '@app/logging/error-report/error-report';
+import { errorEvent } from '@app/logging/logger';
 import { useGetCaseQuery, useUpdateCaseMutation } from '@app/redux-api/case/api';
 import { Case } from '@app/redux-api/case/types';
 import { LoadingPage } from '../../loading-page/loading-page';
@@ -24,8 +24,7 @@ export const CaseLoader = ({ Component }: Props) => {
   useEffect(() => {
     if (typeof id !== 'string') {
       const e = new Error('ID is missing');
-      addErrorEvent(e.message, e.stack);
-      sendErrorReport();
+      errorEvent(e.message, e.stack);
       setError(klage_loader.format_error('INGEN', e));
 
       console.error('ID is missing');
@@ -40,8 +39,7 @@ export const CaseLoader = ({ Component }: Props) => {
 
     if (data === undefined) {
       const e = new Error('Case not found.');
-      addErrorEvent(e.message, e.stack);
-      sendErrorReport();
+      errorEvent(e.message, e.stack);
       setError(klage_loader.format_error(id, e));
 
       console.error('Case not found.');

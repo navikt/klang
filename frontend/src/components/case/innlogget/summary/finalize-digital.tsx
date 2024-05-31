@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useIsAuthenticated } from '@app/hooks/use-user';
 import { useTranslation } from '@app/language/use-translation';
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addAppEvent } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
 import { useFinalizeCaseMutation } from '@app/redux-api/case/api';
 import { Attachment, CaseStatus, CaseType } from '@app/redux-api/case/types';
 import { login } from '@app/user/login';
@@ -32,7 +32,7 @@ export const FinalizeDigitalCase = ({ setError, status, id, fritekst, type, vedl
 
   if (isAuthenticated === false) {
     const onClick = () => {
-      addAppEvent(AppEventEnum.LOGIN);
+      appEvent(AppEventEnum.USER_LOGIN);
       login();
     };
 
@@ -46,7 +46,7 @@ export const FinalizeDigitalCase = ({ setError, status, id, fritekst, type, vedl
   const submitForm = async (event: React.MouseEvent) => {
     event.preventDefault();
 
-    addAppEvent(AppEventEnum.FINALIZE);
+    appEvent(AppEventEnum.CASE_FINALIZE_CLICK);
 
     if (status === CaseStatus.DONE) {
       navigate(NEXT_PAGE_URL);
@@ -58,6 +58,7 @@ export const FinalizeDigitalCase = ({ setError, status, id, fritekst, type, vedl
 
     try {
       await finalizeKlage(id);
+      appEvent(AppEventEnum.CASE_FINALIZE_DONE);
       navigate(NEXT_PAGE_URL);
     } catch (e) {
       if (e instanceof Error) {

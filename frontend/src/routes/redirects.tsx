@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { LoadingPage } from '@app/components/loading-page/loading-page';
 import { useTranslation } from '@app/language/use-translation';
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addAppEvent } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
 import { useIsAuthenticatedQuery } from '@app/redux-api/user/api';
 import { login } from '@app/user/login';
 
@@ -17,7 +17,7 @@ export const UpgradeSession = () => {
 
   useEffect(() => {
     if (shouldUpgradeSession) {
-      addAppEvent(AppEventEnum.UPGRADE_SESSION);
+      appEvent(AppEventEnum.SESSION_UPGRADE);
       login();
     }
   }, [shouldUpgradeSession]);

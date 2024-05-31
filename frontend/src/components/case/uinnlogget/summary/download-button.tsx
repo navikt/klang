@@ -8,8 +8,8 @@ import { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { useInnsendingsytelseName } from '@app/hooks/use-innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addApiEvent, addAppEvent, addErrorEvent, sendErrorReport } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { apiEvent, appEvent, errorEvent } from '@app/logging/logger';
 import { CaseType } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
 
@@ -32,13 +32,15 @@ export const DownloadButton = ({ caseData, validForm }: Props) => {
       return;
     }
 
-    addAppEvent(AppEventEnum.DOWNLOAD);
+    appEvent(AppEventEnum.CASE_DOWNLOAD);
 
     setpdfLoading(true);
 
     try {
       const endpoint = `${API_PATH}/pdf/klanke`;
       const method = 'POST';
+
+      const startTime = performance.now();
 
       const res = await fetch(endpoint, {
         method,
@@ -55,20 +57,18 @@ export const DownloadButton = ({ caseData, validForm }: Props) => {
         a.href = URL.createObjectURL(blob);
         a.click();
 
-        addApiEvent(endpoint, method, res.status, `Successfully generated PDF for ${caseData.type}.`);
+        apiEvent(endpoint, method, startTime, res.status, `Successfully generated PDF for ${caseData.type}.`);
 
         navigate(NEXT_PAGE_URL);
       } else {
-        addApiEvent(endpoint, method, res.status, `Failed to generate PDF for ${caseData.type}.`);
-        sendErrorReport();
+        apiEvent(endpoint, method, startTime, res.status, `Failed to generate PDF for ${caseData.type}.`);
       }
     } catch (e) {
       if (e instanceof Error) {
-        addErrorEvent(`(${caseData.type}) ${e.message}`, e.stack);
+        errorEvent(`(${caseData.type}) ${e.message}`, e.stack);
       } else {
-        addErrorEvent(`Failed to generate PDF for ${caseData.type}.`);
+        errorEvent(`Failed to generate PDF for ${caseData.type}.`);
       }
-      sendErrorReport();
     }
 
     setpdfLoading(false);

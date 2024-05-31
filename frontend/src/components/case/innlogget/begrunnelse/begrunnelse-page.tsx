@@ -15,8 +15,8 @@ import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
 import { useUser } from '@app/hooks/use-user';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addAppEvent } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
 import { useDeleteAttachmentMutation, useDeleteCaseMutation, useUpdateCaseMutation } from '@app/redux-api/case/api';
 import { Case, CaseStatus, CaseType, CaseUpdatable } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
@@ -64,7 +64,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
   const submitKlage = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
 
-    addAppEvent(AppEventEnum.SUBMIT);
+    appEvent(AppEventEnum.CASE_SUBMIT);
 
     const [_isValid, _errors] = validate(data);
 
@@ -72,12 +72,12 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
     setIsValid(_isValid);
 
     if (!_isValid) {
-      addAppEvent(AppEventEnum.INVALID);
+      appEvent(AppEventEnum.CASE_INVALID);
 
       return;
     }
 
-    addAppEvent(AppEventEnum.VALID);
+    appEvent(AppEventEnum.CASE_VALID);
 
     navigate(NEXT_PAGE_URL);
   };
