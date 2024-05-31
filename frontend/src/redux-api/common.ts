@@ -1,6 +1,6 @@
 import { FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { isNotUndefined } from '@app/functions/is-not-type-guards';
-import { addApiEvent, sendErrorReport } from '@app/logging/error-report/error-report';
+import { apiEvent } from '@app/logging/logger';
 
 const IS_LOCALHOST = window.location.hostname === 'localhost';
 
@@ -15,6 +15,7 @@ const staggeredBaseQuery = (baseUrl: string) => {
 
   return retry(
     async (args: string | FetchArgs, api, extraOptions) => {
+      const startTime = performance.now();
       const result = await fetch(args, api, extraOptions);
 
       const argsIsString = typeof args === 'string';
@@ -25,16 +26,15 @@ const staggeredBaseQuery = (baseUrl: string) => {
       const title = hasData ? 'title' in data && data.title : undefined;
       const detail = hasData ? 'detail' in data && data.detail : undefined;
 
-      addApiEvent(
+      const message = [title, detail].filter(isNotUndefined).join(' - ');
+
+      apiEvent(
         argsIsString ? args : args.url,
         argsIsString ? 'GET' : args.method ?? 'GET',
+        startTime,
         result.meta?.response?.status ?? result.error?.status,
-        [title, detail].filter(isNotUndefined).join(' - '),
+        message.length === 0 ? undefined : message,
       );
-
-      if (result.meta?.response?.ok !== true) {
-        sendErrorReport();
-      }
 
       if (result.error === undefined) {
         return result;

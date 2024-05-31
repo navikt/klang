@@ -6,8 +6,8 @@ import { ISODate, isoDateToPretty } from '@app/domain/date/date';
 import { Envelope } from '@app/icons/envelope';
 import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useTranslation } from '@app/language/use-translation';
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addAppEvent } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
 import { CaseType } from '@app/redux-api/case/types';
 import { CenteredContainer } from '@app/styled-components/common';
 import { CenteredHeading } from '@app/styled-components/page-title';
@@ -65,7 +65,7 @@ export const Journalpost = ({ caseId, finalizedDate, basePath, type }: Journalpo
   return (
     <>
       <BodyShort>
-        <ExternalLink href={`${basePath}/${caseId}/pdf`} onClick={() => addAppEvent(AppEventEnum.DOWNLOAD)}>
+        <ExternalLink href={`${basePath}/${caseId}/pdf`} onClick={() => appEvent(AppEventEnum.CASE_DOWNLOAD)}>
           <DownloadIcon aria-hidden />
           <span>{skjema.kvittering.download[type]}</span>
         </ExternalLink>

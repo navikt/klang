@@ -10,8 +10,8 @@ import { useSessionCaseErrors } from '@app/hooks/errors/use-session-case-errors'
 import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addAppEvent } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
 import { useAppDispatch } from '@app/redux/configure-store';
 import { deleteSessionCase, updateSessionCase } from '@app/redux/session/session';
 import { CaseType } from '@app/redux-api/case/types';
@@ -66,7 +66,7 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
 
   const submitKlage = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    addAppEvent(AppEventEnum.SUBMIT);
+    appEvent(AppEventEnum.CASE_SUBMIT);
 
     const [_isValid, _errors] = validate(data);
 
@@ -74,7 +74,7 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
     setIsValid(_isValid);
 
     if (!_isValid) {
-      addAppEvent(AppEventEnum.INVALID);
+      appEvent(AppEventEnum.CASE_INVALID);
 
       return;
     }

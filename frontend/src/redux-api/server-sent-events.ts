@@ -1,5 +1,5 @@
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addApiEvent, addAppEvent } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { apiEvent, appEvent } from '@app/logging/logger';
 import { userApi } from './user/api';
 
 export enum ServerSentEventType {
@@ -37,7 +37,7 @@ export class ServerSentEventManager {
 
   public addEventListener(eventName: ServerSentEventType, listener: ListenerFn<ServerSentEvent>) {
     const eventListener: EventListenerFn = (event) => {
-      addAppEvent(AppEventEnum.SSE_EVENT_RECEIVED);
+      appEvent(AppEventEnum.SSE_EVENT_RECEIVED);
 
       if (isServerSentEvent(event)) {
         this.lastEventId = event.lastEventId;
@@ -58,13 +58,15 @@ export class ServerSentEventManager {
   }
 
   private async preflight(url: string): Promise<boolean> {
+    const startTime = performance.now();
+
     try {
       const { status } = await fetch(url, { method: 'GET' });
-      addApiEvent(url, 'GET', status, 'Preflight for SSE connection.');
+      apiEvent(url, 'GET', status, 'Preflight for SSE connection.');
 
       return status >= 200 && status < 400;
     } catch {
-      addApiEvent(url, 'GET', 'NETWORK_ERROR', 'Preflight for SSE connection failed.');
+      apiEvent(url, 'GET', startTime, 'NETWORK_ERROR', 'Preflight for SSE connection failed.');
 
       return false;
     }
@@ -76,7 +78,7 @@ export class ServerSentEventManager {
     const events = new EventSource(url);
 
     events.addEventListener('error', () => {
-      addAppEvent(AppEventEnum.SSE_ERROR);
+      appEvent(AppEventEnum.SSE_ERROR);
 
       if (events.readyState !== EventSource.CLOSED) {
         return;
@@ -100,7 +102,7 @@ export class ServerSentEventManager {
     });
 
     events.addEventListener('open', () => {
-      addAppEvent(AppEventEnum.SSE_OPEN);
+      appEvent(AppEventEnum.SSE_OPEN);
       this.listeners.forEach(([event, listener]) => events.addEventListener(event, listener));
       this.isConnected = true;
       this.connectionListeners.forEach((listener) => listener(this.isConnected));
@@ -110,7 +112,7 @@ export class ServerSentEventManager {
   }
 
   public close() {
-    addAppEvent(AppEventEnum.SSE_CLOSE);
+    appEvent(AppEventEnum.SSE_CLOSE);
     this.events?.close();
     this.removeAllEventListeners();
   }

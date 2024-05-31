@@ -2,8 +2,8 @@ import { NavigateFunction } from 'react-router-dom';
 import { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { Languages } from '@app/language/types';
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addAppEvent } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
 import { AppDispatch } from '@app/redux/configure-store';
 import { createSessionCase } from '@app/redux/session/klage/helpers';
 import { deleteSessionCase, setSessionCase, updateSessionCase } from '@app/redux/session/session';
@@ -34,7 +34,7 @@ export const handleSessionCase = ({
   dispatch,
 }: IHandleSession) => {
   if (sessionCase === null) {
-    addAppEvent(AppEventEnum.CREATE_SESSION_CASE);
+    appEvent(AppEventEnum.CASE_CREATE_SESSION);
     dispatch(
       setSessionCase({
         type,
@@ -43,10 +43,10 @@ export const handleSessionCase = ({
       }),
     );
   } else if (internalSaksnummer !== null && internalSaksnummer !== sessionCase.internalSaksnummer) {
-    addAppEvent(AppEventEnum.RESUME_SESSION_CASE_WITH_SAKSNUMMER);
+    appEvent(AppEventEnum.CASE_RESUME_SESSION_WITH_SAKSNUMMER);
     dispatch(updateSessionCase({ type, innsendingsytelse: ytelse, data: { internalSaksnummer } }));
   } else {
-    addAppEvent(AppEventEnum.RESUME_SESSION_CASE);
+    appEvent(AppEventEnum.CASE_RESUME_SESSION);
   }
 
   navigate(`/${language}/${CASE_TYPE_PATH_SEGMENTS[type]}/${ytelse}/begrunnelse`, { replace: true });
@@ -67,7 +67,7 @@ export const handleCreateCase = ({
   dispatch,
   navigate,
 }: IHandleCreate) => {
-  addAppEvent(AppEventEnum.CREATE_CASE_FROM_SESSION_STORAGE);
+  appEvent(AppEventEnum.CASE_CREATE_FROM_SESSION_STORAGE);
   createCase(getCreatePayload(sessionCase, language, internalSaksnummer))
     .unwrap()
     .then(({ id }) => {
@@ -90,7 +90,7 @@ export const handleResumeOrCreateCase = ({
   navigate,
   resumeOrCreateCase,
 }: IHandleResumeOrCreate) => {
-  addAppEvent(AppEventEnum.CREATE_OR_RESUME_CASE);
+  appEvent(AppEventEnum.CASE_CREATE_OR_RESUME);
   resumeOrCreateCase({ innsendingsytelse, internalSaksnummer, type })
     .unwrap()
     .then(({ id }) => navigate(`/${language}/sak/${id}/begrunnelse`, { replace: true }));

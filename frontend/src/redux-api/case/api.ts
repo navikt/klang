@@ -1,4 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
 import {
   CreateCaseParams,
   DeleteAttachmentParams,
@@ -34,6 +36,7 @@ export const caseApi = createApi({
             if (event.data.length !== 0) {
               updateCachedData((draft) => ({ ...draft, journalpostId: event.data }));
               events.close();
+              appEvent(AppEventEnum.CASE_JOURNALFØRT);
             }
           });
 

@@ -2,8 +2,8 @@ import { Button, Checkbox, CheckboxGroup, ReadMore } from '@navikt/ds-react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@app/language/use-translation';
-import { AppEventEnum } from '@app/logging/error-report/action';
-import { addAppEvent } from '@app/logging/error-report/error-report';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
 import { useUpdateCaseMutation } from '@app/redux-api/case/api';
 import { CenteredContainer } from '@app/styled-components/common';
 
@@ -26,7 +26,7 @@ export const PdfLink = ({ text, show, hasUploadedVedlegg, href, id, hasVedlegg }
   }
 
   const onClick = () => {
-    addAppEvent(AppEventEnum.DOWNLOAD);
+    appEvent(AppEventEnum.CASE_DOWNLOAD);
     navigate('../innsending');
   };
 
