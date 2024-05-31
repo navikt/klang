@@ -2,8 +2,9 @@ import { Express, static as expressStatic } from 'express';
 import { frontendDistDirectoryPath } from '@app/config/config';
 import { redirectMiddleware } from '@app/middleware/redirect/redirect';
 import { sessionIdMiddleware } from '@app/middleware/session-id';
+import { frontendLog } from '@app/routes/frontend-log';
 import { serverConfig } from './config/server-config';
-import { getLogger } from './logger';
+import { getLogger } from './logger/logger';
 import { appHandler } from './routes/app-handler';
 import { errorReporter } from './routes/error-report';
 import { setupProxy } from './routes/setup-proxy';
@@ -24,6 +25,7 @@ export const init = async (server: Express) => {
         res.redirect('/oauth2/login?redirect=/');
       }
     });
+    server.use(frontendLog());
     server.use(errorReporter());
     server.use(await setupProxy());
     server.get('/favicon.ico', (req, _, next) => {
@@ -34,15 +36,15 @@ export const init = async (server: Express) => {
     server.use(sessionIdMiddleware);
     server.use(redirectMiddleware);
     server.get('*', appHandler);
-    server.listen(PORT, () => log.info({ msg: `Listening on port ${PORT}` }));
+    server.listen(PORT, () => log.info({ message: `Listening on port ${PORT}` }));
   } catch (e) {
     if (e instanceof Error) {
-      log.error({ error: e, msg: 'Server crashed' });
+      log.error({ error: e, message: 'Server crashed' });
       await sendToSlack(`Server crashed: ${e.message}`, EmojiIcons.Scream);
     } else if (typeof e === 'string' || typeof e === 'number') {
-      const msg = `Server crashed: ${JSON.stringify(e)}`;
-      log.error({ msg });
-      await sendToSlack(msg, EmojiIcons.Scream);
+      const message = `Server crashed: ${JSON.stringify(e)}`;
+      log.error({ message });
+      await sendToSlack(message, EmojiIcons.Scream);
     }
 
     process.exit(1);

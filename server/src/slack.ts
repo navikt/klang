@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { slack } from './config/config';
 import { ENVIRONMENT, isDeployed } from './config/env';
-import { getLogger } from './logger';
+import { getLogger } from './logger/logger';
 
 const log = getLogger('slack');
 
@@ -13,8 +13,8 @@ export enum EmojiIcons {
 const { url, channel, messagePrefix } = slack;
 const isConfigured = typeof url === 'string' && url.length !== 0;
 
-export const sendToSlack = async (message: string, icon_emoji: EmojiIcons) => {
-  const text = `[${ENVIRONMENT}] ${messagePrefix} ${message}`;
+export const sendToSlack = async (slackMessage: string, icon_emoji: EmojiIcons) => {
+  const text = `[${ENVIRONMENT}] ${messagePrefix} ${slackMessage}`;
 
   if (!isDeployed || !isConfigured) {
     return;
@@ -30,14 +30,14 @@ export const sendToSlack = async (message: string, icon_emoji: EmojiIcons) => {
     method: 'POST',
     body,
   }).catch((error: unknown) => {
-    const msg = `Failed to send message to Slack. Message: '${text}'`;
+    const message = `Failed to send message to Slack. Message: '${text}'`;
 
     // Don't log the error object since it contains webhook URL
     if (error instanceof Error) {
-      log.error({ msg: scrubWebhookUrl(`${msg} - ${error.name}: ${error.message}`) });
+      log.error({ message: scrubWebhookUrl(`${message} - ${error.name}: ${error.message}`) });
     }
 
-    log.error({ msg: scrubWebhookUrl(msg) });
+    log.error({ message: scrubWebhookUrl(message) });
   });
 };
 

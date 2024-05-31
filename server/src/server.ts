@@ -3,7 +3,7 @@ import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
 import { DOMAIN, isDeployed, isDeployedToProd } from './config/env';
 import { init } from './init';
-import { getLogger, httpLoggingMiddleware } from './logger';
+import { getLogger, httpLoggingMiddleware } from './logger/logger';
 import { processErrors } from './process-errors';
 import { metricsMiddleware } from './prometheus/middleware';
 import { indexFile } from './routes/index-file';
@@ -14,7 +14,7 @@ processErrors();
 const log = getLogger('server');
 
 if (isDeployed) {
-  log.info({ msg: 'Started!' });
+  log.info({ message: 'Started!' });
   sendToSlack('Started!', EmojiIcons.StartStruck);
 }
 
