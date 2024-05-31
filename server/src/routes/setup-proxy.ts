@@ -4,7 +4,7 @@ import { Router } from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { OBO_CLIENT_IDS, PROXIED_CLIENT_IDS } from '@app/config/config';
 import { setOboToken } from '@app/functions/set-obo';
-import { getLogger } from '@app/logger';
+import { getLogger } from '@app/logger/logger';
 
 const log = getLogger('proxy');
 
@@ -30,7 +30,7 @@ export const setupProxy = async () => {
         error: (error, req, res) => {
           if (!isServerResponse(res)) {
             log.error({
-              msg: 'Response is not a ServerResponse.',
+              message: 'Response is not a ServerResponse.',
               error,
               data: { appName, url: req.url, method: req.method },
             });
@@ -40,7 +40,7 @@ export const setupProxy = async () => {
 
           if (res.headersSent) {
             log.error({
-              msg: 'Headers already sent.',
+              message: 'Headers already sent.',
               error,
               data: {
                 appName,
@@ -57,7 +57,7 @@ export const setupProxy = async () => {
           const body = JSON.stringify({ error: `Failed to connect to API. Reason: ${error.message}` });
           res.end(body);
           log.error({
-            msg: 'Failed to connect to API.',
+            message: 'Failed to connect to API.',
             error,
             data: { appName, url: req.url, method: req.method },
           });

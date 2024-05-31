@@ -1,4 +1,4 @@
-import { getLogger } from '@app/logger';
+import { getLogger } from '@app/logger/logger';
 
 const log = getLogger('auth');
 
@@ -22,13 +22,13 @@ setInterval(
     const after = oboCache.size;
 
     if (deleted === 0) {
-      log.debug({ msg: `Cleaned the OBO token cache. No expired tokens found. Cache had ${before} tokens.` });
+      log.debug({ message: `Cleaned the OBO token cache. No expired tokens found. Cache had ${before} tokens.` });
 
       return;
     }
 
     log.debug({
-      msg: `Cleaned the OBO token cache. Deleted ${deleted} expired tokens. Cache had ${before} tokens, ${after} remaining.`,
+      message: `Cleaned the OBO token cache. Deleted ${deleted} expired tokens. Cache had ${before} tokens, ${after} remaining.`,
     });
   },
   10 * 60 * 1000,

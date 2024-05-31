@@ -1,6 +1,6 @@
 import { Client, GrantBody } from 'openid-client';
 import { serverConfig } from '@app/config/server-config';
-import { getLogger } from '@app/logger';
+import { getLogger } from '@app/logger/logger';
 import { now, oboCache } from './on-behalf-of-cache';
 
 const log = getLogger('auth');

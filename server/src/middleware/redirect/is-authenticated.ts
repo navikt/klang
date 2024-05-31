@@ -1,6 +1,6 @@
 import { KLAGE_DITTNAV_API_CLIENT_ID } from '@app/config/config';
 import { setOboToken } from '@app/functions/set-obo';
-import { getLogger } from '@app/logger';
+import { getLogger } from '@app/logger/logger';
 import { noRedirect } from '@app/middleware/redirect/redirect-functions';
 import { Request, Response } from '@app/types/http';
 
@@ -33,7 +33,7 @@ export const ensureAuthentication = async (req: Request, res: Response, next: ()
 
     if (!response.ok) {
       log.warn({
-        msg: `Auth service responded with error status (${response.status}). Assuming user is not authenticated.`,
+        message: `Auth service responded with error status (${response.status}). Assuming user is not authenticated.`,
         data: { status: response.status, url: req.url, authenticated: false },
       });
 
@@ -46,7 +46,7 @@ export const ensureAuthentication = async (req: Request, res: Response, next: ()
 
     if (!auth.authenticated) {
       log.warn({
-        msg: 'User is not authenticated',
+        message: 'User is not authenticated',
         data: { status: response.status, url: req.url, ...auth },
       });
 
@@ -55,11 +55,11 @@ export const ensureAuthentication = async (req: Request, res: Response, next: ()
       return;
     }
 
-    log.debug({ msg: 'User is authenticated', data: { url: req.url, ...auth } });
+    log.debug({ message: 'User is authenticated', data: { url: req.url, ...auth } });
   } catch (error) {
     log.error({
       error,
-      msg: 'Could not reach auth service. Failed to check if user is authenticated.',
+      message: 'Could not reach auth service. Failed to check if user is authenticated.',
       data: { url: req.url, authenticated: false },
     });
 

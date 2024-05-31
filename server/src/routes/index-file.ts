@@ -4,7 +4,7 @@ import { injectDecoratorServerSide } from '@navikt/nav-dekoratoren-moduler/ssr';
 import { frontendDistDirectoryPath } from '@app/config/config';
 import { ENVIRONMENT, isDeployedToProd } from '@app/config/env';
 import { VERSION } from '@app/config/version';
-import { getLogger } from '@app/logger';
+import { getLogger } from '@app/logger/logger';
 import { EmojiIcons, sendToSlack } from '@app/slack';
 
 const log = getLogger('index-file');
@@ -59,13 +59,13 @@ class IndexFile {
       this._indexFile = indexHtml.replace('{{ENVIRONMENT}}', ENVIRONMENT).replace('{{VERSION}}', VERSION);
 
       log.debug({
-        msg: `Successfully updated index.html with Dekoratøren and variables.`,
+        message: `Successfully updated index.html with Dekoratøren and variables.`,
         data: { responseTime: Math.round(end - start) },
       });
     } catch (error) {
-      log.error({ error, msg: 'Failed to update index.html with Dekoratøren and variables' });
-      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
-      sendToSlack(`Error when generating index file: ${errorMsg}`, EmojiIcons.Scream);
+      log.error({ error, message: 'Failed to update index.html with Dekoratøren and variables' });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      sendToSlack(`Error when generating index file: ${errorMessage}`, EmojiIcons.Scream);
     }
 
     return this;

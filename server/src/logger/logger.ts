@@ -17,30 +17,32 @@ type SerializableValue =
   | undefined
   | undefined[];
 
-export interface AnyObject {
+export interface SerializableObject {
   [key: string]: SerializableValue;
 }
 
-type LogArgs =
-  | {
-      msg?: string;
-      error: Error | unknown;
-      data?: SerializableValue | AnyObject;
-    }
-  | {
-      msg: string;
-      error?: Error | unknown;
-      data?: SerializableValue | AnyObject;
-    };
-
-interface Logger {
-  debug: (args: LogArgs) => void;
-  info: (args: LogArgs) => void;
-  warn: (args: LogArgs) => void;
-  error: (args: LogArgs) => void;
+interface MessageLog {
+  message: string;
+  error?: Error | unknown;
+  data?: SerializableValue | SerializableObject;
 }
 
-interface Log extends AnyObject {
+interface ErrorLog {
+  message?: string;
+  error: Error | unknown;
+  data?: SerializableValue | SerializableObject;
+}
+
+type ServerLog = MessageLog | ErrorLog;
+
+interface Logger {
+  debug: (args: ServerLog) => void;
+  info: (args: ServerLog) => void;
+  warn: (args: ServerLog) => void;
+  error: (args: ServerLog) => void;
+}
+
+interface Log extends SerializableObject {
   '@timestamp': string;
   version: string;
   module: string;
@@ -48,28 +50,33 @@ interface Log extends AnyObject {
   stacktrace?: string;
 }
 
-type Level = 'debug' | 'info' | 'warn' | 'error';
+export enum Level {
+  DEBUG = 'debug',
+  INFO = 'info',
+  WARN = 'warn',
+  ERROR = 'error',
+}
 
-export const getLogger = (module: string): Logger => {
-  const cachedLogger = LOGGERS.get(module);
+export const getLogger = (moduleName: string): Logger => {
+  const cachedLogger = LOGGERS.get(moduleName);
 
-  if (typeof cachedLogger !== 'undefined') {
+  if (cachedLogger !== undefined) {
     return cachedLogger;
   }
 
   const logger: Logger = {
-    debug: (args) => console.debug(getLog(module, 'debug', args)),
-    info: (args) => console.info(getLog(module, 'info', args)),
-    warn: (args) => console.warn(getLog(module, 'warn', args)),
-    error: (args) => console.warn(getLog(module, 'error', args)),
+    debug: (args) => console.debug(getLog(moduleName, Level.DEBUG, args)),
+    info: (args) => console.info(getLog(moduleName, Level.INFO, args)),
+    warn: (args) => console.warn(getLog(moduleName, Level.WARN, args)),
+    error: (args) => console.warn(getLog(moduleName, Level.ERROR, args)),
   };
 
-  LOGGERS.set(module, logger);
+  LOGGERS.set(moduleName, logger);
 
   return logger;
 };
 
-const getLog = (module: string, level: Level, { msg, error, data }: LogArgs) => {
+const getLog = (module: string, level: Level, { message, error, data }: ServerLog) => {
   const log: Log = {
     level,
     '@timestamp': new Date().toISOString(),
@@ -95,9 +102,9 @@ const getLog = (module: string, level: Level, { msg, error, data }: LogArgs) => 
 
   if (error instanceof Error) {
     log.stacktrace = error.stack;
-    log.message = typeof msg === 'string' ? `${msg} - ${error.name}: ${error.message}` : error.message;
+    log.message = typeof message === 'string' ? `${message} - ${error.name}: ${error.message}` : error.message;
   } else {
-    log.message = msg;
+    log.message = message;
   }
 
   return JSON.stringify(log);
@@ -134,7 +141,7 @@ export const httpLoggingMiddleware: RequestHandler = (req, res, next) => {
   next();
 };
 
-interface HttpData extends AnyObject {
+interface HttpData extends SerializableObject {
   method: string;
   url: string;
   statusCode: number;
@@ -144,19 +151,19 @@ interface HttpData extends AnyObject {
 }
 
 const logHttpRequest = (data: HttpData) => {
-  const msg = `${data.statusCode} ${data.method} ${data.url}`;
+  const message = `${data.statusCode} ${data.method} ${data.url}`;
 
   if (data.statusCode >= 500) {
-    httpLogger.error({ msg, data });
+    httpLogger.error({ message, data });
 
     return;
   }
 
   if (data.statusCode >= 400) {
-    httpLogger.warn({ msg, data });
+    httpLogger.warn({ message, data });
 
     return;
   }
 
-  httpLogger.debug({ msg, data });
+  httpLogger.debug({ message, data });
 };

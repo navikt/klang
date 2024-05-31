@@ -29,7 +29,7 @@ export const redirectToExternalKlagePage = (req: Request, res: Response) => {
   };
 
   log.warn({
-    msg: `Invalid URL. Redirecting to external URL ${YTELSE_OVERVIEW_URL}`,
+    message: `Invalid URL. Redirecting to external URL ${YTELSE_OVERVIEW_URL}`,
     data: { ...shared, url: req.url, redirected_from, reason: 'invalid', session_id: res.locals.sessionId },
   });
 
@@ -54,7 +54,7 @@ export const redirectToInternalPage = (req: Request, res: Response, path: string
   };
 
   log.warn({
-    msg: `Redirecting to internal path ${path_with_saksnummer}`,
+    message: `Redirecting to internal path ${path_with_saksnummer}`,
     data: {
       ...shared,
       url: req.url,

@@ -1,6 +1,6 @@
 import { getOnBehalfOfAccessToken } from '@app/auth/on-behalf-of';
 import { TokenXClient } from '@app/auth/token-x-client';
-import { getLogger } from '@app/logger';
+import { getLogger } from '@app/logger/logger';
 import { Request } from '@app/types/http';
 
 const log = getLogger('obo-token');
@@ -16,7 +16,7 @@ export const setOboToken = async (req: Request, appName: string) => {
       req.headers['idporten-token'] = tokenXtoken;
     } catch (error) {
       log.warn({
-        msg: `Failed to prepare request with OBO token for route ${appName}`,
+        message: `Failed to prepare request with OBO token for route ${appName}`,
         error,
         data: { appName },
       });
