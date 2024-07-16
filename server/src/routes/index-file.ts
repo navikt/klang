@@ -46,7 +46,7 @@ class IndexFile {
         params: {
           simple: true,
           chatbot: true,
-          redirectToApp: false,
+          redirectToApp: true,
           logoutUrl: '/oauth2/logout',
           context: 'privatperson',
           level: 'Level4',

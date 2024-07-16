@@ -13,7 +13,7 @@ if (ENVIRONMENT.isLocal) {
     params: {
       simple: true,
       chatbot: true,
-      redirectToApp: false,
+      redirectToApp: true,
       logoutUrl: '/oauth2/logout',
       logoutWarning: true,
     },
