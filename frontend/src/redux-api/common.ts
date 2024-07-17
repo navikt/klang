@@ -30,7 +30,7 @@ const staggeredBaseQuery = (baseUrl: string) => {
 
       apiEvent(
         argsIsString ? args : args.url,
-        argsIsString ? 'GET' : args.method ?? 'GET',
+        argsIsString ? 'GET' : (args.method ?? 'GET'),
         startTime,
         result.meta?.response?.status ?? result.error?.status,
         message.length === 0 ? undefined : message,
