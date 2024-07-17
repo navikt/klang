@@ -1,4 +1,4 @@
-import { BodyLong, Button, GuidePanel } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, GuidePanel } from '@navikt/ds-react';
 import { parseISO } from 'date-fns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -140,6 +140,8 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
           error={errors[FormFieldsIds.CASE_IS_AT_KA]}
         />
       ) : null}
+
+      {!isKlage ? <Alert variant="info">{skjema.begrunnelse.klageenhet.choose_enhet_explanation}</Alert> : null}
 
       <DebouncedSaksnummer
         value={data.userSaksnummer}
