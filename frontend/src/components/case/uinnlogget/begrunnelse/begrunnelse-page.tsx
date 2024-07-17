@@ -1,4 +1,4 @@
-import { BodyLong, Button, Checkbox, CheckboxGroup, GuidePanel } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, Checkbox, CheckboxGroup, GuidePanel } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -130,6 +130,8 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
           error={errors[FormFieldsIds.CASE_IS_AT_KA]}
         />
       ) : null}
+
+      {!isKlage ? <Alert variant="info">{skjema.begrunnelse.klageenhet.choose_enhet_explanation}</Alert> : null}
 
       <Saksnummer
         internalSaksnummer={data.internalSaksnummer}

@@ -89,6 +89,8 @@ export const en: Translations = {
       klageenhet: {
         radio_title:
           'Have you received a letter from NAV Klageinstans or another unit in NAV stating that your case has been sent to NAV Klageinstans?',
+        choose_enhet_explanation:
+          'If the letter asks you to choose the correct unit, you can ignore it. We will send to the correct unit.',
       },
       begrunnelse_text: {
         title: {
