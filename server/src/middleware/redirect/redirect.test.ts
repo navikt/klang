@@ -1,4 +1,4 @@
-import { describe, expect, it, jest } from '@jest/globals';
+import { describe, expect, it, jest } from 'bun:test';
 import { redirectMiddleware } from '@app/middleware/redirect/redirect';
 import { Request, Response } from '@app/types/http';
 

@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it } from 'bun:test';
 import { removeSaksnummer } from '@app/middleware/redirect/functions';
 
 describe('redirect', () => {
