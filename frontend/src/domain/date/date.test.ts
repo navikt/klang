@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it } from 'bun:test';
 import { isoDateTimeToPretty, isoDateToPretty, isoTimeToPretty, prettyDateToISO } from './date';
 
 describe('iSO dates should be pretty formatted', () => {

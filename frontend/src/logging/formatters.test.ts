@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it } from 'bun:test';
 import { formatSessionTime } from './formatters';
 
 describe('formatted session time should be formatted correctly', () => {
