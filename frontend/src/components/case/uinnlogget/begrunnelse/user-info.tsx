@@ -1,5 +1,4 @@
 import { TextField } from '@navikt/ds-react';
-import React from 'react';
 import { styled } from 'styled-components';
 import { ErrorState } from '@app/hooks/errors/types';
 import { useTranslation } from '@app/language/use-translation';

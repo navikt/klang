@@ -1,6 +1,6 @@
 import { Alert } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { useTranslation } from '@app/language/use-translation';

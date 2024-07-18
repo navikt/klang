@@ -1,5 +1,4 @@
 import { FileTextIcon, ImageIcon } from '@navikt/aksel-icons';
-import React from 'react';
 
 interface FileIconProps {
   contentType: string;

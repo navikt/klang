@@ -1,5 +1,4 @@
 import { BodyShort } from '@navikt/ds-react';
-import React from 'react';
 import { displayFnr } from '@app/functions/display';
 import { useTranslation } from '@app/language/use-translation';
 import { SpaceBetweenFlexListContainer } from '@app/styled-components/common';

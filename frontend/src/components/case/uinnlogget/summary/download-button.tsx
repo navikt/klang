@@ -1,7 +1,7 @@
 import { DownloadIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import { format } from 'date-fns';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { ISessionCase } from '@app/components/case/uinnlogget/types';

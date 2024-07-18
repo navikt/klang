@@ -1,6 +1,6 @@
 import { PencilIcon } from '@navikt/aksel-icons';
 import { BodyShort, Button, Label, TextField } from '@navikt/ds-react';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { useTranslation } from '@app/language/use-translation';

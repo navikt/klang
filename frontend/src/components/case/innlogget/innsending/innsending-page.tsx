@@ -1,4 +1,3 @@
-import React from 'react';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
 import { Case } from '@app/redux-api/case/types';

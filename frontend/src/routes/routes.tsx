@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { CaseBegrunnelsePage } from '@app/components/case/innlogget/begrunnelse/begrunnelse-page';
 import { CaseInnsendingPage } from '@app/components/case/innlogget/innsending/innsending-page';

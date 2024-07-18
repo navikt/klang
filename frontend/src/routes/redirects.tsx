@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { LoadingPage } from '@app/components/loading-page/loading-page';
 import { useTranslation } from '@app/language/use-translation';

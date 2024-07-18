@@ -1,6 +1,5 @@
 import { Link } from '@navikt/ds-react';
 import { format } from 'date-fns';
-import React from 'react';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
 import { ExternalLink } from '@app/components/link/link';

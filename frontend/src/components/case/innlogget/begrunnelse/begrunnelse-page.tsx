@@ -1,6 +1,6 @@
 import { Alert, BodyLong, Button, GuidePanel } from '@navikt/ds-react';
 import { parseISO } from 'date-fns';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AttachmentsSection } from '@app/components/attachments/attachments';
 import { EttersendelseKaEnhet } from '@app/components/case/common/ettersendelse-ka-enhet';

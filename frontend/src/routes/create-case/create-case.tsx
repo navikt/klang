@@ -1,5 +1,4 @@
 import { Alert } from '@navikt/ds-react';
-import React from 'react';
 import { LoadingPage } from '@app/components/loading-page/loading-page';
 import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { CaseType } from '@app/redux-api/case/types';

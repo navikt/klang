@@ -1,5 +1,4 @@
 import { skipToken } from '@reduxjs/toolkit/query';
-import React from 'react';
 import { useInnsendingsytelseName } from '@app/hooks/use-innsendingsytelser';
 import { usePageInit } from '@app/hooks/use-page-init';
 import { useIsAuthenticated } from '@app/hooks/use-user';

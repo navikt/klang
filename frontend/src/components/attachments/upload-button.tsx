@@ -1,7 +1,7 @@
 import { UploadIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { styled } from 'styled-components';
 import { isError } from '@app/functions/is-api-error';
 import { useTranslation } from '@app/language/use-translation';

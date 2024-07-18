@@ -1,5 +1,5 @@
 import { BodyLong, Button, ErrorMessage, Heading, Panel } from '@navikt/ds-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';

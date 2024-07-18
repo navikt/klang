@@ -1,5 +1,5 @@
 import { format, isEqual, parse } from 'date-fns';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FORMAT } from '@app/components/date-picker/constants';
 import { ISODate } from '@app/domain/date/date';
 import { useTranslation } from '@app/language/use-translation';

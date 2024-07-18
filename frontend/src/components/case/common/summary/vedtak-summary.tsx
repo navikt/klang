@@ -1,5 +1,5 @@
 import { BodyShort } from '@navikt/ds-react';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { ISODate, isoDateToPretty } from '@app/domain/date/date';
 import { useTranslation } from '@app/language/use-translation';

@@ -1,5 +1,4 @@
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
-import React from 'react';
 import { useTranslation } from '@app/language/use-translation';
 import { CaseType, Reason } from '@app/redux-api/case/types';
 

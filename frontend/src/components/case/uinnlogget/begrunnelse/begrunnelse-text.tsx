@@ -1,5 +1,4 @@
 import { Textarea, TextareaProps } from '@navikt/ds-react';
-import React from 'react';
 import { CaseType } from '@app/redux-api/case/types';
 import { FormFieldsIds } from '../../common/form-fields-ids';
 
