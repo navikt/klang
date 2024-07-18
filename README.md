@@ -5,9 +5,18 @@ Digital innsending av klager og anker. Samt ettersendelse.
 
 # Komme i gang
 
+## Autorisering mot @navikt-NPM-registeret
+1. Lag et Personal Access Token (PAT) med scope: `read:packages`. _PAT-en må være autorisert for organisasjonen `navikt`._
+2. Sett verdien i miljøvariabelen NODE_AUTH_TOKEN
+
+### Referanser
+- https://github.com/navikt/nav-dekoratoren-moduler?tab=readme-ov-file#kom-i-gang
+- https://bun.sh/docs/install/registries
+
+
 ```
-npm i
-npm start
+bun i
+bun start
 ```
 
 ## Miljøer
