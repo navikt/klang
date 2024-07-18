@@ -4,7 +4,7 @@ import { indexFile } from './index-file';
 
 const log = getLogger('static-routes');
 
-export const appHandler: Handler = (req, res) => {
+export const appHandler: Handler = (_, res) => {
   try {
     res.setHeader('Content-Type', 'text/html');
     res.send(indexFile.indexFile);

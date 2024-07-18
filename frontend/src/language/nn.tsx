@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Link } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { Link as ReactRouterLink } from 'react-router-dom';

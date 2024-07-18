@@ -14,7 +14,7 @@ export const setupProxy = async () => {
   OBO_CLIENT_IDS.forEach((appName) => {
     const route = `/api/${appName}`;
 
-    router.use(route, async (req, res, next) => {
+    router.use(route, async (req, _, next) => {
       await setOboToken(req, appName);
       next();
     });
