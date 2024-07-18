@@ -1,6 +1,6 @@
 import { EnterIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useIsAuthenticated } from '@app/hooks/use-user';

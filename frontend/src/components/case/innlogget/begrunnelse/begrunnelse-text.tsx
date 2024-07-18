@@ -1,5 +1,5 @@
 import { Textarea, TextareaProps } from '@navikt/ds-react';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AutosaveProgressIndicator } from '@app/components/autosave-progress/autosave-progress';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { useOnUnmount } from '@app/hooks/use-on-unmount';

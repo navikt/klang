@@ -1,7 +1,7 @@
 import { TrashIcon, XMarkIcon } from '@navikt/aksel-icons';
 import { Alert, BodyLong, Button, ErrorMessage, ErrorSummary, Label } from '@navikt/ds-react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { styled } from 'styled-components';
 import { displayBytes } from '@app/functions/display';
 import { isApiError, isError } from '@app/functions/is-api-error';

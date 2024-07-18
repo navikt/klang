@@ -1,4 +1,3 @@
-import React from 'react';
 import { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
 import { useSessionCaseErrors } from '@app/hooks/errors/use-session-case-errors';

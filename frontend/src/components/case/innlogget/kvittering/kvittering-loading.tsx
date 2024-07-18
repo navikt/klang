@@ -1,5 +1,4 @@
 import { BodyShort, Heading } from '@navikt/ds-react';
-import React from 'react';
 import { keyframes, styled } from 'styled-components';
 import { Envelope } from '@app/icons/envelope';
 import { useTranslation } from '@app/language/use-translation';

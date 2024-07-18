@@ -1,7 +1,7 @@
 import { CheckmarkIcon, XMarkOctagonIcon } from '@navikt/aksel-icons';
 import { Popover } from '@navikt/ds-react';
 import { formatDate, formatISO, isToday } from 'date-fns';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { useTranslation } from '@app/language/use-translation';
 

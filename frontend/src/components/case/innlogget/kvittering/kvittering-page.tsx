@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { DigitalFormContainer } from '@app/components/case/common/digital/digital-form-container';
 import { KvitteringPageLoader } from '@app/components/case/innlogget/kvittering/kvittering-page-loader';

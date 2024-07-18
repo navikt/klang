@@ -1,5 +1,4 @@
 import { BodyShort } from '@navikt/ds-react';
-import React from 'react';
 import { styled } from 'styled-components';
 import { useTranslation } from '@app/language/use-translation';
 import { Reason } from '@app/redux-api/case/types';

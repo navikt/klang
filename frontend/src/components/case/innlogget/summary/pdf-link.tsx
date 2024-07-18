@@ -1,5 +1,4 @@
 import { Button, Checkbox, CheckboxGroup, ReadMore } from '@navikt/ds-react';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';

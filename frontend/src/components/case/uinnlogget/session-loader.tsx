@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { getQueryValue } from '@app/functions/get-query-value';
 import { useSessionCase } from '@app/hooks/use-session-klage';

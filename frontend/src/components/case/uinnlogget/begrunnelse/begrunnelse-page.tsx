@@ -1,5 +1,5 @@
 import { Alert, BodyLong, Button, Checkbox, CheckboxGroup, GuidePanel } from '@navikt/ds-react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { EttersendelseKaEnhet } from '@app/components/case/common/ettersendelse-ka-enhet';

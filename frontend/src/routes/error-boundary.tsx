@@ -1,5 +1,5 @@
 import { Alert, BodyShort } from '@navikt/ds-react';
-import React, { Component, ErrorInfo } from 'react';
+import { Component, ErrorInfo } from 'react';
 import { errorEvent } from '@app/logging/logger';
 
 interface Props {

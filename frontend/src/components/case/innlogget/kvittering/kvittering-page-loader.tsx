@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGetCaseQuery } from '@app/redux-api/case/api';
 import { CaseStatus, CaseType } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
