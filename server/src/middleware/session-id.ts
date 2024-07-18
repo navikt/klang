@@ -8,12 +8,12 @@ export const sessionIdMiddleware = (req: Request, res: Response, next: () => voi
   if (sessionId === undefined) {
     const newSessionId = crypto.randomUUID();
     res.cookie('session-id', newSessionId, { httpOnly: true, sameSite: 'strict' });
-    res.locals.sessionId = newSessionId;
+    res.locals['sessionId'] = newSessionId;
 
     return next();
   }
 
-  res.locals.sessionId = sessionId;
+  res.locals['sessionId'] = sessionId;
 
   return next();
 };

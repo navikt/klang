@@ -1,7 +1,7 @@
 import { performance } from 'perf_hooks';
 import { RequestHandler } from 'express';
 
-const VERSION = process.env.VERSION ?? 'unknown';
+const VERSION = process.env['VERSION'] ?? 'unknown';
 
 const LOGGERS: Map<string, Logger> = new Map();
 
@@ -86,7 +86,7 @@ const getLog = (module: string, level: Level, { message, error, data }: ServerLo
 
   if (typeof data === 'object' && data !== null) {
     if (Array.isArray(data)) {
-      log.data = JSON.stringify(data, null, 2);
+      log['data'] = JSON.stringify(data, null, 2);
     } else {
       Object.entries(data).forEach(([key, value]) => {
         if (typeof value !== 'object' && value !== null) {
@@ -97,7 +97,7 @@ const getLog = (module: string, level: Level, { message, error, data }: ServerLo
       });
     }
   } else {
-    log.data = data;
+    log['data'] = data;
   }
 
   if (error instanceof Error) {

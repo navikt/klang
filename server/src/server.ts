@@ -76,8 +76,8 @@ server.use(
   }),
 );
 
-server.get('/isAlive', (req, res) => res.status(200).send('Alive'));
-server.get('/isReady', (req, res) =>
+server.get('/isAlive', (_, res) => res.status(200).send('Alive'));
+server.get('/isReady', (_, res) =>
   res.status(indexFile.isReady ? 200 : 418).send(indexFile.isReady ? 'Ready' : 'Not ready'),
 );
 

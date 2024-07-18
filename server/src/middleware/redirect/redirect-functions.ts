@@ -30,7 +30,7 @@ export const redirectToExternalKlagePage = (req: Request, res: Response) => {
 
   log.warn({
     message: `Invalid URL. Redirecting to external URL ${YTELSE_OVERVIEW_URL}`,
-    data: { ...shared, url: req.url, redirected_from, reason: 'invalid', session_id: res.locals.sessionId },
+    data: { ...shared, url: req.url, redirected_from, reason: 'invalid', session_id: res.locals['sessionId'] },
   });
 
   externalRedirectCounter.inc({
@@ -61,7 +61,7 @@ export const redirectToInternalPage = (req: Request, res: Response, path: string
       redirect_to: path_with_saksnummer,
       redirected_from,
       reason: 'deprecated',
-      session_id: res.locals.sessionId,
+      session_id: res.locals['sessionId'],
     },
   });
 
