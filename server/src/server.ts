@@ -1,84 +1,68 @@
-import compression, { filter } from 'compression';
-import cors from 'cors';
-import express, { NextFunction, Request, Response } from 'express';
-import { DOMAIN, isDeployed, isDeployedToProd } from './config/env';
-import { init } from './init';
-import { getLogger, httpLoggingMiddleware } from './logger/logger';
-import { processErrors } from './process-errors';
-import { metricsMiddleware } from './prometheus/middleware';
-import { indexFile } from './routes/index-file';
-import { EmojiIcons, sendToSlack } from './slack';
+import { API_CLIENT_IDS, PORT } from '@app/config/config';
+import { corsOptions } from '@app/config/cors';
+import { isDeployed } from '@app/config/env';
+import { querystringParser } from '@app/helpers/query-parser';
+import { init } from '@app/init';
+import { getLogger } from '@app/logger';
+import { accessTokenPlugin } from '@app/plugins/access-token';
+import { apiProxyPlugin } from '@app/plugins/api-proxy';
+import { clientVersionPlugin } from '@app/plugins/client-version';
+import { errorReportPlugin } from '@app/plugins/error-report';
+import { frontendLogPlugin } from '@app/plugins/frontend-log/frontend-log';
+import { healthPlugin } from '@app/plugins/health';
+import { httpLoggerPlugin } from '@app/plugins/http-logger';
+import { localDevPlugin } from '@app/plugins/local-dev';
+import { notFoundPlugin } from '@app/plugins/not-found';
+import { oboAccessTokenPlugin } from '@app/plugins/obo-token';
+import { proxyVersionPlugin } from '@app/plugins/proxy-version';
+import { serveIndexPlugin } from '@app/plugins/serve-index/serve-index';
+import { serverTimingPlugin } from '@app/plugins/server-timing';
+import { traceparentPlugin } from '@app/plugins/traceparent/traceparent';
+import { processErrors } from '@app/process-errors';
+import { EmojiIcons, sendToSlack } from '@app/slack';
+import cors from '@fastify/cors';
+import { fastify } from 'fastify';
+import metricsPlugin from 'fastify-metrics';
 
 processErrors();
 
 const log = getLogger('server');
 
 if (isDeployed) {
-  log.info({ message: 'Started!' });
-  sendToSlack('Started!', EmojiIcons.StartStruck);
+  log.info({ msg: 'Starting...' });
+
+  sendToSlack('Starting...', EmojiIcons.LoadingDots);
 }
 
-const server = express();
+const bodyLimit = 300 * 1024 * 1024; // 300 MB
 
-// Add the prometheus middleware to all routes
-server.use(metricsMiddleware);
+fastify({ trustProxy: true, querystringParser, bodyLimit })
+  .register(cors, corsOptions)
+  .register(healthPlugin)
+  .register(metricsPlugin, {
+    endpoint: '/metrics',
+    routeMetrics: {
+      routeBlacklist: ['/metrics', '/isAlive', '/isReady', '/swagger', '/swagger.json'],
+    },
+  })
+  .register(proxyVersionPlugin)
+  .register(traceparentPlugin)
+  .register(clientVersionPlugin)
+  .register(serverTimingPlugin, { enableAutoTotal: true })
+  .register(frontendLogPlugin)
+  .register(errorReportPlugin)
+  .register(accessTokenPlugin)
+  .register(oboAccessTokenPlugin)
+  .register(apiProxyPlugin, { appNames: API_CLIENT_IDS, prefix: '/api' })
+  .register(localDevPlugin)
+  .register(serveIndexPlugin)
+  .register(notFoundPlugin)
+  .register(httpLoggerPlugin)
 
-server.use(httpLoggingMiddleware);
+  // Start server.
+  .listen({ host: '0.0.0.0', port: PORT });
 
-server.set('trust proxy', true);
-server.disable('x-powered-by');
+log.info({ msg: `Server listening on port ${PORT}` });
 
-const shouldCompress = (req: Request, res: Response) => {
-  if (res.get('Content-Type') === 'text/event-stream' || req.path.endsWith('.map')) {
-    return false;
-  }
-
-  return filter(req, res);
-};
-
-server.use(compression({ filter: shouldCompress }));
-
-server.use((_: Request, res: Response, next: NextFunction) => {
-  res.header('X-Frame-Options', 'SAMEORIGIN');
-  res.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
-  res.header('X-Content-Type-Options', 'nosniff');
-  res.header('X-XSS-Protection', '1; mode=block');
-  res.header('Referrer-Policy', 'no-referrer-when-downgrade');
-  next();
-});
-
-server.use(
-  cors({
-    credentials: true,
-    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-    allowedHeaders: [
-      'Accept-Language',
-      'Accept',
-      'Cache-Control',
-      'Connection',
-      'Content-Type',
-      'Cookie',
-      'DNT',
-      'Host',
-      'Origin',
-      'Pragma',
-      'Referer',
-      'Sec-Fetch-Dest',
-      'Sec-Fetch-Mode',
-      'Sec-Fetch-Site',
-      'User-Agent',
-      'X-Forwarded-For',
-      'X-Forwarded-Host',
-      'X-Forwarded-Proto',
-      'X-Requested-With',
-    ],
-    origin: isDeployedToProd ? DOMAIN : [DOMAIN, /https?:\/\/localhost:\d{4,}/],
-  }),
-);
-
-server.get('/isAlive', (_, res) => res.status(200).send('Alive'));
-server.get('/isReady', (_, res) =>
-  res.status(indexFile.isReady ? 200 : 418).send(indexFile.isReady ? 'Ready' : 'Not ready'),
-);
-
-init(server);
+// Initialize.
+init();

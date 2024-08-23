@@ -14,6 +14,8 @@ if (ENVIRONMENT.isLocal) {
       chatbot: true,
       redirectToApp: true,
       logoutUrl: '/oauth2/logout',
+      context: 'privatperson',
+      level: 'Level4',
       logoutWarning: true,
     },
   });

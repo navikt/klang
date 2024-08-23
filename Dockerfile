@@ -1,19 +1,17 @@
-FROM oven/bun:1
+FROM node:22-alpine
 
 ENV NODE_ENV=production
 ENV NPM_CONFIG_CACHE=/tmp
 
 WORKDIR /usr/src/app
-COPY server server
-COPY frontend frontend
+
+COPY server/dist server/dist
+COPY frontend/dist/index.html frontend/dist/index.html
 
 WORKDIR /usr/src/app/server
-
-# This command will create an absolute path reference to JSDOM (used by nav-dekoratoren-moduler), which will not work if built outside Docker
-RUN bun run build 
 
 ARG VERSION
 ENV VERSION=$VERSION
 
-CMD bun run prod
+CMD node --trace-warnings dist/server.js
 EXPOSE 8080

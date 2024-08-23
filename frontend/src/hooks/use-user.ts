@@ -1,10 +1,10 @@
-import { skipToken } from '@reduxjs/toolkit/query';
-import { useGetUserQuery, useIsAuthenticatedQuery } from '@app/redux-api/user/api';
+import { SkipToken, skipToken } from '@reduxjs/toolkit/query';
+import { useGetSessionQuery, useGetUserQuery } from '@app/redux-api/user/api';
 
-export const useIsAuthenticated = (skip?: typeof skipToken) => {
-  const { data, ...rest } = useIsAuthenticatedQuery(skip);
+export const useIsAuthenticated = (skip?: SkipToken) => {
+  const { data, ...rest } = useGetSessionQuery(skip, { refetchOnFocus: true, refetchOnReconnect: true });
 
-  return { ...rest, data: data?.tokenx };
+  return { ...rest, data: data?.session.active ?? false };
 };
 
 export const useUser = () => {

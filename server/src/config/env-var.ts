@@ -1,8 +1,4 @@
-import { getLogger } from '@app/logger/logger';
-
-const log = getLogger('env-var');
-
-const optionalEnvString = (name: string): string | undefined => {
+export const optionalEnvString = (name: string): string | undefined => {
   const envVariable = process.env[name];
 
   if (typeof envVariable === 'string' && envVariable.length !== 0) {
@@ -19,47 +15,48 @@ export const requiredEnvString = (name: string, defaultValue?: string): string =
     return envVariable;
   }
 
-  if (typeof defaultValue === 'string' && defaultValue.length !== 0) {
+  if (defaultValue !== undefined) {
     return defaultValue;
   }
 
-  log.error({ message: `Missing required environment variable '${name}'` });
-
-  process.exit(1);
+  throw new Error(`Missing required environment variable '${name}'.`);
 };
 
-export const requiredEnvUrl = (name: string, defaultValue?: string): string => {
-  const envString = requiredEnvString(name, defaultValue);
+export const requiredEnvJson = <T>(name: string, defaultValue?: T): T => {
+  const json = requiredEnvString(name, '');
 
-  if (envString.startsWith('http://')) {
-    return envString.replace('http://', 'https://');
+  try {
+    if (json.length === 0) {
+      if (defaultValue !== undefined) {
+        return defaultValue;
+      }
+
+      throw new Error('Empty string');
+    }
+
+    return JSON.parse(json);
+  } catch {
+    if (defaultValue !== undefined) {
+      return defaultValue;
+    }
+
+    throw new Error(`Invalid JSON in environment variable '${name}'.`);
   }
-
-  if (envString.startsWith('https://')) {
-    return envString;
-  }
-
-  const error = new Error(`Environment variable '${name}' is not a URL. Value: '${envString}'.`);
-  log.error({ error });
-  process.exit(1);
 };
 
 export const requiredEnvNumber = (name: string, defaultValue?: number): number => {
   const envString = optionalEnvString(name);
-  const parsed = typeof envString === 'undefined' ? NaN : Number.parseInt(envString, 10);
+  const parsed = typeof envString === 'undefined' ? Number.NaN : Number.parseInt(envString, 10);
 
   if (Number.isInteger(parsed)) {
     return parsed;
   }
 
-  if (typeof defaultValue === 'number') {
+  if (defaultValue !== undefined) {
     return defaultValue;
   }
 
   const env = envString ?? 'undefined';
 
-  log.error({
-    message: `Could not parse environment variable '${name}' as integer/number. Parsed value: '${env}'.`,
-  });
-  process.exit(1);
+  throw new Error(`Could not parse environment variable '${name}' as integer/number. Parsed value: '${env}'.`);
 };

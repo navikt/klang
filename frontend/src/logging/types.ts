@@ -20,8 +20,10 @@ export interface BaseEventData {
   level: Level;
   /** Current client Unix timestamp in milliseconds. */
   client_timestamp: number;
-  /** Milliseconds until the token expires. */
-  token_expires?: number;
+  /** DateTime when the token expires. */
+  token_expires?: string;
+  /** DateTime when the session ends. */
+  session_ends?: string;
   /** If the user is logged in. */
   is_logged_in: boolean;
   /** Current client version. */
