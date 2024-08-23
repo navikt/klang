@@ -1,7 +1,7 @@
+import { NAIS_CLUSTER_NAME, PORT } from '@app/config/config';
 import { requiredEnvString } from './env-var';
-import { serverConfig } from './server-config';
 
-const getEnvironmentVersion = <T>(local: T, test: T, development: T, production: T): T => {
+const getEnvironmentVersion = <T>(local: T, development: T, production: T): T => {
   if (isDeployedToDev) {
     return development;
   }
@@ -10,25 +10,31 @@ const getEnvironmentVersion = <T>(local: T, test: T, development: T, production:
     return production;
   }
 
-  if (isTesting) {
-    return test;
-  }
-
   return local;
 };
 
-const isDeployedToDev = serverConfig.cluster === 'dev-gcp';
-export const isDeployedToProd = serverConfig.cluster === 'prod-gcp';
+export const isDeployedToDev = NAIS_CLUSTER_NAME === 'dev-gcp';
+export const isDeployedToProd = NAIS_CLUSTER_NAME === 'prod-gcp';
 export const isDeployed = isDeployedToDev || isDeployedToProd;
-export const isTesting = requiredEnvString('NODE_ENV', 'unknown') === 'test';
+export const isLocal = !isDeployed;
 
-export const ENVIRONMENT = getEnvironmentVersion('local', 'test', 'development', 'production');
+export const ENVIRONMENT = getEnvironmentVersion('local-bff', 'development', 'production');
 
-export const DOMAIN: string = getEnvironmentVersion(
-  `http://localhost:${serverConfig.port}`,
-  `http://localhost:${serverConfig.port}`,
-  'https://klage.intern.dev.nav.no',
-  'https://klage.nav.no',
-);
+const LOCAL_DOMAIN = `localhost:${PORT}`;
+const LOCAL_URL = `http://${LOCAL_DOMAIN}`;
+
+export const DEV_DOMAIN = 'klage.intern.dev.nav.no';
+export const DEV_URL = `https://${DEV_DOMAIN}`;
+
+const PROD_DOMAIN = 'klage.intern.nav.no';
+const PROD_URL = `https://${PROD_DOMAIN}`;
+
+export const URL: string = getEnvironmentVersion(LOCAL_URL, DEV_URL, PROD_URL);
 
 export const NAIS_NAMESPACE = requiredEnvString('NAIS_NAMESPACE', 'none');
+
+export const POD_NAME = requiredEnvString('OTEL_RESOURCE_ATTRIBUTES_POD_NAME', 'none');
+
+export const YTELSE_OVERVIEW_URL = isDeployedToProd
+  ? 'https://www.nav.no/klage'
+  : 'https://www.ekstern.dev.nav.no/klage';

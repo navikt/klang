@@ -26,45 +26,45 @@ on:
 run-name: Dev deploy of ${{ github.ref_name }}
 
 jobs:
-  build:
-    name: Build
+  build-push:
+    name: Build and push
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
-      version: ${{ steps.version.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-      
-      - name: Install frontend dependencies
-        shell: bash
+          registry-url: https://npm.pkg.github.com/
+          scope: "@navikt"
+
+      - name: Generate bunfig.toml
         run: |
-          cd frontend
-          bun install
+          echo -e "[install.scopes]\n\"@navikt\" = { token = \"${{ secrets.READER_TOKEN }}\", url = \"https://npm.pkg.github.com/\" }" > ./frontend/bunfig.toml
+          cp ./frontend/bunfig.toml ./server/bunfig.toml
+
+      - name: Install frontend dependencies
+        working-directory: ./frontend
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}  
+          BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: bun install --frozen-lockfile
 
       - name: Test frontend
-        shell: bash
-        run: |
-          cd frontend
-          bun test
+        working-directory: ./frontend
+        run: bun test
 
       - name: Build frontend
-        shell: bash
+        working-directory: ./frontend
         env:
           VERSION: ${{ github.sha }}
-        run: |
-          cd frontend
-          bun run build
+        run: bun run build
 
       - name: Upload static files to CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
@@ -74,20 +74,20 @@ jobs:
           destination: klang
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-  
+
       - name: Install server dependencies
-        shell: bash
-        run: |
-          cd server
-          bun install
+        working-directory: ./server
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+          BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: bun install --frozen-lockfile
 
       - name: Test server
-        shell: bash
-        run: |
-          cd server
-          bun test
+        working-directory: ./server
+        run: bun test
+
+      - name: Build server
+        working-directory: ./server
+        run: bun run build
 
       - name: Generate version number
         id: version
@@ -116,7 +116,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    needs: build
+    needs: build-push
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -127,7 +127,7 @@ jobs:
           CLUSTER: dev-gcp
           VARS: nais/dev.yaml
           RESOURCE: nais/nais.yaml
-          VAR: image=${{ needs.build.outputs.image }}
+          VAR: image=${{ needs.build-push.outputs.image }}
 
   e2e_test:
     name: E2E

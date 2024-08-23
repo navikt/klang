@@ -96,12 +96,4 @@ enum Innsendingsytelse {
   YTELSER_TIL_TIDLIGERE_FAMILIEPLEIERE = 'YTELSER_TIL_TIDLIGERE_FAMILIEPLEIERE',
 }
 
-const INNSENDINGSYTELSER = Object.values(Innsendingsytelse);
-
-export const isInnsendingsytelse = (value: string | null | undefined): value is Innsendingsytelse => {
-  if (value === null || value === undefined) {
-    return false;
-  }
-
-  return INNSENDINGSYTELSER.some((innsendingsytelse) => innsendingsytelse === value);
-};
+export const INNSENDINGSYTELSER = Object.values(Innsendingsytelse);

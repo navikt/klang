@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { CaseBegrunnelsePage } from '@app/components/case/innlogget/begrunnelse/begrunnelse-page';
 import { CaseInnsendingPage } from '@app/components/case/innlogget/innsending/innsending-page';
 import { CaseKvitteringPage } from '@app/components/case/innlogget/kvittering/kvittering-page';
@@ -14,7 +14,6 @@ import { DekoratorSetRedirect } from './dekorator-set-redirect';
 import { ErrorBoundary } from './error-boundary';
 import { NavigationLogger } from './navigation-logger';
 import { NotFoundPage } from './not-found-page';
-import { UpgradeSession } from './redirects';
 
 export const Router = () => (
   <BrowserRouter>
@@ -23,9 +22,10 @@ export const Router = () => (
         <LanguageComponent>
           <ErrorBoundary>
             <Routes>
-              <Route path="/:lang" element={<UpgradeSession />}>
+              <Route path="/:lang">
                 <Route path="sak">
                   <Route path=":id">
+                    <Route index element={<Navigate to="begrunnelse" replace />} />
                     <Route path="begrunnelse" element={<CaseBegrunnelsePage />} />
                     <Route path="oppsummering" element={<CaseOppsummeringPage />} />
                     <Route path="innsending" element={<CaseInnsendingPage />} />

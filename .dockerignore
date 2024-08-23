@@ -1,8 +1,0 @@
-frontend/*
-!frontend/dist
-!frontend/public
-server/*
-!server/src
-!server/package.json
-!server/node_modules
-!server/tsconfig.json 

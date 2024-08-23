@@ -20,6 +20,9 @@ spec:
     min: 2
     max: 4
     cpuThresholdPercentage: 80
+  redis:
+    - instance: obo-cache
+      access: readwrite
   liveness:
     path: /isAlive
     initialDelay: 3
@@ -32,6 +35,20 @@ spec:
     enabled: true
     sidecar:
       enabled: true
+      autoLogin: true
+      autoLoginIgnorePaths:
+        - /api/**
+        - /
+        - /nb/klage/**
+        - /nn/klage/**
+        - /en/klage/**
+        - /nb/anke/**
+        - /nn/anke/**
+        - /en/anke/**
+        - /nb/ettersendelse/**
+        - /nn/ettersendelse/**
+        - /en/ettersendelse/**
+        - /frontend-log
   prometheus:
     enabled: true
   accessPolicy:

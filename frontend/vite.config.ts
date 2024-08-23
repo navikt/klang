@@ -9,9 +9,9 @@ export default defineConfig({
   server: {
     port: 8064,
     proxy: {
-      '/api': 'https://klage-dittnav-api.intern.dev.nav.no',
-      '/person/innloggingsstatus/auth': 'https://innloggingsstatus.dev.nav.no',
+      '/api': { target: 'https://klage.intern.dev.nav.no', changeOrigin: true, headers: { 'Origin': 'https://klage.intern.dev.nav.no' } },
+      '/oauth2': { target: 'https://klage.intern.dev.nav.no', changeOrigin: true, headers: { 'Origin': 'https://klage.intern.dev.nav.no' } },
+      '/person/innloggingsstatus/auth': { target: 'https://innloggingsstatus.dev.nav.no', changeOrigin: true, headers: { 'Origin': 'https://klage.intern.dev.nav.no' } },
     },
   },
-})
-
+});

@@ -13,18 +13,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
+          registry-url: https://npm.pkg.github.com/
+          scope: "@navikt"
           
-      - name: Install ${{ matrix.apps }} dependencies
-        shell: bash
+      - name: Generate bunfig.toml
         run: |
           cd ${{ matrix.apps }}
-          bun install
+          echo -e "[install.scopes]\n\"@navikt\" = { token = \"${{ secrets.READER_TOKEN }}\", url = \"https://npm.pkg.github.com/\" }" > bunfig.toml
+
+      - name: Install ${{ matrix.apps }} dependencies
+        shell: bash
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}  
+          BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: |
+          cd ${{ matrix.apps }}
+          bun install --frozen-lockfile
           
       - name: Restore caches for ${{ matrix.apps }}
         uses: actions/cache/restore@v3
@@ -44,7 +52,7 @@ jobs:
         shell: bash
         run: |
           cd ${{ matrix.apps }}
-          npm run lint
+          bun run lint
     
       - name: Test ${{ matrix.apps }}
         shell: bash

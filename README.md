@@ -6,8 +6,13 @@ Digital innsending av klager og anker. Samt ettersendelse.
 # Komme i gang
 
 ## Autorisering mot @navikt-NPM-registeret
-1. Lag et Personal Access Token (PAT) med scope: `read:packages`. _PAT-en må være autorisert for organisasjonen `navikt`._
-2. Sett verdien i miljøvariabelen NODE_AUTH_TOKEN
+1. [Lag et Personal Access Token (PAT)](https://github.com/settings/tokens) med scope: `read:packages`. _Tokenet må være autorisert for organisasjonen `navikt`._
+2. Opprett filen `bunfig.toml` i din `$HOME`-mappe med følgende innhold:
+  ```toml
+  [install.scopes]
+  "@navikt" = { token = "ghp_Qj6Xxn8HTUSJL9dNiZ0TW7R5YvupTZclTXsK", url = "https://npm.pkg.github.com/" }
+  ```
+3. Bytt ut `ghp_Qj6Xxn8HTUSJL9dNiZ0TW7R5YvupTZclTXsK` med ditt eget token.
 
 ### Referanser
 - https://github.com/navikt/nav-dekoratoren-moduler?tab=readme-ov-file#kom-i-gang
@@ -64,17 +69,20 @@ For å lenke direkte til klageskjemaet må `innsendingsytelse` være satt i URL-
 Saksnummeret settes i klagen/anken, men bruker kan **ikke** endre det.
 Dersom dette ikke er oppgitt som query parameter, får bruker mulighet til å fylle inn saksnummer selv.
 
-### Eksempel på fullstendig URL til klageskjema:
-```
-https://klage.nav.no/nb/klage/DAGPENGER?saksnummer=12345
-```
+### Eksempler på fullstendige URLer
+| Skjema | URL |
+|--------|-----|
+| Klage | `https://klage.nav.no/nb/klage/DAGPENGER?saksnummer=12345` |
+| Anke  | `https://klage.nav.no/nb/anke/DAGPENGER?saksnummer=12345`  |
+| Ettersendelse til klage | `https://klage.nav.no/nb/ettersendelse/klage/DAGPENGER?saksnummer=12345` |
+| Ettersendelse til anke | `https://klage.nav.no/nb/ettersendelse/anke/DAGPENGER?saksnummer=12345` |
 
 ## URL-format
 ```
 https://klage.nav.no/{språk}/{type}/{innsendingsytelse}?saksnummer={saksnummer}
 ```
-- `språk` = `nb | en`
-- `type` = `klage | anke | ettersendelse`
+- `språk` = `nb | nn | en`
+- `type` = `klage | anke | ettersendelse/klage | ettersendelse/anke`
 - `innsendingsytelse` = Se liste over tilgjengelige ytelser under.
 - `saksnummer` = Relevant saksnummer.
 

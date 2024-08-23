@@ -1,13 +1,9 @@
-import { isDeployed, isTesting } from './env';
-import { requiredEnvString } from './env-var';
+import { isDeployed } from '@app/config/env';
+import { requiredEnvString } from '@app/config/env-var';
 
 const getDefaultVersion = () => {
   if (isDeployed) {
     return undefined;
-  }
-
-  if (isTesting) {
-    return 'test';
   }
 
   return 'local';

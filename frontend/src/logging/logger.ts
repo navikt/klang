@@ -10,7 +10,8 @@ const START_TIME = Date.now();
 const SESSION_ID = getUniqueId();
 
 class FrontendLogger {
-  private tokenExpires: number | undefined;
+  private tokenExpiresAt: string | undefined;
+  private sessionEndsAt: string | undefined;
 
   private getBase = (level: Level): BaseEventData => {
     const now = Date.now();
@@ -24,8 +25,9 @@ class FrontendLogger {
       session_time: sessionTime,
       session_time_formatted: formatSessionTime(sessionTime),
       route: window.location.pathname,
-      token_expires: this.tokenExpires,
-      is_logged_in: this.tokenExpires !== undefined,
+      token_expires: this.tokenExpiresAt,
+      session_ends: this.sessionEndsAt,
+      is_logged_in: this.tokenExpiresAt !== undefined,
     };
   };
 
@@ -66,9 +68,14 @@ class FrontendLogger {
   public sessionEvent = (action: SessionAction) =>
     send({ type: EventTypes.SESSION, action, message: SESSION_ACTIONS[action], ...this.getBase(Level.DEBUG) });
 
-  public setTokenExpires = (tokenExpires: number) => {
-    this.tokenExpires = tokenExpires;
+  public setTokenExpires = (tokenExpires: string) => {
+    this.tokenExpiresAt = tokenExpires;
+  };
+
+  public setSessionEndsAt = (sessionEndsAt: string) => {
+    this.sessionEndsAt = sessionEndsAt;
   };
 }
 
-export const { apiEvent, appEvent, errorEvent, navigationEvent, sessionEvent, setTokenExpires } = new FrontendLogger();
+export const { apiEvent, appEvent, errorEvent, navigationEvent, sessionEvent, setTokenExpires, setSessionEndsAt } =
+  new FrontendLogger();
