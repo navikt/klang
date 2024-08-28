@@ -5,6 +5,9 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [tsconfigPaths(), react()],
+  build: {
+    sourcemap: true,
+  },
   base: 'https://cdn.nav.no/klage/klang',
   server: {
     port: 8064,
@@ -14,4 +17,3 @@ export default defineConfig({
     },
   },
 })
-
