@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "vite & tsc --watch",
+    "start": "vite --base=/ & tsc --watch",
     "build": "vite build",
     "typecheck": "tsc",
     "lint": "eslint src --color --cache --cache-strategy content --cache-location .eslintcache"
