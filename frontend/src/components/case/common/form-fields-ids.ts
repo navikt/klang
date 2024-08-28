@@ -3,10 +3,13 @@ export enum FormFieldsIds {
   FORNAVN = 'fornavn',
   ETTERNAVN = 'etternavn',
   VEDTAK_DATE = 'vedtakDate',
-  CASE_IS_AT_KA = 'caseIsAtKa',
-  SAKSNUMMER = 'saksnummer',
+  CASE_IS_AT_KA = 'caseIsAtKA',
+  SAKSNUMMER = 'userSaksnummer',
   FRITEKST = 'fritekst',
   VEDLEGG = 'vedlegg',
+
+  CHECKBOXES_SELECTED = 'checkboxesSelected',
+  HAS_VEDLEGG = 'hasVedlegg',
 }
 
 export const FORM_FIELDS_IDS = Object.values(FormFieldsIds);
