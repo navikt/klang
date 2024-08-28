@@ -51,7 +51,13 @@ jobs:
           bun install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}  
-      
+
+      - name: Test frontend
+        shell: bash
+        run: |
+          cd frontend
+          bun test
+
       - name: Build frontend
         shell: bash
         env:
@@ -59,13 +65,16 @@ jobs:
         run: |
           cd frontend
           bun run build
-      
-      - name: Test frontend
-        shell: bash
-        run: |
-          cd frontend
-          bun test
-      
+
+      - name: Upload static files to CDN
+        uses: nais/deploy/actions/cdn-upload/v2@master
+        with:
+          team: klage
+          source: ./frontend/dist/assets/
+          destination: klang
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+  
       - name: Install server dependencies
         shell: bash
         run: |
