@@ -13,6 +13,8 @@ export const INITIAL_ERRORS: ErrorState = {
   [FormFieldsIds.SAKSNUMMER]: undefined,
   [FormFieldsIds.FRITEKST]: undefined,
   [FormFieldsIds.VEDLEGG]: undefined,
+  [FormFieldsIds.CHECKBOXES_SELECTED]: undefined,
+  [FormFieldsIds.HAS_VEDLEGG]: undefined,
 };
 
 export type ValidateFn<T> = (data: T) => ErrorState;

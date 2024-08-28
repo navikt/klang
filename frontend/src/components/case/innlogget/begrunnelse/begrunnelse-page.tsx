@@ -12,6 +12,7 @@ import { BegrunnelseText } from '@app/components/case/innlogget/begrunnelse/begr
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { INITIAL_ERRORS } from '@app/hooks/errors/types';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
+import { useValidateDataSync } from '@app/hooks/errors/use-vaidate-data-sync';
 import { useUser } from '@app/hooks/use-user';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
@@ -48,6 +49,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
 
   const [errors, setErrors] = useState(INITIAL_ERRORS);
   const [isValid, setIsValid] = useState(false);
+  const validateDataSync = useValidateDataSync();
 
   // Reset errors and validation when language changes.
   useEffect(() => {
@@ -67,11 +69,12 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
     appEvent(AppEventEnum.CASE_SUBMIT);
 
     const [_isValid, _errors] = validate(data);
+    const [isSynced, syncErrors] = await validateDataSync(data);
 
-    setErrors(_errors);
-    setIsValid(_isValid);
+    setErrors({ ...syncErrors, ..._errors });
+    setIsValid(_isValid && isSynced);
 
-    if (!_isValid) {
+    if (!_isValid || !isSynced) {
       appEvent(AppEventEnum.CASE_INVALID);
 
       return;
