@@ -10,67 +10,67 @@ type DecoratorElements = {
   DECORATOR_FOOTER: string;
 };
 
-const fetchDecorator = async (url: string, props: DecoratorFetchProps, retries = 3): Promise<DecoratorElements> =>
-  fetch(url)
-    .then((res) => {
-      if (res.ok) {
-        return res.text();
-      }
+const fetchDecorator = async (url: string, props: DecoratorFetchProps, retries = 3): Promise<DecoratorElements> => {
+  try {
+    const res = await fetch(url);
+
+    if (!res.ok) {
       throw new Error(`${res.status} - ${res.statusText}`);
-    })
-    .then((html) => {
-      const window = new Window({
-        settings: {
-          disableJavaScriptFileLoading: true,
-          disableCSSFileLoading: true,
-          disableComputedStyleRendering: true,
-          disableJavaScriptEvaluation: true,
-        },
-      });
-      const { document } = window;
+    }
 
-      document.write(html);
+    const html = await res.text();
 
-      const styles = document.getElementById('styles')?.innerHTML;
-      if (!styles) {
-        throw new Error('Decorator styles element not found!');
-      }
-
-      const scripts = document.getElementById('scripts')?.innerHTML;
-      if (!scripts) {
-        throw new Error('Decorator scripts element not found!');
-      }
-
-      const header = document.getElementById('header-withmenu')?.innerHTML;
-      if (!header) {
-        throw new Error('Decorator header element not found!');
-      }
-
-      const footer = document.getElementById('footer-withmenu')?.innerHTML;
-      if (!footer) {
-        throw new Error('Decorator footer element not found!');
-      }
-
-      const elements = {
-        DECORATOR_STYLES: styles.trim(),
-        DECORATOR_SCRIPTS: scripts.trim(),
-        DECORATOR_HEADER: header.trim(),
-        DECORATOR_FOOTER: footer.trim(),
-      };
-
-      document.close();
-      window.close();
-
-      return elements;
-    })
-    .catch((e) => {
-      if (retries > 0) {
-        console.warn(`Failed to fetch decorator, retrying ${retries} more times - Url: ${url} - Error: ${e}`);
-        return fetchDecorator(url, props, retries - 1);
-      }
-
-      throw e;
+    const window = new Window({
+      settings: {
+        disableJavaScriptFileLoading: true,
+        disableCSSFileLoading: true,
+        disableComputedStyleRendering: true,
+        disableJavaScriptEvaluation: true,
+      },
     });
+
+    const { document } = window;
+
+    document.write(html);
+
+    const styles = document.getElementById('styles')?.innerHTML;
+    if (!styles) {
+      throw new Error('Decorator styles element not found!');
+    }
+
+    const scripts = document.getElementById('scripts')?.innerHTML;
+    if (!scripts) {
+      throw new Error('Decorator scripts element not found!');
+    }
+
+    const header = document.getElementById('header-withmenu')?.innerHTML;
+    if (!header) {
+      throw new Error('Decorator header element not found!');
+    }
+
+    const footer = document.getElementById('footer-withmenu')?.innerHTML;
+    if (!footer) {
+      throw new Error('Decorator footer element not found!');
+    }
+
+    window.happyDOM.close();
+
+    return {
+      DECORATOR_STYLES: styles.trim(),
+      DECORATOR_SCRIPTS: scripts.trim(),
+      DECORATOR_HEADER: header.trim(),
+      DECORATOR_FOOTER: footer.trim(),
+    };
+  } catch (e) {
+    if (retries > 0) {
+      console.warn(`Failed to fetch decorator, retrying ${retries} more times - Url: ${url} - Error: ${e}`);
+
+      return fetchDecorator(url, props, retries - 1);
+    }
+
+    throw e;
+  }
+};
 
 export const fetchDecoratorHtml = async (props: DecoratorFetchProps): Promise<DecoratorElements> => {
   const url = getDecoratorUrl(props);
