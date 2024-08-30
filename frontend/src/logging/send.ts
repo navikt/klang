@@ -1,4 +1,3 @@
-import { ENVIRONMENT } from '@app/environment/environment';
 import { LogEvent } from '@app/logging/types';
 
 const HEADERS: HeadersInit = {
@@ -6,7 +5,7 @@ const HEADERS: HeadersInit = {
 };
 
 export const send = async (data: LogEvent) => {
-  if (ENVIRONMENT.isLocal) {
+  if (import.meta.env.MODE === 'development') {
     // eslint-disable-next-line no-console
     console.debug('Sending log', data);
 

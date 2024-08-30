@@ -18,7 +18,7 @@ export const isDeployedToProd = NAIS_CLUSTER_NAME === 'prod-gcp';
 export const isDeployed = isDeployedToDev || isDeployedToProd;
 export const isLocal = !isDeployed;
 
-export const ENVIRONMENT = getEnvironmentVersion('local-bff', 'development', 'production');
+export const ENVIRONMENT = getEnvironmentVersion('local', 'development', 'production');
 
 const LOCAL_DOMAIN = `localhost:${PORT}`;
 const LOCAL_URL = `http://${LOCAL_DOMAIN}`;
