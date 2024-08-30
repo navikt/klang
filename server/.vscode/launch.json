@@ -7,6 +7,10 @@
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/dist/server.js",
+      "args": ["--inspect-brk"],
+      "env": {
+        "NAIS_CLUSTER_NAME": "local"
+      },
       "cwd": "${workspaceFolder}"
     }
   ]

@@ -27,8 +27,9 @@ const fetchDecorator = async (url: string, props: DecoratorFetchProps, retries =
           disableJavaScriptEvaluation: true,
         },
       });
-      window.document.write(html);
       const { document } = window;
+
+      document.write(html);
 
       const styles = document.getElementById('styles')?.innerHTML;
       if (!styles) {
@@ -56,6 +57,9 @@ const fetchDecorator = async (url: string, props: DecoratorFetchProps, retries =
         DECORATOR_HEADER: header.trim(),
         DECORATOR_FOOTER: footer.trim(),
       };
+
+      document.close();
+      window.close();
 
       return elements;
     })
