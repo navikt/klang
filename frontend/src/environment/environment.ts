@@ -3,8 +3,7 @@ export const LOGGED_IN_PATH = '/loggedin-redirect';
 enum EnvString {
   PROD = 'production',
   DEV = 'development',
-  LOCAL_BFF = 'local-bff',
-  LOCAL_FRONTEND = 'local-frontend',
+  LOCAL = 'local',
 }
 
 interface EnvironmentVariables {
@@ -32,30 +31,25 @@ class Environment implements EnvironmentVariables {
     this.version = this.getVersion();
     this.isProduction = this.environment === EnvString.PROD;
     this.isDevelopment = this.environment === EnvString.DEV;
-    this.isLocal = this.environment === EnvString.LOCAL_FRONTEND;
+    this.isLocal = this.environment === EnvString.LOCAL;
     this.isDeployed = !this.isLocal;
   }
 
   private getEnvironment(): EnvString {
     const env = document.documentElement.getAttribute('data-environment');
 
-    if (
-      env === EnvString.PROD ||
-      env === EnvString.DEV ||
-      env === EnvString.LOCAL_BFF ||
-      env === EnvString.LOCAL_FRONTEND
-    ) {
+    if (env === EnvString.PROD || env === EnvString.DEV) {
       return env;
     }
 
-    return EnvString.LOCAL_FRONTEND;
+    return EnvString.LOCAL;
   }
 
   private getVersion(): string {
     const version = document.documentElement.getAttribute('data-version');
 
     if (version === null || version === '{{VERSION}}') {
-      return EnvString.LOCAL_FRONTEND;
+      return EnvString.LOCAL;
     }
 
     return version;

@@ -2,11 +2,19 @@ import { injectDecoratorClientSide } from '@navikt/nav-dekoratoren-moduler';
 import { createRoot } from 'react-dom/client';
 import { initializeObservability } from '@app/observability';
 import { App } from './app/app';
-import { ENVIRONMENT } from './environment/environment';
 
 initializeObservability();
 
-if (ENVIRONMENT.isLocal) {
+if (import.meta.env.MODE === 'development') {
+  // Remove all placeholder text nodes from the body.
+  for (const node of document.body.childNodes) {
+    const { nodeType, textContent } = node;
+
+    if (nodeType === 3 && textContent !== null && textContent.includes('{{')) {
+      document.body.removeChild(node);
+    }
+  }
+
   injectDecoratorClientSide({
     env: 'dev',
     params: {
