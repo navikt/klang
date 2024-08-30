@@ -1,7 +1,5 @@
-import { skipToken } from '@reduxjs/toolkit/query';
 import { useInnsendingsytelseName } from '@app/hooks/use-innsendingsytelser';
 import { usePageInit } from '@app/hooks/use-page-init';
-import { useIsAuthenticated } from '@app/hooks/use-user';
 import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { FormTitleContainer } from '@app/routes/form-title-container';
 import { ContentContainer } from '@app/styled-components/content-container';
@@ -16,7 +14,6 @@ interface Props {
   steps: string[];
   title_fragment: string;
   page_title: string;
-  loginRequired?: boolean;
 }
 
 export const PostFormContainer = ({
@@ -27,10 +24,8 @@ export const PostFormContainer = ({
   steps,
   title_fragment,
   page_title,
-  loginRequired = false,
 }: Props) => {
   const [undertittel] = useInnsendingsytelseName(innsendingsytelse);
-  const { data: isAuthenticated } = useIsAuthenticated(loginRequired ? undefined : skipToken);
 
   usePageInit(`${steps[activeStep - 1] ?? ''} \u2013 ${title_fragment}`);
 
@@ -38,17 +33,16 @@ export const PostFormContainer = ({
 
   const stepperSteps: StepProps[] = [
     {
-      disabled: isAuthenticated === false,
       to: '../begrunnelse',
       label: label1,
     },
     {
-      disabled: !isValid || isAuthenticated === false,
+      disabled: !isValid,
       to: '../oppsummering',
       label: label2,
     },
     {
-      disabled: !isValid || isAuthenticated === false,
+      disabled: !isValid,
       to: '../innsending',
       label: label3,
     },
