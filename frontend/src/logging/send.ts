@@ -6,7 +6,6 @@ const HEADERS: HeadersInit = {
 
 export const send = async (data: LogEvent) => {
   if (import.meta.env.MODE === 'development') {
-    // eslint-disable-next-line no-console
     console.debug('Sending log', data);
 
     return;

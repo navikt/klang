@@ -53,7 +53,9 @@ export class ServerSentEventManager {
 
   private removeAllEventListeners() {
     if (this.events !== undefined) {
-      this.listeners.forEach(([event, listener]) => this.events.removeEventListener(event, listener));
+      for (const [event, listener] of this.listeners) {
+        this.events.removeEventListener(event, listener);
+      }
     }
   }
 
@@ -85,7 +87,9 @@ export class ServerSentEventManager {
       }
 
       this.isConnected = false;
-      this.connectionListeners.forEach((listener) => listener(this.isConnected));
+      for (const listener of this.connectionListeners) {
+        listener(this.isConnected);
+      }
 
       setTimeout(async () => {
         const preflightOK = await this.preflight(url);
@@ -104,9 +108,13 @@ export class ServerSentEventManager {
 
     events.addEventListener('open', () => {
       appEvent(AppEventEnum.SSE_OPEN);
-      this.listeners.forEach(([event, listener]) => events.addEventListener(event, listener));
+      for (const [event, listener] of this.listeners) {
+        events.addEventListener(event, listener);
+      }
       this.isConnected = true;
-      this.connectionListeners.forEach((listener) => listener(this.isConnected));
+      for (const listener of this.connectionListeners) {
+        listener(this.isConnected);
+      }
     });
 
     return events;

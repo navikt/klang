@@ -3,7 +3,6 @@ import { ExternalLink } from '@app/components/link/link';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { ErrorMessageKeys } from '@app/language/error-messages';
 import { CaseStatus, CaseType, Reason, getEttersendelsePath } from '@app/redux-api/case/types';
-/* eslint-disable max-lines */
 import { Link } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { Link as ReactRouterLink } from 'react-router-dom';
@@ -54,14 +53,20 @@ export const nb = {
         upload_button_text: 'Last opp nytt vedlegg',
         description: 'Har du informasjon du ønsker å legge ved, laster du det opp her.',
         supported_types: [
-          'Filtyper som støttes: ',
-          <b key="png">PNG</b>,
-          ', ',
-          <b key="jpeg">JPEG</b>,
-          ' og ',
-          <b key="pdf">PDF</b>,
-          '.',
-        ].map((c, index) => <span key={index}>{c}</span>),
+          <span key="1">Filtyper som støttes: </span>,
+          <span key="2">
+            <b>PNG</b>
+          </span>,
+          <span key="3">, </span>,
+          <span key="4">
+            <b>JPEG</b>
+          </span>,
+          <span key="5"> og </span>,
+          <span key="6">
+            <b>PDF</b>
+          </span>,
+          <span key="7">.</span>,
+        ],
         size_limit:
           'Filstørrelsen kan ikke være større enn 8 MB, og total størrelse av alle vedlegg kan ikke være større enn 32 MB.',
       },
@@ -205,12 +210,14 @@ export const nb = {
         ],
       },
       read_more: [
-        'Du kan lese mer om hvordan vi behandler saken din videre på våre ',
-        <ExternalLink key="tema" href="https://www.nav.no/klagerettigheter" inline>
-          temasider om klage og anke
-        </ExternalLink>,
-        '.',
-      ].map((c, index) => <span key={index}>{c}</span>),
+        <span key="1">Du kan lese mer om hvordan vi behandler saken din videre på våre </span>,
+        <span key="2">
+          <ExternalLink key="tema" href="https://www.nav.no/klagerettigheter" inline>
+            temasider om klage og anke
+          </ExternalLink>
+        </span>,
+        <span key="3">.</span>,
+      ],
       loading: {
         title: {
           [CaseType.KLAGE]: 'Sender inn klagen ...',
@@ -221,12 +228,14 @@ export const nb = {
         still_working: 'Jobber fortsatt ...',
       },
       see_estimate: [
-        'Du kan se ',
-        <ExternalLink key="saksbehandlingstid" href="https://www.nav.no/saksbehandlingstider" inline>
-          forventet saksbehandlingstid for klage og anke
-        </ExternalLink>,
-        ' i egen oversikt.',
-      ].map((c, index) => <span key={index}>{c}</span>),
+        <span key="1">Du kan se </span>,
+        <span key="2">
+          <ExternalLink key="saksbehandlingstid" href="https://www.nav.no/saksbehandlingstider" inline>
+            forventet saksbehandlingstid for klage og anke
+          </ExternalLink>
+        </span>,
+        <span key="3"> i egen oversikt.</span>,
+      ],
       dine_saker: {
         title: 'Se dine saker på Min side',
         url: 'https://www.nav.no/dokumentarkiv/',

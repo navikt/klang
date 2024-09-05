@@ -49,7 +49,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
   const [errors, setErrors] = useState(INITIAL_ERRORS);
   const [isValid, setIsValid] = useState(false);
 
-  // Reset errors and validation when language changes.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Reset errors and validation when language changes.
   useEffect(() => {
     setErrors(INITIAL_ERRORS);
     setIsValid(false);

@@ -101,7 +101,6 @@ const getCreatePayload = (
   language: Languages,
   internalSaksnummer: string | null = null,
 ): CreateCaseParams => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id, navn, modifiedByUser, ...rest } = data;
 
   return { type, ...rest, internalSaksnummer, language };

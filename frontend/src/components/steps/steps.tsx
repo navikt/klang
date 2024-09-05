@@ -10,8 +10,8 @@ interface Props {
 
 export const Steps = ({ activeStep, steps }: Props) => (
   <Stepper activeStep={activeStep} orientation="horizontal">
-    {steps.map((props, index) => (
-      <Step key={index} {...props} />
+    {steps.map((props) => (
+      <Step key={props.to} {...props} />
     ))}
   </Stepper>
 );
