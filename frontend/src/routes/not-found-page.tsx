@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
 import { ENVIRONMENT } from '@app/environment/environment';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
+import { useEffect } from 'react';
 
 export const NotFoundPage = () => {
   useEffect(() => {

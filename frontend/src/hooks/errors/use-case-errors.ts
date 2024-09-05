@@ -1,10 +1,10 @@
-import { useCallback } from 'react';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { useValidators } from '@app/components/case/common/validators';
-import { ErrorState, INITIAL_ERRORS, ValidateFnFactory } from '@app/hooks/errors/types';
+import { type ErrorState, INITIAL_ERRORS, type ValidateFnFactory } from '@app/hooks/errors/types';
 import { useValidateCommonCaseFn } from '@app/hooks/errors/use-common-case-errors';
 import { useErrors } from '@app/hooks/errors/use-errors';
-import { Case, CaseType } from '@app/redux-api/case/types';
+import type { Case, CaseType } from '@app/redux-api/case/types';
+import { useCallback } from 'react';
 
 const useValidateCaseFn: ValidateFnFactory<Case> = (type: CaseType) => {
   const { validateVedleggOrFritekst } = useValidators();

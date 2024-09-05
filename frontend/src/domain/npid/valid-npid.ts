@@ -9,26 +9,26 @@ export const validNpid = (npid: string, isProd = true): boolean => {
   }
 
   if (isProd) {
-    const day = parseInt(npid.substring(0, 2), 10);
+    const day = Number.parseInt(npid.substring(0, 2), 10);
 
     if (day < 1 || day > 31) {
       return false;
     }
 
-    const month = parseInt(npid.substring(2, 4), 10); // Month + 20
+    const month = Number.parseInt(npid.substring(2, 4), 10); // Month + 20
 
     if (month < 21 || month > 32) {
       return false;
     }
 
-    const year = parseInt(npid.substring(4, 6), 10);
+    const year = Number.parseInt(npid.substring(4, 6), 10);
 
     if (year < 0 || year > 99) {
       return false;
     }
   }
 
-  const numberArray = npid.split('').map((s) => parseInt(s, 10));
+  const numberArray = npid.split('').map((s) => Number.parseInt(s, 10));
 
   const controlCipher1 = getControlCipher(CONTROL_CIPHERS_1, numberArray.slice(0, 9));
 

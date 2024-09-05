@@ -1,7 +1,7 @@
+import { ENVIRONMENT } from '@app/environment/environment';
 import { ReactIntegration, ReactRouterVersion, getWebInstrumentations, initializeFaro } from '@grafana/faro-react';
 import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 import { Routes, createRoutesFromChildren, matchRoutes, useLocation, useNavigationType } from 'react-router-dom';
-import { ENVIRONMENT } from '@app/environment/environment';
 
 const getUrl = () => {
   if (ENVIRONMENT.isProduction) {

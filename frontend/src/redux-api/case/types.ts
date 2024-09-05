@@ -1,6 +1,6 @@
-import { ISODate, ISODateTime } from '@app/domain/date/date';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { Languages } from '@app/language/types';
+import type { ISODate, ISODateTime } from '@app/domain/date/date';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { Languages } from '@app/language/types';
 
 export enum CaseStatus {
   OPEN = 'OPEN',

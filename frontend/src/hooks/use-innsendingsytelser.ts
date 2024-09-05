@@ -1,4 +1,4 @@
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { useGetInnsendingsytelserQuery } from '@app/redux-api/innsendingsytelser';

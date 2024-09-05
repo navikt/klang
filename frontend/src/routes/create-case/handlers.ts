@@ -1,15 +1,15 @@
-import { NavigateFunction } from 'react-router-dom';
-import { ISessionCase } from '@app/components/case/uinnlogget/types';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { Languages } from '@app/language/types';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { Languages } from '@app/language/types';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
-import { AppDispatch } from '@app/redux/configure-store';
+import type { useCreateCaseMutation, useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
+import type { CreateCaseParams } from '@app/redux-api/case/params';
+import { CASE_TYPE_PATH_SEGMENTS, type CaseType } from '@app/redux-api/case/types';
+import type { AppDispatch } from '@app/redux/configure-store';
 import { createSessionCase } from '@app/redux/session/klage/helpers';
 import { deleteSessionCase, setSessionCase, updateSessionCase } from '@app/redux/session/session';
-import { useCreateCaseMutation, useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
-import { CreateCaseParams } from '@app/redux-api/case/params';
-import { CASE_TYPE_PATH_SEGMENTS, CaseType } from '@app/redux-api/case/types';
+import type { NavigateFunction } from 'react-router-dom';
 
 interface IHandler {
   language: Languages;

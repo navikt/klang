@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useGetCaseQuery } from '@app/redux-api/case/api';
-import { CaseStatus, CaseType } from '@app/redux-api/case/types';
+import { CaseStatus, type CaseType } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
+import { useEffect, useState } from 'react';
 import { Journalpost, Kvittering } from './kvittering';
 import { KvitteringLoading } from './kvittering-loading';
 

@@ -1,4 +1,4 @@
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 
 type AddressLines = [string, string, string];
 

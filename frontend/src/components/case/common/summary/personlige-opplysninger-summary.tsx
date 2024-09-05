@@ -1,7 +1,7 @@
-import { BodyShort } from '@navikt/ds-react';
 import { displayFnr } from '@app/functions/display';
 import { useTranslation } from '@app/language/use-translation';
 import { SpaceBetweenFlexListContainer } from '@app/styled-components/common';
+import { BodyShort } from '@navikt/ds-react';
 import { InformationPointBox } from '../../../information-point-box/information-point-box';
 
 interface Props {

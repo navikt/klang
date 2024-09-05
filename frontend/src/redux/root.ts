@@ -1,7 +1,7 @@
-import { combineReducers } from 'redux';
 import { caseApi } from '@app/redux-api/case/api';
 import { innsendingsytelserApi } from '@app/redux-api/innsendingsytelser';
 import { oauthApi, userApi } from '@app/redux-api/user/api';
+import { combineReducers } from 'redux';
 import { sessionSlice } from './session/session';
 
 export const rootReducer = combineReducers({

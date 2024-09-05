@@ -1,13 +1,13 @@
-import { Navigate, useSearchParams } from 'react-router-dom';
 import { getQueryValue } from '@app/functions/get-query-value';
 import { useSessionCase } from '@app/hooks/use-session-klage';
 import { useIsAuthenticated } from '@app/hooks/use-user';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
-import { CASE_TYPE_PATH_SEGMENTS, CaseType } from '@app/redux-api/case/types';
+import { CASE_TYPE_PATH_SEGMENTS, type CaseType } from '@app/redux-api/case/types';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import { LoadingPage } from '../../loading-page/loading-page';
-import { ISessionCase } from './types';
+import type { ISessionCase } from './types';
 
 interface Props {
   Component: React.ComponentType<{ data: ISessionCase }>;

@@ -1,15 +1,15 @@
-import { DownloadIcon } from '@navikt/aksel-icons';
-import { Alert, BodyShort, Heading } from '@navikt/ds-react';
-import { styled } from 'styled-components';
-import { ISODate, isoDateToPretty } from '@app/domain/date/date';
+import { type ISODate, isoDateToPretty } from '@app/domain/date/date';
 import { Envelope } from '@app/icons/envelope';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
-import { CaseType } from '@app/redux-api/case/types';
+import type { CaseType } from '@app/redux-api/case/types';
 import { CenteredContainer } from '@app/styled-components/common';
 import { CenteredHeading } from '@app/styled-components/page-title';
+import { DownloadIcon } from '@navikt/aksel-icons';
+import { Alert, BodyShort, Heading } from '@navikt/ds-react';
+import { styled } from 'styled-components';
 import { ExternalLink } from '../../../link/link';
 
 interface Props {

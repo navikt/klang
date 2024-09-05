@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getQueryValue } from '@app/functions/get-query-value';
 import { useSessionCase } from '@app/hooks/use-session-klage';
 import { useIsAuthenticated, useUser } from '@app/hooks/use-user';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
-import { useAppDispatch } from '@app/redux/configure-store';
 import { useCreateCaseMutation, useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
-import { CaseType } from '@app/redux-api/case/types';
+import type { CaseType } from '@app/redux-api/case/types';
+import { useAppDispatch } from '@app/redux/configure-store';
+import { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { handleCreateCase, handleResumeOrCreateCase, handleSessionCase } from './handlers';
 
 interface IResult {

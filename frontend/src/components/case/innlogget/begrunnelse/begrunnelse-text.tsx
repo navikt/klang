@@ -1,9 +1,9 @@
-import { Textarea, TextareaProps } from '@navikt/ds-react';
-import { useCallback, useEffect, useState } from 'react';
 import { AutosaveProgressIndicator } from '@app/components/autosave-progress/autosave-progress';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { useOnUnmount } from '@app/hooks/use-on-unmount';
 import { useUpdateCaseMutation } from '@app/redux-api/case/api';
+import { Textarea, type TextareaProps } from '@navikt/ds-react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface Props extends Omit<TextareaProps, 'label' | 'onError' | 'onChange'> {
   caseId: string;

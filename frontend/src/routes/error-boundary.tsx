@@ -1,6 +1,6 @@
-import { Alert, BodyShort } from '@navikt/ds-react';
-import { Component, ErrorInfo } from 'react';
 import { errorEvent } from '@app/logging/logger';
+import { Alert, BodyShort } from '@navikt/ds-react';
+import { Component, type ErrorInfo } from 'react';
 
 interface Props {
   children: React.ReactNode;

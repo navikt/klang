@@ -1,11 +1,11 @@
-import { useEffect, useMemo } from 'react';
-import { ISessionCase } from '@app/components/case/uinnlogget/types';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
+import type { CaseType } from '@app/redux-api/case/types';
 import { useAppDispatch, useAppSelector } from '@app/redux/configure-store';
 import { getSessionCaseKey } from '@app/redux/session/klage/helpers';
 import { loadOrCreateSessionCase } from '@app/redux/session/session';
-import { CaseType } from '@app/redux-api/case/types';
+import { useEffect, useMemo } from 'react';
 
 export const useSessionCase = (
   type: CaseType,

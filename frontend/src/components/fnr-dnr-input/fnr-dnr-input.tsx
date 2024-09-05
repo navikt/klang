@@ -1,5 +1,5 @@
-import { TextField } from '@navikt/ds-react';
 import { useTranslation } from '@app/language/use-translation';
+import { TextField } from '@navikt/ds-react';
 import { FormFieldsIds } from '../case/common/form-fields-ids';
 
 interface Props {

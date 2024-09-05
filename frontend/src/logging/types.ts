@@ -1,4 +1,4 @@
-import { AppEventEnum } from '@app/logging/action';
+import type { AppEventEnum } from '@app/logging/action';
 
 export enum Level {
   DEBUG = 'debug',

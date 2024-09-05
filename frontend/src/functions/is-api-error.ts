@@ -1,4 +1,4 @@
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 interface ApiError {
   status: number;
@@ -14,8 +14,8 @@ interface ApiErrorData {
 export const isApiError = (error: unknown): error is ApiError => {
   if (isError(error)) {
     if (
-      error['data'] !== null &&
-      typeof error['data'] === 'object' &&
+      error.data !== null &&
+      typeof error.data === 'object' &&
       'status' in error.data &&
       Number.isInteger(error.data.status) &&
       'detail' in error.data &&

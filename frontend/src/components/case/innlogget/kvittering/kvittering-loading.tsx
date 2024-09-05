@@ -1,8 +1,8 @@
-import { BodyShort, Heading } from '@navikt/ds-react';
-import { keyframes, styled } from 'styled-components';
 import { Envelope } from '@app/icons/envelope';
 import { useTranslation } from '@app/language/use-translation';
-import { CaseType } from '@app/redux-api/case/types';
+import type { CaseType } from '@app/redux-api/case/types';
+import { BodyShort, Heading } from '@navikt/ds-react';
+import { keyframes, styled } from 'styled-components';
 
 interface Props {
   informStillWorking: boolean;

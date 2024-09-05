@@ -1,12 +1,18 @@
 import { useInnsendingsytelseName } from '@app/hooks/use-innsendingsytelser';
 import { usePageInit } from '@app/hooks/use-page-init';
 import { useIsAuthenticated } from '@app/hooks/use-user';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { Anke, CaseStatus, EttersendelseAnke, EttersendelseKlage, Klage } from '@app/redux-api/case/types';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import {
+  type Anke,
+  CaseStatus,
+  type EttersendelseAnke,
+  type EttersendelseKlage,
+  type Klage,
+} from '@app/redux-api/case/types';
 import { FormTitleContainer } from '@app/routes/form-title-container';
 import { ContentContainer } from '@app/styled-components/content-container';
 import { FormMainContainer } from '@app/styled-components/main-container';
-import { StepProps, Steps } from '../../../steps/steps';
+import { type StepProps, Steps } from '../../../steps/steps';
 
 interface Props {
   innsendingsytelse: Innsendingsytelse;

@@ -1,10 +1,4 @@
-import { DownloadIcon } from '@navikt/aksel-icons';
-import { Button } from '@navikt/ds-react';
-import { format } from 'date-fns';
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
-import { ISessionCase } from '@app/components/case/uinnlogget/types';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { useInnsendingsytelseName } from '@app/hooks/use-innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
@@ -12,6 +6,12 @@ import { AppEventEnum } from '@app/logging/action';
 import { apiEvent, appEvent, errorEvent } from '@app/logging/logger';
 import { CaseType } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
+import { DownloadIcon } from '@navikt/aksel-icons';
+import { Button } from '@navikt/ds-react';
+import { format } from 'date-fns';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 interface Props {
   caseData: ISessionCase;

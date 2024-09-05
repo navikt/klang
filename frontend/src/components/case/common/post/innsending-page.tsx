@@ -1,13 +1,13 @@
+import { useAddress } from '@app/hooks/use-address';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { Language } from '@app/language/language';
+import { useTranslation } from '@app/language/use-translation';
+import type { CaseType } from '@app/redux-api/case/types';
+import { CenteredContainer } from '@app/styled-components/common';
 import { Button, GuidePanel, Heading } from '@navikt/ds-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { useAddress } from '@app/hooks/use-address';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { Language } from '@app/language/language';
-import { useTranslation } from '@app/language/use-translation';
-import { CaseType } from '@app/redux-api/case/types';
-import { CenteredContainer } from '@app/styled-components/common';
 import { PostFormContainer } from './post-form-container';
 
 interface Props {

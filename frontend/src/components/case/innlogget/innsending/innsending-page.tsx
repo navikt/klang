@@ -1,6 +1,6 @@
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
-import { Case } from '@app/redux-api/case/types';
+import type { Case } from '@app/redux-api/case/types';
 import { RenderCaseinnsendingPage } from '../../common/post/innsending-page';
 import { CaseLoader } from '../loader';
 

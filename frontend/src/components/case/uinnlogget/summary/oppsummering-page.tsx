@@ -1,20 +1,20 @@
-import { BodyLong, BodyShort, Button, Heading, Panel } from '@navikt/ds-react';
-import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
-import { ISessionCase } from '@app/components/case/uinnlogget/types';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
 import { useSessionCaseErrors } from '@app/hooks/errors/use-session-case-errors';
 import { Clipboard } from '@app/icons/clipboard';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useTranslation } from '@app/language/use-translation';
 import { CaseType } from '@app/redux-api/case/types';
 import { CenteredContainer } from '@app/styled-components/common';
 import { CenteredHeading } from '@app/styled-components/page-title';
+import { BodyLong, BodyShort, Button, Heading, Panel } from '@navikt/ds-react';
+import { Link } from 'react-router-dom';
+import { styled } from 'styled-components';
 import { InformationPointBox } from '../../../information-point-box/information-point-box';
 import { PostFormContainer } from '../../common/post/post-form-container';
+import { SummaryReasons } from '../../common/summary-reasons';
 import { PersonligeOpplysningerSummary } from '../../common/summary/personlige-opplysninger-summary';
 import { VedtakSummary } from '../../common/summary/vedtak-summary';
-import { SummaryReasons } from '../../common/summary-reasons';
 import { KlageSessionLoader } from '../session-loader';
 import { DownloadButton } from './download-button';
 

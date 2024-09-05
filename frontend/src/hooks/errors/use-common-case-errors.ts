@@ -1,11 +1,11 @@
-import { parse } from 'date-fns';
-import { useCallback } from 'react';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { useValidators } from '@app/components/case/common/validators';
-import { ISessionCase } from '@app/components/case/uinnlogget/types';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { FORMAT } from '@app/components/date-picker/constants';
-import { ErrorState, INITIAL_ERRORS, ValidateFnFactory } from '@app/hooks/errors/types';
-import { Case, CaseType } from '@app/redux-api/case/types';
+import { type ErrorState, INITIAL_ERRORS, type ValidateFnFactory } from '@app/hooks/errors/types';
+import { type Case, CaseType } from '@app/redux-api/case/types';
+import { parse } from 'date-fns';
+import { useCallback } from 'react';
 
 export const useValidateCommonCaseFn: ValidateFnFactory<Case | ISessionCase> = (type: CaseType) => {
   const { validateCaseIsAtKa, validateVedtakDateRequired, validateVedtakDate } = useValidators();

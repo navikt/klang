@@ -1,7 +1,7 @@
-import { ISODate } from '@app/domain/date/date';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { CaseType, Reason } from '@app/redux-api/case/types';
-import { IName } from '@app/redux-api/user/types';
+import type { ISODate } from '@app/domain/date/date';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { CaseType, Reason } from '@app/redux-api/case/types';
+import type { IName } from '@app/redux-api/user/types';
 
 export interface ISessionCase {
   readonly id: string;
