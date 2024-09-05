@@ -1,12 +1,12 @@
-import { Alert } from '@navikt/ds-react';
-import { skipToken } from '@reduxjs/toolkit/query';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { useTranslation } from '@app/language/use-translation';
 import { errorEvent } from '@app/logging/logger';
 import { useGetCaseQuery, useUpdateCaseMutation } from '@app/redux-api/case/api';
-import { Case } from '@app/redux-api/case/types';
+import type { Case } from '@app/redux-api/case/types';
+import { Alert } from '@navikt/ds-react';
+import { skipToken } from '@reduxjs/toolkit/query';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { LoadingPage } from '../../loading-page/loading-page';
 
 interface Props {

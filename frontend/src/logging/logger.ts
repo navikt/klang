@@ -1,10 +1,10 @@
 import { ENVIRONMENT } from '@app/environment/environment';
 import { isNotUndefined } from '@app/functions/is-not-type-guards';
 import { getUniqueId } from '@app/functions/uuid';
-import { AppEventEnum } from '@app/logging/action';
+import type { AppEventEnum } from '@app/logging/action';
 import { formatSessionTime } from '@app/logging/formatters';
 import { send } from '@app/logging/send';
-import { BaseEventData, EventTypes, Level, SESSION_ACTIONS, SessionAction } from '@app/logging/types';
+import { type BaseEventData, EventTypes, Level, SESSION_ACTIONS, type SessionAction } from '@app/logging/types';
 
 const START_TIME = Date.now();
 const SESSION_ID = getUniqueId();

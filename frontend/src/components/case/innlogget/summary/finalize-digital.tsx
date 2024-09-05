@@ -1,15 +1,15 @@
-import { EnterIcon } from '@navikt/aksel-icons';
-import { Button } from '@navikt/ds-react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
 import { useIsAuthenticated } from '@app/hooks/use-user';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import { useFinalizeCaseMutation } from '@app/redux-api/case/api';
-import { Attachment, CaseStatus, CaseType } from '@app/redux-api/case/types';
+import { type Attachment, CaseStatus, type CaseType } from '@app/redux-api/case/types';
 import { login } from '@app/user/login';
+import { EnterIcon } from '@navikt/aksel-icons';
+import { Button } from '@navikt/ds-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 interface Props {
   setError: (error: string | null) => void;
@@ -85,4 +85,4 @@ export const FinalizeDigitalCase = ({ setError, status, id, fritekst, type, vedl
   );
 };
 
-const NEXT_PAGE_URL = `../kvittering`;
+const NEXT_PAGE_URL = '../kvittering';

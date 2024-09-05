@@ -1,5 +1,5 @@
-import { useParams } from 'react-router';
 import { LANGUAGES } from '@app/language/language';
+import { useParams } from 'react-router';
 import { Languages } from './types';
 
 export const useLanguage = (): Languages => {

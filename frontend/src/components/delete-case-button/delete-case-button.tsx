@@ -1,9 +1,9 @@
-import { TrashIcon } from '@navikt/aksel-icons';
-import { Button } from '@navikt/ds-react';
-import { useState } from 'react';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
+import { TrashIcon } from '@navikt/aksel-icons';
+import { Button } from '@navikt/ds-react';
+import { useState } from 'react';
 
 interface Props {
   onDelete: () => void;

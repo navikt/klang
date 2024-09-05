@@ -1,9 +1,9 @@
-import { dnr, fnr } from '@navikt/fnrvalidator';
-import { isBefore, isEqual } from 'date-fns';
-import { useMemo } from 'react';
 import { validNpid } from '@app/domain/npid/valid-npid';
 import { ENVIRONMENT } from '@app/environment/environment';
 import { useTranslation } from '@app/language/use-translation';
+import { dnr, fnr } from '@navikt/fnrvalidator';
+import { isBefore, isEqual } from 'date-fns';
+import { useMemo } from 'react';
 
 type Validator<T> = (data: T) => string | undefined;
 

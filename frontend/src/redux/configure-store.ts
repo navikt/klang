@@ -1,9 +1,9 @@
-import { Middleware, configureStore } from '@reduxjs/toolkit';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { caseApi } from '@app/redux-api/case/api';
 import { innsendingsytelserApi } from '@app/redux-api/innsendingsytelser';
 import { oauthApi, userApi } from '@app/redux-api/user/api';
-import { RootState, rootReducer } from './root';
+import { type Middleware, configureStore } from '@reduxjs/toolkit';
+import { type TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { type RootState, rootReducer } from './root';
 
 interface RejectedApiAction {
   meta: {

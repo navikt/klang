@@ -1,10 +1,10 @@
-import { Button, Checkbox, CheckboxGroup, ReadMore } from '@navikt/ds-react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import { useUpdateCaseMutation } from '@app/redux-api/case/api';
 import { CenteredContainer } from '@app/styled-components/common';
+import { Button, Checkbox, CheckboxGroup, ReadMore } from '@navikt/ds-react';
+import { useNavigate } from 'react-router-dom';
 
 interface Props extends CheckboxProps {
   hasUploadedVedlegg: boolean;

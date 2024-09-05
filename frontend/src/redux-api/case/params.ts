@@ -1,5 +1,5 @@
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { BaseCase, CaseType, CaseUpdatable } from '@app/redux-api/case/types';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { BaseCase, CaseType, CaseUpdatable } from '@app/redux-api/case/types';
 
 export type CreateCaseParams = Pick<
   BaseCase,

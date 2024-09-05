@@ -1,6 +1,6 @@
+import { initializeObservability } from '@app/observability';
 import { injectDecoratorClientSide } from '@navikt/nav-dekoratoren-moduler';
 import { createRoot } from 'react-dom/client';
-import { initializeObservability } from '@app/observability';
 import { App } from './app/app';
 
 initializeObservability();

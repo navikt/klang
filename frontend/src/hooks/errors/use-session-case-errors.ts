@@ -1,11 +1,11 @@
-import { useCallback } from 'react';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { useValidators } from '@app/components/case/common/validators';
-import { ISessionCase } from '@app/components/case/uinnlogget/types';
-import { ErrorState, INITIAL_ERRORS, ValidateFnFactory } from '@app/hooks/errors/types';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import { type ErrorState, INITIAL_ERRORS, type ValidateFnFactory } from '@app/hooks/errors/types';
 import { useValidateCommonCaseFn } from '@app/hooks/errors/use-common-case-errors';
 import { useErrors } from '@app/hooks/errors/use-errors';
-import { CaseType } from '@app/redux-api/case/types';
+import type { CaseType } from '@app/redux-api/case/types';
+import { useCallback } from 'react';
 
 const useValidateSessionCaseFn: ValidateFnFactory<ISessionCase> = (type) => {
   const { validateEtternavn, validateFnrDnr, validateFornavn, validateVedleggOrFritekst } = useValidators();

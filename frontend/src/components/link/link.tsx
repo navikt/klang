@@ -1,5 +1,5 @@
-import { Link, LinkProps } from '@navikt/ds-react';
 import { ExtLink } from '@app/icons/external-link';
+import { Link, type LinkProps } from '@navikt/ds-react';
 
 interface ExternalLinkProps extends Omit<LinkProps, 'target' | 'rel' | 'style'> {
   openInSameWindow?: boolean;

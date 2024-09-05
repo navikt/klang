@@ -1,11 +1,17 @@
-import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
-import { ISessionCase } from '@app/components/case/uinnlogget/types';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { sessionEvent } from '@app/logging/logger';
 import { SessionAction } from '@app/logging/types';
-import { State } from '@app/redux/session/type';
+import type { State } from '@app/redux/session/type';
+import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 import { createSessionCase, getSessionCaseKey } from './helpers';
 import { readSessionCase, removeSessionCase, saveSessionCase } from './storage';
-import { SessionCaseCreate, SessionCaseLoad, SessionCasePayload, SessionCaseRemove, SessionCaseUpdate } from './types';
+import type {
+  SessionCaseCreate,
+  SessionCaseLoad,
+  SessionCasePayload,
+  SessionCaseRemove,
+  SessionCaseUpdate,
+} from './types';
 
 const RATE_LIMIT = 30_000;
 let lastUpdated = 0;

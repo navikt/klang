@@ -1,6 +1,6 @@
-import { ISessionCase } from '@app/components/case/uinnlogget/types';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { CaseType } from '@app/redux-api/case/types';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { CaseType } from '@app/redux-api/case/types';
 
 interface Base {
   type: CaseType;

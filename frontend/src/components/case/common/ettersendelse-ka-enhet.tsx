@@ -1,6 +1,6 @@
+import { useTranslation } from '@app/language/use-translation';
 import { Radio, RadioGroup } from '@navikt/ds-react';
 import { styled } from 'styled-components';
-import { useTranslation } from '@app/language/use-translation';
 
 interface Props {
   caseIsAtKA: boolean | null;

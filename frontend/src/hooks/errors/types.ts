@@ -1,6 +1,6 @@
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
-import { ISessionCase } from '@app/components/case/uinnlogget/types';
-import { Case, CaseType } from '@app/redux-api/case/types';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import type { Case, CaseType } from '@app/redux-api/case/types';
 
 export type ErrorState = Record<FormFieldsIds, string | undefined>;
 

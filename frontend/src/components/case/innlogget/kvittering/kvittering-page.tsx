@@ -1,10 +1,10 @@
-import { Navigate } from 'react-router-dom';
 import { DigitalFormContainer } from '@app/components/case/common/digital/digital-form-container';
 import { KvitteringPageLoader } from '@app/components/case/innlogget/kvittering/kvittering-page-loader';
 import { CaseLoader } from '@app/components/case/innlogget/loader';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
-import { Case, CaseStatus } from '@app/redux-api/case/types';
+import { type Case, CaseStatus } from '@app/redux-api/case/types';
+import { Navigate } from 'react-router-dom';
 
 export const CaseKvitteringPage = () => <CaseLoader Component={RenderCaseKvitteringPage} />;
 

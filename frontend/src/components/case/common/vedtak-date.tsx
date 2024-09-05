@@ -1,9 +1,9 @@
+import { FORMAT } from '@app/components/date-picker/constants';
+import type { ISODate } from '@app/domain/date/date';
+import { useTranslation } from '@app/language/use-translation';
+import type { CaseType } from '@app/redux-api/case/types';
 import { format, isEqual, parse } from 'date-fns';
 import { useState } from 'react';
-import { FORMAT } from '@app/components/date-picker/constants';
-import { ISODate } from '@app/domain/date/date';
-import { useTranslation } from '@app/language/use-translation';
-import { CaseType } from '@app/redux-api/case/types';
 import { DatePicker } from '../../date-picker/date-picker';
 import { FormFieldsIds } from './form-fields-ids';
 

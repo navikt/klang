@@ -1,4 +1,4 @@
-import { LogEvent } from '@app/logging/types';
+import type { LogEvent } from '@app/logging/types';
 
 const HEADERS: HeadersInit = {
   'Content-Type': 'application/json',

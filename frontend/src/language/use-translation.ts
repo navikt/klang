@@ -1,4 +1,4 @@
-import { Language, getLanguage } from './language';
+import { type Language, getLanguage } from './language';
 import { useLanguage } from './use-language';
 
 export const useTranslation = (): Language => {

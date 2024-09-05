@@ -1,5 +1,5 @@
 import { Stepper } from '@navikt/ds-react';
-import { StepperStepProps } from '@navikt/ds-react/Stepper';
+import type { StepperStepProps } from '@navikt/ds-react/Stepper';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 

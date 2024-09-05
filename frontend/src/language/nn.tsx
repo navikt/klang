@@ -1,13 +1,13 @@
+import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
+import { ExternalLink } from '@app/components/link/link';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import { ErrorMessageKeys } from '@app/language/error-messages';
+import type { Translations } from '@app/language/nb';
+import { CaseStatus, CaseType, Reason, getEttersendelsePath } from '@app/redux-api/case/types';
 /* eslint-disable max-lines */
 import { Link } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
-import { ExternalLink } from '@app/components/link/link';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { ErrorMessageKeys } from '@app/language/error-messages';
-import { Translations } from '@app/language/nb';
-import { CaseStatus, CaseType, Reason, getEttersendelsePath } from '@app/redux-api/case/types';
 
 export const nn: Translations = {
   skjema: {
@@ -204,7 +204,7 @@ export const nn: Translations = {
         ],
       },
       read_more: [
-        `Du kan lese meir om korleis vi behandlar saka di vidare på våre `,
+        'Du kan lese meir om korleis vi behandlar saka di vidare på våre ',
         <ExternalLink key="tema" href="https://www.nav.no/klagerettigheter/nn" inline>
           temasider om klage og anke
         </ExternalLink>,

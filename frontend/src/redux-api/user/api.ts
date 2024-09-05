@@ -1,7 +1,7 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import { setSessionEndsAt, setTokenExpires } from '@app/logging/logger';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { API_BASE_QUERY, OAUTH_BASE_QUERY } from '../common';
-import { IUser } from './types';
+import type { IUser } from './types';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -55,7 +55,7 @@ export const oauthApi = createApi({
           setSessionEndsAt(data.session.ends_at);
         }
 
-        if (!hasData || !data.session.active) {
+        if (!(hasData && data.session.active)) {
           dispatch(userApi.util.updateQueryData('getUser', undefined, () => undefined));
         }
       },

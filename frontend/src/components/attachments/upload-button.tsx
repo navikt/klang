@@ -1,13 +1,13 @@
-import { UploadIcon } from '@navikt/aksel-icons';
-import { Button } from '@navikt/ds-react';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { useRef } from 'react';
-import { styled } from 'styled-components';
 import { isError } from '@app/functions/is-api-error';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import { useUploadAttachmentMutation } from '@app/redux-api/case/api';
+import { UploadIcon } from '@navikt/aksel-icons';
+import { Button } from '@navikt/ds-react';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { useRef } from 'react';
+import { styled } from 'styled-components';
 
 interface Props {
   caseId: string;

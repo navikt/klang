@@ -1,4 +1,3 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { CaseBegrunnelsePage } from '@app/components/case/innlogget/begrunnelse/begrunnelse-page';
 import { CaseInnsendingPage } from '@app/components/case/innlogget/innsending/innsending-page';
 import { CaseKvitteringPage } from '@app/components/case/innlogget/kvittering/kvittering-page';
@@ -6,9 +5,10 @@ import { CaseOppsummeringPage } from '@app/components/case/innlogget/summary/opp
 import { SessionCasebegrunnelsePage } from '@app/components/case/uinnlogget/begrunnelse/begrunnelse-page';
 import { SessionCaseInnsendingPage } from '@app/components/case/uinnlogget/innsending/innsending-page';
 import { SessionCaseOppsummeringPage } from '@app/components/case/uinnlogget/summary/oppsummering-page';
-import { INNSENDINGSYTELSER, Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import { INNSENDINGSYTELSER, type Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { LanguageComponent } from '@app/language/component';
 import { CaseType } from '@app/redux-api/case/types';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { CreateCase } from './create-case/create-case';
 import { DekoratorSetRedirect } from './dekorator-set-redirect';
 import { ErrorBoundary } from './error-boundary';

@@ -1,7 +1,7 @@
+import { useTranslation } from '@app/language/use-translation';
+import type { Reason } from '@app/redux-api/case/types';
 import { BodyShort } from '@navikt/ds-react';
 import { styled } from 'styled-components';
-import { useTranslation } from '@app/language/use-translation';
-import { Reason } from '@app/redux-api/case/types';
 
 interface Props {
   checkboxesSelected: Reason[];

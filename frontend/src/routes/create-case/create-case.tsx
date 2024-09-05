@@ -1,7 +1,7 @@
-import { Alert } from '@navikt/ds-react';
 import { LoadingPage } from '@app/components/loading-page/loading-page';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { CaseType } from '@app/redux-api/case/types';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { CaseType } from '@app/redux-api/case/types';
+import { Alert } from '@navikt/ds-react';
 import { useCase } from './use-case';
 
 interface Props {

@@ -1,5 +1,5 @@
-import { ISessionCase } from '@app/components/case/uinnlogget/types';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { getSessionCaseKey } from './helpers';
 
 export const readSessionCase = (key: string): ISessionCase | undefined => {

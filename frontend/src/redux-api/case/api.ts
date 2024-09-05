@@ -1,16 +1,16 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
-import {
+import type {
   CreateCaseParams,
   DeleteAttachmentParams,
   ResumeCaseParams,
   UpdateCaseParams,
   UploadAttachmentParams,
 } from '@app/redux-api/case/params';
-import { Attachment, BaseCase, Case, CaseStatus, FinalizedCase } from '@app/redux-api/case/types';
+import { type Attachment, type BaseCase, type Case, CaseStatus, type FinalizedCase } from '@app/redux-api/case/types';
 import { API_BASE_QUERY, API_PATH } from '@app/redux-api/common';
 import { ServerSentEventManager, ServerSentEventType } from '@app/redux-api/server-sent-events';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
 type BaseUpdateResponse = Pick<BaseCase, 'modifiedByUser'>;
 

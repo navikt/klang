@@ -1,6 +1,6 @@
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import type { Languages } from '@app/language/types';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { Languages } from '@app/language/types';
 import { API_BASE_QUERY } from './common';
 
 type InnsendingsytelserMap = Record<Innsendingsytelse, string>;

@@ -1,13 +1,13 @@
+import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
+import { ExternalLink } from '@app/components/link/link';
+import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import { ErrorMessageKeys } from '@app/language/error-messages';
+import { CaseStatus, CaseType, Reason, getEttersendelsePath } from '@app/redux-api/case/types';
 /* eslint-disable max-lines */
 import { Link } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
-import { ExternalLink } from '@app/components/link/link';
-import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { ErrorMessageKeys } from '@app/language/error-messages';
-import { CaseStatus, CaseType, Reason, getEttersendelsePath } from '@app/redux-api/case/types';
-import { Translations } from './nb';
+import type { Translations } from './nb';
 
 export const en: Translations = {
   skjema: {

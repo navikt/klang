@@ -1,6 +1,6 @@
 export const displayFnr = (fnr = ''): string => {
   if (fnr.length === 11) {
-    return fnr.substring(0, 6) + ' ' + fnr.substring(6);
+    return `${fnr.substring(0, 6)} ${fnr.substring(6)}`;
   }
 
   return fnr;
@@ -15,5 +15,5 @@ export const displayBytes = (bytes: number): string => {
 
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
 
-  return `${Math.round(bytes / Math.pow(1024, i))} ${SIZES[i] ?? 'byte'}`;
+  return `${Math.round(bytes / 1024 ** i)} ${SIZES[i] ?? 'byte'}`;
 };
