@@ -3,7 +3,6 @@ import { ExternalLink } from '@app/components/link/link';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { ErrorMessageKeys } from '@app/language/error-messages';
 import { CaseStatus, CaseType, Reason, getEttersendelsePath } from '@app/redux-api/case/types';
-/* eslint-disable max-lines */
 import { Link } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { Link as ReactRouterLink } from 'react-router-dom';
@@ -53,14 +52,20 @@ export const en: Translations = {
         upload_button_text: 'Upload new attachment',
         description: 'If you have information you wish to attach, upload it here.',
         supported_types: [
-          'Supported file types: ',
-          <b key="png">PNG</b>,
-          ', ',
-          <b key="jpeg">JPEG</b>,
-          ' and ',
-          <b key="pdf">PDF</b>,
-          '.',
-        ].map((c, index) => <span key={index}>{c}</span>),
+          <span key="1">Supported file types: </span>,
+          <span key="2">
+            <b>PNG</b>
+          </span>,
+          <span key="3">, </span>,
+          <span key="4">
+            <b>JPEG</b>
+          </span>,
+          <span key="5"> and </span>,
+          <span key="6">
+            <b>PDF</b>
+          </span>,
+          <span key="7">.</span>,
+        ],
         size_limit: 'The file size cannot exceed 8 MB, and the total size of all attachments cannot exceed 32 MB.',
       },
       saksnummer: {
@@ -202,12 +207,14 @@ export const en: Translations = {
         ],
       },
       read_more: [
-        'You can read more about the further processing of your complaint on our ',
-        <ExternalLink key="topic" href="https://www.nav.no/klagerettigheter/en" inline>
-          topic pages about complaints and appeals
-        </ExternalLink>,
-        '.',
-      ].map((c, index) => <span key={index}>{c}</span>),
+        <span key="1">You can read more about the further processing of your complaint on our </span>,
+        <span key="2">
+          <ExternalLink key="topic" href="https://www.nav.no/klagerettigheter/en" inline>
+            topic pages about complaints and appeals
+          </ExternalLink>
+        </span>,
+        <span key="3">.</span>,
+      ],
       loading: {
         title: {
           [CaseType.KLAGE]: 'Submitting complaint ...',
@@ -218,12 +225,14 @@ export const en: Translations = {
         still_working: 'Still working ...',
       },
       see_estimate: [
-        'You can see ',
-        <ExternalLink key="processing" href="https://www.nav.no/saksbehandlingstider" inline>
-          the expected case processing time for complaints and appeals
-        </ExternalLink>,
-        ' in a separate overview.',
-      ].map((c, index) => <span key={index}>{c}</span>),
+        <span key="1">You can see </span>,
+        <span key="2">
+          <ExternalLink key="processing" href="https://www.nav.no/saksbehandlingstider" inline>
+            the expected case processing time for complaints and appeals
+          </ExternalLink>
+        </span>,
+        <span key="3"> in a separate overview.</span>,
+      ],
       dine_saker: {
         title: 'See your cases on Min side',
         url: 'https://www.nav.no/dokumentarkiv/en',

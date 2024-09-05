@@ -1,7 +1,7 @@
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { useTranslation } from '@app/language/use-translation';
 import { errorEvent } from '@app/logging/logger';
-import { useGetCaseQuery, useUpdateCaseMutation } from '@app/redux-api/case/api';
+import { useGetCaseQuery } from '@app/redux-api/case/api';
 import type { Case } from '@app/redux-api/case/types';
 import { Alert } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
@@ -18,7 +18,6 @@ export const CaseLoader = ({ Component }: Props) => {
   const { case_loader: klage_loader } = useTranslation();
   const [error, setError] = useState<string | null>(null);
 
-  const [updateCase, { isLoading: isUpdating }] = useUpdateCaseMutation();
   const { data, isLoading } = useGetCaseQuery(id ?? skipToken);
 
   useEffect(() => {
@@ -45,13 +44,13 @@ export const CaseLoader = ({ Component }: Props) => {
       console.error('Case not found.');
       redirectToNav();
     }
-  }, [id, data, klage_loader, updateCase, isLoading]);
+  }, [id, data, klage_loader, isLoading]);
 
   if (error !== null) {
     return <Alert variant="error">{error}</Alert>;
   }
 
-  if (isLoading || isUpdating || data === undefined) {
+  if (isLoading || data === undefined) {
     return <LoadingPage>{klage_loader.loading}</LoadingPage>;
   }
 

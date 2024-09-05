@@ -1,6 +1,5 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { useLanguage } from '@app/language/use-language';
 import type { CaseType } from '@app/redux-api/case/types';
 import { useAppDispatch, useAppSelector } from '@app/redux/configure-store';
 import { getSessionCaseKey } from '@app/redux/session/klage/helpers';
@@ -14,7 +13,6 @@ export const useSessionCase = (
 ): [ISessionCase, false] | [undefined, true] => {
   const dispatch = useAppDispatch();
   const sessionCaseMap = useAppSelector((state) => state.session);
-  const language = useLanguage();
 
   const data = useMemo(
     () => sessionCaseMap[getSessionCaseKey(type, innsendingsytelse)],
@@ -31,7 +29,7 @@ export const useSessionCase = (
         }),
       );
     }
-  }, [dispatch, innsendingsytelse, internalSaksnummer, data, language, type]);
+  }, [dispatch, innsendingsytelse, internalSaksnummer, data, type]);
 
   if (data === undefined) {
     return [undefined, true];

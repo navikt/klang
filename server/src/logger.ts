@@ -97,7 +97,6 @@ const logDefined = (message: string | undefined, level: Level): void => {
     return;
   }
 
-  // eslint-disable-next-line no-console
   console[level](message);
 };
 

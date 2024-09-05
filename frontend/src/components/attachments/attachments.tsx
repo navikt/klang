@@ -109,8 +109,8 @@ const ShowErrors = ({ errors, clear }: ShowErrorsProps) => {
         {skjema.begrunnelse.attachments.clear_errors}
       </StyledClearButton>
       <ErrorSummary>
-        {errorMessages.map((error, i) => (
-          <ErrorSummary.Item key={i} href="#upload-attachment">
+        {errorMessages.map((error) => (
+          <ErrorSummary.Item key={error} href="#upload-attachment">
             {error}
           </ErrorSummary.Item>
         ))}

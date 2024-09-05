@@ -3,7 +3,8 @@ const SUPPORTS_CRYPTO =
   typeof window.crypto === 'object' &&
   window.crypto !== null &&
   'getRandomValues' in window.crypto &&
-  typeof window.crypto.getRandomValues === 'function';
+  // biome-ignore lint/complexity/useLiteralKeys: Not typed in TS
+  typeof window.crypto['getRandomValues'] === 'function';
 
 const getRandomSegment = (): string => Math.random().toString(36).substring(2);
 
