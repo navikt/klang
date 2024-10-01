@@ -43,9 +43,9 @@ export const nb = {
     },
     begrunnelse: {
       autosave: {
-        popover: 'Vi lagrer endringene dine automatisk.',
+        tooltip: 'Vi lagrer endringene dine automatisk.',
         saved: 'Sist lagret',
-        failed: 'Klarte ikke lagre',
+        failed: 'Kunne ikke lagre',
       },
       attachments: {
         clear_errors: 'Fjern feilmeldinger',

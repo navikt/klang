@@ -42,7 +42,7 @@ export const nn: Translations = {
     },
     begrunnelse: {
       autosave: {
-        popover: 'Vi lagrar endringane dine automatisk.',
+        tooltip: 'Vi lagrar endringane dine automatisk.',
         saved: 'Sist lagra',
         failed: 'Klarte ikkje å lagre',
       },

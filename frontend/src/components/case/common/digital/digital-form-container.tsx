@@ -36,7 +36,7 @@ export const DigitalFormContainer = ({
   page_title,
 }: Props) => {
   const [undertittel] = useInnsendingsytelseName(innsendingsytelse);
-  const { data: isAuthenticated } = useIsAuthenticated();
+  const { isAuthenticated } = useIsAuthenticated();
 
   usePageInit(`${steps[activeStep - 1] ?? ''} \u2013 ${title_fragment}`);
 
