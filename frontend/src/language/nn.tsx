@@ -374,6 +374,11 @@ export const nn: Translations = {
     has_attachments_label: 'Eg skal sende med vedlegg.',
     not_specified: 'Ikkje spesifisert',
   },
+  icons: {
+    externalLink: 'Åpne lenke i ny fane',
+    summary: 'Oppsummering',
+    receipt: 'Kvittering',
+  },
 };
 
 const CASE_TYPE_NAMES_LOWER_CASE_NN = {

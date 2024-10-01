@@ -10,11 +10,11 @@ interface Props {
 }
 
 export const KvitteringLoading = ({ informStillWorking, type }: Props) => {
-  const { skjema } = useTranslation();
+  const { skjema, icons } = useTranslation();
 
   return (
     <>
-      <BouncingEnvelope />
+      <BouncingEnvelope title={icons.receipt} />
       <PageTitle size="medium" level="1" spacing>
         {skjema.kvittering.loading.title[type]}
       </PageTitle>

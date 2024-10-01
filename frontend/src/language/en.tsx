@@ -372,6 +372,11 @@ export const en: Translations = {
     has_attachments_label: 'I will include attachments.',
     not_specified: 'Not specified.',
   },
+  icons: {
+    externalLink: 'Open link in new tab',
+    summary: 'Summary',
+    receipt: 'Receipt',
+  },
 };
 
 const CASE_TYPE_NAMES_LOWER_CASE_EN = {

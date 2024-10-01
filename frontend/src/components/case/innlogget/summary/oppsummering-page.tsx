@@ -29,7 +29,7 @@ interface Props {
 }
 
 const DigitalCaseOppsummeringPage = ({ data }: Props) => {
-  const { common, skjema, user_loader } = useTranslation();
+  const { common, skjema, user_loader, icons } = useTranslation();
   const { isAuthenticated } = useIsAuthenticated();
   const validate = useCaseErrors(data.type);
   const [isValid] = validate(data);
@@ -53,7 +53,7 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
       title_fragment={skjema.common.title_fragment[data.type]}
     >
       <div>
-        <Icon />
+        <Icon title={icons.summary} />
         <CenteredHeading level="2" size="medium">
           {skjema.summary.title}
         </CenteredHeading>
