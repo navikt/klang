@@ -16,14 +16,14 @@ interface Props {
 }
 
 export const KlageSessionLoader = ({ Component, innsendingsytelse, type }: Props) => {
-  const { data: isAuthenticated, isLoading: userIsLoading, isFetching: userIsFetching } = useIsAuthenticated();
+  const { isAuthenticated, isLoadingAuth } = useIsAuthenticated();
   const [query] = useSearchParams();
   const internalSaksnummer = getQueryValue(query.get('saksnummer'));
   const [data, isLoading] = useSessionCase(type, innsendingsytelse, internalSaksnummer);
   const { case_loader: klage_loader, user_loader } = useTranslation();
   const language = useLanguage();
 
-  if (userIsLoading || userIsFetching) {
+  if (isLoadingAuth) {
     return <LoadingPage>{user_loader.loading_user}</LoadingPage>;
   }
 

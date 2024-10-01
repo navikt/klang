@@ -8,6 +8,7 @@ import { SessionCaseOppsummeringPage } from '@app/components/case/uinnlogget/sum
 import { INNSENDINGSYTELSER, type Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { LanguageComponent } from '@app/language/component';
 import { CaseType } from '@app/redux-api/case/types';
+import { LoginRequired } from '@app/routes/login-required';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { CreateCase } from './create-case/create-case';
 import { DekoratorSetRedirect } from './dekorator-set-redirect';
@@ -23,7 +24,7 @@ export const Router = () => (
           <ErrorBoundary>
             <Routes>
               <Route path="/:lang">
-                <Route path="sak">
+                <Route path="sak" element={<LoginRequired />}>
                   <Route path=":id">
                     <Route index element={<Navigate to="begrunnelse" replace />} />
                     <Route path="begrunnelse" element={<CaseBegrunnelsePage />} />

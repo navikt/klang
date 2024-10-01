@@ -1,76 +1,45 @@
 import { useTranslation } from '@app/language/use-translation';
-import { CheckmarkIcon, XMarkOctagonIcon } from '@navikt/aksel-icons';
-import { Popover } from '@navikt/ds-react';
-import { formatDate, formatISO, isToday } from 'date-fns';
-import { useRef, useState } from 'react';
+import { CheckmarkIcon } from '@navikt/aksel-icons';
+import { Tooltip } from '@navikt/ds-react';
+import { formatDate, isToday, parseISO } from 'date-fns';
 import { styled } from 'styled-components';
 
 interface Props {
-  isLoading: boolean;
-  isError: boolean;
-  isSuccess: boolean;
-  lastSaved: Date;
+  lastSaved: string;
 }
 
 const AutosaveContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  text-align: right;
-  margin-top: 4px;
-`;
-
-const AutosaveContent = styled.div`
-  cursor: pointer;
-  > svg {
-    margin-right: 5px;
-  }
-  display: flex;
-  flex-flow: row wrap;
   align-items: center;
+  text-align: right;
+  column-gap: 4px;
+  margin-top: 4px;
+  color: var(--a-text-subtle);
 `;
 
-export const AutosaveProgressIndicator = (props: Props) => {
+export const AutosaveProgressIndicator = ({ lastSaved }: Props) => {
   const { skjema } = useTranslation();
-  const { popover, saved, failed } = skjema.begrunnelse.autosave;
-  const anchor = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const { tooltip: popover, saved } = skjema.begrunnelse.autosave;
 
   return (
-    <AutosaveContainer style={{ color: props.isError ? 'var(--a-text-danger)' : 'var(--a-text-subtle)' }}>
-      <AutosaveContent ref={anchor} onClick={() => setIsOpen(!isOpen)}>
-        {getContent(props, saved, failed)}
-      </AutosaveContent>
-      <Popover open={isOpen} anchorEl={anchor.current} onClose={() => setIsOpen(false)} placement="top-end">
-        <Popover.Content>{popover}</Popover.Content>
-      </Popover>
-    </AutosaveContainer>
+    <Tooltip content={popover}>
+      <AutosaveContainer>
+        <CheckmarkIcon aria-hidden />
+        <span>
+          {saved} {getDate(lastSaved)}
+        </span>
+      </AutosaveContainer>
+    </Tooltip>
   );
 };
 
-const getContent = (status: Props, saved: string, failed: string) => {
-  if (status.isError) {
-    return (
-      <>
-        <XMarkOctagonIcon aria-hidden />
-        {failed}
-      </>
-    );
+const getDate = (date: string) => {
+  const parsed = parseISO(date);
+
+  if (isToday(parsed)) {
+    return <time dateTime={date}>{formatDate(parsed, 'HH:mm:ss')}</time>;
   }
 
-  return (
-    <>
-      <CheckmarkIcon aria-hidden />
-      <span>
-        {saved} {getDate(status.lastSaved)}
-      </span>
-    </>
-  );
-};
-
-const getDate = (date: Date) => {
-  if (isToday(date)) {
-    return <time dateTime={formatISO(date)}>{formatDate(date, 'HH:mm:ss')}</time>;
-  }
-
-  return <time dateTime={formatISO(date)}>{formatDate(date, 'dd.MM.yyyy HH:mm:ss')}</time>;
+  return <time dateTime={date}>{formatDate(parsed, 'dd.MM.yyyy HH:mm:ss')}</time>;
 };

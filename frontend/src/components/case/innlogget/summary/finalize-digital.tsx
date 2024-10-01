@@ -25,7 +25,7 @@ export const FinalizeDigitalCase = ({ setError, status, id, fritekst, type, vedl
   const navigate = useNavigate();
   const { skjema, common } = useTranslation();
   const [loading, setIsLoading] = useState<boolean>(false);
-  const { data: isAuthenticated } = useIsAuthenticated();
+  const { isAuthenticated } = useIsAuthenticated();
 
   const errorTranslation = skjema.summary.submit_error;
   const nextTranslation = skjema.summary.next;

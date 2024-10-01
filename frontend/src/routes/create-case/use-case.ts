@@ -21,8 +21,8 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const language = useLanguage();
   const { case_loader, error_messages } = useTranslation();
   const [query] = useSearchParams();
-  const { isLoading: authIsLoading, data: isAuthenticated } = useIsAuthenticated();
-  const { data: user, isLoading: userIsLoading } = useUser();
+  const { isLoadingAuth, isAuthenticated } = useIsAuthenticated();
+  const { user, isLoadingUser } = useUser();
 
   const internalSaksnummer = getQueryValue(query.get('saksnummer'));
 
@@ -35,7 +35,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const [sessionCase, sessionCaseIsLoading] = useSessionCase(type, innsendingsytelse, internalSaksnummer);
   const dispatch = useAppDispatch();
 
-  const isLoading = authIsLoading || createIsLoading || resumeIsLoading || userIsLoading;
+  const isLoading = isLoadingAuth || createIsLoading || resumeIsLoading || isLoadingUser;
   const isDone = createHasFailed || createIsSuccess || resumeHasFailed || resumeIsSuccess;
 
   useEffect(() => {
@@ -54,10 +54,6 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
         sessionCase,
       });
 
-      return;
-    }
-
-    if (user === undefined) {
       return;
     }
 
