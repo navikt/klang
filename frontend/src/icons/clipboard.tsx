@@ -2,17 +2,12 @@ import { styled } from 'styled-components';
 
 interface Props {
   className?: string;
+  title: string;
 }
 
-const ClipboardSvg = (props: Props) => (
-  <svg
-    className={props.className}
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 100 100"
-    role="presentation"
-    aria-hidden
-  >
+const ClipboardSvg = ({ className, title }: Props) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100" aria-hidden>
+    <title>{title}</title>
     <path
       fill="#99C2E8"
       fillRule="evenodd"

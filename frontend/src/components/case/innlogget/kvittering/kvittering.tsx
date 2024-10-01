@@ -19,12 +19,12 @@ interface Props {
 }
 
 export const Kvittering = ({ children, type, ytelse }: Props) => {
-  const { skjema } = useTranslation();
+  const { skjema, icons } = useTranslation();
 
   return (
     <>
       <div>
-        <Icon />
+        <Icon title={icons.receipt} />
         <CenteredHeading level="2" size="medium">
           {skjema.kvittering.title[type]}
         </CenteredHeading>

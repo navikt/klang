@@ -375,6 +375,11 @@ export const nb = {
     has_attachments_label: 'Jeg skal sende med vedlegg.',
     not_specified: 'Ikke angitt',
   },
+  icons: {
+    externalLink: 'Åpne lenke i ny fane',
+    summary: 'Oppsummering',
+    receipt: 'Kvittering',
+  },
 };
 
 const CASE_TYPE_NAMES_LOWER_CASE_NB = {

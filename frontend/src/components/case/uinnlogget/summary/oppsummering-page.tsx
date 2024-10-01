@@ -32,7 +32,7 @@ interface Props {
 }
 
 const PostKlageoppsummeringPage = ({ data }: Props) => {
-  const { common, skjema } = useTranslation();
+  const { common, skjema, icons } = useTranslation();
   const validate = useSessionCaseErrors(data.type);
   const [isValid] = validate(data);
 
@@ -50,7 +50,7 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
       page_title={page_title[data.type]}
     >
       <div>
-        <Icon />
+        <Icon title={icons.summary} />
         <CenteredHeading level="2" size="medium">
           {skjema.summary.title}
         </CenteredHeading>
