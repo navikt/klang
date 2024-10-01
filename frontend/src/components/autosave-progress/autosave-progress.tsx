@@ -15,7 +15,6 @@ interface Props {
 const AutosaveContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  color: #78706a;
   text-align: right;
   margin-top: 4px;
 `;
@@ -37,7 +36,7 @@ export const AutosaveProgressIndicator = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <AutosaveContainer>
+    <AutosaveContainer style={{ color: props.isError ? 'var(--a-text-danger)' : 'var(--a-text-subtle)' }}>
       <AutosaveContent ref={anchor} onClick={() => setIsOpen(!isOpen)}>
         {getContent(props, saved, failed)}
       </AutosaveContent>
