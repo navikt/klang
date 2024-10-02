@@ -18,6 +18,7 @@ import { type Case, CaseStatus, CaseType, type CaseUpdatable } from '@app/redux-
 import { API_PATH } from '@app/redux-api/common';
 import { CenteredContainer } from '@app/styled-components/common';
 import { Alert, BodyLong, Button, GuidePanel } from '@navikt/ds-react';
+import { parseISO } from 'date-fns';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { DeleteCaseButton } from '../../../delete-case-button/delete-case-button';
@@ -35,9 +36,9 @@ interface Props {
 const RenderCasebegrunnelsePage = ({ data }: Props) => {
   const navigate = useNavigate();
   const language = useLanguage();
-  const { user, isLoadingUser } = useUser();
+  const { data: user } = useUser();
 
-  const { skjema, user_loader } = useTranslation();
+  const { skjema } = useTranslation();
 
   const [updateCase] = useUpdateCaseMutation();
   const [deleteAttachment] = useDeleteAttachmentMutation();
@@ -88,6 +89,8 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
   const isKlage = data.type === CaseType.KLAGE;
   const isEttersendelseKlage = data.type === CaseType.ETTERSENDELSE_KLAGE;
 
+  const modified = parseISO(data.modifiedByUser);
+
   const onChange = useCallback(
     async <T extends keyof CaseUpdatable>(key: T, value: CaseUpdatable[T]) => {
       await updateCase({ key, value, id: data.id });
@@ -109,13 +112,12 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         <BodyLong>{skjema.employer_info[data.type]}</BodyLong>
       </GuidePanel>
 
-      <PersonligeOpplysningerSummary
-        fornavn={isLoadingUser ? user_loader.loading_user : user.navn.fornavn}
-        etternavn={isLoadingUser ? user_loader.loading_user : user.navn.etternavn}
-        f_or_d_number={
-          isLoadingUser ? user_loader.loading_user : user.folkeregisteridentifikator?.identifikasjonsnummer
-        }
-      />
+      {user !== undefined ? (
+        <PersonligeOpplysningerSummary
+          {...user.navn}
+          f_or_d_number={user.folkeregisteridentifikator?.identifikasjonsnummer}
+        />
+      ) : null}
 
       {isKlage ? (
         <Reasons
@@ -155,7 +157,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         placeholder={skjema.begrunnelse.begrunnelse_text.placeholder[data.type]}
         label={skjema.begrunnelse.begrunnelse_text.title[data.type]}
         error={errors[FormFieldsIds.FRITEKST]}
-        modified={data.modifiedByUser}
+        modified={modified}
       />
 
       <AttachmentsSection

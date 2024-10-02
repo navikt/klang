@@ -42,7 +42,7 @@ export const en: Translations = {
     },
     begrunnelse: {
       autosave: {
-        tooltip: 'We are saving your changes automatically.',
+        popover: 'We are saving your changes automatically.',
         saved: 'Last saved',
         failed: 'Failed to save',
       },

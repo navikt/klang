@@ -1,7 +1,6 @@
 import { AutosaveProgressIndicator } from '@app/components/autosave-progress/autosave-progress';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { useOnUnmount } from '@app/hooks/use-on-unmount';
-import { useTranslation } from '@app/language/use-translation';
 import { useUpdateCaseMutation } from '@app/redux-api/case/api';
 import { Textarea, type TextareaProps } from '@navikt/ds-react';
 import { useCallback, useEffect, useState } from 'react';
@@ -10,20 +9,19 @@ interface Props extends Omit<TextareaProps, 'label' | 'onError' | 'onChange'> {
   caseId: string;
   value: string;
   label: string;
-  modified: string;
+  error: string | undefined;
+  modified: Date;
 }
 
-export const BegrunnelseText = ({ caseId, value, modified, error, ...props }: Props) => {
+export const BegrunnelseText = ({ caseId, value, modified, ...props }: Props) => {
   const [localValue, setLocalValue] = useState(value);
   const [updateCase, status] = useUpdateCaseMutation();
-  const [lastSaved, setLastSaved] = useState<string>(modified);
-  const { skjema } = useTranslation();
-  const { failed } = skjema.begrunnelse.autosave;
+  const [lastSaved, setLastSaved] = useState<Date>(modified);
 
   const updateFritekst = useCallback(
     async (newValue: string) => {
-      const { modifiedByUser } = await updateCase({ key: 'fritekst', value: newValue, id: caseId }).unwrap();
-      setLastSaved(modifiedByUser);
+      await updateCase({ key: 'fritekst', value: newValue, id: caseId });
+      setLastSaved(new Date());
     },
     [caseId, updateCase],
   );
@@ -54,7 +52,6 @@ export const BegrunnelseText = ({ caseId, value, modified, error, ...props }: Pr
         onChange={({ target }) => setLocalValue(target.value)}
         value={localValue}
         placeholder="Skriv her"
-        error={status.isError ? failed : error}
         {...props}
       />
       <AutosaveProgressIndicator {...status} lastSaved={lastSaved} />

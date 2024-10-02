@@ -29,16 +29,20 @@ interface Props {
 }
 
 const DigitalCaseOppsummeringPage = ({ data }: Props) => {
-  const { common, skjema, user_loader, icons } = useTranslation();
-  const { isAuthenticated } = useIsAuthenticated();
+  const { common, skjema, icons } = useTranslation();
+  const { data: isAuthenticated } = useIsAuthenticated();
   const validate = useCaseErrors(data.type);
   const [isValid] = validate(data);
 
   const [error, setError] = useState<string | null>(null);
 
-  const { user, isLoadingUser } = useUser();
+  const { data: user, isLoading: userIsLoading } = useUser();
 
   useGoToBegrunnelseOnError(isValid);
+
+  if (userIsLoading || user === undefined) {
+    return null;
+  }
 
   const incompleteStatus = data.status === CaseStatus.DRAFT || data.status === CaseStatus.DOWNLOADED;
 
@@ -66,11 +70,8 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
           </Heading>
           <BodyLong spacing>{skjema.summary.sections.person.info_from}</BodyLong>
           <PersonligeOpplysningerSummary
-            fornavn={isLoadingUser ? user_loader.loading_user : user.navn.fornavn}
-            etternavn={isLoadingUser ? user_loader.loading_user : user.navn.etternavn}
-            f_or_d_number={
-              isLoadingUser ? user_loader.loading_user : user.folkeregisteridentifikator?.identifikasjonsnummer
-            }
+            {...user.navn}
+            f_or_d_number={user.folkeregisteridentifikator?.identifikasjonsnummer ?? ''}
           />
         </Section>
 
