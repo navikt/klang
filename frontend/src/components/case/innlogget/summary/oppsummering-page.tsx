@@ -1,6 +1,6 @@
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
-import { useIsAuthenticated, useUser } from '@app/hooks/use-user';
+import { useUserRequired } from '@app/hooks/use-user';
 import { Clipboard } from '@app/icons/clipboard';
 import { useTranslation } from '@app/language/use-translation';
 import { type Case, CaseStatus, CaseType } from '@app/redux-api/case/types';
@@ -30,13 +30,10 @@ interface Props {
 
 const DigitalCaseOppsummeringPage = ({ data }: Props) => {
   const { common, skjema, user_loader, icons } = useTranslation();
-  const { isAuthenticated } = useIsAuthenticated();
+  const { user, isLoadingUser } = useUserRequired();
   const validate = useCaseErrors(data.type);
   const [isValid] = validate(data);
-
   const [error, setError] = useState<string | null>(null);
-
-  const { user, isLoadingUser } = useUser();
 
   useGoToBegrunnelseOnError(isValid);
 
@@ -106,12 +103,6 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
       </StyledPanel>
 
       {getError(error)}
-
-      {isAuthenticated === false ? (
-        <CenteredContainer>
-          <ErrorMessage>{common.logged_out}</ErrorMessage>
-        </CenteredContainer>
-      ) : null}
 
       <CenteredContainer>
         {incompleteStatus ? (

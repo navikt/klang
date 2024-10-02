@@ -8,7 +8,7 @@ import { BegrunnelseText } from '@app/components/case/innlogget/begrunnelse/begr
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { INITIAL_ERRORS } from '@app/hooks/errors/types';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
-import { useUser } from '@app/hooks/use-user';
+import { useUserRequired } from '@app/hooks/use-user';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
@@ -35,7 +35,7 @@ interface Props {
 const RenderCasebegrunnelsePage = ({ data }: Props) => {
   const navigate = useNavigate();
   const language = useLanguage();
-  const { user, isLoadingUser } = useUser();
+  const { user, isLoadingUser } = useUserRequired();
 
   const { skjema, user_loader } = useTranslation();
 

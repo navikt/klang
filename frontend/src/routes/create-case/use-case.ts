@@ -1,6 +1,6 @@
 import { getQueryValue } from '@app/functions/get-query-value';
 import { useSessionCase } from '@app/hooks/use-session-klage';
-import { useIsAuthenticated, useUser } from '@app/hooks/use-user';
+import { useUser } from '@app/hooks/use-user';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
@@ -21,8 +21,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const language = useLanguage();
   const { case_loader, error_messages } = useTranslation();
   const [query] = useSearchParams();
-  const { isLoadingAuth, isAuthenticated } = useIsAuthenticated();
-  const { user, isLoadingUser } = useUser();
+  const { user, isLoadingUser, isAuthenticated } = useUser();
 
   const internalSaksnummer = getQueryValue(query.get('saksnummer'));
 
@@ -35,7 +34,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const [sessionCase, sessionCaseIsLoading] = useSessionCase(type, innsendingsytelse, internalSaksnummer);
   const dispatch = useAppDispatch();
 
-  const isLoading = isLoadingAuth || createIsLoading || resumeIsLoading || isLoadingUser;
+  const isLoading = isLoadingUser || createIsLoading || resumeIsLoading;
   const isDone = createHasFailed || createIsSuccess || resumeHasFailed || resumeIsSuccess;
 
   useEffect(() => {
