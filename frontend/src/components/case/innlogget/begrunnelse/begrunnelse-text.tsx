@@ -1,5 +1,6 @@
 import { AutosaveProgressIndicator } from '@app/components/autosave-progress/autosave-progress';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
+import { isError } from '@app/functions/is-api-error';
 import { useOnUnmount } from '@app/hooks/use-on-unmount';
 import { useTranslation } from '@app/language/use-translation';
 import { useUpdateCaseMutation } from '@app/redux-api/case/api';
@@ -15,7 +16,7 @@ interface Props extends Omit<TextareaProps, 'label' | 'onError' | 'onChange'> {
 
 export const BegrunnelseText = ({ caseId, value, modified, error, ...props }: Props) => {
   const [localValue, setLocalValue] = useState(value);
-  const [updateCase, status] = useUpdateCaseMutation();
+  const [updateCase, status] = useUpdateCaseMutation({ fixedCacheKey: caseId });
   const [lastSaved, setLastSaved] = useState<string>(modified);
   const { skjema } = useTranslation();
   const { failed } = skjema.begrunnelse.autosave;
@@ -28,15 +29,17 @@ export const BegrunnelseText = ({ caseId, value, modified, error, ...props }: Pr
     [caseId, updateCase],
   );
 
+  const unauthorized = isError(status.error) && status.error.status === 401;
+
   useEffect(() => {
-    if (value === localValue) {
+    if (value === localValue || unauthorized) {
       return;
     }
 
     const timeout = setTimeout(() => updateFritekst(localValue), 1000);
 
     return () => clearTimeout(timeout);
-  }, [value, localValue, updateFritekst]);
+  }, [value, localValue, updateFritekst, unauthorized]);
 
   useOnUnmount(() => {
     if (value !== localValue) {

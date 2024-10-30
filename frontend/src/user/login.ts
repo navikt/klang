@@ -1,6 +1,6 @@
 import { currentPath } from '@app/routes/current-path';
 
-const getLoginRedirectPath = (): string => {
+export const getLoginRedirectPath = (): string => {
   const redirectAfter = currentPath(window.location);
 
   return `/oauth2/login?redirect=${redirectAfter}`;
