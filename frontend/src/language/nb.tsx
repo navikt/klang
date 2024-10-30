@@ -42,6 +42,12 @@ export const nb = {
       },
     },
     begrunnelse: {
+      loggedOutModal: {
+        loggedOut: 'Du ser ut til å ha blitt logget ut',
+        login: 'Vil du forsøke å logge inn igjen?',
+        yes: 'Ja',
+        logout: 'Logg ut',
+      },
       autosave: {
         tooltip: 'Vi lagrer endringene dine automatisk.',
         saved: 'Sist lagret',

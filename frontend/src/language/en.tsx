@@ -41,6 +41,12 @@ export const en: Translations = {
       },
     },
     begrunnelse: {
+      loggedOutModal: {
+        loggedOut: 'You have been logged out',
+        login: 'Do you want to log in again?',
+        yes: 'Yes',
+        logout: 'Log out',
+      },
       autosave: {
         tooltip: 'We are saving your changes automatically.',
         saved: 'Last saved',

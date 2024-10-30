@@ -41,6 +41,12 @@ export const nn: Translations = {
       },
     },
     begrunnelse: {
+      loggedOutModal: {
+        loggedOut: 'Du ser ut til å ha vorte logga ut',
+        login: 'Vil du prøva å logga inn igjen?',
+        yes: 'Ja',
+        logout: 'Logg ut',
+      },
       autosave: {
         tooltip: 'Vi lagrar endringane dine automatisk.',
         saved: 'Sist lagra',
