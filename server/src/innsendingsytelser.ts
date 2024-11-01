@@ -96,4 +96,5 @@ enum Innsendingsytelse {
   YTELSER_TIL_TIDLIGERE_FAMILIEPLEIERE = 'YTELSER_TIL_TIDLIGERE_FAMILIEPLEIERE',
 }
 
-export const INNSENDINGSYTELSER = Object.values(Innsendingsytelse);
+const INNSENDINGSYTELSER = Object.values(Innsendingsytelse);
+export const LOWER_CASE_INNSENDINGSYTELSER = INNSENDINGSYTELSER.map((ytelse) => ytelse.toLowerCase());

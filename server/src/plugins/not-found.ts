@@ -1,5 +1,5 @@
 import { YTELSE_OVERVIEW_URL, isDeployedToProd } from '@app/config/env';
-import { INNSENDINGSYTELSER } from '@app/innsendingsytelser';
+import { LOWER_CASE_INNSENDINGSYTELSER } from '@app/innsendingsytelser';
 import { getLogger } from '@app/logger';
 import { externalRedirectCounter } from '@app/plugins/serve-index/counters';
 import { removeSaksnummer } from '@app/plugins/serve-index/remove-saksnummer';
@@ -42,8 +42,8 @@ const getCells = (ytelse: string): string[] =>
 const createCell = (path: string, type: string) => `<td class="path"><a href="${path}">${type}</a></td>`;
 
 const getRows = (): string[][] =>
-  INNSENDINGSYTELSER.map((ytelse) => [
-    `<td class="ytelse">${ytelse.toLowerCase().replaceAll('_', ' ')}</td>`,
+  LOWER_CASE_INNSENDINGSYTELSER.map((ytelse) => [
+    `<td class="ytelse">${ytelse.replaceAll('_', ' ')}</td>`,
     ...getCells(ytelse),
   ]);
 
