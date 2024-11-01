@@ -1,4 +1,4 @@
-import { INNSENDINGSYTELSER } from '@app/innsendingsytelser';
+import { LOWER_CASE_INNSENDINGSYTELSER } from '@app/innsendingsytelser';
 import { CASE_TYPES, LANGUAGES, LOGGED_IN_STEPS, STEPS } from '@app/plugins/serve-index/segments';
 
 export const getAnonymousPaths = (): string[] => {
@@ -6,7 +6,7 @@ export const getAnonymousPaths = (): string[] => {
 
   for (const lang of LANGUAGES) {
     for (const type of CASE_TYPES) {
-      for (const ytelse of INNSENDINGSYTELSER) {
+      for (const ytelse of LOWER_CASE_INNSENDINGSYTELSER) {
         paths.push(`/${lang}/${type}/${ytelse}`);
         paths.push(`/${lang}/ettersendelse/${type}/${ytelse}`);
 
