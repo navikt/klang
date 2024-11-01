@@ -32,7 +32,7 @@ export const KlageSessionLoader = ({ Component, innsendingsytelse, type }: Props
   }
 
   if (isAuthenticated === true) {
-    return <Navigate to={`/${language}/${CASE_TYPE_PATH_SEGMENTS[type]}/${innsendingsytelse}`} replace />;
+    return <Navigate to={`/${language}/${CASE_TYPE_PATH_SEGMENTS[type]}/${innsendingsytelse.toLowerCase()}`} replace />;
   }
 
   return <Component data={data} />;
