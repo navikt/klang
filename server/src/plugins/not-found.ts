@@ -52,7 +52,7 @@ const DEV_404_HTML = isDeployedToProd
   : `
     <html>
       <head>
-        <title>404 - Siden finnes ikke</title>
+        <title>DEV - Velg ytelse</title>
         <style>
           *, *::before, *::after {
             box-sizing: border-box;
