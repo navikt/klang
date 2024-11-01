@@ -84,30 +84,18 @@ const useTexts = ({ innsendingsytelse, type }: UseTextsProps): Texts => {
   const { title_fragment, page_title } = skjema.common;
   const address = useAddress(innsendingsytelse);
 
-  return useMemo(() => {
-    switch (innsendingsytelse) {
-      case Innsendingsytelse.LONNSGARANTI:
-        return {
-          stepTexts: steg_simple[type],
-          address,
-          title,
-          page_title: page_title[type],
-          title_fragment: title_fragment[type],
-          common,
-          steps: skjema.steps[type],
-        };
-      default:
-        return {
-          stepTexts: steg[type],
-          address,
-          title,
-          page_title: page_title[type],
-          title_fragment: title_fragment[type],
-          common,
-          steps: skjema.steps[type],
-        };
-    }
-  }, [address, common, innsendingsytelse, page_title, skjema.steps, steg, steg_simple, title, title_fragment, type]);
+  return useMemo(
+    () => ({
+      stepTexts: innsendingsytelse === Innsendingsytelse.LONNSGARANTI ? steg_simple[type] : steg[type],
+      address,
+      title,
+      page_title: page_title[type],
+      title_fragment: title_fragment[type],
+      common,
+      steps: skjema.steps[type],
+    }),
+    [address, common, innsendingsytelse, page_title, skjema.steps, steg, steg_simple, title, title_fragment, type],
+  );
 };
 
 const InstructionList = styled.ol`
