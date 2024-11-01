@@ -35,7 +35,7 @@ export const httpLoggerPlugin = fastifyPlugin(
     });
   },
   {
-    fastify: '4',
+    fastify: '5',
     name: HTTP_LOGGER_PLUGIN_ID,
     dependencies: [PROXY_VERSION_PLUGIN_ID, SERVE_INDEX_PLUGIN_ID],
   },

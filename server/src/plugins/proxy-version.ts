@@ -11,5 +11,5 @@ export const proxyVersionPlugin = fastifyPlugin(
       reply.header(PROXY_VERSION_HEADER, PROXY_VERSION);
     });
   },
-  { fastify: '4', name: PROXY_VERSION_PLUGIN_ID },
+  { fastify: '5', name: PROXY_VERSION_PLUGIN_ID },
 );

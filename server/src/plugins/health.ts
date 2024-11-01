@@ -42,5 +42,5 @@ export const healthPlugin = fastifyPlugin(
       return reply.status(200).type('text/plain').send('Ready');
     });
   },
-  { fastify: '4', name: HEALTH_PLUGIN_ID },
+  { fastify: '5', name: HEALTH_PLUGIN_ID },
 );

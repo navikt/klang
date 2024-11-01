@@ -19,5 +19,5 @@ export const errorReportPlugin = fastifyPlugin(
       reply.status(200).send();
     });
   },
-  { fastify: '4', name: ERROR_REPORT_PLUGIN_ID },
+  { fastify: '5', name: ERROR_REPORT_PLUGIN_ID },
 );

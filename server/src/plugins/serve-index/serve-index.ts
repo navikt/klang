@@ -24,5 +24,5 @@ export const serveIndexPlugin = fastifyPlugin(
       app.get(path, serveIndexHandler);
     }
   },
-  { fastify: '4', name: SERVE_INDEX_PLUGIN_ID, dependencies: [API_PROXY_PLUGIN_ID, LOCAL_DEV_PLUGIN_ID] },
+  { fastify: '5', name: SERVE_INDEX_PLUGIN_ID, dependencies: [API_PROXY_PLUGIN_ID, LOCAL_DEV_PLUGIN_ID] },
 );
