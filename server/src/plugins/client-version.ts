@@ -23,5 +23,5 @@ export const clientVersionPlugin = fastifyPlugin(
       }
     });
   },
-  { fastify: '4', name: CLIENT_VERSION_PLUGIN_ID },
+  { fastify: '5', name: CLIENT_VERSION_PLUGIN_ID },
 );

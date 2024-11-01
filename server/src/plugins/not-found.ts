@@ -30,7 +30,7 @@ export const notFoundPlugin = fastifyPlugin(
       return reply.status(404).header('content-type', 'text/html').send(DEV_404_HTML);
     });
   },
-  { fastify: '4', name: NOT_FOUND_PLUGIN_ID, dependencies: [SERVE_INDEX_PLUGIN_ID] },
+  { fastify: '5', name: NOT_FOUND_PLUGIN_ID, dependencies: [SERVE_INDEX_PLUGIN_ID] },
 );
 
 const getCells = (ytelse: string): string[] =>

@@ -1,5 +1,4 @@
-import { createHash } from 'node:crypto';
-import { oboCache } from '@app/auth/cache/cache';
+import { getCacheKey, oboCache } from '@app/auth/cache/cache';
 import { NAIS_CLUSTER_NAME } from '@app/config/config';
 import { getLogger } from '@app/logger';
 import type { Client, GrantBody } from 'openid-client';
@@ -13,8 +12,7 @@ export const getOnBehalfOfAccessToken = async (
   trace_id: string,
   span_id: string,
 ): Promise<string> => {
-  const hash = createHash('sha256').update(accessToken).digest('hex');
-  const cacheKey = `${hash}-${appName}`;
+  const cacheKey = getCacheKey(accessToken, appName);
   const token = await oboCache.get(cacheKey);
 
   if (token !== null) {

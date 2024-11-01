@@ -105,5 +105,5 @@ export const localDevPlugin = fastifyPlugin(
       return res.header('content-type', mimeType).status(200).send(data);
     });
   },
-  { fastify: '4', name: LOCAL_DEV_PLUGIN_ID },
+  { fastify: '5', name: LOCAL_DEV_PLUGIN_ID },
 );

@@ -22,7 +22,7 @@ export const accessTokenPlugin = fastifyPlugin(
       }
     });
   },
-  { fastify: '4', name: ACCESS_TOKEN_PLUGIN_ID },
+  { fastify: '5', name: ACCESS_TOKEN_PLUGIN_ID },
 );
 
 const getAccessToken = (req: FastifyRequest): string | undefined => {
