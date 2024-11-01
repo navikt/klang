@@ -1,4 +1,4 @@
-import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 
 type AddressLines = [string, string, string];
 
@@ -9,7 +9,7 @@ const ADDRESSES: [AddressLines, AddressLines] = [
 
 export const useAddress = (innsendingsytelse: Innsendingsytelse | null): AddressLines => {
   switch (innsendingsytelse) {
-    case 'LONNSGARANTI':
+    case Innsendingsytelse.LONNSGARANTI:
       return ADDRESSES[1];
     default:
       return ADDRESSES[0];
