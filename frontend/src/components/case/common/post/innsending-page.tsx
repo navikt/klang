@@ -1,5 +1,5 @@
 import { useAddress } from '@app/hooks/use-address';
-import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import type { Language } from '@app/language/language';
 import { useTranslation } from '@app/language/use-translation';
 import type { CaseType } from '@app/redux-api/case/types';
@@ -86,7 +86,7 @@ const useTexts = ({ innsendingsytelse, type }: UseTextsProps): Texts => {
 
   return useMemo(() => {
     switch (innsendingsytelse) {
-      case 'LONNSGARANTI':
+      case Innsendingsytelse.LONNSGARANTI:
         return {
           stepTexts: steg_simple[type],
           address,
