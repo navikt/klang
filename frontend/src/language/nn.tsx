@@ -204,7 +204,7 @@ export const nn: Translations = {
         title: 'No er resten vårt ansvar',
         description: (type: CaseType, ytelse: Innsendingsytelse) => [
           'Du treng ikkje å gjere noko meir. Vi tek kontakt med deg om det er noko vi lurer på, eller om vi treng fleire opplysningar frå deg. Om du har gløymt å sende inn dokumentasjon til saka di, kan du framleis ',
-          <Link key="internal" to={`/nb/${getEttersendelsePath(type)}/${ytelse}`} as={ReactRouterLink}>
+          <Link key="internal" to={`/nb/${getEttersendelsePath(type)}/${ytelse.toLowerCase()}`} as={ReactRouterLink}>
             ettersende dokumentasjon
           </Link>,
           '. Kjem du på noko du har gløymt seinare, kan du gå via ',

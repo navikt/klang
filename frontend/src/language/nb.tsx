@@ -205,7 +205,7 @@ export const nb = {
         title: 'Nå er resten vårt ansvar',
         description: (type: CaseType, ytelse: Innsendingsytelse) => [
           'Du trenger ikke gjøre noe mer. Vi tar kontakt med deg hvis det er noe vi lurer på eller hvis vi trenger flere opplysninger fra deg. Om du har glemt å sende inn noe dokumentasjon til saken din, kan du fortsatt ',
-          <Link key="internal" to={`/nb/${getEttersendelsePath(type)}/${ytelse}`} as={ReactRouterLink}>
+          <Link key="internal" to={`/nb/${getEttersendelsePath(type)}/${ytelse.toLowerCase()}`} as={ReactRouterLink}>
             ettersende dokumentasjon
           </Link>,
           '. Kommer du på noe du har glemt på et senere tidspunkt, kan du gå via ',

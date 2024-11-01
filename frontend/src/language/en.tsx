@@ -202,7 +202,7 @@ export const en: Translations = {
         title: 'The rest is now our responsibility',
         description: (type: CaseType, ytelse: Innsendingsytelse) => [
           `You don't have to do anything else. We will contact you if we have any questions or if we need further information from you. If you have forgotten to include any documentation, you can still `,
-          <Link key="internal" to={`/en/${getEttersendelsePath(type)}/${ytelse}`} as={ReactRouterLink}>
+          <Link key="internal" to={`/en/${getEttersendelsePath(type)}/${ytelse.toLowerCase()}`} as={ReactRouterLink}>
             forward documentation
           </Link>,
           '. If you remember that you have forgotten anything later, you can forward documentation via ',

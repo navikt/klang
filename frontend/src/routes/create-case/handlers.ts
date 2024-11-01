@@ -27,7 +27,7 @@ interface IHandleSession extends IHandler {
 export const handleSessionCase = ({
   type,
   sessionCase,
-  innsendingsytelse: ytelse,
+  innsendingsytelse,
   language,
   internalSaksnummer,
   navigate,
@@ -38,18 +38,20 @@ export const handleSessionCase = ({
     dispatch(
       setSessionCase({
         type,
-        innsendingsytelse: ytelse,
-        data: createSessionCase(type, ytelse, internalSaksnummer),
+        innsendingsytelse,
+        data: createSessionCase(type, innsendingsytelse, internalSaksnummer),
       }),
     );
   } else if (internalSaksnummer !== null && internalSaksnummer !== sessionCase.internalSaksnummer) {
     appEvent(AppEventEnum.CASE_RESUME_SESSION_WITH_SAKSNUMMER);
-    dispatch(updateSessionCase({ type, innsendingsytelse: ytelse, data: { internalSaksnummer } }));
+    dispatch(updateSessionCase({ type, innsendingsytelse: innsendingsytelse, data: { internalSaksnummer } }));
   } else {
     appEvent(AppEventEnum.CASE_RESUME_SESSION);
   }
 
-  navigate(`/${language}/${CASE_TYPE_PATH_SEGMENTS[type]}/${ytelse}/begrunnelse`, { replace: true });
+  navigate(`/${language}/${CASE_TYPE_PATH_SEGMENTS[type]}/${innsendingsytelse.toLowerCase()}/begrunnelse`, {
+    replace: true,
+  });
 };
 
 interface IHandleCreate extends IHandler {
