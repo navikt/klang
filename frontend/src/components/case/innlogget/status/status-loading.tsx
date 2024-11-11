@@ -1,25 +1,39 @@
 import { Envelope } from '@app/icons/envelope';
 import { useTranslation } from '@app/language/use-translation';
 import type { CaseType } from '@app/redux-api/case/types';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { Alert, Heading } from '@navikt/ds-react';
+import { useEffect, useState } from 'react';
 import { keyframes, styled } from 'styled-components';
 
 interface Props {
-  informStillWorking: boolean;
   type: CaseType;
 }
 
-export const KvitteringLoading = ({ informStillWorking, type }: Props) => {
+export const StatusLoading = ({ type }: Props) => {
   const { skjema, icons } = useTranslation();
+  const [showStillWorking, setShowStillWorking] = useState<boolean>(false);
+
+  useEffect(() => {
+    const stillWorkingTimer = setTimeout(() => setShowStillWorking(true), 8000);
+
+    return () => {
+      clearTimeout(stillWorkingTimer);
+    };
+  }, []);
 
   return (
-    <>
+    <div>
       <BouncingEnvelope title={icons.receipt} />
-      <PageTitle size="medium" level="1" spacing>
-        {skjema.kvittering.loading.title[type]}
-      </PageTitle>
-      {informStillWorking ? <Description>{skjema.kvittering.loading.still_working}</Description> : null}
-    </>
+      <Heading level="2" size="medium" spacing={showStillWorking} align="center">
+        {skjema.status.loading.title[type]}
+      </Heading>
+
+      {showStillWorking ? (
+        <Alert variant="info" size="small">
+          {skjema.status.loading.still_working}
+        </Alert>
+      ) : null}
+    </div>
   );
 };
 
@@ -43,16 +57,4 @@ const BouncingEnvelope = styled(Envelope)`
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-name: ${bounce};
-`;
-
-const PageTitle = styled(Heading)`
-  && {
-    text-align: center;
-  }
-`;
-
-const Description = styled(BodyShort)`
-  && {
-    text-align: center;
-  }
 `;

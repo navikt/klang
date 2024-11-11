@@ -6,7 +6,6 @@ import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytels
 import { useTranslation } from '@app/language/use-translation';
 import { CaseType } from '@app/redux-api/case/types';
 import { CenteredContainer } from '@app/styled-components/common';
-import { CenteredHeading } from '@app/styled-components/page-title';
 import { BodyLong, BodyShort, Button, Heading, Panel } from '@navikt/ds-react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
@@ -51,9 +50,9 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
     >
       <div>
         <Icon title={icons.summary} />
-        <CenteredHeading level="2" size="medium">
+        <Heading level="2" size="medium" align="center">
           {skjema.summary.title}
-        </CenteredHeading>
+        </Heading>
       </div>
       <StyledPanel border>
         <Section>

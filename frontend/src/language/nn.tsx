@@ -186,7 +186,7 @@ export const nn: Translations = {
       post_link: 'Last ned om du heller ønskjer å sende i posten',
       documents: 'Vedlagde dokument',
     },
-    kvittering: {
+    status: {
       title: {
         [CaseType.KLAGE]: 'Kvittering for innsendt klage',
         [CaseType.ANKE]: 'Kvittering for innsendt anke',

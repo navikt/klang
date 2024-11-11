@@ -6,7 +6,6 @@ import { useTranslation } from '@app/language/use-translation';
 import { type Case, CaseStatus, CaseType } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
 import { CenteredContainer } from '@app/styled-components/common';
-import { CenteredHeading } from '@app/styled-components/page-title';
 import { Section } from '@app/styled-components/summary';
 import { BodyLong, Button, ErrorMessage, Heading, Panel } from '@navikt/ds-react';
 import { useState } from 'react';
@@ -51,9 +50,9 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
     >
       <div>
         <Icon title={icons.summary} />
-        <CenteredHeading level="2" size="medium">
+        <Heading level="2" size="medium" align="center">
           {skjema.summary.title}
-        </CenteredHeading>
+        </Heading>
       </div>
 
       <StyledPanel border>

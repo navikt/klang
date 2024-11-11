@@ -1,18 +1,18 @@
 import { DigitalFormContainer } from '@app/components/case/common/digital/digital-form-container';
-import { KvitteringPageLoader } from '@app/components/case/innlogget/kvittering/kvittering-page-loader';
 import { CaseLoader } from '@app/components/case/innlogget/loader';
+import { Status } from '@app/components/case/innlogget/status/status';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { type Case, CaseStatus } from '@app/redux-api/case/types';
 import { Navigate } from 'react-router-dom';
 
-export const CaseKvitteringPage = () => <CaseLoader Component={RenderCaseKvitteringPage} />;
+export const CaseStatusPage = () => <CaseLoader Component={RenderCaseStatusPage} />;
 
 interface Props {
   data: Case;
 }
 
-const RenderCaseKvitteringPage = ({ data }: Props) => {
+const RenderCaseStatusPage = ({ data }: Props) => {
   const language = useLanguage();
   const { skjema } = useTranslation();
 
@@ -32,7 +32,7 @@ const RenderCaseKvitteringPage = ({ data }: Props) => {
       innsendingsytelse={data.innsendingsytelse}
       title_fragment={title_fragment[data.type]}
     >
-      <KvitteringPageLoader caseId={data.id} type={data.type} />
+      <Status {...data} />
     </DigitalFormContainer>
   );
 };

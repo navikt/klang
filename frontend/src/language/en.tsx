@@ -184,7 +184,7 @@ export const en: Translations = {
       post_link: 'Download if you would rather send by post',
       documents: 'Attached documents',
     },
-    kvittering: {
+    status: {
       title: {
         [CaseType.KLAGE]: 'Receipt for submitted complaint',
         [CaseType.ANKE]: 'Receipt for submitted appeal',

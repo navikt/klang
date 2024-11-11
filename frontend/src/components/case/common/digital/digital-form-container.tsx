@@ -55,7 +55,7 @@ export const DigitalFormContainer = ({
     },
     {
       disabled: isAuthenticated === false || sak.status !== CaseStatus.DONE,
-      to: '../kvittering',
+      to: '../status',
       label: label3,
     },
   ];

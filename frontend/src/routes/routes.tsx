@@ -1,6 +1,6 @@
 import { CaseBegrunnelsePage } from '@app/components/case/innlogget/begrunnelse/begrunnelse-page';
 import { CaseInnsendingPage } from '@app/components/case/innlogget/innsending/innsending-page';
-import { CaseKvitteringPage } from '@app/components/case/innlogget/kvittering/kvittering-page';
+import { CaseStatusPage } from '@app/components/case/innlogget/status/status-page';
 import { CaseOppsummeringPage } from '@app/components/case/innlogget/summary/oppsummering-page';
 import { SessionCasebegrunnelsePage } from '@app/components/case/uinnlogget/begrunnelse/begrunnelse-page';
 import { SessionCaseInnsendingPage } from '@app/components/case/uinnlogget/innsending/innsending-page';
@@ -30,7 +30,8 @@ export const Router = () => (
                     <Route path="begrunnelse" element={<CaseBegrunnelsePage />} />
                     <Route path="oppsummering" element={<CaseOppsummeringPage />} />
                     <Route path="innsending" element={<CaseInnsendingPage />} />
-                    <Route path="kvittering" element={<CaseKvitteringPage />} />
+                    <Route path="kvittering" element={<CaseStatusPage />} />
+                    <Route path="status" element={<CaseStatusPage />} />
                   </Route>
                 </Route>
 

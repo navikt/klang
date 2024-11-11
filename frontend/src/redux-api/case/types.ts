@@ -10,11 +10,6 @@ export enum CaseStatus {
   DELETED = 'DELETED',
 }
 
-export interface FinalizedCase {
-  readonly finalizedDate: ISODate;
-  readonly modifiedByUser: ISODateTime;
-}
-
 export interface BaseCase {
   readonly id: string;
   readonly fritekst: string;

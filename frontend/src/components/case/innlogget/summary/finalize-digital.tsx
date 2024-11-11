@@ -85,4 +85,4 @@ export const FinalizeDigitalCase = ({ setError, status, id, fritekst, type, vedl
   );
 };
 
-const NEXT_PAGE_URL = '../kvittering';
+const NEXT_PAGE_URL = '../status';
