@@ -11,11 +11,15 @@ const log = getLogger('not-found-plugin');
 
 export const NOT_FOUND_PLUGIN_ID = 'not-found';
 
+const HARMLESS_NOT_FOUND_PATHS = ['/favicon.ico', '/'];
+
 export const notFoundPlugin = fastifyPlugin(
   async (app) => {
     app.setNotFoundHandler((req, reply) => {
       if (isDeployedToProd) {
-        log.warn({
+        const harmless = HARMLESS_NOT_FOUND_PATHS.includes(req.url);
+
+        log[harmless ? 'debug' : 'warn']({
           msg: `Invalid URL. Redirecting to external URL ${YTELSE_OVERVIEW_URL}`,
           data: { url: req.url },
         });
