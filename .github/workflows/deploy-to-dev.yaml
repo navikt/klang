@@ -47,8 +47,8 @@ jobs:
 
       - name: Generate bunfig.toml
         run: |
-          echo -e "[install.scopes]\n\"@navikt\" = { token = \"${{ secrets.READER_TOKEN }}\", url = \"https://npm.pkg.github.com/\" }" > ./frontend/bunfig.toml
-          cp ./frontend/bunfig.toml ./server/bunfig.toml
+          echo -e "\n\n[install.scopes]\n\"@navikt\" = { token = \"${{ secrets.READER_TOKEN }}\", url = \"https://npm.pkg.github.com/\" }" >> ./frontend/bunfig.toml
+          echo -e "\n\n[install.scopes]\n\"@navikt\" = { token = \"${{ secrets.READER_TOKEN }}\", url = \"https://npm.pkg.github.com/\" }" >> ./server/bunfig.toml
 
       - name: Install frontend dependencies
         working-directory: ./frontend

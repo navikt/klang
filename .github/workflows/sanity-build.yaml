@@ -24,7 +24,7 @@ jobs:
       - name: Generate bunfig.toml
         run: |
           cd ${{ matrix.apps }}
-          echo -e "[install.scopes]\n\"@navikt\" = { token = \"${{ secrets.READER_TOKEN }}\", url = \"https://npm.pkg.github.com/\" }" > bunfig.toml
+          echo -e "\n\n[install.scopes]\n\"@navikt\" = { token = \"${{ secrets.READER_TOKEN }}\", url = \"https://npm.pkg.github.com/\" }" >> bunfig.toml
 
       - name: Install ${{ matrix.apps }} dependencies
         shell: bash
