@@ -1,4 +1,4 @@
-import { URL } from '@app/config/env';
+import { NAV_URL, URL } from '@app/config/env';
 import type { FastifyCorsOptions } from '@fastify/cors';
 
 export const corsOptions: FastifyCorsOptions = {
@@ -25,5 +25,5 @@ export const corsOptions: FastifyCorsOptions = {
     'X-Forwarded-Proto',
     'X-Requested-With',
   ],
-  origin: URL,
+  origin: [URL, NAV_URL],
 };

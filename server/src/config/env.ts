@@ -31,6 +31,16 @@ const PROD_URL = `https://${PROD_DOMAIN}`;
 
 export const URL: string = getEnvironmentVersion(LOCAL_URL, DEV_URL, PROD_URL);
 
+/**
+ * nav.no domain for the current environment.
+ * Used for CORS for Min Side.
+ */
+export const NAV_URL = getEnvironmentVersion(
+  'https://www.ansatt.dev.nav.no',
+  'https://www.ansatt.dev.nav.no',
+  'https://www.nav.no',
+);
+
 export const NAIS_NAMESPACE = requiredEnvString('NAIS_NAMESPACE', 'none');
 
 export const POD_NAME = requiredEnvString('OTEL_RESOURCE_ATTRIBUTES_POD_NAME', 'none');
