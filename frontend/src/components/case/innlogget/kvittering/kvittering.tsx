@@ -5,6 +5,7 @@ import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import type { CaseType } from '@app/redux-api/case/types';
+import { API_PATH } from '@app/redux-api/common';
 import { CenteredContainer } from '@app/styled-components/common';
 import { CenteredHeading } from '@app/styled-components/page-title';
 import { DownloadIcon } from '@navikt/aksel-icons';
@@ -54,17 +55,16 @@ export const Kvittering = ({ children, type, ytelse }: Props) => {
 interface JournalpostProps {
   caseId: string;
   finalizedDate: ISODate | null;
-  basePath: string;
   type: CaseType;
 }
 
-export const Journalpost = ({ caseId, finalizedDate, basePath, type }: JournalpostProps) => {
+export const Journalpost = ({ caseId, finalizedDate, type }: JournalpostProps) => {
   const { skjema } = useTranslation();
 
   return (
     <>
       <BodyShort>
-        <ExternalLink href={`${basePath}/${caseId}/pdf`} onClick={() => appEvent(AppEventEnum.CASE_DOWNLOAD)}>
+        <ExternalLink href={`${API_PATH}/klanker/${caseId}/pdf`} onClick={() => appEvent(AppEventEnum.CASE_DOWNLOAD)}>
           <DownloadIcon aria-hidden />
           <span>{skjema.kvittering.download[type]}</span>
         </ExternalLink>

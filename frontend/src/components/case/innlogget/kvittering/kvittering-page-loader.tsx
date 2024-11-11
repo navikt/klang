@@ -1,6 +1,5 @@
 import { useGetCaseQuery } from '@app/redux-api/case/api';
 import { CaseStatus, type CaseType } from '@app/redux-api/case/types';
-import { API_PATH } from '@app/redux-api/common';
 import { useEffect, useState } from 'react';
 import { Journalpost, Kvittering } from './kvittering';
 import { KvitteringLoading } from './kvittering-loading';
@@ -36,12 +35,7 @@ export const KvitteringPageLoader = ({ type, caseId }: Props) => {
     return (
       <Kvittering type={data.type} ytelse={data.innsendingsytelse}>
         {data.journalpostId !== null ? (
-          <Journalpost
-            caseId={data.id}
-            finalizedDate={data.finalizedDate}
-            basePath={`${API_PATH}/klanker`}
-            type={data.type}
-          />
+          <Journalpost caseId={data.id} finalizedDate={data.finalizedDate} type={data.type} />
         ) : null}
       </Kvittering>
     );
