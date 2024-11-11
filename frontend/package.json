@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "vite --base=/ & tsc --watch",
-    "build": "vite build",
-    "build:local": "vite --base=/ build",
+    "build": "vite build && bun run copy:robots",
+    "build:local": "vite --base=/ build && bun run copy:robots",
+    "copy:robots": "cp assets/robots.txt dist/assets/robots.txt",
     "typecheck": "tsc",
     "lint": "biome check"
   },
