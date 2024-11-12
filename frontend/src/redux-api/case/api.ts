@@ -7,12 +7,11 @@ import type {
   UpdateCaseParams,
   UploadAttachmentParams,
 } from '@app/redux-api/case/params';
-import { type Attachment, type BaseCase, type Case, CaseStatus, type FinalizedCase } from '@app/redux-api/case/types';
+import type { BaseUpdateResponse, FinalizeCaseResponse } from '@app/redux-api/case/responses';
+import { type Attachment, type Case, CaseStatus } from '@app/redux-api/case/types';
 import { API_BASE_QUERY, API_PATH } from '@app/redux-api/common';
 import { ServerSentEventManager, ServerSentEventType } from '@app/redux-api/server-sent-events';
 import { createApi } from '@reduxjs/toolkit/query/react';
-
-type BaseUpdateResponse = Pick<BaseCase, 'modifiedByUser'>;
 
 export const caseApi = createApi({
   reducerPath: 'caseApi',
@@ -99,7 +98,7 @@ export const caseApi = createApi({
         dispatch(caseApi.util.updateQueryData('getCase', id, () => undefined));
       },
     }),
-    finalizeCase: builder.mutation<FinalizedCase, string>({
+    finalizeCase: builder.mutation<FinalizeCaseResponse, string>({
       query: (id) => ({
         method: 'POST',
         url: `/klanker/${id}/finalize`,
