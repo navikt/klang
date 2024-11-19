@@ -136,7 +136,10 @@ export const nn: Translations = {
       },
     },
     summary: {
-      title: 'Sjå over før du sender inn',
+      title: {
+        logged_in: 'Sjå over før du sender inn',
+        not_logged_in: 'Sjå over',
+      },
       submit_error: {
         [CaseType.KLAGE]: 'Klarte ikkje å sende inn klaga. Ukjent feil.',
         [CaseType.ANKE]: 'Klarte ikkje å sende inn anka. Ukjent feil.',
@@ -179,6 +182,36 @@ export const nn: Translations = {
             [CaseType.ETTERSENDELSE_ANKE]: 'Har du noko å leggje til?',
           },
           documents: 'Vedlagte dokument',
+        },
+        login: {
+          notice: {
+            [CaseType.KLAGE]:
+              'Du kan fortsatt logge inn for å sende inn klaga digitalt. Da slepp du å skrive ut og sende klaga i posten sjølv.',
+            [CaseType.ANKE]:
+              'Du kan fortsatt logge inn for å sende inn anka digitalt. Da slepp du å skrive ut og sende anka i posten sjølv.',
+            [CaseType.ETTERSENDELSE_KLAGE]:
+              'Du kan fortsatt logge inn for å sende inn ettersendinga digitalt. Da slepp du å skrive ut og sende ettersendinga i posten sjølv.',
+            [CaseType.ETTERSENDELSE_ANKE]:
+              'Du kan fortsatt logge inn for å sende inn ettersendinga digitalt. Da slepp du å skrive ut og sende ettersendinga i posten sjølv.',
+          },
+          action: 'Logg inn',
+        },
+        confirm: {
+          label: {
+            [CaseType.KLAGE]: 'Eg forstår at eg sjølv må skrive ut klaga og sende klaga i posten sjølv.',
+            [CaseType.ANKE]: 'Eg forstår at eg sjølv må skrive ut anka og sende anka i posten sjølv.',
+            [CaseType.ETTERSENDELSE_KLAGE]:
+              'Eg forstår at eg sjølv må skrive ut og sende ettersendinga i posten sjølv.',
+            [CaseType.ETTERSENDELSE_ANKE]: 'Eg forstår at eg sjølv må skrive ut og sende ettersendinga i posten sjølv.',
+          },
+          error: {
+            [CaseType.KLAGE]: 'Du må bekrefte at du ønsker å skrive ut og sende klaga i posten sjølv.',
+            [CaseType.ANKE]: 'Du må bekrefte at du ønsker å skrive ut og sende anka i posten sjølv.',
+            [CaseType.ETTERSENDELSE_KLAGE]:
+              'Du må bekrefte at du ønsker å skrive ut og sende ettersendinga i posten sjølv.',
+            [CaseType.ETTERSENDELSE_ANKE]:
+              'Du må bekrefte at du ønsker å skrive ut og sende ettersendinga i posten sjølv.',
+          },
         },
       },
       next: (status: CaseStatus, type: CaseType): string =>

@@ -7,7 +7,10 @@ import { useTranslation } from '@app/language/use-translation';
 import { CaseType } from '@app/redux-api/case/types';
 import { CenteredContainer } from '@app/styled-components/common';
 import { CenteredHeading } from '@app/styled-components/page-title';
-import { BodyLong, BodyShort, Button, Heading, Panel } from '@navikt/ds-react';
+import { getLoginRedirectPath } from '@app/user/login';
+import { EnterIcon } from '@navikt/aksel-icons';
+import { Alert, BodyLong, BodyShort, Button, ConfirmationPanel, Heading, Panel } from '@navikt/ds-react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { InformationPointBox } from '../../../information-point-box/information-point-box';
@@ -35,6 +38,8 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
   const { common, skjema, icons } = useTranslation();
   const validate = useSessionCaseErrors(data.type);
   const [isValid] = validate(data);
+  const [isUnderstood, setIsUnderstood] = useState(false);
+  const [isUnderstoodError, setIsUnderstoodError] = useState<string | null>(null);
 
   useGoToBegrunnelseOnError(isValid);
 
@@ -52,9 +57,10 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
       <div>
         <Icon title={icons.summary} />
         <CenteredHeading level="2" size="medium">
-          {skjema.summary.title}
+          {skjema.summary.title.not_logged_in}
         </CenteredHeading>
       </div>
+
       <StyledPanel border>
         <Section>
           <Heading level="1" size="small" spacing>
@@ -94,11 +100,38 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
         </Section>
       </StyledPanel>
 
+      <Alert variant="info">
+        <BodyShort spacing>{skjema.summary.sections.login.notice[data.type]}</BodyShort>
+        <Button variant="primary" size="medium" as="a" href={getLoginRedirectPath()} icon={<EnterIcon aria-hidden />}>
+          {skjema.summary.sections.login.action}
+        </Button>
+      </Alert>
+
+      <ConfirmationPanel
+        checked={isUnderstood}
+        label={skjema.summary.sections.confirm.label[data.type]}
+        onChange={() => setIsUnderstood((u) => !u)}
+        error={isUnderstoodError}
+      />
+
       <CenteredContainer>
         <Button as={Link} variant="secondary" to="../begrunnelse">
           {common.back}
         </Button>
-        <DownloadButton caseData={data} />
+        <DownloadButton
+          caseData={data}
+          validForm={() => {
+            if (isUnderstood) {
+              setIsUnderstoodError(null);
+
+              return true;
+            }
+
+            setIsUnderstoodError(skjema.summary.sections.confirm.error[data.type]);
+
+            return false;
+          }}
+        />
       </CenteredContainer>
     </PostFormContainer>
   );

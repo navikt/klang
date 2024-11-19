@@ -52,7 +52,7 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
       <div>
         <Icon title={icons.summary} />
         <CenteredHeading level="2" size="medium">
-          {skjema.summary.title}
+          {skjema.summary.title.logged_in}
         </CenteredHeading>
       </div>
 
