@@ -133,7 +133,10 @@ export const en: Translations = {
       },
     },
     summary: {
-      title: 'Review before you submit',
+      title: {
+        logged_in: 'Review before you submit',
+        not_logged_in: 'Review',
+      },
       submit_error: {
         [CaseType.KLAGE]: 'Failed to submit complaint. Unknown error.',
         [CaseType.ANKE]: 'Failed to submit appeal. Unknown error.',
@@ -177,6 +180,37 @@ export const en: Translations = {
             [CaseType.ETTERSENDELSE_ANKE]: 'What do you want to add?',
           },
           documents: 'Attached documents',
+        },
+        login: {
+          notice: {
+            [CaseType.KLAGE]:
+              'You can still log in to submit the complaint digitally. Then you do not have to print and send the complaint by post yourself.',
+            [CaseType.ANKE]:
+              'You can still log in to submit the appeal digitally. Then you do not have to print and send the appeal by post yourself.',
+            [CaseType.ETTERSENDELSE_KLAGE]:
+              'You can still log in to submit the additional documentation digitally. Then you do not have to print and send the additional documentation by post yourself.',
+            [CaseType.ETTERSENDELSE_ANKE]:
+              'You can still log in to submit the additional documentation digitally. Then you do not have to print and send the additional documentation by post yourself.',
+          },
+          action: 'Log in',
+        },
+        confirm: {
+          label: {
+            [CaseType.KLAGE]: 'I understand that I have to print and send the complaint by post myself.',
+            [CaseType.ANKE]: 'I understand that I have to print and send the appeal by post myself.',
+            [CaseType.ETTERSENDELSE_KLAGE]:
+              'I understand that I have to print and send the additional documentation by post myself.',
+            [CaseType.ETTERSENDELSE_ANKE]:
+              'I understand that I have to print and send the additional documentation by post myself.',
+          },
+          error: {
+            [CaseType.KLAGE]: 'You must confirm that you want to print and send the complaint by post yourself.',
+            [CaseType.ANKE]: 'You must confirm that you want to print and send the appeal by post yourself.',
+            [CaseType.ETTERSENDELSE_KLAGE]:
+              'You must confirm that you want to print and send the additional documentation by post yourself.',
+            [CaseType.ETTERSENDELSE_ANKE]:
+              'You must confirm that you want to print and send the additional documentation by post yourself.',
+          },
         },
       },
       next: (status: CaseStatus, type: CaseType) =>
