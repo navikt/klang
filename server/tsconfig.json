@@ -6,7 +6,7 @@
     "module": "ESNext",
     "moduleDetection": "force",
     // Bundler mode
-    "moduleResolution": "Bundler",
+    "moduleResolution": "node",
     // Best practices
     "strict": true,
     "skipLibCheck": true,
