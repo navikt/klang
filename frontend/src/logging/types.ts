@@ -38,6 +38,8 @@ export interface BaseEventData {
    * @example `/nb/klage/1234/begrunnelse`
    * */
   route: string;
+  /** User agent string. */
+  user_agent: string;
 }
 
 interface CommonEventData {
