@@ -14,7 +14,7 @@ export const NAIS_CLUSTER_NAME = requiredEnvString('NAIS_CLUSTER_NAME');
 const isLocal = NAIS_CLUSTER_NAME === 'local';
 
 const defaultValue = isLocal ? 'local' : undefined;
-const localJwk: JWK = {};
+const localJwk: JWK = { kty: 'RSA' };
 
 export const TOKEN_X_CLIENT_ID = requiredEnvString('TOKEN_X_CLIENT_ID', defaultValue);
 export const TOKEN_X_WELL_KNOWN_URL = requiredEnvString('TOKEN_X_WELL_KNOWN_URL', defaultValue);
