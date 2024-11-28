@@ -28,6 +28,7 @@ class FrontendLogger {
       token_expires: this.tokenExpiresAt,
       session_ends: this.sessionEndsAt,
       is_logged_in: this.tokenExpiresAt !== undefined,
+      user_agent: navigator.userAgent,
     };
   };
 
