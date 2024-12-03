@@ -25,4 +25,5 @@ export enum AppEventEnum {
   UPLOAD_FILES_START = 'Start uploading files',
   USER_LOGIN = 'Login',
   MISSING_AUTH = 'Missing authentication',
+  LOGGED_OUT_MODAL_OPEN = 'Logged out modal open',
 }

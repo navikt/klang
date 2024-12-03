@@ -1,5 +1,7 @@
 import { isNotUndefined } from '@app/functions/is-not-type-guards';
 import { apiEvent } from '@app/logging/logger';
+import { reduxStore } from '@app/redux/configure-store';
+import { setShow } from '@app/redux/logged-out-modal';
 import { type FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 
 const IS_LOCALHOST = window.location.hostname === 'localhost';
@@ -46,6 +48,7 @@ const staggeredBaseQuery = (baseUrl: string) => {
       }
 
       if (result.error.status === 401) {
+        reduxStore.dispatch(setShow(true));
         retry.fail(result.error.data);
       } else if (
         result.error.status === 400 ||
@@ -57,6 +60,8 @@ const staggeredBaseQuery = (baseUrl: string) => {
       ) {
         retry.fail(result.error);
       }
+
+      reduxStore.dispatch(setShow(false));
 
       return result;
     },
