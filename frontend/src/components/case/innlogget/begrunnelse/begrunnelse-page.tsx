@@ -5,7 +5,6 @@ import { Reasons } from '@app/components/case/common/reasons';
 import { DebouncedSaksnummer } from '@app/components/case/common/saksnummer';
 import { VedtakDate } from '@app/components/case/common/vedtak-date';
 import { BegrunnelseText } from '@app/components/case/innlogget/begrunnelse/begrunnelse-text';
-import { LoggedOutModal } from '@app/components/case/innlogget/begrunnelse/logged-out-modal';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { INITIAL_ERRORS } from '@app/hooks/errors/types';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
@@ -40,7 +39,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
 
   const { skjema, user_loader } = useTranslation();
 
-  const [updateCase] = useUpdateCaseMutation({ fixedCacheKey: data.id });
+  const [updateCase] = useUpdateCaseMutation();
   const [deleteAttachment] = useDeleteAttachmentMutation();
   const [deleteCase, { isLoading }] = useDeleteCaseMutation();
 
@@ -182,8 +181,6 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
           </Button>
         </CenteredContainer>
       </DigitalFormContainer>
-
-      <LoggedOutModal fixedCacheKey={data.id} />
     </>
   );
 };

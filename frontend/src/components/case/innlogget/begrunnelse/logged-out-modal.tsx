@@ -1,18 +1,24 @@
-import { isError } from '@app/functions/is-api-error';
 import { useTranslation } from '@app/language/use-translation';
-import { useUpdateCaseMutation } from '@app/redux-api/case/api';
+import { AppEventEnum } from '@app/logging/action';
+import { appEvent } from '@app/logging/logger';
+import { useAppSelector } from '@app/redux/configure-store';
 import { getLoginRedirectPath } from '@app/user/login';
 import { BodyShort, Button, Modal } from '@navikt/ds-react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-export const LoggedOutModal = ({ fixedCacheKey }: { fixedCacheKey: string }) => {
-  const [, { error }] = useUpdateCaseMutation({ fixedCacheKey });
+export const LoggedOutModal = () => {
+  const { show } = useAppSelector(({ loggedOutModal }) => loggedOutModal);
   const { skjema } = useTranslation();
 
-  const unauthorized = isError(error) && error.status === 401;
+  useEffect(() => {
+    if (show) {
+      appEvent(AppEventEnum.LOGGED_OUT_MODAL_OPEN);
+    }
+  }, [show]);
 
-  if (!unauthorized) {
+  if (!show) {
     return null;
   }
 
