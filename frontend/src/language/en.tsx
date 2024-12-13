@@ -91,14 +91,14 @@ export const en: Translations = {
       vedtak_date: {
         title: {
           [CaseType.KLAGE]: 'Date of decision (optional)',
-          [CaseType.ANKE]: 'Date of the complaint decision from NAV Klageinstans',
+          [CaseType.ANKE]: 'Date of the complaint decision from Nav klageinstans',
           [CaseType.ETTERSENDELSE_KLAGE]: 'Date of decision (optional)',
-          [CaseType.ETTERSENDELSE_ANKE]: 'Date of the complaint decision from NAV Klageinstans',
+          [CaseType.ETTERSENDELSE_ANKE]: 'Date of the complaint decision from Nav klageinstans',
         },
       },
       klageenhet: {
         radio_title:
-          'Have you received a letter from NAV Klageinstans or another unit in NAV stating that your case has been sent to NAV Klageinstans?',
+          'Have you received a letter from Nav klageinstans or another unit in Nav stating that your case has been sent to Nav klageinstans?',
         choose_enhet_explanation:
           'If the letter asks you to choose the correct unit, you can ignore it. We will send to the correct unit.',
       },
@@ -111,7 +111,7 @@ export const en: Translations = {
         },
         description: {
           [CaseType.KLAGE]:
-            'Explain in your own words what you disagree with and what you wish to have changed. Attach documents that can show NAV why you disagree.',
+            'Explain in your own words what you disagree with and what you wish to have changed. Attach documents that can show Nav why you disagree.',
           [CaseType.ANKE]:
             'Explain in your own words what you disagree with in the complaint decision and what you wish to have changed. Attach any documents you want to follow your case to the Social Security Court (Trygderetten).',
           [CaseType.ETTERSENDELSE_KLAGE]: 'If you have anything to add, you may write it here.',
@@ -153,9 +153,9 @@ export const en: Translations = {
           title: 'Information from the case',
           vedtak: {
             [CaseType.KLAGE]: 'Date of decision',
-            [CaseType.ANKE]: 'Date of the complaint decision from NAV Klageinstans',
+            [CaseType.ANKE]: 'Date of the complaint decision from Nav klageinstans',
             [CaseType.ETTERSENDELSE_KLAGE]: 'Date of decision',
-            [CaseType.ETTERSENDELSE_ANKE]: 'Date of the complaint decision from NAV Klageinstans',
+            [CaseType.ETTERSENDELSE_ANKE]: 'Date of the complaint decision from Nav klageinstans',
           },
           saksnummer: 'Case number',
           from_system: 'Obtained from internal system',

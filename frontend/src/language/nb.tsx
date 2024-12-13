@@ -95,14 +95,14 @@ export const nb = {
       vedtak_date: {
         title: {
           [CaseType.KLAGE]: 'Vedtaksdato (valgfri)',
-          [CaseType.ANKE]: 'Dato for klagevedtaket fra NAV Klageinstans',
+          [CaseType.ANKE]: 'Dato for klagevedtaket fra Nav klageinstans',
           [CaseType.ETTERSENDELSE_KLAGE]: 'Vedtaksdato (valgfri)',
-          [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket fra NAV Klageinstans',
+          [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket fra Nav klageinstans',
         },
       },
       klageenhet: {
         radio_title:
-          'Har du mottatt et brev fra NAV Klageinstans eller en annen enhet i NAV om at saken din er sendt til NAV Klageinstans?',
+          'Har du mottatt et brev fra Nav klageinstans eller en annen enhet i Nav om at saken din er sendt til Nav klageinstans?',
         choose_enhet_explanation:
           'Dersom brevet ber deg om å velge riktig enhet, kan du se bort fra det. Vi sender til riktig enhet.',
       },
@@ -115,7 +115,7 @@ export const nb = {
         },
         description: {
           [CaseType.KLAGE]:
-            'Forklar med dine egne ord hva som gjør at du er uenig og hva du ønsker endret. Legg ved dokumenter som kan vise NAV hvorfor du er uenig.',
+            'Forklar med dine egne ord hva som gjør at du er uenig og hva du ønsker endret. Legg ved dokumenter som kan vise Nav hvorfor du er uenig.',
           [CaseType.ANKE]:
             'Forklar med dine egne ord hva som gjør at du er uenig i klagevedtaket og hva du ønsker endret. Legg ved eventuelle dokumenter du ønsker skal følge saken din til Trygderetten.',
           [CaseType.ETTERSENDELSE_KLAGE]: 'Hvis du har noe du ønsker å legge til, kan du skrive det inn her.',
@@ -156,9 +156,9 @@ export const nb = {
           title: 'Opplysninger fra saken',
           vedtak: {
             [CaseType.KLAGE]: 'Vedtaksdato',
-            [CaseType.ANKE]: 'Dato for klagevedtaket fra NAV Klageinstans',
+            [CaseType.ANKE]: 'Dato for klagevedtaket fra Nav klageinstans',
             [CaseType.ETTERSENDELSE_KLAGE]: 'Vedtaksdato',
-            [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket fra NAV Klageinstans',
+            [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket fra Nav klageinstans',
           },
           saksnummer: 'Saksnummer',
           from_system: 'Hentet fra internt system',
@@ -286,25 +286,25 @@ export const nb = {
     title: 'Hva gjør du nå?',
     steg: {
       [CaseType.KLAGE]: [
-        'Skriv ut klagen. Ved utskrift kommer en forside som NAV har laget for deg. Denne skal ligge øverst. Følg oppskriften på forsiden.',
+        'Skriv ut klagen. Ved utskrift kommer en forside som Nav har laget for deg. Denne skal ligge øverst. Følg oppskriften på forsiden.',
         'Signer forsiden og siste side i klagen.',
         'Legg ved vedleggene.',
         'Send i posten til ',
       ],
       [CaseType.ANKE]: [
-        'Skriv ut anken. Ved utskrift kommer en forside som NAV har laget for deg. Denne skal ligge øverst. Følg oppskriften på forsiden.',
+        'Skriv ut anken. Ved utskrift kommer en forside som Nav har laget for deg. Denne skal ligge øverst. Følg oppskriften på forsiden.',
         'Signer forsiden og siste side i anken.',
         'Legg ved vedleggene.',
         'Send i posten til ',
       ],
       [CaseType.ETTERSENDELSE_KLAGE]: [
-        'Skriv ut dokumentasjonen. Ved utskrift kommer en forside som NAV har laget for deg. Denne skal ligge øverst. Følg oppskriften på forsiden.',
+        'Skriv ut dokumentasjonen. Ved utskrift kommer en forside som Nav har laget for deg. Denne skal ligge øverst. Følg oppskriften på forsiden.',
         'Signer forsiden og siste side i dokumentasjonen.',
         'Legg ved vedleggene.',
         'Send i posten til ',
       ],
       [CaseType.ETTERSENDELSE_ANKE]: [
-        'Skriv ut dokumentasjonen. Ved utskrift kommer en forside som NAV har laget for deg. Denne skal ligge øverst. Følg oppskriften på forsiden.',
+        'Skriv ut dokumentasjonen. Ved utskrift kommer en forside som Nav har laget for deg. Denne skal ligge øverst. Følg oppskriften på forsiden.',
         'Signer forsiden og siste side i dokumentasjonen.',
         'Legg ved vedleggene.',
         'Send i posten til ',

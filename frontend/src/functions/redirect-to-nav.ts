@@ -4,7 +4,7 @@ const NAV_URL = ENVIRONMENT.isProduction ? 'https://www.nav.no/klage' : 'https:/
 
 export const redirectToNav = () => {
   if (ENVIRONMENT.isLocal) {
-    console.info('Redirecting to NAV');
+    console.info('Redirecting to Nav');
 
     return;
   }

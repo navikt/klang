@@ -94,14 +94,14 @@ export const nn: Translations = {
       vedtak_date: {
         title: {
           [CaseType.KLAGE]: 'Vedtaksdato (valfritt)',
-          [CaseType.ANKE]: 'Dato for klagevedtaket frå NAV Klageinstans',
+          [CaseType.ANKE]: 'Dato for klagevedtaket frå Nav klageinstans',
           [CaseType.ETTERSENDELSE_KLAGE]: 'Vedtaksdato (valfritt)',
-          [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket frå NAV Klageinstans',
+          [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket frå Nav klageinstans',
         },
       },
       klageenhet: {
         radio_title:
-          'Har du motteke eit brev frå NAV Klageinstans eller ei anna eining i NAV om at saka di er sendt til NAV Klageinstans?',
+          'Har du motteke eit brev frå Nav klageinstans eller ei anna eining i Nav om at saka di er sendt til Nav klageinstans?',
         choose_enhet_explanation:
           'Dersom brevet bed deg om å velje rett eining, kan du sjå bort frå det. Vi sender til rett eining.',
       },
@@ -114,7 +114,7 @@ export const nn: Translations = {
         },
         description: {
           [CaseType.KLAGE]:
-            'Forklar med dine eigne ord kva som gjer at du er ueinig og kva du ønskjer vert endra. Legg ved dokument som kan vise NAV kvifor du er ueinig.',
+            'Forklar med dine eigne ord kva som gjer at du er ueinig og kva du ønskjer vert endra. Legg ved dokument som kan vise Nav kvifor du er ueinig.',
           [CaseType.ANKE]:
             'Forklar med dine eigne ord kva som gjer at du er ueinig i klagevedtaket og kva du ønskjer vert endra. Legg ved eventuelle dokument du ønskjer skal følgje saka di til Trygderetten.',
           [CaseType.ETTERSENDELSE_KLAGE]: 'Om du har noko du ønskjer å leggje til, kan du skrive det her.',
@@ -155,9 +155,9 @@ export const nn: Translations = {
           title: 'Opplysningar frå saka',
           vedtak: {
             [CaseType.KLAGE]: 'Vedtaksdato',
-            [CaseType.ANKE]: 'Dato for klagevedtaket frå NAV Klageinstans',
+            [CaseType.ANKE]: 'Dato for klagevedtaket frå Nav klageinstans',
             [CaseType.ETTERSENDELSE_KLAGE]: 'Vedtaksdato',
-            [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket frå NAV Klageinstans',
+            [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket frå Nav klageinstans',
           },
           saksnummer: 'Saksnummer',
           from_system: 'Henta frå internt system',
@@ -284,25 +284,25 @@ export const nn: Translations = {
     title: 'Kva gjer du no?',
     steg: {
       [CaseType.KLAGE]: [
-        'Skriv ut klaga. Ved utskrift kjem det med ei framside som NAV har laga for deg. Denne skal ligge øvst. Følg oppskrifta på framsida.',
+        'Skriv ut klaga. Ved utskrift kjem det med ei framside som Nav har laga for deg. Denne skal ligge øvst. Følg oppskrifta på framsida.',
         'Skriv under på framsida og siste side i klaga.',
         'Legg ved vedlegga.',
         'Send i posten til ',
       ],
       [CaseType.ANKE]: [
-        'Skriv ut anka. Ved utskrift kjem det med ei framside som NAV har laga for deg. Denne skal ligge øvst. Følg oppskrifta på framsida.',
+        'Skriv ut anka. Ved utskrift kjem det med ei framside som Nav har laga for deg. Denne skal ligge øvst. Følg oppskrifta på framsida.',
         'Skriv under på framsida og siste side i anka.',
         'Legg ved vedlegga.',
         'Send i posten til ',
       ],
       [CaseType.ETTERSENDELSE_KLAGE]: [
-        'Skriv ut dokumentasjonen. Ved utskrift kjem det med ei framside som NAV har laga for deg. Denne skal ligge øvst. Følg oppskrifta på framsida.',
+        'Skriv ut dokumentasjonen. Ved utskrift kjem det med ei framside som Nav har laga for deg. Denne skal ligge øvst. Følg oppskrifta på framsida.',
         'Skriv under på framsida og siste side i dokumentasjonen.',
         'Legg ved vedlegga.',
         'Send i posten til ',
       ],
       [CaseType.ETTERSENDELSE_ANKE]: [
-        'Skriv ut dokumentasjonen. Ved utskrift kjem det med ei framside som NAV har laga for deg. Denne skal ligge øvst. Følg oppskrifta på framsida.',
+        'Skriv ut dokumentasjonen. Ved utskrift kjem det med ei framside som Nav har laga for deg. Denne skal ligge øvst. Følg oppskrifta på framsida.',
         'Skriv under på framsida og siste side i dokumentasjonen.',
         'Legg ved vedlegga.',
         'Send i posten til ',
