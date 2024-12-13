@@ -53,7 +53,7 @@ export const DownloadButton = ({ caseData, validForm }: Props) => {
       if (res.ok) {
         const blob = new Blob([await res.blob()], { type: 'octet/stream' });
         const a = document.createElement('a');
-        a.download = `NAV ${getTypeString(caseData.type)} - ${title} - ${format(new Date(), 'yyyy-MM-dd HH-mm-ss')}.pdf`;
+        a.download = `Nav ${getTypeString(caseData.type)} - ${title} - ${format(new Date(), 'yyyy-MM-dd HH-mm-ss')}.pdf`;
         a.href = URL.createObjectURL(blob);
         a.click();
 
