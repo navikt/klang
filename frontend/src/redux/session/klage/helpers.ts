@@ -1,10 +1,10 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { getUniqueId } from '@app/functions/uuid';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { CASE_TYPE_PATH_SEGMENTS, type CaseType } from '@app/redux-api/case/types';
+import type { CaseType } from '@app/redux-api/case/types';
 
 export const getSessionCaseKey = (type: CaseType, ytelse: Innsendingsytelse): string =>
-  `${CASE_TYPE_PATH_SEGMENTS[type]}-${ytelse}`;
+  `klang-${type}-${ytelse}`.toLowerCase();
 
 export const createSessionCase = (
   type: CaseType,
