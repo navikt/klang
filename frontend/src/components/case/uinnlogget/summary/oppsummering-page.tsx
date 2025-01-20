@@ -18,7 +18,7 @@ import { PostFormContainer } from '../../common/post/post-form-container';
 import { SummaryReasons } from '../../common/summary-reasons';
 import { PersonligeOpplysningerSummary } from '../../common/summary/personlige-opplysninger-summary';
 import { VedtakSummary } from '../../common/summary/vedtak-summary';
-import { KlageSessionLoader } from '../session-loader';
+import { SessionCaseLoader } from '../loader';
 import { DownloadButton } from './download-button';
 
 interface IProps {
@@ -27,7 +27,7 @@ interface IProps {
 }
 
 export const SessionCaseOppsummeringPage = (props: IProps) => (
-  <KlageSessionLoader Component={PostKlageoppsummeringPage} {...props} />
+  <SessionCaseLoader Component={PostKlageoppsummeringPage} {...props} />
 );
 
 interface Props {

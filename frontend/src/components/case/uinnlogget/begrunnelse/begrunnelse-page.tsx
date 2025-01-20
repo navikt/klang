@@ -22,7 +22,7 @@ import { FormFieldsIds } from '../../common/form-fields-ids';
 import { PostFormContainer } from '../../common/post/post-form-container';
 import { Reasons } from '../../common/reasons';
 import { Saksnummer } from '../../common/saksnummer';
-import { KlageSessionLoader } from '../session-loader';
+import { SessionCaseLoader } from '../loader';
 import type { ISessionCase } from '../types';
 import { BegrunnelseText } from './begrunnelse-text';
 import { UserInfo } from './user-info';
@@ -33,7 +33,7 @@ interface IProps {
 }
 
 export const SessionCasebegrunnelsePage = (props: IProps) => (
-  <KlageSessionLoader Component={RenderKlagebegrunnelsePage} {...props} />
+  <SessionCaseLoader Component={RenderKlagebegrunnelsePage} {...props} />
 );
 
 interface Props {

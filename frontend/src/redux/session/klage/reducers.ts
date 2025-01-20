@@ -1,7 +1,9 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import { SESSION_CASE_STORAGE_KEY_PREFIX } from '@app/components/date-picker/constants';
 import { sessionEvent } from '@app/logging/logger';
 import { SessionAction } from '@app/logging/types';
 import type { State } from '@app/redux/session/type';
+import { isStorageKeyAllowed } from '@navikt/nav-dekoratoren-moduler';
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 import { createSessionCase, getSessionCaseKey } from './helpers';
 import { readSessionCase, removeSessionCase, saveSessionCase } from './storage';
@@ -22,7 +24,9 @@ const setSessionCase: CaseReducer<State, PayloadAction<SessionCasePayload>> = (s
 
   const { type, innsendingsytelse, data } = payload;
 
-  saveSessionCase(innsendingsytelse, data);
+  if (isStorageKeyAllowed(SESSION_CASE_STORAGE_KEY_PREFIX)) {
+    saveSessionCase(innsendingsytelse, data);
+  }
 
   return setState(state, getSessionCaseKey(type, innsendingsytelse), data);
 };

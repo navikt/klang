@@ -4,7 +4,7 @@ import { useSessionCaseErrors } from '@app/hooks/errors/use-session-case-errors'
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import type { CaseType } from '@app/redux-api/case/types';
 import { RenderCaseinnsendingPage } from '../../common/post/innsending-page';
-import { KlageSessionLoader } from '../session-loader';
+import { SessionCaseLoader } from '../loader';
 
 interface Props {
   innsendingsytelse: Innsendingsytelse;
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const SessionCaseInnsendingPage = (props: Props) => (
-  <KlageSessionLoader Component={SessionKlageWrapper} {...props} />
+  <SessionCaseLoader Component={SessionKlageWrapper} {...props} />
 );
 
 const SessionKlageWrapper = ({ data }: { data: ISessionCase }) => {

@@ -1,3 +1,4 @@
+import { SESSION_CASE_STORAGE_KEY_PREFIX } from '@app/components/date-picker/constants';
 import { getQueryValue } from '@app/functions/get-query-value';
 import { useSessionCase } from '@app/hooks/use-session-klage';
 import { useUser } from '@app/hooks/use-user';
@@ -7,6 +8,7 @@ import { useTranslation } from '@app/language/use-translation';
 import { useCreateCaseMutation, useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
 import type { CaseType } from '@app/redux-api/case/types';
 import { useAppDispatch } from '@app/redux/configure-store';
+import { isStorageKeyAllowed } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { handleCreateCase, handleResumeOrCreateCase, handleSessionCase } from './handlers';
@@ -43,6 +45,10 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
     }
 
     if (isAuthenticated === false) {
+      if (!isStorageKeyAllowed(SESSION_CASE_STORAGE_KEY_PREFIX)) {
+        return;
+      }
+
       handleSessionCase({
         type,
         dispatch,
