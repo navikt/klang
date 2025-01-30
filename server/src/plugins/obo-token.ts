@@ -85,6 +85,8 @@ const getOboToken: GetOboToken = async (appName, req, reply) => {
   });
 
   if (accessToken.length === 0) {
+    log.warn({ msg: 'No access token found.', trace_id, span_id, data: { route: url } });
+
     return undefined;
   }
 

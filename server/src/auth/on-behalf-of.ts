@@ -16,6 +16,8 @@ export const getOnBehalfOfAccessToken = async (
   const token = await oboCache.get(cacheKey);
 
   if (token !== null) {
+    log.debug({ msg: `Got OBO token from cache, length: ${token.length}`, trace_id, span_id });
+
     return token;
   }
 
