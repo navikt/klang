@@ -35,7 +35,7 @@ export const getProxyRequestHeaders = (
     headers['idporten-token'] = req.accessToken;
   }
 
-  log.info({
+  log.debug({
     msg: 'Prepared proxy request headers',
     trace_id,
     span_id,
