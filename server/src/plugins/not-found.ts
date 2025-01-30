@@ -21,7 +21,11 @@ export const notFoundPlugin = fastifyPlugin(
 
         log[harmless ? 'debug' : 'warn']({
           msg: `Invalid URL. Redirecting to external URL ${YTELSE_OVERVIEW_URL}`,
-          data: { url: req.url },
+          data: {
+            url: req.url,
+            referer: req.headers.referer ?? 'undefined',
+            referrer: req.headers.referrer ?? 'undefined',
+          },
         });
 
         externalRedirectCounter.inc({
