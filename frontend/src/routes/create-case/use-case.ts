@@ -1,4 +1,4 @@
-import { getQueryValue } from '@app/functions/get-query-value';
+import { getBooleanQueryValue, getQueryValue } from '@app/functions/get-query-value';
 import { useSessionCase } from '@app/hooks/use-session-klage';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
@@ -24,6 +24,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const { data: user, isLoading: isLoadingUser, isSuccess } = useGetUserQuery();
 
   const internalSaksnummer = getQueryValue(query.get('saksnummer'));
+  const caseIsAtKA = getBooleanQueryValue(query.get('ka')) ? true : null;
 
   const [createCase, { isLoading: createIsLoading, isError: createHasFailed, isSuccess: createIsSuccess }] =
     useCreateCaseMutation();
@@ -47,6 +48,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
         type,
         dispatch,
         internalSaksnummer,
+        caseIsAtKA,
         innsendingsytelse,
         language,
         navigate,
@@ -61,6 +63,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
         createCase,
         dispatch,
         internalSaksnummer,
+        caseIsAtKA,
         innsendingsytelse,
         language,
         navigate,
@@ -73,6 +76,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
     handleResumeOrCreateCase({
       type,
       internalSaksnummer,
+      caseIsAtKA,
       innsendingsytelse,
       language,
       navigate,
@@ -83,6 +87,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
     dispatch,
     innsendingsytelse,
     internalSaksnummer,
+    caseIsAtKA,
     isDone,
     isLoading,
     isSuccess,

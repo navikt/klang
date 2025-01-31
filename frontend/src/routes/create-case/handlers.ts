@@ -14,6 +14,7 @@ import type { NavigateFunction } from 'react-router-dom';
 interface IHandler {
   language: Languages;
   internalSaksnummer: string | null;
+  caseIsAtKA: true | null;
   navigate: NavigateFunction;
   innsendingsytelse: Innsendingsytelse;
 }
@@ -63,6 +64,7 @@ interface IHandleCreate extends IHandler {
 export const handleCreateCase = ({
   sessionCase,
   internalSaksnummer,
+  caseIsAtKA,
   innsendingsytelse,
   language,
   createCase,
@@ -70,7 +72,7 @@ export const handleCreateCase = ({
   navigate,
 }: IHandleCreate) => {
   appEvent(AppEventEnum.CASE_CREATE_FROM_SESSION_STORAGE);
-  createCase(getCreatePayload(sessionCase, language, internalSaksnummer))
+  createCase(getCreatePayload(sessionCase, language, internalSaksnummer, caseIsAtKA))
     .unwrap()
     .then(({ id }) => {
       dispatch(deleteSessionCase({ type: sessionCase.type, innsendingsytelse }));
@@ -88,12 +90,13 @@ export const handleResumeOrCreateCase = ({
   type,
   innsendingsytelse,
   internalSaksnummer,
+  caseIsAtKA,
   language,
   navigate,
   resumeOrCreateCase,
 }: IHandleResumeOrCreate) => {
   appEvent(AppEventEnum.CASE_CREATE_OR_RESUME);
-  resumeOrCreateCase({ innsendingsytelse, internalSaksnummer, type })
+  resumeOrCreateCase({ innsendingsytelse, internalSaksnummer, caseIsAtKA, type })
     .unwrap()
     .then(({ id }) => navigate(`/${language}/sak/${id}/begrunnelse`, { replace: true }));
 };
@@ -101,9 +104,10 @@ export const handleResumeOrCreateCase = ({
 const getCreatePayload = (
   { type, ...data }: ISessionCase,
   language: Languages,
-  internalSaksnummer: string | null = null,
+  internalSaksnummer: string | null,
+  caseIsAtKA: true | null,
 ): CreateCaseParams => {
   const { id, navn, modifiedByUser, ...rest } = data;
 
-  return { type, ...rest, internalSaksnummer, language };
+  return { type, ...rest, internalSaksnummer, caseIsAtKA, language };
 };

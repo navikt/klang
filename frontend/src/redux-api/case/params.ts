@@ -37,4 +37,5 @@ export interface ResumeCaseParams {
   readonly type: CaseType;
   readonly innsendingsytelse: Innsendingsytelse;
   readonly internalSaksnummer: string | null;
+  readonly caseIsAtKA: true | null;
 }
