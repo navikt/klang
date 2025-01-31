@@ -273,10 +273,6 @@ export const en: Translations = {
         </span>,
         <span key="3"> in a separate overview.</span>,
       ],
-      dine_saker: {
-        title: 'See your cases on Min side',
-        url: 'https://www.nav.no/dokumentarkiv/en',
-      },
     },
   },
   innsending: {
