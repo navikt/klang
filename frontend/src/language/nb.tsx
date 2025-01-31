@@ -276,10 +276,6 @@ export const nb = {
         </span>,
         <span key="3"> i egen oversikt.</span>,
       ],
-      dine_saker: {
-        title: 'Se dine saker på Min side',
-        url: 'https://www.nav.no/dokumentarkiv/',
-      },
     },
   },
   innsending: {

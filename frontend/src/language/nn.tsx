@@ -274,10 +274,6 @@ export const nn: Translations = {
         </span>,
         <span key="3"> i eigen oversikt.</span>,
       ],
-      dine_saker: {
-        title: 'Sjå sakane dine på Min side',
-        url: 'https://www.nav.no/dokumentarkiv/nn/',
-      },
     },
   },
   innsending: {

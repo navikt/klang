@@ -5,7 +5,6 @@ import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import type { CaseType } from '@app/redux-api/case/types';
-import { CenteredContainer } from '@app/styled-components/common';
 import { CenteredHeading } from '@app/styled-components/page-title';
 import { DownloadIcon } from '@navikt/aksel-icons';
 import { Alert, BodyShort, Heading } from '@navikt/ds-react';
@@ -42,11 +41,6 @@ export const Kvittering = ({ children, type, ytelse }: Props) => {
       <BodyShort>
         {skjema.kvittering.read_more} {skjema.kvittering.see_estimate}
       </BodyShort>
-      <CenteredContainer>
-        <ExternalLink href={skjema.kvittering.dine_saker.url} openInSameWindow>
-          {skjema.kvittering.dine_saker.title}
-        </ExternalLink>
-      </CenteredContainer>
     </>
   );
 };
