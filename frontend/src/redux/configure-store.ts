@@ -1,6 +1,6 @@
 import { caseApi } from '@app/redux-api/case/api';
 import { innsendingsytelserApi } from '@app/redux-api/innsendingsytelser';
-import { oauthApi, userApi } from '@app/redux-api/user/api';
+import { userApi } from '@app/redux-api/user/api';
 import { type Middleware, configureStore } from '@reduxjs/toolkit';
 import { type TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { type RootState, rootReducer } from './root';
@@ -31,7 +31,6 @@ const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
 
     if (action.payload.status === 401) {
       userApi.util.invalidateTags(['user']);
-      oauthApi.util.invalidateTags(['session']);
     }
   }
 
@@ -53,13 +52,7 @@ export const reduxStore = configureStore({
           'meta.arg.originalArgs.file',
         ],
       },
-    }).concat([
-      innsendingsytelserApi.middleware,
-      userApi.middleware,
-      caseApi.middleware,
-      oauthApi.middleware,
-      rtkQueryErrorLogger,
-    ]),
+    }).concat([innsendingsytelserApi.middleware, userApi.middleware, caseApi.middleware, rtkQueryErrorLogger]),
 });
 
 export type AppDispatch = typeof reduxStore.dispatch;

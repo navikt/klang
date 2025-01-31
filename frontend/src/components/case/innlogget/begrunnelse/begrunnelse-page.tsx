@@ -35,7 +35,7 @@ interface Props {
 const RenderCasebegrunnelsePage = ({ data }: Props) => {
   const navigate = useNavigate();
   const language = useLanguage();
-  const { user, isLoadingUser } = useUserRequired();
+  const { data: user, isSuccess } = useUserRequired();
 
   const { skjema, user_loader } = useTranslation();
 
@@ -111,11 +111,9 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         </GuidePanel>
 
         <PersonligeOpplysningerSummary
-          fornavn={isLoadingUser ? user_loader.loading_user : user.navn.fornavn}
-          etternavn={isLoadingUser ? user_loader.loading_user : user.navn.etternavn}
-          f_or_d_number={
-            isLoadingUser ? user_loader.loading_user : user.folkeregisteridentifikator?.identifikasjonsnummer
-          }
+          fornavn={isSuccess ? user.navn.fornavn : user_loader.loading_user}
+          etternavn={isSuccess ? user.navn.etternavn : user_loader.loading_user}
+          f_or_d_number={isSuccess ? user.folkeregisteridentifikator?.identifikasjonsnummer : user_loader.loading_user}
         />
 
         {isKlage ? (

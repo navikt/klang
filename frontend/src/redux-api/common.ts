@@ -47,7 +47,9 @@ const staggeredBaseQuery = (baseUrl: string) => {
         retry.fail(result.error);
       }
 
-      if (result.error.status === 401) {
+      const url = argsIsString ? args : args.url;
+
+      if (result.error.status === 401 && url !== '/bruker') {
         reduxStore.dispatch(setShow(true));
         retry.fail(result.error.data);
       } else if (
@@ -71,4 +73,3 @@ const staggeredBaseQuery = (baseUrl: string) => {
 
 export const API_PATH = '/api/klage-dittnav-api/api';
 export const API_BASE_QUERY = staggeredBaseQuery(API_PATH);
-export const OAUTH_BASE_QUERY = staggeredBaseQuery('/oauth2');
