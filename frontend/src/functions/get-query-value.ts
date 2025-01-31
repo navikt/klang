@@ -1,7 +1,14 @@
-export const getQueryValue = (queryValue: string | string[] | null | undefined): string | null => {
-  if (typeof queryValue === 'string' && queryValue.length !== 0) {
-    return queryValue;
+export const getQueryValue = (queryValue: string | null): string | null => {
+  if (queryValue === null || queryValue.length === 0) {
+    return null;
   }
 
-  return null;
+  return queryValue;
 };
+
+/**
+ * Get a boolean value from a query string.
+ * `null`, `'false'` and `'0'` will return `false`, everything else will return `true`.
+ */
+export const getBooleanQueryValue = (queryValue: string | null): boolean =>
+  queryValue !== null && queryValue !== 'false' && queryValue !== '0';
