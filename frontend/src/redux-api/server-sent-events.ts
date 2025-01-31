@@ -1,6 +1,6 @@
 import { AppEventEnum } from '@app/logging/action';
 import { apiEvent, appEvent } from '@app/logging/logger';
-import { oauthApi, userApi } from './user/api';
+import { userApi } from './user/api';
 
 export enum ServerSentEventType {
   JOURNALPOSTID = 'journalpostId',
@@ -97,7 +97,6 @@ export class ServerSentEventManager {
         if (!preflightOK) {
           // Probably the session timed out. Double check the logged in status.
           userApi.util.invalidateTags(['user']);
-          oauthApi.util.invalidateTags(['session']);
 
           return;
         }

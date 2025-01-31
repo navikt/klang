@@ -30,7 +30,7 @@ interface Props {
 
 const DigitalCaseOppsummeringPage = ({ data }: Props) => {
   const { common, skjema, user_loader, icons } = useTranslation();
-  const { user, isLoadingUser } = useUserRequired();
+  const { data: user, isSuccess } = useUserRequired();
   const validate = useCaseErrors(data.type);
   const [isValid] = validate(data);
   const [error, setError] = useState<string | null>(null);
@@ -63,10 +63,10 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
           </Heading>
           <BodyLong spacing>{skjema.summary.sections.person.info_from}</BodyLong>
           <PersonligeOpplysningerSummary
-            fornavn={isLoadingUser ? user_loader.loading_user : user.navn.fornavn}
-            etternavn={isLoadingUser ? user_loader.loading_user : user.navn.etternavn}
+            fornavn={isSuccess ? user.navn.fornavn : user_loader.loading_user}
+            etternavn={isSuccess ? user.navn.etternavn : user_loader.loading_user}
             f_or_d_number={
-              isLoadingUser ? user_loader.loading_user : user.folkeregisteridentifikator?.identifikasjonsnummer
+              isSuccess ? user.folkeregisteridentifikator?.identifikasjonsnummer : user_loader.loading_user
             }
           />
         </Section>

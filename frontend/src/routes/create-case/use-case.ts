@@ -1,11 +1,11 @@
 import { getQueryValue } from '@app/functions/get-query-value';
 import { useSessionCase } from '@app/hooks/use-session-klage';
-import { useUser } from '@app/hooks/use-user';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { useCreateCaseMutation, useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
 import type { CaseType } from '@app/redux-api/case/types';
+import { useGetUserQuery } from '@app/redux-api/user/api';
 import { useAppDispatch } from '@app/redux/configure-store';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -21,7 +21,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const language = useLanguage();
   const { case_loader, error_messages } = useTranslation();
   const [query] = useSearchParams();
-  const { user, isLoadingUser, isAuthenticated } = useUser();
+  const { data: user, isLoading: isLoadingUser, isSuccess } = useGetUserQuery();
 
   const internalSaksnummer = getQueryValue(query.get('saksnummer'));
 
@@ -38,11 +38,11 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const isDone = createHasFailed || createIsSuccess || resumeHasFailed || resumeIsSuccess;
 
   useEffect(() => {
-    if (isLoading || isDone || sessionCaseIsLoading || innsendingsytelse === null) {
+    if (!isSuccess || isLoading || isDone || sessionCaseIsLoading || innsendingsytelse === null) {
       return;
     }
 
-    if (isAuthenticated === false) {
+    if (user === undefined) {
       handleSessionCase({
         type,
         dispatch,
@@ -83,9 +83,9 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
     dispatch,
     innsendingsytelse,
     internalSaksnummer,
-    isAuthenticated,
     isDone,
     isLoading,
+    isSuccess,
     language,
     navigate,
     resumeOrCreateCase,
