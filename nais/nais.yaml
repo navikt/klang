@@ -20,9 +20,6 @@ spec:
     min: 2
     max: 4
     cpuThresholdPercentage: 80
-  redis:
-    - instance: obo-cache
-      access: readwrite
   valkey:
     - instance: obo-cache-klang
       access: readwrite
