@@ -3,9 +3,9 @@ import { OboMemoryCache } from '@app/auth/cache/memory-cache';
 import { OboValkeyCache } from '@app/auth/cache/persistent-cache';
 import { optionalEnvString } from '@app/config/env-var';
 
-const VALKEY_URI = optionalEnvString('REDIS_URI_OBO_CACHE_KLANG');
-const VALKEY_USERNAME = optionalEnvString('REDIS_USERNAME_OBO_CACHE_KLANG');
-const VALKEY_PASSWORD = optionalEnvString('REDIS_PASSWORD_OBO_CACHE_KLANG');
+const VALKEY_URI = optionalEnvString('REDIS_URI_OBO_CACHE');
+const VALKEY_USERNAME = optionalEnvString('REDIS_USERNAME_OBO_CACHE');
+const VALKEY_PASSWORD = optionalEnvString('REDIS_PASSWORD_OBO_CACHE');
 
 class OboTieredCache {
   #oboPersistentCache: OboValkeyCache;
