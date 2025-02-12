@@ -32,6 +32,22 @@ export const Saksnummer = ({ value, internalSaksnummer, onChange, error }: Props
   const inputRef = useRef<HTMLInputElement>(null);
   const { skjema } = useTranslation();
 
+  const usersaksnummer = (
+    <TextField
+      id={FormFieldsIds.SAKSNUMMER}
+      label={skjema.begrunnelse.saksnummer.title}
+      value={value ?? ''}
+      onChange={({ target }) => onChange(target.value)}
+      htmlSize={24}
+      error={error}
+      ref={inputRef}
+    />
+  );
+
+  if (value !== null) {
+    return usersaksnummer;
+  }
+
   if (typeof internalSaksnummer === 'string' && internalSaksnummer.length !== 0) {
     return (
       <div>
@@ -53,17 +69,7 @@ export const Saksnummer = ({ value, internalSaksnummer, onChange, error }: Props
     );
   }
 
-  return (
-    <TextField
-      id={FormFieldsIds.SAKSNUMMER}
-      label={skjema.begrunnelse.saksnummer.title}
-      value={value ?? ''}
-      onChange={({ target }) => onChange(target.value.length === 0 ? null : target.value)}
-      htmlSize={24}
-      error={error}
-      ref={inputRef}
-    />
-  );
+  return usersaksnummer;
 };
 
 const Row = styled.div`
