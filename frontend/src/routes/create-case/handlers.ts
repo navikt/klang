@@ -31,6 +31,7 @@ export const handleSessionCase = ({
   innsendingsytelse,
   language,
   internalSaksnummer,
+  caseIsAtKA,
   navigate,
   dispatch,
 }: IHandleSession) => {
@@ -40,7 +41,7 @@ export const handleSessionCase = ({
       setSessionCase({
         type,
         innsendingsytelse,
-        data: createSessionCase(type, innsendingsytelse, internalSaksnummer),
+        data: createSessionCase(type, innsendingsytelse, internalSaksnummer, caseIsAtKA),
       }),
     );
   } else if (internalSaksnummer !== null && internalSaksnummer !== sessionCase.internalSaksnummer) {

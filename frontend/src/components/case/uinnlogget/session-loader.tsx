@@ -1,4 +1,4 @@
-import { getQueryValue } from '@app/functions/get-query-value';
+import { getBooleanQueryValue, getQueryValue } from '@app/functions/get-query-value';
 import { useSessionCase } from '@app/hooks/use-session-klage';
 import { useIsAuthenticated } from '@app/hooks/use-user';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
@@ -19,7 +19,8 @@ export const KlageSessionLoader = ({ Component, innsendingsytelse, type }: Props
   const { isAuthenticated, isLoadingAuth } = useIsAuthenticated();
   const [query] = useSearchParams();
   const internalSaksnummer = getQueryValue(query.get('saksnummer'));
-  const [data, isLoading] = useSessionCase(type, innsendingsytelse, internalSaksnummer);
+  const caseIsAtKA = getBooleanQueryValue(query.get('ka')) ? true : null;
+  const [data, isLoading] = useSessionCase(type, innsendingsytelse, internalSaksnummer, caseIsAtKA);
   const { case_loader: klage_loader, user_loader } = useTranslation();
   const language = useLanguage();
 

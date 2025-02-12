@@ -8,11 +8,11 @@ interface Base {
 }
 
 export interface SessionCaseLoad extends Base {
-  data: { innsendingsytelse: Innsendingsytelse; internalSaksnummer: string | null };
+  data: { innsendingsytelse: Innsendingsytelse; internalSaksnummer: string | null; caseIsAtKA: true | null };
 }
 
 export interface SessionCaseCreate extends Base {
-  data: { innsendingsytelse: Innsendingsytelse; internalSaksnummer: string | null };
+  data: { innsendingsytelse: Innsendingsytelse; internalSaksnummer: string | null; caseIsAtKA: true | null };
 }
 
 export interface SessionCasePayload extends Base {

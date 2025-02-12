@@ -54,7 +54,7 @@ const loadSessionCase: CaseReducer<State, PayloadAction<SessionCaseLoad>> = (sta
   lastUpdated = 0;
   sessionEvent(SessionAction.LOAD);
 
-  const { innsendingsytelse, type } = payload;
+  const { innsendingsytelse, type, data } = payload;
 
   const sessionKey = getSessionCaseKey(type, innsendingsytelse);
   const savedCase = readSessionCase(sessionKey);
@@ -63,7 +63,11 @@ const loadSessionCase: CaseReducer<State, PayloadAction<SessionCaseLoad>> = (sta
     return state;
   }
 
-  return setState(state, sessionKey, savedCase);
+  return setState(state, sessionKey, {
+    ...savedCase,
+    internalSaksnummer: data.internalSaksnummer,
+    caseIsAtKA: data.caseIsAtKA === null ? savedCase.caseIsAtKA : data.caseIsAtKA,
+  });
 };
 
 // Read from session storage if it exists, otherwise save to session storage.
@@ -76,7 +80,7 @@ const loadOrCreateSessionCase: CaseReducer<State, PayloadAction<SessionCaseCreat
   const savedCase = readSessionCase(sessionKey);
 
   if (savedCase === undefined) {
-    const newCase = createSessionCase(type, data.innsendingsytelse, data.internalSaksnummer);
+    const newCase = createSessionCase(type, data.innsendingsytelse, data.internalSaksnummer, data.caseIsAtKA);
 
     const key = saveSessionCase(innsendingsytelse, newCase);
 
@@ -89,7 +93,11 @@ const loadOrCreateSessionCase: CaseReducer<State, PayloadAction<SessionCaseCreat
     sessionEvent(SessionAction.LOAD);
   }
 
-  return setState(state, sessionKey, savedCase);
+  return setState(state, sessionKey, {
+    ...savedCase,
+    internalSaksnummer: data.internalSaksnummer,
+    caseIsAtKA: data.caseIsAtKA === null ? savedCase.caseIsAtKA : data.caseIsAtKA,
+  });
 };
 
 const setState = (state: State, key: string, data: ISessionCase) => {
