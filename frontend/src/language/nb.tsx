@@ -147,7 +147,7 @@ export const nb = {
       },
       sections: {
         person: {
-          title: <>Person&shy;opplysninger</>,
+          title: <>Personopplysninger</>,
           info_from: 'Hentet fra Folkeregisteret og Kontakt- og reserverasjonsregisteret.',
         },
         case: {
