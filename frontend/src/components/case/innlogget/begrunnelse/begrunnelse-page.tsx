@@ -17,7 +17,7 @@ import { useDeleteAttachmentMutation, useDeleteCaseMutation, useUpdateCaseMutati
 import { type Case, CaseStatus, CaseType, type CaseUpdatable } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
 import { CenteredContainer } from '@app/styled-components/common';
-import { Alert, BodyLong, Button, GuidePanel } from '@navikt/ds-react';
+import { BodyLong, Button, GuidePanel } from '@navikt/ds-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { DeleteCaseButton } from '../../../delete-case-button/delete-case-button';
@@ -137,8 +137,6 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
             error={errors[FormFieldsIds.CASE_IS_AT_KA]}
           />
         ) : null}
-
-        {!isKlage ? <Alert variant="info">{skjema.begrunnelse.klageenhet.choose_enhet_explanation}</Alert> : null}
 
         <DebouncedSaksnummer
           value={data.userSaksnummer}

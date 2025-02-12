@@ -102,8 +102,6 @@ export const nn: Translations = {
       klageenhet: {
         radio_title:
           'Har du motteke eit brev frå Nav klageinstans eller ei anna eining i Nav om at saka di er sendt til Nav klageinstans?',
-        choose_enhet_explanation:
-          'Dersom brevet bed deg om å velje rett eining, kan du sjå bort frå det. Vi sender til rett eining.',
       },
       begrunnelse_text: {
         title: {
