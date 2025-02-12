@@ -132,7 +132,6 @@ jobs:
   e2e_test:
     name: E2E
     needs: deploy_to_dev
-    if: false # TODO: Remove this line when E2E tests are available
     permissions:
       contents: read
       id-token: write
