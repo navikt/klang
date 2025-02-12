@@ -146,7 +146,7 @@ export const nn: Translations = {
       },
       sections: {
         person: {
-          title: <>Person&shy;opplysningar</>,
+          title: <>Personopplysningar</>,
           info_from: 'Henta frå Folkeregisteret og Kontakt- og reserverasjonsregisteret.',
         },
         case: {
