@@ -12,7 +12,7 @@ import { CaseType } from '@app/redux-api/case/types';
 import { useAppDispatch } from '@app/redux/configure-store';
 import { deleteSessionCase, updateSessionCase } from '@app/redux/session/session';
 import { CenteredContainer } from '@app/styled-components/common';
-import { Alert, BodyLong, Button, Checkbox, CheckboxGroup, GuidePanel } from '@navikt/ds-react';
+import { BodyLong, Button, Checkbox, CheckboxGroup, GuidePanel } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -130,8 +130,6 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
           error={errors[FormFieldsIds.CASE_IS_AT_KA]}
         />
       ) : null}
-
-      {!isKlage ? <Alert variant="info">{skjema.begrunnelse.klageenhet.choose_enhet_explanation}</Alert> : null}
 
       <Saksnummer
         internalSaksnummer={data.internalSaksnummer}

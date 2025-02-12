@@ -103,8 +103,6 @@ export const nb = {
       klageenhet: {
         radio_title:
           'Har du mottatt et brev fra Nav klageinstans eller en annen enhet i Nav om at saken din er sendt til Nav klageinstans?',
-        choose_enhet_explanation:
-          'Dersom brevet ber deg om å velge riktig enhet, kan du se bort fra det. Vi sender til riktig enhet.',
       },
       begrunnelse_text: {
         title: {
