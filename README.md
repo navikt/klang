@@ -75,7 +75,7 @@ Dersom dette ikke er oppgitt som query parameter, får bruker mulighet til å fy
 | Klage | `https://klage.nav.no/nb/klage/DAGPENGER?saksnummer=12345` |
 | Anke  | `https://klage.nav.no/nb/anke/DAGPENGER?saksnummer=12345`  |
 | Ettersendelse til klage | `https://klage.nav.no/nb/ettersendelse/klage/DAGPENGER?saksnummer=12345&ka` |
-| Ettersendelse til anke | `https://klage.nav.no/nb/ettersendelse/anke/DAGPENGER?saksnummer=12345&ka` |
+| Ettersendelse til anke | `https://klage.nav.no/nb/ettersendelse/anke/DAGPENGER?saksnummer=12345` |
 
 ## URL-format
 ```
@@ -85,7 +85,7 @@ https://klage.nav.no/{språk}/{type}/{innsendingsytelse}?saksnummer={saksnummer}
 - `type` = `klage | anke | ettersendelse/klage | ettersendelse/anke`
 - `innsendingsytelse` = Se liste over tilgjengelige ytelser under.
 - `saksnummer` = Relevant saksnummer.
-- `ka` = Kun relevant for ettersendelse. Om saken er sendt til Nav klageinstans. Om paramteret finnes vil det tolkes som `true`. Unntak er om verdien er `false` eller `0`. Dersom parameteret ikke tolkes til `true`, må bruker ta stilling til valget.
+- `ka` = Kun relevant for klageettersendelse. Om saken er sendt til Nav klageinstans. Om parameteret finnes vil det tolkes som `true`. Unntak er om verdien er `false` eller `0`. Dersom parameteret ikke tolkes til `true`, må bruker ta stilling til valget.
 
 ### Tilgjengelige ytelser
 | Key   | Bokmål                                                                 | Engelsk | Nynorsk |
