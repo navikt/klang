@@ -10,6 +10,7 @@ export const createSessionCase = (
   type: CaseType,
   innsendingsytelse: Innsendingsytelse,
   internalSaksnummer: string | null,
+  caseIsAtKA: true | null,
 ): ISessionCase => ({
   id: getUniqueId(),
   type,
@@ -26,5 +27,5 @@ export const createSessionCase = (
   checkboxesSelected: [],
   hasVedlegg: false,
   modifiedByUser: new Date().toISOString(),
-  caseIsAtKA: null,
+  caseIsAtKA,
 });

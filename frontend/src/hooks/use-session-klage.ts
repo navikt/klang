@@ -10,6 +10,7 @@ export const useSessionCase = (
   type: CaseType,
   innsendingsytelse: Innsendingsytelse,
   internalSaksnummer: string | null,
+  caseIsAtKA: true | null,
 ): [ISessionCase, false] | [undefined, true] => {
   const dispatch = useAppDispatch();
   const sessionCaseMap = useAppSelector((state) => state.session);
@@ -25,11 +26,11 @@ export const useSessionCase = (
         loadOrCreateSessionCase({
           type,
           innsendingsytelse,
-          data: { innsendingsytelse, internalSaksnummer },
+          data: { innsendingsytelse, internalSaksnummer, caseIsAtKA },
         }),
       );
     }
-  }, [dispatch, innsendingsytelse, internalSaksnummer, data, type]);
+  }, [dispatch, innsendingsytelse, internalSaksnummer, data, type, caseIsAtKA]);
 
   if (data === undefined) {
     return [undefined, true];

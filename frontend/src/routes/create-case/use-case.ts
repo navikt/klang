@@ -32,7 +32,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const [resumeOrCreateCase, { isLoading: resumeIsLoading, isError: resumeHasFailed, isSuccess: resumeIsSuccess }] =
     useResumeOrCreateCaseMutation();
 
-  const [sessionCase, sessionCaseIsLoading] = useSessionCase(type, innsendingsytelse, internalSaksnummer);
+  const [sessionCase, sessionCaseIsLoading] = useSessionCase(type, innsendingsytelse, internalSaksnummer, caseIsAtKA);
   const dispatch = useAppDispatch();
 
   const isLoading = isLoadingUser || createIsLoading || resumeIsLoading;
