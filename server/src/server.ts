@@ -16,7 +16,7 @@ import { notFoundPlugin } from '@app/plugins/not-found';
 import { oboAccessTokenPlugin } from '@app/plugins/obo-token';
 import { proxyVersionPlugin } from '@app/plugins/proxy-version';
 import { serveIndexPlugin } from '@app/plugins/serve-index/serve-index';
-import { serveRobotsPlugin } from '@app/plugins/serve-robots';
+import { serveStaticFilesPlugin } from '@app/plugins/serve-static-files';
 import { serverTimingPlugin } from '@app/plugins/server-timing';
 import { traceparentPlugin } from '@app/plugins/traceparent/traceparent';
 import { processErrors } from '@app/process-errors';
@@ -53,7 +53,7 @@ fastify({ trustProxy: true, querystringParser, bodyLimit, caseSensitive: false }
   .register(frontendLogPlugin)
   .register(errorReportPlugin)
   .register(accessTokenPlugin)
-  .register(serveRobotsPlugin)
+  .register(serveStaticFilesPlugin)
   .register(oboAccessTokenPlugin)
   .register(apiProxyPlugin, { appNames: API_CLIENT_IDS, prefix: '/api' })
   .register(localDevPlugin)
