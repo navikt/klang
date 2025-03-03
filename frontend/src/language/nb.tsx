@@ -19,13 +19,13 @@ export const nb = {
     },
     employer_info: {
       [CaseType.KLAGE]:
-        'Hvis du er en arbeidsgiver må du logge ut og sende klagen i posten. Du legger inn fødselsnummeret eller D-nummeret til den arbeidstakeren som vedtaket gjelder for, skriver ut klagen og signerer som arbeidsgiver.',
+        'Hvis du er en fullmektig eller en arbeidsgiver som skal klage, må du logge ut og sende klagen i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut klagen og signerer som fullmektig eller arbeidsgiver.',
       [CaseType.ANKE]:
-        'Hvis du er en arbeidsgiver må du logge ut og sende anken i posten. Du legger inn fødselsnummeret eller D-nummeret til den arbeidstakeren som vedtaket gjelder for, skriver ut anken og signerer som arbeidsgiver.',
+        'Hvis du er en fullmektig eller en arbeidsgiver som skal anke, må du logge ut og sende anken i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut anken og signerer som fullmektig eller arbeidsgiver.',
       [CaseType.ETTERSENDELSE_KLAGE]:
-        'Hvis du er en arbeidsgiver må du logge ut og legge inn fødselsnummeret eller D-nummeret til den arbeidstakeren som ettersendelsen gjelder for, skrive ut forsiden og signere som arbeidsgiver.',
+        'Hvis du er en fullmektig eller en arbeidsgiver som skal ettersende dokumentasjon, må du logge ut og sende dokumentasjonen i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut dokumentasjonen og signerer som fullmektig eller arbeidsgiver.',
       [CaseType.ETTERSENDELSE_ANKE]:
-        'Hvis du er en arbeidsgiver må du logge ut og legge inn fødselsnummeret eller D-nummeret til den arbeidstakeren som ettersendelsen gjelder for, skrive ut forsiden og signere som arbeidsgiver.',
+        'Hvis du er en fullmektig eller en arbeidsgiver som skal ettersende dokumentasjon, må du logge ut og sende dokumentasjonen i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut dokumentasjonen og signerer som fullmektig eller arbeidsgiver.',
     },
     common: {
       title_fragment: {
@@ -324,23 +324,23 @@ export const nb = {
   post: {
     should_log_in_digital: {
       [CaseType.KLAGE]:
-        'Hvis du logger deg inn kan du sende inn klagen og vedlegg digitalt her. Du kan fortsette uten å logge deg inn, men husk at du da må skrive ut klagen, signere den og sende den i posten.',
+        'Hvis du logger deg inn, kan du sende inn klagen og vedlegg digitalt her. Du kan fortsette uten å logge deg inn, men husk at du da må skrive ut klagen, signere den og sende den i posten.',
       [CaseType.ANKE]:
-        'Hvis du logger deg inn kan du sende inn anken og vedlegg digitalt her. Du kan fortsette uten å logge deg inn, men husk at du da må skrive ut anken, signere den og sende den i posten.',
+        'Hvis du logger deg inn, kan du sende inn anken og vedlegg digitalt her. Du kan fortsette uten å logge deg inn, men husk at du da må skrive ut anken, signere den og sende den i posten.',
       [CaseType.ETTERSENDELSE_KLAGE]:
-        'Hvis du logger deg inn kan du ettersende dokumentasjon digitalt her. Du kan fortsette uten å logge deg inn, men husk at du da må skrive ut dokumentasjonen, signere den og sende den i posten.',
+        'Hvis du logger deg inn, kan du ettersende dokumentasjon digitalt her. Du kan fortsette uten å logge deg inn, men husk at du da må skrive ut dokumentasjonen, signere den og sende den i posten.',
       [CaseType.ETTERSENDELSE_ANKE]:
-        'Hvis du logger deg inn kan du ettersende dokumentasjon digitalt her. Du kan fortsette uten å logge deg inn, men husk at du da må skrive ut dokumentasjonen, signere den og sende den i posten.',
+        'Hvis du logger deg inn, kan du ettersende dokumentasjon digitalt her. Du kan fortsette uten å logge deg inn, men husk at du da må skrive ut dokumentasjonen, signere den og sende den i posten.',
     },
     employer_info: {
       [CaseType.KLAGE]:
-        'Som arbeidsgiver må du sende klagen i posten. Du legger inn fødselsnummeret eller D-nummeret til den arbeidstakeren som vedtaket gjelder for, skriver ut klagen og signerer som arbeidsgiver.',
+        'Hvis du er en fullmektig eller en arbeidsgiver som skal klage, må du sende klagen i posten. Du legger inn fødselsnummeret eller D-nummeret til den som vedtaket gjelder for, skriver ut klagen og signerer som fullmektig eller arbeidsgiver.',
       [CaseType.ANKE]:
-        'Som arbeidsgiver må du sende anken i posten. Du legger inn fødselsnummeret eller D-nummeret til den arbeidstakeren som vedtaket gjelder for, skriver ut anken og signerer som arbeidsgiver.',
+        'Hvis du er en fullmektig eller en arbeidsgiver som skal anke, må du sende anken i posten. Du legger inn fødselsnummeret eller D-nummeret til den som vedtaket gjelder for, skriver ut anken og signerer som fullmektig eller arbeidsgiver.',
       [CaseType.ETTERSENDELSE_KLAGE]:
-        'Som arbeidsgiver må du sende dokumentasjonen i posten. Du legger inn fødselsnummeret eller D-nummeret til den arbeidstakeren som vedtaket gjelder for, skriver ut dokumentasjonen og signerer som arbeidsgiver.',
+        'Hvis du er en fullmektig eller en arbeidsgiver som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten. Du legger inn fødselsnummeret eller D-nummeret til den som vedtaket gjelder for, skriver ut dokumentasjonen og signerer som fullmektig eller arbeidsgiver.',
       [CaseType.ETTERSENDELSE_ANKE]:
-        'Som arbeidsgiver må du sende dokumentasjonen i posten. Du legger inn fødselsnummeret eller D-nummeret til den arbeidstakeren som vedtaket gjelder for, skriver ut dokumentasjonen og signerer som arbeidsgiver.',
+        'Hvis du er en fullmektig eller en arbeidsgiver som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten. Du legger inn fødselsnummeret eller D-nummeret til den som vedtaket gjelder for, skriver ut dokumentasjonen og signerer som fullmektig eller arbeidsgiver.',
     },
   },
   user_loader: {
