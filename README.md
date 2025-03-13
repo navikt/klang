@@ -1,7 +1,7 @@
 Digital klage- og ankeinngang
 ================
 
-Digital innsending av klager og anker. Samt ettersendelse.
+Digital innsending av klager, anker og ettersendelser.
 
 # Henvendelser
 
@@ -11,7 +11,6 @@ Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på Git
 
 Interne henvendelser kan sendes via Slack i kanalen [#team-digital-klage](https://nav-it.slack.com/archives/C01L59AQVQA).
 
-
 Bruk og integrasjon
 ===================
 
@@ -19,6 +18,8 @@ Bruk og integrasjon
 
 Bruker må bli sendt direkte til ett av skjemaene fra en annen tjeneste.
 Andre tjenester kan f.eks. lenke til skjema for klage med følgende URL `https://klage.nav.no/nb/klage/DAGPENGER?saksnummer=12345`.
+
+> I `dev` er det mulig å gå til forsiden, https://klage.intern.dev.nav.no, for å se en oversikt over alle ytelser og sakstyper. I `prod` redirecter forsiden til https://nav.no/klage.
 
 ### Direkte lenke
 
@@ -28,12 +29,15 @@ Brukere kan være logget inn i en tjeneste som har nødvendig informasjon for å
 2. Bruker trykker på knappen `Klag på vedtak`.
 3. Bruker sendes til klageskjema.
 
-For å lenke direkte til klageskjemaet må `innsendingsytelse` være satt i URL-en.
+For å lenke direkte til et klageskjema må `innsendingsytelse` være satt i URL-en.
+_Det samme gjelder for anker og ettersendelser._
 
 ### Saksnummer
-`saksnummer` er valgfritt og kan settes som et query parameter i URL-en.
-Saksnummeret settes i klagen/anken, men bruker kan **ikke** endre det.
-Dersom dette ikke er oppgitt som query parameter, får bruker mulighet til å fylle inn saksnummer selv.
+`saksnummer` er valgfritt og kan settes som et query-parameter i URL-en.
+
+Saksnummeret settes i klagen/anken/ettersendelsen. Bruker kan fortsatt låse opp feltet og overstyre det.
+
+Dersom saksnummer ikke er oppgitt som query-parameter, får bruker mulighet til å fylle inn saksnummer selv. Feltet er valgfritt.
 
 ### Eksempler på fullstendige URLer
 | Skjema | URL |
