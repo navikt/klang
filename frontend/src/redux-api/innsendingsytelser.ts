@@ -1,15 +1,18 @@
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import type { Languages } from '@app/language/types';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { API_BASE_QUERY } from './common';
+import { KODEVERK_API_BASE_QUERY } from './common';
 
-type InnsendingsytelserMap = Record<Innsendingsytelse, string>;
+interface InnsendingsytelseName {
+  id: Innsendingsytelse;
+  navn: string;
+}
 
 export const innsendingsytelserApi = createApi({
   reducerPath: 'innsendingsytelserApi',
-  baseQuery: API_BASE_QUERY,
+  baseQuery: KODEVERK_API_BASE_QUERY,
   endpoints: (builder) => ({
-    getInnsendingsytelser: builder.query<InnsendingsytelserMap, Languages>({
+    getInnsendingsytelser: builder.query<InnsendingsytelseName[], Languages>({
       query: (lang) => `/innsendingsytelser/${lang}`,
     }),
   }),

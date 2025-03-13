@@ -12,5 +12,5 @@ export const useInnsendingsytelseName = (innsendingsytelse: Innsendingsytelse): 
     return [common.loading, true];
   }
 
-  return [data[innsendingsytelse] ?? innsendingsytelse, false];
+  return [data.find(({ id }) => id === innsendingsytelse)?.navn ?? innsendingsytelse, false];
 };
