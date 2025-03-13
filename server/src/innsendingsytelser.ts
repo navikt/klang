@@ -1,4 +1,4 @@
-enum Innsendingsytelse {
+export enum Innsendingsytelse {
   ALDERSPENSJON = 'ALDERSPENSJON',
   ARBEID_MED_STOTTE = 'ARBEID_MED_STOTTE',
   ARBEIDSAVKLARINGSPENGER = 'ARBEIDSAVKLARINGSPENGER',
@@ -117,5 +117,5 @@ enum Innsendingsytelse {
   MEDLEMSKAP = 'MEDLEMSKAP',
 }
 
-const INNSENDINGSYTELSER = Object.values(Innsendingsytelse);
+export const INNSENDINGSYTELSER = Object.values(Innsendingsytelse);
 export const LOWER_CASE_INNSENDINGSYTELSER = INNSENDINGSYTELSER.map((ytelse) => ytelse.toLowerCase());

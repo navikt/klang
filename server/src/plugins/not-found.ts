@@ -1,5 +1,5 @@
-import { YTELSE_OVERVIEW_URL, isDeployedToProd } from '@app/config/env';
-import { LOWER_CASE_INNSENDINGSYTELSER } from '@app/innsendingsytelser';
+import { YTELSE_OVERVIEW_URL, isDeployed, isDeployedToProd } from '@app/config/env';
+import { INNSENDINGSYTELSER, Innsendingsytelse } from '@app/innsendingsytelser';
 import { getLogger } from '@app/logger';
 import { externalRedirectCounter } from '@app/plugins/serve-index/counters';
 import { removeSaksnummer } from '@app/plugins/serve-index/remove-saksnummer';
@@ -41,26 +41,67 @@ export const notFoundPlugin = fastifyPlugin(
   { fastify: '5', name: NOT_FOUND_PLUGIN_ID, dependencies: [SERVE_INDEX_PLUGIN_ID] },
 );
 
-const getCells = (ytelse: string): string[] =>
+const createLink = (path: string, type: string) => `<a class="capitalized link" href="${path}">${type}</a>`;
+
+const getLinks = (ytelse: string): string[] =>
   CASE_TYPES.flatMap((type) => [
-    createCell(`/nb/${type}/${ytelse}`, type),
-    createCell(`/nb/ettersendelse/${type}/${ytelse}`, `${type} ettersendelse`),
+    createLink(`/nb/${type}/${ytelse}`, type),
+    createLink(`/nb/ettersendelse/${type}/${ytelse}`, `Ettersendelse ${type}`),
   ]);
 
-const createCell = (path: string, type: string) => `<td class="path"><a href="${path}">${type}</a></td>`;
+const HIDDEN_YTELSER = [
+  Innsendingsytelse.FORSIKRING,
+  Innsendingsytelse.HJELPEMIDLER_ORTOPEDISKE,
+  Innsendingsytelse.MEDLEMSKAP,
+];
 
-const getRows = (): string[][] =>
-  LOWER_CASE_INNSENDINGSYTELSER.map((ytelse) => [
-    `<td class="ytelse">${ytelse.replaceAll('_', ' ')}</td>`,
-    ...getCells(ytelse),
+const getRows = async (): Promise<string[][]> => {
+  const nb = await getYtelseNames('nb');
+  const nn = await getYtelseNames('nn');
+  const en = await getYtelseNames('en');
+
+  return INNSENDINGSYTELSER.filter((y) => !HIDDEN_YTELSER.includes(y)).map((ytelse) => [
+    `<td class="key-cell">${ytelse}</td>`,
+    `<td>
+      <dl class="two-columns-grid">
+        <dt>Bokmål:</dt><dd>${nb.find(({ id }) => id === ytelse)?.navn ?? ytelse}</dd>
+        <dt>Nynorsk:</dt><dd>${nn.find(({ id }) => id === ytelse)?.navn ?? ytelse}</dd>
+        <dt>Engelsk:</dt><dd>${en.find(({ id }) => id === ytelse)?.navn ?? ytelse}</dd>
+      </dl>
+    </td>`,
+    `<td><div class="two-columns-grid">${getLinks(ytelse).join('\n')}</div></td>`,
   ]);
+};
+
+const KODEVERK_DOMAIN = isDeployed ? 'http://klage-kodeverk-api' : 'https://klage-kodeverk-api.intern.dev.nav.no';
+
+interface YtelseName {
+  id: Innsendingsytelse;
+  navn: string;
+}
+
+const isYtelsResponse = (data: unknown): data is YtelseName[] =>
+  Array.isArray(data) &&
+  data.every((item) => typeof item === 'object' && item !== null && 'id' in item && 'navn' in item);
+
+const getYtelseNames = async (lang: 'nb' | 'nn' | 'en'): Promise<YtelseName[]> => {
+  const res = await fetch(`${KODEVERK_DOMAIN}/kodeverk/innsendingsytelser/${lang}`);
+  const data = await res.json();
+
+  if (!isYtelsResponse(data)) {
+    throw new Error('Invalid response from kodeverk-api');
+  }
+
+  return data;
+};
 
 const DEV_404_HTML = isDeployedToProd
   ? ''
   : `
-    <html>
+    <html lang="no">
       <head>
         <title>DEV - Velg ytelse</title>
+        <meta charset="utf-8">
         <style>
           *, *::before, *::after {
             box-sizing: border-box;
@@ -77,22 +118,27 @@ const DEV_404_HTML = isDeployedToProd
             max-width: 100%;
           }
 
-          tr:hover {
-            background-color: #f8f8f8;
+          tbody tr:nth-child(odd) {
+            background-color: #F2F3F5;
+          }
+
+          tbody tr:hover {
+            background-color: #ECEEF0;
+          }
+
+          th {
+            font-size: 1.25rem;
+            font-weight: bold;
           }
 
           th, td {
-            padding: 0.25rem;
+            padding-block: 0.75rem;
+            padding-inline: 0.25rem;
             overflow: hidden;
-            white-space: normal;
-            min-width: 160px;
+            white-space: nowrap;
           }
 
-          th:first-letter, td:first-letter, td > a:first-letter {
-            text-transform: uppercase;
-          }
-
-          td > a {
+          .link {
             background-color: #0067C5;
             color: white;
             padding: 0.5rem 1rem;
@@ -103,28 +149,24 @@ const DEV_404_HTML = isDeployedToProd
             white-space: nowrap;
           }
 
-          td > a:hover {
+          .link:hover {
             background-color: #0056B4;
           }
 
-          td > a:active {
+          .link:active {
             background-color: #00459C;
           }
 
-          td > a:visited {
+          .link:visited {
             background-color: #634689;
           }
 
-          td > a:visited:hover {
+          .link:visited:hover {
             background-color: #523874;
           }
 
-          td > a:visited:active {
+          .link:visited:active {
             background-color: #412B5D;
-          }
-
-          .path {
-            text-align: left;
           }
 
           .ytelse {
@@ -134,23 +176,62 @@ const DEV_404_HTML = isDeployedToProd
             overflow: hidden;
             text-overflow: ellipsis;
           }
+
+          .text-left {
+            text-align: left;
+          }
+
+          .capitalized:not(:first-letter) {
+            text-transform: lowercase;
+          }
+
+          .capitalized:first-letter {
+            text-transform: uppercase;
+          }
+
+          .key-cell {
+            text-align: left;
+            max-width: 650px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-family: monospace;
+            font-size: 1rem;
+          }
+
+          .key-cell:hover {
+            max-width: unset;
+          }
+
+          dt {
+            font-weight: bold;
+          }
+
+          dd {
+            margin: 0;
+          }
+
+          .two-columns-grid {
+            display: grid;
+            grid-template-columns: min-content min-content;
+            margin: 0;
+            grid-gap: .25rem;
+          }
         </style>
       </head>
       <body>
         <h1>Siden finnes ikke</h1>
-        <p>I produksjon ville du ha blitt videresendt til denne siden <a href="${YTELSE_OVERVIEW_URL}">${YTELSE_OVERVIEW_URL}</a>.</p>
+        <p>I produksjon ville du ha blitt videresendt til denne siden: <a href="${YTELSE_OVERVIEW_URL}">${YTELSE_OVERVIEW_URL}</a>.</p>
         <h2>Tilgjengelige skjemaer</h2>
         <table>
           <thead>
             <tr>
-              <th class="ytelse">Ytelse</th>
-              ${CASE_TYPES.map((type) => `<th class="path">${type}</th><th class="path">${type} ettersendelse</th>`).join('')}
+              <th colspan="2" class="ytelse">Ytelse</th>
+              <th class="text-left">Lenker</th>
             </tr>
           </thead>
           <tbody>
-            ${getRows()
-              .map((row) => `<tr>${row.join('')}</tr>`)
-              .join('')}
+            ${(await getRows()).map((row) => `<tr>${row.join('')}</tr>`).join('')}
           </tbody>
         </table>
       </body>
