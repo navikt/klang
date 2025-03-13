@@ -3,40 +3,6 @@ Digital klage- og ankeinngang
 
 Digital innsending av klager og anker. Samt ettersendelse.
 
-# Komme i gang
-
-## Autorisering mot @navikt-NPM-registeret
-1. [Lag et Personal Access Token (PAT)](https://github.com/settings/tokens) med scope: `read:packages`. _Tokenet må være autorisert for organisasjonen `navikt`._
-2. Opprett filen `bunfig.toml` i din `$HOME`-mappe med følgende innhold:
-  ```toml
-  [install.scopes]
-  "@navikt" = { token = "ghp_Qj6Xxn8HTUSJL9dNiZ0TW7R5YvupTZclTXsK", url = "https://npm.pkg.github.com/" }
-  ```
-3. Bytt ut `ghp_Qj6Xxn8HTUSJL9dNiZ0TW7R5YvupTZclTXsK` med ditt eget token.
-
-### Referanser
-- https://github.com/navikt/nav-dekoratoren-moduler?tab=readme-ov-file#kom-i-gang
-- https://bun.sh/docs/install/registries
-
-
-```
-bun i
-bun start
-```
-
-## Miljøer
-
-- `DEV`: https://klage.intern.dev.nav.no
-- `PROD`: https://klage.nav.no
-
-## Autentisering for lokal utvikling
-
-1. Gå til https://klage.intern.dev.nav.no/nb/klage/DAGPENGER.
-2. Logg inn normalt med en testbruker.
-3. Endre domene til `localhost` for følgende cookies: `innloggingsstatus-token` og `io.nais.wonderwall.session`.
-
-> Det finnes ingen landingsside for denne applikasjonen, man må selv navigere til en gyldig URL for et skjema.
-
 # Henvendelser
 
 Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på GitHub.
@@ -244,3 +210,36 @@ Under visse ytelser vil inngangen for klage gi bruker muligheten til å trykke p
 ## Videre flyt
 
 Denne klienten interagerer med https://github.com/navikt/klage-dittnav-api, som igjen sender info videre til https://github.com/navikt/klage-arkiver-journalpost. Se `README` i sistnevnte for informasjon om hvordan journalposter opprettes i Joark.
+
+# Utvikling
+
+## Autorisering mot @navikt-NPM-registeret
+1. [Lag et Personal Access Token (PAT)](https://github.com/settings/tokens) med scope: `read:packages`. _Tokenet må være autorisert for organisasjonen `navikt`._
+2. Opprett filen `bunfig.toml` i din `$HOME`-mappe med følgende innhold:
+  ```toml
+  [install.scopes]
+  "@navikt" = { token = "ghp_Qj6Xxn8HTUSJL9dNiZ0TW7R5YvupTZclTXsK", url = "https://npm.pkg.github.com/" }
+  ```
+3. Bytt ut `ghp_Qj6Xxn8HTUSJL9dNiZ0TW7R5YvupTZclTXsK` med ditt eget token.
+
+### Referanser
+- https://github.com/navikt/nav-dekoratoren-moduler?tab=readme-ov-file#kom-i-gang
+- https://bun.sh/docs/install/registries
+
+```
+bun i
+bun start
+```
+
+## Miljøer
+
+- `DEV`: https://klage.intern.dev.nav.no
+- `PROD`: https://klage.nav.no
+
+## Autentisering for lokal utvikling
+
+1. Gå til https://klage.intern.dev.nav.no/nb/klage/DAGPENGER.
+2. Logg inn normalt med en testbruker.
+3. Endre domene til `localhost` for følgende cookies: `innloggingsstatus-token` og `io.nais.wonderwall.session`.
+
+> Kun i `dev` har denne applikasjonen en egen forside med oversikt over alle ytelser og sakstyper.
