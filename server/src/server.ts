@@ -12,7 +12,7 @@ import { frontendLogPlugin } from '@app/plugins/frontend-log/frontend-log';
 import { healthPlugin } from '@app/plugins/health';
 import { httpLoggerPlugin } from '@app/plugins/http-logger';
 import { localDevPlugin } from '@app/plugins/local-dev';
-import { notFoundPlugin } from '@app/plugins/not-found';
+import { notFoundPlugin } from '@app/plugins/not-found/not-found';
 import { oboAccessTokenPlugin } from '@app/plugins/obo-token';
 import { proxyVersionPlugin } from '@app/plugins/proxy-version';
 import { serveIndexPlugin } from '@app/plugins/serve-index/serve-index';
