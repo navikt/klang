@@ -62,9 +62,9 @@ https://klage.nav.no/{språk}/{type}/{innsendingsytelse}?saksnummer={saksnummer}
 
 ## Legge til ny ytelse
 
-Om ingen av ytelse som støttes passer deres behov er det mulig å opprette en PR i [klage-dittnav-api](https://github.com/navikt/klage-dittnav-api)-prosjektet eller kontakte teamet på Slack i kanalen [#team-digital-klage](https://nav-it.slack.com/archives/C01L59AQVQA).
+Om ingen av ytelsene som støttes passer deres behov er det mulig å opprette en PR i [klage-dittnav-api](https://github.com/navikt/klage-dittnav-api)-prosjektet eller kontakte teamet på Slack i kanalen [#team-digital-klage](https://nav-it.slack.com/archives/C01L59AQVQA).
 
-> Merk at alle ytelser må legges inn på norsk og engelsk.
+> Merk at alle ytelser må legges inn på bokmål, nynorsk og engelsk.
 
 ## Fortsette på påbegynt klage/anke
 
