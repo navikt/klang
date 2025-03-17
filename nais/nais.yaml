@@ -20,9 +20,6 @@ spec:
     min: 2
     max: 4
     cpuThresholdPercentage: 80
-  valkey:
-    - instance: obo-cache-klang
-      access: readwrite
   liveness:
     path: /isAlive
     initialDelay: 3
