@@ -1,14 +1,14 @@
-import { getCacheKey, oboCache } from '@app/auth/cache/cache';
-import { oboRequestDuration } from '@app/auth/cache/cache-gauge';
-import { getOnBehalfOfAccessToken } from '@app/auth/on-behalf-of';
-import { getTokenXClient } from '@app/auth/token-x-client';
+import { KLAGE_KODEVERK_API, NAIS_CLUSTER_NAME } from '@app/config/config';
 import { isDeployed } from '@app/config/env';
 import { getDuration } from '@app/helpers/duration';
 import { getLogger } from '@app/logger';
 import { ACCESS_TOKEN_PLUGIN_ID } from '@app/plugins/access-token';
 import { SERVER_TIMING_PLUGIN_ID } from '@app/plugins/server-timing';
+import { proxyRegister } from '@app/prometheus/types';
+import { requestOboToken, validateToken } from '@navikt/oasis';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import fastifyPlugin from 'fastify-plugin';
+import { Histogram } from 'prom-client';
 
 const log = getLogger('obo-token-plugin');
 
@@ -21,6 +21,8 @@ declare module 'fastify' {
     getCachedOboAccessToken(appName: string): string | undefined;
   }
 }
+
+const NO_OBO = [KLAGE_KODEVERK_API];
 
 const ASYNC_NOOP = async () => undefined;
 const SYNC_NOOP = () => undefined;
@@ -37,6 +39,10 @@ export const oboAccessTokenPlugin = fastifyPlugin(
 
     if (isDeployed) {
       app.decorateRequest('getOboAccessToken', async function (appName: string, reply?: FastifyReply) {
+        if (NO_OBO.includes(appName)) {
+          return undefined;
+        }
+
         const requestOboAccessToken = this.oboAccessTokenMap.get(appName);
 
         if (requestOboAccessToken !== undefined) {
@@ -55,9 +61,7 @@ export const oboAccessTokenPlugin = fastifyPlugin(
       });
 
       app.decorateRequest('getCachedOboAccessToken', function (appName: string) {
-        return (
-          this.oboAccessTokenMap.get(appName) ?? oboCache.getCached(getCacheKey(this.accessToken, appName)) ?? undefined
-        );
+        return this.oboAccessTokenMap.get(appName);
       });
     } else {
       app.decorateRequest('getOboAccessToken', ASYNC_NOOP);
@@ -73,7 +77,7 @@ export const oboAccessTokenPlugin = fastifyPlugin(
 
 type GetOboToken = (appName: string, req: FastifyRequest, reply?: FastifyReply) => Promise<string | undefined>;
 
-const getOboToken: GetOboToken = async (appName, req, reply) => {
+const getOboToken: GetOboToken = async (appName, req, reply): Promise<string | undefined> => {
   const { trace_id, span_id, accessToken, url, client_version } = req;
 
   log.debug({
@@ -90,28 +94,39 @@ const getOboToken: GetOboToken = async (appName, req, reply) => {
     return undefined;
   }
 
-  try {
-    const tokenXClientStart = performance.now();
-    const authClient = await getTokenXClient();
-    reply?.addServerTiming('token_x_client_middleware', getDuration(tokenXClientStart), 'TokenX Client Middleware');
+  const validation = await validateToken(accessToken);
 
+  if (!validation.ok) {
+    log.warn({ msg: 'Invalid access token.', trace_id, span_id, data: { route: url } });
+
+    return undefined;
+  }
+
+  try {
     const oboStart = performance.now();
-    const oboAccessToken = await getOnBehalfOfAccessToken(authClient, accessToken, appName, trace_id, span_id);
+    const oboAccessToken = await requestOboToken(accessToken, `${NAIS_CLUSTER_NAME}:klage:${appName}`);
 
     const duration = getDuration(oboStart);
     oboRequestDuration.observe(duration);
     reply?.addServerTiming('obo_token_middleware', duration, 'OBO Token Middleware');
 
-    return oboAccessToken;
+    if (!oboAccessToken.ok) {
+      log.warn({ msg: `Failed to get OBO token for audience: ${appName}.`, trace_id, span_id, data: { route: url } });
+
+      return undefined;
+    }
+
+    return oboAccessToken.token;
   } catch (error) {
-    log.warn({
-      msg: 'Failed to prepare request with OBO token.',
-      error,
-      trace_id,
-      span_id,
-      data: { route: req.url },
-    });
+    log.warn({ msg: 'Failed to prepare request with OBO token.', error, trace_id, span_id, data: { route: req.url } });
 
     return undefined;
   }
 };
+
+const oboRequestDuration = new Histogram({
+  name: 'obo_request_duration',
+  help: 'Duration of OBO token requests in milliseconds.',
+  buckets: [0, 10, 100, 200, 300, 400, 500, 600, 800, 900, 1000],
+  registers: [proxyRegister],
+});
