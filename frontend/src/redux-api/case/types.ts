@@ -15,29 +15,37 @@ export interface FinalizedCase {
   readonly modifiedByUser: ISODateTime;
 }
 
-export interface BaseCase {
-  readonly id: string;
-  readonly fritekst: string;
-  readonly status: CaseStatus;
-  readonly modifiedByUser: ISODateTime;
-  readonly vedlegg: Attachment[];
-  readonly journalpostId: string | null;
-  readonly finalizedDate: ISODate | null;
-  readonly vedtakDate: ISODate | null;
-  readonly userSaksnummer: string | null;
-  readonly internalSaksnummer: string | null;
-  readonly language: Languages;
-  readonly innsendingsytelse: Innsendingsytelse;
-  readonly hasVedlegg: boolean;
-  readonly type: CaseType;
-  readonly checkboxesSelected: Reason[];
+export interface DeepLinkParams {
   readonly caseIsAtKA: boolean | null;
+  readonly internalSaksnummer: string | null;
+  readonly sakFagsaksystem: string | null;
+  readonly sakSakstype: string | null;
 }
 
-export type CaseUpdatable = Pick<
-  BaseCase,
-  'vedtakDate' | 'checkboxesSelected' | 'userSaksnummer' | 'hasVedlegg' | 'fritekst' | 'caseIsAtKA'
->;
+interface ReadOnlyFields {
+  readonly id: string;
+  readonly finalizedDate: ISODate | null;
+  readonly journalpostId: string | null;
+  readonly modifiedByUser: ISODateTime;
+  readonly status: CaseStatus;
+  readonly vedlegg: Attachment[];
+}
+
+export interface UpdateCaseFields extends DeepLinkParams {
+  readonly checkboxesSelected: Reason[];
+  readonly fritekst: string;
+  readonly hasVedlegg: boolean;
+  readonly userSaksnummer: string | null;
+  readonly vedtakDate: ISODate | null;
+}
+
+export interface CreateCaseFields extends UpdateCaseFields {
+  readonly type: CaseType;
+  readonly innsendingsytelse: Innsendingsytelse;
+  readonly language: Languages;
+}
+
+export type BaseCase = ReadOnlyFields & CreateCaseFields;
 
 export interface Klage extends BaseCase {
   readonly type: CaseType.KLAGE;
@@ -52,7 +60,6 @@ export interface Anke extends BaseCase {
 
 export interface EttersendelseKlage extends BaseCase {
   readonly type: CaseType.ETTERSENDELSE_KLAGE;
-  readonly caseIsAtKA: boolean | null;
 }
 
 export interface EttersendelseAnke extends BaseCase {

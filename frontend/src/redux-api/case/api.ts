@@ -1,7 +1,6 @@
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import type {
-  CreateCaseParams,
   DeleteAttachmentParams,
   ResumeCaseParams,
   UpdateCaseParams,
@@ -11,6 +10,7 @@ import { type Attachment, type BaseCase, type Case, CaseStatus, type FinalizedCa
 import { API_BASE_QUERY, API_PATH } from '@app/redux-api/common';
 import { ServerSentEventManager, ServerSentEventType } from '@app/redux-api/server-sent-events';
 import { createApi } from '@reduxjs/toolkit/query/react';
+import type { CreateCaseFields } from './types';
 
 type BaseUpdateResponse = Pick<BaseCase, 'modifiedByUser'>;
 
@@ -59,7 +59,7 @@ export const caseApi = createApi({
         dispatch(caseApi.util.updateQueryData('getCase', data.id, () => data));
       },
     }),
-    createCase: builder.mutation<Case, CreateCaseParams>({
+    createCase: builder.mutation<Case, CreateCaseFields>({
       query: (body) => ({
         method: 'POST',
         url: '/klanker',

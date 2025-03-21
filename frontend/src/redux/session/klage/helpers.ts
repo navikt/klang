@@ -1,17 +1,18 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { getUniqueId } from '@app/functions/uuid';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import type { CaseType } from '@app/redux-api/case/types';
+import type { CaseType, DeepLinkParams } from '@app/redux-api/case/types';
 
 export const getSessionCaseKey = (type: CaseType, ytelse: Innsendingsytelse): string =>
   `klang-${type}-${ytelse}`.toLowerCase();
 
-export const createSessionCase = (
-  type: CaseType,
-  innsendingsytelse: Innsendingsytelse,
-  internalSaksnummer: string | null,
-  caseIsAtKA: true | null,
-): ISessionCase => ({
+interface Params {
+  type: CaseType;
+  innsendingsytelse: Innsendingsytelse;
+  deepLinkParams: DeepLinkParams;
+}
+
+export const createSessionCase = ({ type, innsendingsytelse, deepLinkParams }: Params): ISessionCase => ({
   id: getUniqueId(),
   type,
   innsendingsytelse,
@@ -21,11 +22,10 @@ export const createSessionCase = (
     etternavn: '',
   },
   fritekst: '',
-  internalSaksnummer,
   userSaksnummer: null,
   vedtakDate: null,
   checkboxesSelected: [],
   hasVedlegg: false,
   modifiedByUser: new Date().toISOString(),
-  caseIsAtKA,
+  ...deepLinkParams,
 });

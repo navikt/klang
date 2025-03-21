@@ -11,7 +11,7 @@ export enum AppEventEnum {
   CASE_INVALID = 'Invalid case data',
   CASE_JOURNALFØRT = 'Case journalført',
   CASE_RESUME_SESSION = 'Resume session case',
-  CASE_RESUME_SESSION_WITH_SAKSNUMMER = 'Resume session case with internal saksnummer',
+  CASE_RESUME_SESSION_WITH_CHANGED_DEEP_LINK = 'Resume session case changed deep link',
   CASE_SUBMIT = 'Click submit button',
   CASE_VALID = 'Valid case data',
   CLEAR_ERRORS = 'Clear errors',

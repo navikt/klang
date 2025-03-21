@@ -4,7 +4,8 @@ import { useIsAuthenticated } from '@app/hooks/use-user';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
-import { CASE_TYPE_PATH_SEGMENTS, type CaseType } from '@app/redux-api/case/types';
+import { CASE_TYPE_PATH_SEGMENTS, type CaseType, type DeepLinkParams } from '@app/redux-api/case/types';
+import { useMemo } from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { LoadingPage } from '../../loading-page/loading-page';
 import type { ISessionCase } from './types';
@@ -19,8 +20,16 @@ export const KlageSessionLoader = ({ Component, innsendingsytelse, type }: Props
   const { isAuthenticated, isLoadingAuth } = useIsAuthenticated();
   const [query] = useSearchParams();
   const internalSaksnummer = getQueryValue(query.get('saksnummer'));
+  const sakSakstype = getQueryValue(query.get('sakstype'));
+  const sakFagsaksystem = getQueryValue(query.get('fagsystem'));
   const caseIsAtKA = getBooleanQueryValue(query.get('ka')) ? true : null;
-  const [data, isLoading] = useSessionCase(type, innsendingsytelse, internalSaksnummer, caseIsAtKA);
+
+  const deepLinkParams: DeepLinkParams = useMemo(
+    () => ({ internalSaksnummer, sakSakstype, sakFagsaksystem, caseIsAtKA }),
+    [internalSaksnummer, sakSakstype, sakFagsaksystem, caseIsAtKA],
+  );
+
+  const [data, isLoading] = useSessionCase(type, innsendingsytelse, deepLinkParams);
   const { case_loader: klage_loader, user_loader } = useTranslation();
   const language = useLanguage();
 

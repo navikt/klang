@@ -1,6 +1,7 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { sessionEvent } from '@app/logging/logger';
 import { SessionAction } from '@app/logging/types';
+import type { DeepLinkParams } from '@app/redux-api/case/types';
 import type { State } from '@app/redux/session/type';
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 import { createSessionCase, getSessionCaseKey } from './helpers';
@@ -54,7 +55,7 @@ const loadSessionCase: CaseReducer<State, PayloadAction<SessionCaseLoad>> = (sta
   lastUpdated = 0;
   sessionEvent(SessionAction.LOAD);
 
-  const { innsendingsytelse, type, data } = payload;
+  const { innsendingsytelse, type, deepLinkParams } = payload;
 
   const sessionKey = getSessionCaseKey(type, innsendingsytelse);
   const savedCase = readSessionCase(sessionKey);
@@ -63,24 +64,20 @@ const loadSessionCase: CaseReducer<State, PayloadAction<SessionCaseLoad>> = (sta
     return state;
   }
 
-  return setState(state, sessionKey, {
-    ...savedCase,
-    internalSaksnummer: data.internalSaksnummer,
-    caseIsAtKA: data.caseIsAtKA === null ? savedCase.caseIsAtKA : data.caseIsAtKA,
-  });
+  return setState(state, sessionKey, mergeCaseAndDeepLinkParams(savedCase, deepLinkParams));
 };
 
 // Read from session storage if it exists, otherwise save to session storage.
 const loadOrCreateSessionCase: CaseReducer<State, PayloadAction<SessionCaseCreate>> = (state, { payload }) => {
   lastUpdated = 0;
 
-  const { innsendingsytelse, data, type } = payload;
+  const { innsendingsytelse, deepLinkParams, type } = payload;
 
   const sessionKey = getSessionCaseKey(type, innsendingsytelse);
   const savedCase = readSessionCase(sessionKey);
 
   if (savedCase === undefined) {
-    const newCase = createSessionCase(type, data.innsendingsytelse, data.internalSaksnummer, data.caseIsAtKA);
+    const newCase = createSessionCase({ type, innsendingsytelse, deepLinkParams });
 
     const key = saveSessionCase(innsendingsytelse, newCase);
 
@@ -93,11 +90,10 @@ const loadOrCreateSessionCase: CaseReducer<State, PayloadAction<SessionCaseCreat
     sessionEvent(SessionAction.LOAD);
   }
 
-  return setState(state, sessionKey, {
-    ...savedCase,
-    internalSaksnummer: data.internalSaksnummer,
-    caseIsAtKA: data.caseIsAtKA === null ? savedCase.caseIsAtKA : data.caseIsAtKA,
-  });
+  const newCase = mergeCaseAndDeepLinkParams(savedCase, deepLinkParams);
+
+  setState(state, sessionKey, newCase);
+  saveSessionCase(innsendingsytelse, newCase);
 };
 
 const setState = (state: State, key: string, data: ISessionCase) => {
@@ -123,6 +119,14 @@ const deleteSessionCase: CaseReducer<State, PayloadAction<SessionCaseRemove>> = 
 
   return state;
 };
+
+const mergeCaseAndDeepLinkParams = (oldCase: ISessionCase, deepLinkParams: DeepLinkParams): ISessionCase => ({
+  ...oldCase,
+  internalSaksnummer: deepLinkParams.internalSaksnummer ?? oldCase.internalSaksnummer,
+  sakSakstype: deepLinkParams.sakSakstype ?? oldCase.sakSakstype,
+  sakFagsaksystem: deepLinkParams.sakFagsaksystem ?? oldCase.sakFagsaksystem,
+  caseIsAtKA: deepLinkParams.caseIsAtKA ?? oldCase.caseIsAtKA,
+});
 
 export const caseReducers = {
   setSessionCase,

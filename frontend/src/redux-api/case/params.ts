@@ -1,27 +1,13 @@
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import type { BaseCase, CaseType, CaseUpdatable } from '@app/redux-api/case/types';
+import type { BaseCase, CaseType, DeepLinkParams, UpdateCaseFields } from '@app/redux-api/case/types';
 
-export type CreateCaseParams = Pick<
-  BaseCase,
-  | 'innsendingsytelse'
-  | 'userSaksnummer'
-  | 'vedtakDate'
-  | 'internalSaksnummer'
-  | 'fritekst'
-  | 'hasVedlegg'
-  | 'type'
-  | 'caseIsAtKA'
-  | 'checkboxesSelected'
-  | 'language'
->;
-
-interface CaseUpdate<T extends keyof CaseUpdatable> {
+interface CaseUpdate<T extends keyof UpdateCaseFields> {
   readonly id: BaseCase['id'];
   readonly key: T;
-  readonly value: CaseUpdatable[T];
+  readonly value: UpdateCaseFields[T];
 }
 
-export type UpdateCaseParams = CaseUpdate<keyof CaseUpdatable>;
+export type UpdateCaseParams = CaseUpdate<keyof UpdateCaseFields>;
 
 export interface UploadAttachmentParams {
   file: File;
@@ -33,9 +19,7 @@ export interface DeleteAttachmentParams {
   attachmentId: number;
 }
 
-export interface ResumeCaseParams {
+export interface ResumeCaseParams extends DeepLinkParams {
   readonly type: CaseType;
   readonly innsendingsytelse: Innsendingsytelse;
-  readonly internalSaksnummer: string | null;
-  readonly caseIsAtKA: true | null;
 }
