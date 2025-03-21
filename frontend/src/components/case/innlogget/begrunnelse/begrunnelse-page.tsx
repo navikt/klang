@@ -14,7 +14,7 @@ import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import { useDeleteAttachmentMutation, useDeleteCaseMutation, useUpdateCaseMutation } from '@app/redux-api/case/api';
-import { type Case, CaseStatus, CaseType, type CaseUpdatable } from '@app/redux-api/case/types';
+import { type Case, CaseStatus, CaseType, type UpdateCaseFields } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
 import { CenteredContainer } from '@app/styled-components/common';
 import { BodyLong, Button, GuidePanel } from '@navikt/ds-react';
@@ -89,7 +89,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
   const isEttersendelseKlage = data.type === CaseType.ETTERSENDELSE_KLAGE;
 
   const onChange = useCallback(
-    async <T extends keyof CaseUpdatable>(key: T, value: CaseUpdatable[T]) => {
+    async <T extends keyof UpdateCaseFields>(key: T, value: UpdateCaseFields[T]) => {
       await updateCase({ key, value, id: data.id });
     },
     [data.id, updateCase],

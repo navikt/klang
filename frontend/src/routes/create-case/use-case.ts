@@ -4,10 +4,10 @@ import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytels
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { useCreateCaseMutation, useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
-import type { CaseType } from '@app/redux-api/case/types';
+import type { CaseType, DeepLinkParams } from '@app/redux-api/case/types';
 import { useGetUserQuery } from '@app/redux-api/user/api';
 import { useAppDispatch } from '@app/redux/configure-store';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { handleCreateCase, handleResumeOrCreateCase, handleSessionCase } from './handlers';
 
@@ -24,7 +24,14 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const { data: user, isLoading: isLoadingUser, isSuccess } = useGetUserQuery();
 
   const internalSaksnummer = getQueryValue(query.get('saksnummer'));
+  const sakSakstype = getQueryValue(query.get('sakstype'));
+  const sakFagsaksystem = getQueryValue(query.get('fagsystem'));
   const caseIsAtKA = getBooleanQueryValue(query.get('ka')) ? true : null;
+
+  const deepLinkParams: DeepLinkParams = useMemo(
+    () => ({ internalSaksnummer, sakSakstype, sakFagsaksystem, caseIsAtKA }),
+    [internalSaksnummer, sakSakstype, sakFagsaksystem, caseIsAtKA],
+  );
 
   const [createCase, { isLoading: createIsLoading, isError: createHasFailed, isSuccess: createIsSuccess }] =
     useCreateCaseMutation();
@@ -32,7 +39,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const [resumeOrCreateCase, { isLoading: resumeIsLoading, isError: resumeHasFailed, isSuccess: resumeIsSuccess }] =
     useResumeOrCreateCaseMutation();
 
-  const [sessionCase, sessionCaseIsLoading] = useSessionCase(type, innsendingsytelse, internalSaksnummer, caseIsAtKA);
+  const [sessionCase, sessionCaseIsLoading] = useSessionCase(type, innsendingsytelse, deepLinkParams);
   const dispatch = useAppDispatch();
 
   const isLoading = isLoadingUser || createIsLoading || resumeIsLoading;
@@ -43,51 +50,26 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
       return;
     }
 
+    const common = { deepLinkParams, innsendingsytelse, language, navigate };
+
     if (user === undefined) {
-      handleSessionCase({
-        type,
-        dispatch,
-        internalSaksnummer,
-        caseIsAtKA,
-        innsendingsytelse,
-        language,
-        navigate,
-        sessionCase,
-      });
+      handleSessionCase({ type, dispatch, sessionCase, ...common });
 
       return;
     }
 
-    if (sessionCase !== null && sessionCase.foedselsnummer === user.folkeregisteridentifikator?.identifikasjonsnummer) {
-      handleCreateCase({
-        createCase,
-        dispatch,
-        internalSaksnummer,
-        caseIsAtKA,
-        innsendingsytelse,
-        language,
-        navigate,
-        sessionCase,
-      });
+    if (sessionCase.foedselsnummer === user.folkeregisteridentifikator?.identifikasjonsnummer) {
+      handleCreateCase({ createCase, dispatch, sessionCase, ...common });
 
       return;
     }
 
-    handleResumeOrCreateCase({
-      type,
-      internalSaksnummer,
-      caseIsAtKA,
-      innsendingsytelse,
-      language,
-      navigate,
-      resumeOrCreateCase,
-    });
+    handleResumeOrCreateCase({ type, resumeOrCreateCase, ...common });
   }, [
     createCase,
     dispatch,
     innsendingsytelse,
-    internalSaksnummer,
-    caseIsAtKA,
+    deepLinkParams,
     isDone,
     isLoading,
     isSuccess,

@@ -1,6 +1,6 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import type { CaseType } from '@app/redux-api/case/types';
+import type { CaseType, DeepLinkParams } from '@app/redux-api/case/types';
 
 interface Base {
   type: CaseType;
@@ -8,11 +8,11 @@ interface Base {
 }
 
 export interface SessionCaseLoad extends Base {
-  data: { innsendingsytelse: Innsendingsytelse; internalSaksnummer: string | null; caseIsAtKA: true | null };
+  deepLinkParams: DeepLinkParams;
 }
 
 export interface SessionCaseCreate extends Base {
-  data: { innsendingsytelse: Innsendingsytelse; internalSaksnummer: string | null; caseIsAtKA: true | null };
+  deepLinkParams: DeepLinkParams;
 }
 
 export interface SessionCasePayload extends Base {

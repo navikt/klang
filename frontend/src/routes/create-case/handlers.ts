@@ -4,8 +4,8 @@ import type { Languages } from '@app/language/types';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import type { useCreateCaseMutation, useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
-import type { CreateCaseParams } from '@app/redux-api/case/params';
-import { CASE_TYPE_PATH_SEGMENTS, type CaseType } from '@app/redux-api/case/types';
+import type { CreateCaseFields } from '@app/redux-api/case/types';
+import { CASE_TYPE_PATH_SEGMENTS, type CaseType, type DeepLinkParams } from '@app/redux-api/case/types';
 import type { AppDispatch } from '@app/redux/configure-store';
 import { createSessionCase } from '@app/redux/session/klage/helpers';
 import { deleteSessionCase, setSessionCase, updateSessionCase } from '@app/redux/session/session';
@@ -13,10 +13,9 @@ import type { NavigateFunction } from 'react-router-dom';
 
 interface IHandler {
   language: Languages;
-  internalSaksnummer: string | null;
-  caseIsAtKA: true | null;
   navigate: NavigateFunction;
   innsendingsytelse: Innsendingsytelse;
+  deepLinkParams: DeepLinkParams;
 }
 
 interface IHandleSession extends IHandler {
@@ -25,28 +24,29 @@ interface IHandleSession extends IHandler {
   type: CaseType;
 }
 
+const changedDeepLink = (oldCase: ISessionCase, deepLinkParams: DeepLinkParams): boolean =>
+  (deepLinkParams.internalSaksnummer !== null && deepLinkParams.internalSaksnummer !== oldCase.internalSaksnummer) ||
+  (deepLinkParams.sakSakstype !== null && deepLinkParams.sakSakstype !== oldCase.sakSakstype) ||
+  (deepLinkParams.sakFagsaksystem !== null && deepLinkParams.sakFagsaksystem !== oldCase.sakFagsaksystem) ||
+  (deepLinkParams.caseIsAtKA === true && deepLinkParams.caseIsAtKA !== oldCase.caseIsAtKA);
+
 export const handleSessionCase = ({
-  type,
-  sessionCase,
-  innsendingsytelse,
-  language,
-  internalSaksnummer,
-  caseIsAtKA,
-  navigate,
   dispatch,
+  sessionCase,
+  type,
+  innsendingsytelse,
+  deepLinkParams,
+  language,
+  navigate,
 }: IHandleSession) => {
   if (sessionCase === null) {
     appEvent(AppEventEnum.CASE_CREATE_SESSION);
     dispatch(
-      setSessionCase({
-        type,
-        innsendingsytelse,
-        data: createSessionCase(type, innsendingsytelse, internalSaksnummer, caseIsAtKA),
-      }),
+      setSessionCase({ type, innsendingsytelse, data: createSessionCase({ type, innsendingsytelse, deepLinkParams }) }),
     );
-  } else if (internalSaksnummer !== null && internalSaksnummer !== sessionCase.internalSaksnummer) {
-    appEvent(AppEventEnum.CASE_RESUME_SESSION_WITH_SAKSNUMMER);
-    dispatch(updateSessionCase({ type, innsendingsytelse: innsendingsytelse, data: { internalSaksnummer } }));
+  } else if (changedDeepLink(sessionCase, deepLinkParams)) {
+    appEvent(AppEventEnum.CASE_RESUME_SESSION_WITH_CHANGED_DEEP_LINK);
+    dispatch(updateSessionCase({ type, innsendingsytelse: innsendingsytelse, data: deepLinkParams }));
   } else {
     appEvent(AppEventEnum.CASE_RESUME_SESSION);
   }
@@ -64,8 +64,6 @@ interface IHandleCreate extends IHandler {
 
 export const handleCreateCase = ({
   sessionCase,
-  internalSaksnummer,
-  caseIsAtKA,
   innsendingsytelse,
   language,
   createCase,
@@ -73,7 +71,7 @@ export const handleCreateCase = ({
   navigate,
 }: IHandleCreate) => {
   appEvent(AppEventEnum.CASE_CREATE_FROM_SESSION_STORAGE);
-  createCase(getCreatePayload(sessionCase, language, internalSaksnummer, caseIsAtKA))
+  createCase(getCreatePayload(sessionCase, language))
     .unwrap()
     .then(({ id }) => {
       dispatch(deleteSessionCase({ type: sessionCase.type, innsendingsytelse }));
@@ -90,25 +88,18 @@ interface IHandleResumeOrCreate extends IHandler {
 export const handleResumeOrCreateCase = ({
   type,
   innsendingsytelse,
-  internalSaksnummer,
-  caseIsAtKA,
+  deepLinkParams,
   language,
   navigate,
   resumeOrCreateCase,
 }: IHandleResumeOrCreate) => {
   appEvent(AppEventEnum.CASE_CREATE_OR_RESUME);
-  resumeOrCreateCase({ innsendingsytelse, internalSaksnummer, caseIsAtKA, type })
+  resumeOrCreateCase({ innsendingsytelse, type, ...deepLinkParams })
     .unwrap()
     .then(({ id }) => navigate(`/${language}/sak/${id}/begrunnelse`, { replace: true }));
 };
 
 const getCreatePayload = (
-  { type, ...data }: ISessionCase,
+  { type, id, navn, modifiedByUser, ...rest }: ISessionCase,
   language: Languages,
-  internalSaksnummer: string | null,
-  caseIsAtKA: true | null,
-): CreateCaseParams => {
-  const { id, navn, modifiedByUser, ...rest } = data;
-
-  return { type, ...rest, internalSaksnummer, caseIsAtKA, language };
-};
+): CreateCaseFields => ({ type, ...rest, language });

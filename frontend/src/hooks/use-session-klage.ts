@@ -1,6 +1,6 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import type { CaseType } from '@app/redux-api/case/types';
+import type { CaseType, DeepLinkParams } from '@app/redux-api/case/types';
 import { useAppDispatch, useAppSelector } from '@app/redux/configure-store';
 import { getSessionCaseKey } from '@app/redux/session/klage/helpers';
 import { loadOrCreateSessionCase } from '@app/redux/session/session';
@@ -9,8 +9,7 @@ import { useEffect, useMemo } from 'react';
 export const useSessionCase = (
   type: CaseType,
   innsendingsytelse: Innsendingsytelse,
-  internalSaksnummer: string | null,
-  caseIsAtKA: true | null,
+  deepLinkParams: DeepLinkParams,
 ): [ISessionCase, false] | [undefined, true] => {
   const dispatch = useAppDispatch();
   const sessionCaseMap = useAppSelector((state) => state.session);
@@ -22,15 +21,9 @@ export const useSessionCase = (
 
   useEffect(() => {
     if (data === undefined) {
-      dispatch(
-        loadOrCreateSessionCase({
-          type,
-          innsendingsytelse,
-          data: { innsendingsytelse, internalSaksnummer, caseIsAtKA },
-        }),
-      );
+      dispatch(loadOrCreateSessionCase({ type, innsendingsytelse, deepLinkParams }));
     }
-  }, [dispatch, innsendingsytelse, internalSaksnummer, data, type, caseIsAtKA]);
+  }, [data, dispatch, deepLinkParams, innsendingsytelse, type]);
 
   if (data === undefined) {
     return [undefined, true];
