@@ -8,7 +8,7 @@ import { API_PATH } from '@app/redux-api/common';
 import { CenteredContainer } from '@app/styled-components/common';
 import { CenteredHeading } from '@app/styled-components/page-title';
 import { Section } from '@app/styled-components/summary';
-import { BodyLong, Button, ErrorMessage, Heading, Panel } from '@navikt/ds-react';
+import { Alert, BodyLong, Button, ErrorMessage, Heading, Panel } from '@navikt/ds-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
@@ -101,6 +101,10 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
           basePath={`${API_PATH}/klanker`}
         />
       </StyledPanel>
+
+      {data.status === CaseStatus.DONE ? null : (
+        <Alert variant="info">{skjema.summary.kvitteringInfo[data.type]}</Alert>
+      )}
 
       {getError(error)}
 

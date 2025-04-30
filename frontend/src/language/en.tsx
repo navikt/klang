@@ -215,6 +215,16 @@ export const en: Translations = {
         status === CaseStatus.DRAFT ? 'Submit' : `See submitted ${CASE_TYPE_NAMES_LOWER_CASE_EN[type]}`,
       post_link: 'Download if you would rather send by post',
       documents: 'Attached documents',
+      kvitteringInfo: {
+        [CaseType.KLAGE]:
+          'You will be sent to a confirmation page when the complaint has been submitted. If you do not see a confirmation page at the end, the complaint has not been submitted and you must submit it again.',
+        [CaseType.ANKE]:
+          'You will be sent to a confirmation page when the appeal has been submitted. If you do not see a confirmation page at the end, the appeal has not been submitted and you must submit it again.',
+        [CaseType.ETTERSENDELSE_KLAGE]:
+          'You will be sent to a confirmation page when the additional documentation has been submitted. If you do not see a confirmation page at the end, the submission has not been completed and you must submit it again.',
+        [CaseType.ETTERSENDELSE_ANKE]:
+          'You will be sent to a confirmation page when the additional documentation has been submitted. If you do not see a confirmation page at the end, the submission has not been completed and you must submit it again.',
+      },
     },
     kvittering: {
       title: {
