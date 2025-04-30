@@ -228,10 +228,10 @@ export const en: Translations = {
     },
     kvittering: {
       title: {
-        [CaseType.KLAGE]: 'Receipt for submitted complaint',
-        [CaseType.ANKE]: 'Receipt for submitted appeal',
-        [CaseType.ETTERSENDELSE_KLAGE]: 'Receipt for additional documentation',
-        [CaseType.ETTERSENDELSE_ANKE]: 'Receipt for additional documentation',
+        [CaseType.KLAGE]: 'Confirmation for submitted complaint',
+        [CaseType.ANKE]: 'Confirmation for submitted appeal',
+        [CaseType.ETTERSENDELSE_KLAGE]: 'Confirmation for additional documentation',
+        [CaseType.ETTERSENDELSE_ANKE]: 'Confirmation for additional documentation',
       },
       download: {
         [CaseType.KLAGE]: 'See and download your complaint',
