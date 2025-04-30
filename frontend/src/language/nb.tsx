@@ -218,6 +218,16 @@ export const nb = {
         status === CaseStatus.DRAFT ? 'Send inn' : `Se innsendt ${CASE_TYPE_NAMES_LOWER_CASE_NB[type]}`,
       post_link: 'Last ned hvis du heller ønsker å sende i posten',
       documents: 'Vedlagte dokumenter',
+      kvitteringInfo: {
+        [CaseType.KLAGE]:
+          'Du skal få en kvitteringsside når klagen er sendt inn. Dersom du ikke får opp en kvitteringsside til slutt, har du ikke sendt inn klagen, og må sende inn på nytt.',
+        [CaseType.ANKE]:
+          'Du skal få en kvitteringsside når anken er sendt inn. Dersom du ikke får opp en kvitteringsside til slutt, har du ikke sendt inn anken, og må sende inn på nytt.',
+        [CaseType.ETTERSENDELSE_KLAGE]:
+          'Du skal få en kvitteringsside når ettersendelsen er sendt inn. Dersom du ikke får opp en kvitteringsside til slutt, har du ikke sendt inn ettersendelsen, og må sende inn på nytt.',
+        [CaseType.ETTERSENDELSE_ANKE]:
+          'Du skal få en kvitteringsside når ettersendelsen er sendt inn. Dersom du ikke får opp en kvitteringsside til slutt, har du ikke sendt inn ettersendelsen, og må sende inn på nytt.',
+      },
     },
     kvittering: {
       title: {
