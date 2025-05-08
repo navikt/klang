@@ -38,11 +38,12 @@ class FrontendLogger {
   public appEvent = (action: AppEventEnum) =>
     send({ type: EventTypes.APP, message: action, action, ...this.getBase(Level.DEBUG) });
 
-  public errorEvent = (message: string, stack?: string) =>
+  public errorEvent = (message: string, stack?: string, user_id?: string) =>
     send({
       type: EventTypes.ERROR,
       message,
       stack,
+      user_id,
       ...this.getBase(Level.ERROR),
     });
 

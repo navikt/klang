@@ -3,6 +3,7 @@ import { isDeployed } from './config/env';
 const VERSION = process.env.VERSION ?? 'unknown';
 
 const LOGGERS: Map<string, Logger> = new Map();
+const SECURE_LOGGERS: Map<string, Logger> = new Map();
 
 type SerializableValue =
   | string
@@ -139,4 +140,31 @@ const getLog = (
   }
 
   return msg;
+};
+
+export const getSecureLogger = (module: string) => {
+  const cachedLogger = SECURE_LOGGERS.get(module);
+
+  if (typeof cachedLogger !== 'undefined') {
+    return cachedLogger;
+  }
+
+  const sendLog = (level: Level, args: LogArgs) => {
+    const log = getLog(module, level, args);
+
+    return isDeployed
+      ? fetch('http://localhost:19880', { method: 'POST', body: log, headers: { 'Content-Type': 'application/json' } })
+      : logDefined(log, level);
+  };
+
+  const logger: Logger = {
+    debug: (args) => sendLog('debug', args),
+    info: (args) => sendLog('info', args),
+    warn: (args) => sendLog('warn', args),
+    error: (args) => sendLog('error', args),
+  };
+
+  SECURE_LOGGERS.set(module, logger);
+
+  return logger;
 };
