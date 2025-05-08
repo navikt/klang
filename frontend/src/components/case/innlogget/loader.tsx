@@ -3,6 +3,7 @@ import { useTranslation } from '@app/language/use-translation';
 import { errorEvent } from '@app/logging/logger';
 import { useGetCaseQuery } from '@app/redux-api/case/api';
 import type { Case } from '@app/redux-api/case/types';
+import { useGetUserQuery } from '@app/redux-api/user/api';
 import { Alert } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useState } from 'react';
@@ -17,8 +18,9 @@ export const CaseLoader = ({ Component }: Props) => {
   const { id } = useParams();
   const { case_loader: klage_loader } = useTranslation();
   const [error, setError] = useState<string | null>(null);
+  const { data: user } = useGetUserQuery();
 
-  const { data, isLoading } = useGetCaseQuery(id ?? skipToken);
+  const { data, isLoading, isError, error: apiError } = useGetCaseQuery(id ?? skipToken);
 
   useEffect(() => {
     if (typeof id !== 'string') {
@@ -32,19 +34,20 @@ export const CaseLoader = ({ Component }: Props) => {
       return;
     }
 
-    if (isLoading) {
-      return;
-    }
+    if (isError) {
+      const e = new Error(`Case not found. Error: ${JSON.stringify(apiError)}`);
 
-    if (data === undefined) {
-      const e = new Error('Case not found.');
-      errorEvent(e.message, e.stack);
+      errorEvent(
+        e.message,
+        e.stack,
+        user === undefined ? undefined : user.folkeregisteridentifikator?.identifikasjonsnummer,
+      );
+
       setError(klage_loader.format_error(id, e));
 
-      console.error('Case not found.');
       redirectToNav();
     }
-  }, [id, data, klage_loader, isLoading]);
+  }, [id, klage_loader, isError, apiError, user]);
 
   if (error !== null) {
     return <Alert variant="error">{error}</Alert>;
