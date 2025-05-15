@@ -11,7 +11,7 @@ export const send = async (data: LogEvent) => {
     return;
   }
 
-  const endpoint = typeof data.user_id === 'string' ? '/frontend-secure-log' : '/frontend-log';
+  const endpoint = typeof data.user_id === 'string' ? '/frontend-team-log' : '/frontend-log';
 
   try {
     const res = await fetch(endpoint, {

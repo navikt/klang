@@ -1,9 +1,10 @@
+import { TEAM_LOG_PARAMS } from './config/env';
 import { isDeployed } from './config/env';
 
 const VERSION = process.env.VERSION ?? 'unknown';
 
 const LOGGERS: Map<string, Logger> = new Map();
-const SECURE_LOGGERS: Map<string, Logger> = new Map();
+const TEAM_LOGGERS: Map<string, Logger> = new Map();
 
 type SerializableValue =
   | string
@@ -104,7 +105,8 @@ const logDefined = (message: string | undefined, level: Level): void => {
 const getLog = (
   module: string,
   level: Level,
-  { msg, trace_id, span_id, client_version, tab_id, error, data }: LogArgs,
+  { msg: message, trace_id, span_id, client_version, tab_id, error, data }: LogArgs,
+  isTeamLog = false,
 ): string | undefined => {
   const log: Log = {
     ...(typeof data === 'object' && data !== null && !Array.isArray(data) ? data : { data }),
@@ -120,13 +122,13 @@ const getLog = (
 
   if (error instanceof Error) {
     log.stacktrace = error.stack;
-    log.message = typeof msg === 'string' ? `${msg} - ${error.name}: ${error.message}` : error.message;
+    log.message = typeof message === 'string' ? `${message} - ${error.name}: ${error.message}` : error.message;
   } else {
-    log.message = msg;
+    log.message = message;
   }
 
   if (isDeployed) {
-    return JSON.stringify(log);
+    return JSON.stringify(isTeamLog ? { ...TEAM_LOG_PARAMS, ...log, severity: level.toUpperCase() } : log);
   }
 
   if (
@@ -139,22 +141,24 @@ const getLog = (
     return;
   }
 
-  return msg;
+  return message;
 };
 
-export const getSecureLogger = (module: string) => {
-  const cachedLogger = SECURE_LOGGERS.get(module);
+export const getTeamLogger = (module: string) => {
+  const cachedLogger = TEAM_LOGGERS.get(module);
 
   if (typeof cachedLogger !== 'undefined') {
     return cachedLogger;
   }
 
   const sendLog = (level: Level, args: LogArgs) => {
-    const log = getLog(module, level, args);
-
     return isDeployed
-      ? fetch('http://localhost:19880', { method: 'POST', body: log, headers: { 'Content-Type': 'application/json' } })
-      : logDefined(log, level);
+      ? fetch('http://team-logs.nais-system', {
+          method: 'POST',
+          body: getLog(module, level, args, true),
+          headers: { 'Content-Type': 'application/json' },
+        })
+      : logDefined(getLog(module, level, args), level);
   };
 
   const logger: Logger = {
@@ -164,7 +168,7 @@ export const getSecureLogger = (module: string) => {
     error: (args) => sendLog('error', args),
   };
 
-  SECURE_LOGGERS.set(module, logger);
+  TEAM_LOGGERS.set(module, logger);
 
   return logger;
 };

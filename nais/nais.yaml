@@ -55,6 +55,8 @@ spec:
         - application: klage-kodeverk-api
         - application: nav-dekoratoren
           namespace: personbruker
+        - application: logging
+          namespace: nais-system
   ingresses:
     - {{ingress}}
   envFrom:
@@ -62,5 +64,3 @@ spec:
   observability:
     tracing:
       enabled: true
-  secureLogs:
-    enabled: true
