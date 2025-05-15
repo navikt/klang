@@ -17,6 +17,7 @@ export const isDeployedToDev = NAIS_CLUSTER_NAME === 'dev-gcp';
 export const isDeployedToProd = NAIS_CLUSTER_NAME === 'prod-gcp';
 export const isDeployed = isDeployedToDev || isDeployedToProd;
 export const isLocal = !isDeployed;
+export const isTest = process.env.NODE_ENV === 'test';
 
 export const ENVIRONMENT = getEnvironmentVersion('local', 'development', 'production');
 
@@ -37,3 +38,10 @@ export const POD_NAME = requiredEnvString('OTEL_RESOURCE_ATTRIBUTES_POD_NAME', '
 
 export const NAV_KLAGE_URL_PROD = 'https://www.nav.no/klage';
 export const NAV_KLAGE_URL_DEV = 'https://www.ekstern.dev.nav.no/klage';
+
+export const TEAM_LOG_PARAMS = {
+  google_cloud_project: requiredEnvString('GOOGLE_CLOUD_PROJECT', isTest ? '' : undefined),
+  nais_namespace_name: requiredEnvString('NAIS_NAMESPACE', isTest ? '' : undefined),
+  nais_pod_name: requiredEnvString('HOSTNAME', isTest ? '' : undefined),
+  nais_container_name: requiredEnvString('NAIS_APP_NAME', isTest ? '' : undefined),
+};

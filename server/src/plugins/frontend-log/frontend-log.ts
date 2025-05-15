@@ -1,10 +1,10 @@
-import { getLogger, getSecureLogger } from '@app/logger';
+import { getLogger, getTeamLogger } from '@app/logger';
 import { FrontendEventTypes, Level, SessionAction } from '@app/plugins/frontend-log/types';
 import { Type, type TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import fastifyPlugin from 'fastify-plugin';
 
 const log = getLogger('frontend-log');
-const secureLog = getSecureLogger('frontend-log');
+const teamLog = getTeamLogger('frontend-log');
 
 export const FRONTEND_LOG_PLUGIN_ID = 'frontend-log';
 
@@ -43,7 +43,7 @@ const LogEvent = Type.Union([
   Type.Object(ERROR_BASE, { title: 'Error event' }),
 ]);
 
-const SecureLogEvent = Type.Union([
+const TeamLogEvent = Type.Union([
   Type.Object({ ...NAVIGATION_BASE, user_id }, { title: 'Navigation event' }),
   Type.Object({ ...APP_BASE, user_id }, { title: 'App event' }),
   Type.Object({ ...SESSION_BASE, user_id }, { title: 'Session event' }),
@@ -73,7 +73,7 @@ const DEFAULT_PROPS = {
 };
 
 const Default = Type.Object(DEFAULT_PROPS);
-const SecureDefault = Type.Object({ ...DEFAULT_PROPS, user_id });
+const TeamLogDefault = Type.Object({ ...DEFAULT_PROPS, user_id });
 
 export const frontendLogPlugin = fastifyPlugin(
   async (app) => {
@@ -87,12 +87,12 @@ export const frontendLogPlugin = fastifyPlugin(
         reply.status(200).send();
       })
       .post(
-        '/frontend-secure-log',
-        { schema: { body: Type.Composite([SecureDefault, SecureLogEvent]) } },
+        '/frontend-team-log',
+        { schema: { body: Type.Composite([TeamLogDefault, TeamLogEvent]) } },
         (req, reply) => {
           const { level, message, ...data } = req.body;
 
-          secureLog[level]({ msg: message, data });
+          teamLog[level]({ msg: message, data });
 
           reply.status(200).send();
         },
