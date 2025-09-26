@@ -9,13 +9,13 @@ import { SessionCaseOppsummeringPage } from '@app/components/case/uinnlogget/sum
 import { INNSENDINGSYTELSER, type Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { LanguageComponent } from '@app/language/component';
 import { CaseType } from '@app/redux-api/case/types';
+import { CreateCase } from '@app/routes/create-case/create-case';
+import { DekoratorSetRedirect } from '@app/routes/dekorator-set-redirect';
+import { ErrorBoundary } from '@app/routes/error-boundary';
 import { LoginRequired } from '@app/routes/login-required';
+import { NavigationLogger } from '@app/routes/navigation-logger';
+import { NotFoundPage } from '@app/routes/not-found-page';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { CreateCase } from './create-case/create-case';
-import { DekoratorSetRedirect } from './dekorator-set-redirect';
-import { ErrorBoundary } from './error-boundary';
-import { NavigationLogger } from './navigation-logger';
-import { NotFoundPage } from './not-found-page';
 
 export const Router = () => (
   <BrowserRouter>

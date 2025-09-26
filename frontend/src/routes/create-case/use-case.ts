@@ -7,9 +7,9 @@ import { useAppDispatch } from '@app/redux/configure-store';
 import { useCreateCaseMutation, useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
 import type { CaseType, DeepLinkParams } from '@app/redux-api/case/types';
 import { useGetUserQuery } from '@app/redux-api/user/api';
+import { handleCreateCase, handleResumeOrCreateCase, handleSessionCase } from '@app/routes/create-case/handlers';
 import { useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { handleCreateCase, handleResumeOrCreateCase, handleSessionCase } from './handlers';
 
 interface IResult {
   error: string | null;

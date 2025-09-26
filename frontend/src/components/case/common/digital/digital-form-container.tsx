@@ -1,3 +1,4 @@
+import { type StepProps, Steps } from '@app/components/steps/steps';
 import { useInnsendingsytelseName } from '@app/hooks/use-innsendingsytelser';
 import { usePageInit } from '@app/hooks/use-page-init';
 import { useIsAuthenticated } from '@app/hooks/use-user';
@@ -12,7 +13,6 @@ import {
 import { FormTitleContainer } from '@app/routes/form-title-container';
 import { ContentContainer } from '@app/styled-components/content-container';
 import { FormMainContainer } from '@app/styled-components/main-container';
-import { type StepProps, Steps } from '../../../steps/steps';
 
 interface Props {
   innsendingsytelse: Innsendingsytelse;

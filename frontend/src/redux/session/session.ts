@@ -1,6 +1,6 @@
+import { caseReducers } from '@app/redux/session/klage/reducers';
 import type { State } from '@app/redux/session/type';
 import { createSlice } from '@reduxjs/toolkit';
-import { caseReducers } from './klage/reducers';
 
 const initialState: State = {};
 

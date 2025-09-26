@@ -1,6 +1,6 @@
 import { AppEventEnum } from '@app/logging/action';
 import { apiEvent, appEvent } from '@app/logging/logger';
-import { userApi } from './user/api';
+import { userApi } from '@app/redux-api/user/api';
 
 export enum ServerSentEventType {
   JOURNALPOSTID = 'journalpostId',

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { formatSessionTime } from './formatters';
+import { formatSessionTime } from '@app/logging/formatters';
 
 describe('formatted session time should be formatted correctly', () => {
   const hours = 46 * 60 * 60 * 1000;

@@ -1,3 +1,12 @@
+import { DigitalFormContainer } from '@app/components/case/common/digital/digital-form-container';
+import { PersonligeOpplysningerSummary } from '@app/components/case/common/summary/personlige-opplysninger-summary';
+import { VedtakSummary } from '@app/components/case/common/summary/vedtak-summary';
+import { SummaryReasons } from '@app/components/case/common/summary-reasons';
+import { CaseLoader } from '@app/components/case/innlogget/loader';
+import { AttachmentSummary } from '@app/components/case/innlogget/summary/attachment-summary';
+import { FinalizeDigitalCase } from '@app/components/case/innlogget/summary/finalize-digital';
+import { PdfLink } from '@app/components/case/innlogget/summary/pdf-link';
+import { InformationPointBox } from '@app/components/information-point-box/information-point-box';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
 import { useUserRequired } from '@app/hooks/use-user';
@@ -12,15 +21,6 @@ import { Alert, BodyLong, Button, ErrorMessage, Heading, Panel } from '@navikt/d
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { InformationPointBox } from '../../../information-point-box/information-point-box';
-import { DigitalFormContainer } from '../../common/digital/digital-form-container';
-import { PersonligeOpplysningerSummary } from '../../common/summary/personlige-opplysninger-summary';
-import { VedtakSummary } from '../../common/summary/vedtak-summary';
-import { SummaryReasons } from '../../common/summary-reasons';
-import { CaseLoader } from '../loader';
-import { AttachmentSummary } from './attachment-summary';
-import { FinalizeDigitalCase } from './finalize-digital';
-import { PdfLink } from './pdf-link';
 
 export const CaseOppsummeringPage = () => <CaseLoader Component={DigitalCaseOppsummeringPage} />;
 

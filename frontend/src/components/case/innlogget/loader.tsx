@@ -1,3 +1,4 @@
+import { LoadingPage } from '@app/components/loading-page/loading-page';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { useTranslation } from '@app/language/use-translation';
 import { errorEvent } from '@app/logging/logger';
@@ -8,7 +9,6 @@ import { Alert } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { LoadingPage } from '../../loading-page/loading-page';
 
 interface Props {
   Component: React.ComponentType<{ data: Case }>;

@@ -1,6 +1,6 @@
+import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import type { CaseType } from '@app/redux-api/case/types';
 import { Textarea, type TextareaProps } from '@navikt/ds-react';
-import { FormFieldsIds } from '../../common/form-fields-ids';
 
 interface Props extends Omit<TextareaProps, 'label' | 'onError' | 'onChange'> {
   value: string;

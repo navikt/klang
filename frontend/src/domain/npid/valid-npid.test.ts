@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { validNpid } from './valid-npid';
+import { validNpid } from '@app/domain/npid/valid-npid';
 
 describe('npid', () => {
   describe('prod', () => {

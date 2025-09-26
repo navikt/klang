@@ -1,3 +1,4 @@
+import { ExternalLink } from '@app/components/link/link';
 import { type ISODate, isoDateToPretty } from '@app/domain/date/date';
 import { Envelope } from '@app/icons/envelope';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
@@ -9,7 +10,6 @@ import { CenteredHeading } from '@app/styled-components/page-title';
 import { DownloadIcon } from '@navikt/aksel-icons';
 import { Alert, BodyShort, Heading } from '@navikt/ds-react';
 import { styled } from 'styled-components';
-import { ExternalLink } from '../../../link/link';
 
 interface Props {
   children?: React.ReactNode;

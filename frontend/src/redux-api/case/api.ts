@@ -6,11 +6,11 @@ import type {
   UpdateCaseParams,
   UploadAttachmentParams,
 } from '@app/redux-api/case/params';
+import type { CreateCaseFields } from '@app/redux-api/case/types';
 import { type Attachment, type BaseCase, type Case, CaseStatus, type FinalizedCase } from '@app/redux-api/case/types';
 import { API_BASE_QUERY, API_PATH } from '@app/redux-api/common';
 import { ServerSentEventManager, ServerSentEventType } from '@app/redux-api/server-sent-events';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import type { CreateCaseFields } from './types';
 
 type BaseUpdateResponse = Pick<BaseCase, 'modifiedByUser'>;
 

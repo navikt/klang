@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { isoDateTimeToPretty, isoDateToPretty, isoTimeToPretty, prettyDateToISO } from './date';
+import { isoDateTimeToPretty, isoDateToPretty, isoTimeToPretty, prettyDateToISO } from '@app/domain/date/date';
 
 describe('iSO dates should be pretty formatted', () => {
   it('should pretty format valid ISO dates', () => {

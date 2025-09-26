@@ -1,11 +1,11 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import { InformationPointBox } from '@app/components/information-point-box/information-point-box';
 import { type ISODate, isoDateToPretty } from '@app/domain/date/date';
 import { useTranslation } from '@app/language/use-translation';
 import type { Case } from '@app/redux-api/case/types';
 import { SpaceBetweenFlexListContainer } from '@app/styled-components/common';
 import { BodyShort } from '@navikt/ds-react';
 import { useMemo } from 'react';
-import { InformationPointBox } from '../../../information-point-box/information-point-box';
 
 export const VedtakSummary = ({ vedtakDate, internalSaksnummer, userSaksnummer, type }: Case | ISessionCase) => {
   const { skjema, common } = useTranslation();

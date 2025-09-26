@@ -1,7 +1,7 @@
+import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { isNotNull, isNotUndefined } from '@app/functions/is-not-type-guards';
 import { useTranslation } from '@app/language/use-translation';
 import { ErrorSummary } from '@navikt/ds-react';
-import { FormFieldsIds } from './form-fields-ids';
 
 type Props = Record<FormFieldsIds, string | undefined>;
 

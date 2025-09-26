@@ -1,5 +1,5 @@
+import { device } from '@app/styled-components/media-queries';
 import { styled } from 'styled-components';
-import { device } from './media-queries';
 
 export const ContentContainer = styled.div`
   display: flex;

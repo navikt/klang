@@ -1,11 +1,11 @@
+import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { FORMAT } from '@app/components/date-picker/constants';
+import { DatePicker } from '@app/components/date-picker/date-picker';
 import type { ISODate } from '@app/domain/date/date';
 import { useTranslation } from '@app/language/use-translation';
 import type { CaseType } from '@app/redux-api/case/types';
 import { format, isEqual, parse } from 'date-fns';
 import { useState } from 'react';
-import { DatePicker } from '../../date-picker/date-picker';
-import { FormFieldsIds } from './form-fields-ids';
 
 interface VedtakDateProps {
   value: ISODate | null;
