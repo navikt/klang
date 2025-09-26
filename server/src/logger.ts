@@ -1,5 +1,4 @@
-import { TEAM_LOG_PARAMS } from './config/env';
-import { isDeployed } from './config/env';
+import { isDeployed, TEAM_LOG_PARAMS } from './config/env';
 
 const VERSION = process.env.VERSION ?? 'unknown';
 
@@ -99,7 +98,20 @@ const logDefined = (message: string | undefined, level: Level): void => {
     return;
   }
 
-  console[level](message);
+  switch (level) {
+    case 'debug':
+      console.debug(message);
+      return;
+    case 'info':
+      console.info(message);
+      return;
+    case 'warn':
+      console.warn(message);
+      return;
+    case 'error':
+      console.error(message);
+      return;
+  }
 };
 
 const getLog = (

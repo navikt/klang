@@ -1,4 +1,4 @@
-import { NAV_KLAGE_URL_DEV, NAV_KLAGE_URL_PROD, isDeployed, isDeployedToProd } from '@app/config/env';
+import { isDeployed, isDeployedToProd, NAV_KLAGE_URL_DEV, NAV_KLAGE_URL_PROD } from '@app/config/env';
 import { INNSENDINGSYTELSER, Innsendingsytelse } from '@app/innsendingsytelser';
 import { getLogger } from '@app/logger';
 import { html } from '@app/plugins/not-found/html';

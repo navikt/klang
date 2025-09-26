@@ -1,7 +1,7 @@
 import { caseApi } from '@app/redux-api/case/api';
 import { innsendingsytelserApi } from '@app/redux-api/innsendingsytelser';
 import { userApi } from '@app/redux-api/user/api';
-import { type Middleware, configureStore } from '@reduxjs/toolkit';
+import { configureStore, type Middleware } from '@reduxjs/toolkit';
 import { type TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { type RootState, rootReducer } from './root';
 

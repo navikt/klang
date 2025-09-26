@@ -16,6 +16,7 @@ const staggeredBaseQuery = (baseUrl: string) => {
   });
 
   return retry(
+    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: ¯\_(ツ)_/¯
     async (args: string | FetchArgs, api, extraOptions) => {
       const startTime = performance.now();
       const result = await fetch(args, api, extraOptions);

@@ -1,8 +1,8 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { sessionEvent } from '@app/logging/logger';
 import { SessionAction } from '@app/logging/types';
-import type { DeepLinkParams } from '@app/redux-api/case/types';
 import type { State } from '@app/redux/session/type';
+import type { DeepLinkParams } from '@app/redux-api/case/types';
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 import { createSessionCase, getSessionCaseKey } from './helpers';
 import { readSessionCase, removeSessionCase, saveSessionCase } from './storage';

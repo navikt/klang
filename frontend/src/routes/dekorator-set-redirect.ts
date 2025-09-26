@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { currentPath } from './current-path';
 
 interface Props {
-  children: JSX.Element;
+  children: React.JSX.Element;
 }
 
 export const DekoratorSetRedirect = ({ children }: Props) => {

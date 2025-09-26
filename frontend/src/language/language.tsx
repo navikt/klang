@@ -1,6 +1,6 @@
 import { nn } from '@app/language/nn';
 import { en } from './en';
-import { type Translations, nb } from './nb';
+import { nb, type Translations } from './nb';
 import { Languages } from './types';
 
 export const LANGUAGES = Object.values(Languages);

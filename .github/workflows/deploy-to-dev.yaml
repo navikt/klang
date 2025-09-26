@@ -53,6 +53,11 @@ jobs:
           echo -e "[install.scopes]\n\"@navikt\" = { token = \"${{ secrets.READER_TOKEN }}\", url = \"https://npm.pkg.github.com/\" }" > ./frontend/bunfig.toml
           cp ./frontend/bunfig.toml ./server/bunfig.toml
 
+      - name: Install common dependencies
+        env:
+          BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: bun install --frozen-lockfile
+
       - name: Install frontend dependencies
         working-directory: ./frontend
         env:
@@ -112,7 +117,7 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # required, but is defined as an organization variable
           build_args: |
             VERSION=${{ steps.version.outputs.version }}
-  
+
   deploy_to_dev:
     name: Deploy
     runs-on: ubuntu-latest

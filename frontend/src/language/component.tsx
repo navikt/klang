@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface Props {
-  children: JSX.Element;
+  children: React.JSX.Element;
 }
 
 export const LanguageComponent = (props: Props) => {
