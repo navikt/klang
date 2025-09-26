@@ -1,6 +1,6 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import { getSessionCaseKey } from './helpers';
+import { getSessionCaseKey } from '@app/redux/session/klage/helpers';
 
 export const readSessionCase = (key: string): ISessionCase | undefined => {
   const json = window.sessionStorage.getItem(key);

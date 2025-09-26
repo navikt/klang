@@ -1,3 +1,6 @@
+import { FileIcon } from '@app/components/attachments/file-icon';
+import { UploadButton } from '@app/components/attachments/upload-button';
+import { ExternalLink } from '@app/components/link/link';
 import { displayBytes } from '@app/functions/display';
 import { isApiError, isError } from '@app/functions/is-api-error';
 import { isErrorMessageKey } from '@app/language/error-messages';
@@ -11,9 +14,6 @@ import { Alert, BodyLong, Button, ErrorMessage, ErrorSummary, Label } from '@nav
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useState } from 'react';
 import { styled } from 'styled-components';
-import { ExternalLink } from '../link/link';
-import { FileIcon } from './file-icon';
-import { UploadButton } from './upload-button';
 
 interface Props {
   attachments: Attachment[];

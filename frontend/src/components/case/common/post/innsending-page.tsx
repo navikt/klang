@@ -1,3 +1,4 @@
+import { PostFormContainer } from '@app/components/case/common/post/post-form-container';
 import { useAddress } from '@app/hooks/use-address';
 import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import type { Language } from '@app/language/language';
@@ -8,7 +9,6 @@ import { Button, GuidePanel, Heading } from '@navikt/ds-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { PostFormContainer } from './post-form-container';
 
 interface Props {
   type: CaseType;

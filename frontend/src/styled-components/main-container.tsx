@@ -1,5 +1,5 @@
+import { desktopHeight } from '@app/styled-components/media-queries';
 import { styled } from 'styled-components';
-import { desktopHeight } from './media-queries';
 
 const MainContainer = styled.main`
   padding-bottom: 128px;

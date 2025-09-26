@@ -1,10 +1,10 @@
+import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import { FnrDnrInput } from '@app/components/fnr-dnr-input/fnr-dnr-input';
 import type { ErrorState } from '@app/hooks/errors/types';
 import { useTranslation } from '@app/language/use-translation';
 import { TextField } from '@navikt/ds-react';
 import { styled } from 'styled-components';
-import { FnrDnrInput } from '../../../fnr-dnr-input/fnr-dnr-input';
-import { FormFieldsIds } from '../../common/form-fields-ids';
-import type { ISessionCase } from '../types';
 
 type Data = Pick<ISessionCase, 'foedselsnummer' | 'navn'>;
 

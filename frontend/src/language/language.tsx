@@ -1,7 +1,7 @@
+import { en } from '@app/language/en';
+import { nb, type Translations } from '@app/language/nb';
 import { nn } from '@app/language/nn';
-import { en } from './en';
-import { nb, type Translations } from './nb';
-import { Languages } from './types';
+import { Languages } from '@app/language/types';
 
 export const LANGUAGES = Object.values(Languages);
 
@@ -13,4 +13,4 @@ const languages: Map<Languages, Translations> = new Map([
 
 export const getLanguage = (key?: Languages): Translations => languages.get(key ?? Languages.nb) ?? nb;
 
-export type { Translations as Language } from './nb';
+export type { Translations as Language } from '@app/language/nb';

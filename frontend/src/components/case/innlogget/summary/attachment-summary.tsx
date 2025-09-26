@@ -1,11 +1,11 @@
+import { FileIcon } from '@app/components/attachments/file-icon';
+import { ExternalLink } from '@app/components/link/link';
 import { displayBytes } from '@app/functions/display';
 import { useTranslation } from '@app/language/use-translation';
 import { type Attachment, CaseStatus } from '@app/redux-api/case/types';
 import { Section } from '@app/styled-components/summary';
 import { Heading } from '@navikt/ds-react';
 import { styled } from 'styled-components';
-import { FileIcon } from '../../../attachments/file-icon';
-import { ExternalLink } from '../../../link/link';
 
 interface Props {
   status: CaseStatus;

@@ -1,10 +1,10 @@
+import { RenderCaseinnsendingPage } from '@app/components/case/common/post/innsending-page';
+import { KlageSessionLoader } from '@app/components/case/uinnlogget/session-loader';
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
 import { useSessionCaseErrors } from '@app/hooks/errors/use-session-case-errors';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import type { CaseType } from '@app/redux-api/case/types';
-import { RenderCaseinnsendingPage } from '../../common/post/innsending-page';
-import { KlageSessionLoader } from '../session-loader';
 
 interface Props {
   innsendingsytelse: Innsendingsytelse;

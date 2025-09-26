@@ -1,8 +1,8 @@
 import { LoadingPage } from '@app/components/loading-page/loading-page';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import type { CaseType } from '@app/redux-api/case/types';
+import { useCase } from '@app/routes/create-case/use-case';
 import { Alert } from '@navikt/ds-react';
-import { useCase } from './use-case';
 
 interface Props {
   innsendingsytelse: Innsendingsytelse;

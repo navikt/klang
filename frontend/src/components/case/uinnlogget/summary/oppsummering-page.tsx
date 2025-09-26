@@ -1,4 +1,11 @@
+import { PostFormContainer } from '@app/components/case/common/post/post-form-container';
+import { PersonligeOpplysningerSummary } from '@app/components/case/common/summary/personlige-opplysninger-summary';
+import { VedtakSummary } from '@app/components/case/common/summary/vedtak-summary';
+import { SummaryReasons } from '@app/components/case/common/summary-reasons';
+import { KlageSessionLoader } from '@app/components/case/uinnlogget/session-loader';
+import { DownloadButton } from '@app/components/case/uinnlogget/summary/download-button';
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import { InformationPointBox } from '@app/components/information-point-box/information-point-box';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
 import { useSessionCaseErrors } from '@app/hooks/errors/use-session-case-errors';
 import { Clipboard } from '@app/icons/clipboard';
@@ -13,13 +20,6 @@ import { Alert, BodyLong, BodyShort, Button, ConfirmationPanel, Heading, Panel }
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { InformationPointBox } from '../../../information-point-box/information-point-box';
-import { PostFormContainer } from '../../common/post/post-form-container';
-import { PersonligeOpplysningerSummary } from '../../common/summary/personlige-opplysninger-summary';
-import { VedtakSummary } from '../../common/summary/vedtak-summary';
-import { SummaryReasons } from '../../common/summary-reasons';
-import { KlageSessionLoader } from '../session-loader';
-import { DownloadButton } from './download-button';
 
 interface IProps {
   innsendingsytelse: Innsendingsytelse;

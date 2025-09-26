@@ -1,10 +1,15 @@
 import { AttachmentsSection } from '@app/components/attachments/attachments';
+import { DigitalFormContainer } from '@app/components/case/common/digital/digital-form-container';
+import { Errors } from '@app/components/case/common/errors';
 import { EttersendelseKaEnhet } from '@app/components/case/common/ettersendelse-ka-enhet';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { Reasons } from '@app/components/case/common/reasons';
 import { DebouncedSaksnummer } from '@app/components/case/common/saksnummer';
+import { PersonligeOpplysningerSummary } from '@app/components/case/common/summary/personlige-opplysninger-summary';
 import { VedtakDate } from '@app/components/case/common/vedtak-date';
 import { BegrunnelseText } from '@app/components/case/innlogget/begrunnelse/begrunnelse-text';
+import { CaseLoader } from '@app/components/case/innlogget/loader';
+import { DeleteCaseButton } from '@app/components/delete-case-button/delete-case-button';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { INITIAL_ERRORS } from '@app/hooks/errors/types';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
@@ -20,11 +25,6 @@ import { CenteredContainer } from '@app/styled-components/common';
 import { BodyLong, Button, GuidePanel } from '@navikt/ds-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { DeleteCaseButton } from '../../../delete-case-button/delete-case-button';
-import { DigitalFormContainer } from '../../common/digital/digital-form-container';
-import { Errors } from '../../common/errors';
-import { PersonligeOpplysningerSummary } from '../../common/summary/personlige-opplysninger-summary';
-import { CaseLoader } from '../loader';
 
 export const CaseBegrunnelsePage = () => <CaseLoader Component={RenderCasebegrunnelsePage} />;
 

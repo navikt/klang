@@ -1,6 +1,6 @@
+import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { useTranslation } from '@app/language/use-translation';
 import { TextField } from '@navikt/ds-react';
-import { FormFieldsIds } from '../case/common/form-fields-ids';
 
 interface Props {
   value: string;

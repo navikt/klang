@@ -1,5 +1,15 @@
+import { Errors } from '@app/components/case/common/errors';
 import { EttersendelseKaEnhet } from '@app/components/case/common/ettersendelse-ka-enhet';
+import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
+import { PostFormContainer } from '@app/components/case/common/post/post-form-container';
+import { Reasons } from '@app/components/case/common/reasons';
+import { Saksnummer } from '@app/components/case/common/saksnummer';
 import { VedtakDate } from '@app/components/case/common/vedtak-date';
+import { BegrunnelseText } from '@app/components/case/uinnlogget/begrunnelse/begrunnelse-text';
+import { UserInfo } from '@app/components/case/uinnlogget/begrunnelse/user-info';
+import { KlageSessionLoader } from '@app/components/case/uinnlogget/session-loader';
+import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import { DeleteCaseButton } from '@app/components/delete-case-button/delete-case-button';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { INITIAL_ERRORS } from '@app/hooks/errors/types';
 import { useSessionCaseErrors } from '@app/hooks/errors/use-session-case-errors';
@@ -16,16 +26,6 @@ import { BodyLong, Button, Checkbox, CheckboxGroup, GuidePanel } from '@navikt/d
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
-import { DeleteCaseButton } from '../../../delete-case-button/delete-case-button';
-import { Errors } from '../../common/errors';
-import { FormFieldsIds } from '../../common/form-fields-ids';
-import { PostFormContainer } from '../../common/post/post-form-container';
-import { Reasons } from '../../common/reasons';
-import { Saksnummer } from '../../common/saksnummer';
-import { KlageSessionLoader } from '../session-loader';
-import type { ISessionCase } from '../types';
-import { BegrunnelseText } from './begrunnelse-text';
-import { UserInfo } from './user-info';
 
 interface IProps {
   innsendingsytelse: Innsendingsytelse;
