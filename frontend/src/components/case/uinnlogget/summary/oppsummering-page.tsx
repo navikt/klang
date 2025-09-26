@@ -15,9 +15,9 @@ import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { InformationPointBox } from '../../../information-point-box/information-point-box';
 import { PostFormContainer } from '../../common/post/post-form-container';
-import { SummaryReasons } from '../../common/summary-reasons';
 import { PersonligeOpplysningerSummary } from '../../common/summary/personlige-opplysninger-summary';
 import { VedtakSummary } from '../../common/summary/vedtak-summary';
+import { SummaryReasons } from '../../common/summary-reasons';
 import { KlageSessionLoader } from '../session-loader';
 import { DownloadButton } from './download-button';
 

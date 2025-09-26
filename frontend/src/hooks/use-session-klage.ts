@@ -1,9 +1,9 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import type { CaseType, DeepLinkParams } from '@app/redux-api/case/types';
 import { useAppDispatch, useAppSelector } from '@app/redux/configure-store';
 import { getSessionCaseKey } from '@app/redux/session/klage/helpers';
 import { loadOrCreateSessionCase } from '@app/redux/session/session';
+import type { CaseType, DeepLinkParams } from '@app/redux-api/case/types';
 import { useEffect, useMemo } from 'react';
 
 export const useSessionCase = (

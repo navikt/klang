@@ -12,19 +12,17 @@ export const EttersendelseKaEnhet = ({ caseIsAtKA, onIsAtKaChange, error }: Prop
   const { skjema, common } = useTranslation();
 
   return (
-    <>
-      <RadioGroup
-        legend={skjema.begrunnelse.klageenhet.radio_title}
-        onChange={(v) => onIsAtKaChange(v === YES)}
-        value={toValue(caseIsAtKA)}
-        error={error}
-      >
-        <HorizontalOptions>
-          <Radio value={YES}>{common.yes}</Radio>
-          <Radio value={NO}>{common.no}</Radio>
-        </HorizontalOptions>
-      </RadioGroup>
-    </>
+    <RadioGroup
+      legend={skjema.begrunnelse.klageenhet.radio_title}
+      onChange={(v) => onIsAtKaChange(v === YES)}
+      value={toValue(caseIsAtKA)}
+      error={error}
+    >
+      <HorizontalOptions>
+        <Radio value={YES}>{common.yes}</Radio>
+        <Radio value={NO}>{common.no}</Radio>
+      </HorizontalOptions>
+    </RadioGroup>
   );
 };
 

@@ -2,7 +2,7 @@ import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
 import { ExternalLink } from '@app/components/link/link';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { ErrorMessageKeys } from '@app/language/error-messages';
-import { CaseStatus, CaseType, Reason, getEttersendelsePath } from '@app/redux-api/case/types';
+import { CaseStatus, CaseType, getEttersendelsePath, Reason } from '@app/redux-api/case/types';
 import { Link } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { Link as ReactRouterLink } from 'react-router-dom';

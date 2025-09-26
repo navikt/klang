@@ -89,7 +89,7 @@ interface YtelseComponentProps {
   type: CaseType;
 }
 
-type YtelseComponent = (props: YtelseComponentProps) => JSX.Element;
+type YtelseComponent = (props: YtelseComponentProps) => React.JSX.Element;
 
 const getRoutes = (Component: YtelseComponent, type: CaseType) =>
   INNSENDINGSYTELSER.map((innsendingsytelse) => (

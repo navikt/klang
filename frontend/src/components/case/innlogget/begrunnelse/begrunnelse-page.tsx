@@ -96,88 +96,86 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
   );
 
   return (
-    <>
-      <DigitalFormContainer
-        activeStep={1}
-        isValid={isValid}
-        case={data}
-        page_title={page_title[data.type]}
-        steps={skjema.steps[data.type]}
-        innsendingsytelse={data.innsendingsytelse}
-        title_fragment={title_fragment[data.type]}
-      >
-        <GuidePanel>
-          <BodyLong>{skjema.employer_info[data.type]}</BodyLong>
-        </GuidePanel>
+    <DigitalFormContainer
+      activeStep={1}
+      isValid={isValid}
+      case={data}
+      page_title={page_title[data.type]}
+      steps={skjema.steps[data.type]}
+      innsendingsytelse={data.innsendingsytelse}
+      title_fragment={title_fragment[data.type]}
+    >
+      <GuidePanel>
+        <BodyLong>{skjema.employer_info[data.type]}</BodyLong>
+      </GuidePanel>
 
-        <PersonligeOpplysningerSummary
-          fornavn={isSuccess ? user.navn.fornavn : user_loader.loading_user}
-          etternavn={isSuccess ? user.navn.etternavn : user_loader.loading_user}
-          f_or_d_number={isSuccess ? user.folkeregisteridentifikator?.identifikasjonsnummer : user_loader.loading_user}
+      <PersonligeOpplysningerSummary
+        fornavn={isSuccess ? user.navn.fornavn : user_loader.loading_user}
+        etternavn={isSuccess ? user.navn.etternavn : user_loader.loading_user}
+        f_or_d_number={isSuccess ? user.folkeregisteridentifikator?.identifikasjonsnummer : user_loader.loading_user}
+      />
+
+      {isKlage ? (
+        <Reasons
+          checkedReasons={data.checkboxesSelected}
+          onChange={(reasons) => onChange('checkboxesSelected', reasons)}
+        />
+      ) : null}
+
+      <VedtakDate
+        value={data.vedtakDate}
+        error={errors[FormFieldsIds.VEDTAK_DATE]}
+        type={data.type}
+        onChange={(vedtakDate) => onChange('vedtakDate', vedtakDate)}
+      />
+
+      {isEttersendelseKlage ? (
+        <EttersendelseKaEnhet
+          caseIsAtKA={data.caseIsAtKA}
+          onIsAtKaChange={(caseIsAtKA) => onChange('caseIsAtKA', caseIsAtKA)}
+          error={errors[FormFieldsIds.CASE_IS_AT_KA]}
+        />
+      ) : null}
+
+      <DebouncedSaksnummer
+        value={data.userSaksnummer}
+        internalSaksnummer={data.internalSaksnummer}
+        onChange={(userSaksnummer) => onChange('userSaksnummer', userSaksnummer)}
+        error={errors[FormFieldsIds.SAKSNUMMER]}
+      />
+
+      <BegrunnelseText
+        caseId={data.id}
+        value={data.fritekst}
+        description={skjema.begrunnelse.begrunnelse_text.description[data.type]}
+        placeholder={skjema.begrunnelse.begrunnelse_text.placeholder[data.type]}
+        label={skjema.begrunnelse.begrunnelse_text.title[data.type]}
+        error={errors[FormFieldsIds.FRITEKST]}
+        modified={data.modifiedByUser}
+      />
+
+      <AttachmentsSection
+        attachments={data.vedlegg}
+        caseId={data.id}
+        basePath={`${API_PATH}/klanker`}
+        onDelete={deleteAttachment}
+        error={errors[FormFieldsIds.VEDLEGG]}
+      />
+
+      <Errors {...errors} />
+
+      <CenteredContainer>
+        <DeleteCaseButton
+          isLoading={isLoading}
+          onDelete={deleteAndReturn}
+          title={skjema.begrunnelse.delete_title[data.type]}
         />
 
-        {isKlage ? (
-          <Reasons
-            checkedReasons={data.checkboxesSelected}
-            onChange={(reasons) => onChange('checkboxesSelected', reasons)}
-          />
-        ) : null}
-
-        <VedtakDate
-          value={data.vedtakDate}
-          error={errors[FormFieldsIds.VEDTAK_DATE]}
-          type={data.type}
-          onChange={(vedtakDate) => onChange('vedtakDate', vedtakDate)}
-        />
-
-        {isEttersendelseKlage ? (
-          <EttersendelseKaEnhet
-            caseIsAtKA={data.caseIsAtKA}
-            onIsAtKaChange={(caseIsAtKA) => onChange('caseIsAtKA', caseIsAtKA)}
-            error={errors[FormFieldsIds.CASE_IS_AT_KA]}
-          />
-        ) : null}
-
-        <DebouncedSaksnummer
-          value={data.userSaksnummer}
-          internalSaksnummer={data.internalSaksnummer}
-          onChange={(userSaksnummer) => onChange('userSaksnummer', userSaksnummer)}
-          error={errors[FormFieldsIds.SAKSNUMMER]}
-        />
-
-        <BegrunnelseText
-          caseId={data.id}
-          value={data.fritekst}
-          description={skjema.begrunnelse.begrunnelse_text.description[data.type]}
-          placeholder={skjema.begrunnelse.begrunnelse_text.placeholder[data.type]}
-          label={skjema.begrunnelse.begrunnelse_text.title[data.type]}
-          error={errors[FormFieldsIds.FRITEKST]}
-          modified={data.modifiedByUser}
-        />
-
-        <AttachmentsSection
-          attachments={data.vedlegg}
-          caseId={data.id}
-          basePath={`${API_PATH}/klanker`}
-          onDelete={deleteAttachment}
-          error={errors[FormFieldsIds.VEDLEGG]}
-        />
-
-        <Errors {...errors} />
-
-        <CenteredContainer>
-          <DeleteCaseButton
-            isLoading={isLoading}
-            onDelete={deleteAndReturn}
-            title={skjema.begrunnelse.delete_title[data.type]}
-          />
-
-          <Button as={Link} variant="primary" onClick={submitKlage} to={NEXT_PAGE_URL} disabled={user === undefined}>
-            {skjema.begrunnelse.next_button}
-          </Button>
-        </CenteredContainer>
-      </DigitalFormContainer>
-    </>
+        <Button as={Link} variant="primary" onClick={submitKlage} to={NEXT_PAGE_URL} disabled={user === undefined}>
+          {skjema.begrunnelse.next_button}
+        </Button>
+      </CenteredContainer>
+    </DigitalFormContainer>
   );
 };
 

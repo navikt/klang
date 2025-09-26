@@ -27,7 +27,7 @@ export const LoggedOutModal = () => {
   return (
     <Modal
       open
-      onClose={() => {}}
+      onClose={() => undefined}
       header={{ heading: loggedOut, closeButton: false }}
       style={{ padding: 'var(--a-spacing-5)' }}
     >

@@ -3,12 +3,12 @@ import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytels
 import type { Languages } from '@app/language/types';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
-import type { useCreateCaseMutation, useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
-import type { CreateCaseFields } from '@app/redux-api/case/types';
-import { CASE_TYPE_PATH_SEGMENTS, type CaseType, type DeepLinkParams } from '@app/redux-api/case/types';
 import type { AppDispatch } from '@app/redux/configure-store';
 import { createSessionCase } from '@app/redux/session/klage/helpers';
 import { deleteSessionCase, setSessionCase, updateSessionCase } from '@app/redux/session/session';
+import type { useCreateCaseMutation, useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
+import type { CreateCaseFields } from '@app/redux-api/case/types';
+import { CASE_TYPE_PATH_SEGMENTS, type CaseType, type DeepLinkParams } from '@app/redux-api/case/types';
 import type { NavigateFunction } from 'react-router-dom';
 
 interface IHandler {

@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { DEV_URL, isLocal } from '@app/config/env';
 import { getLogger } from '@app/logger';
 import { Type, type TypeBoxTypeProvider } from '@fastify/type-provider-typebox';

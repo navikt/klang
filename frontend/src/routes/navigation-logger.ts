@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
 interface Props {
-  children: JSX.Element;
+  children: React.JSX.Element;
 }
 
 export const NavigationLogger = ({ children }: Props) => {

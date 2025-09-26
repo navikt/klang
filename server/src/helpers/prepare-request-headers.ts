@@ -2,7 +2,6 @@ import { PROXY_VERSION } from '@app/config/config';
 import { DEV_DOMAIN, isDeployed } from '@app/config/env';
 import { AUTHORIZATION_HEADER, CLIENT_VERSION_HEADER, PROXY_VERSION_HEADER, TOKEN_X_TOKEN_HEADER } from '@app/headers';
 import { getLogger } from '@app/logger';
-
 import type { FastifyRequest, RawServerBase, RequestGenericInterface } from 'fastify';
 
 const log = getLogger('prepare-proxy-request-headers');

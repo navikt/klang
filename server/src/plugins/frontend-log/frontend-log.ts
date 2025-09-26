@@ -79,7 +79,7 @@ export const frontendLogPlugin = fastifyPlugin(
   async (app) => {
     app
       .withTypeProvider<TypeBoxTypeProvider>()
-      .post('/frontend-log', { schema: { body: Type.Composite([Default, LogEvent]) } }, (req, reply) => {
+      .post('/frontend-log', { schema: { body: Type.Intersect([Default, LogEvent]) } }, (req, reply) => {
         const { level, message, ...data } = req.body;
 
         log[level]({ msg: message, data });
@@ -88,7 +88,7 @@ export const frontendLogPlugin = fastifyPlugin(
       })
       .post(
         '/frontend-team-log',
-        { schema: { body: Type.Composite([TeamLogDefault, TeamLogEvent]) } },
+        { schema: { body: Type.Intersect([TeamLogDefault, TeamLogEvent]) } },
         (req, reply) => {
           const { level, message, ...data } = req.body;
 
