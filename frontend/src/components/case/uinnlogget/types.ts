@@ -1,12 +1,11 @@
 import type { ISODate } from '@app/domain/date/date';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
-import type { CaseType, DeepLinkParams, Reason } from '@app/redux-api/case/types';
+import type { CaseType, DeepLinkParams } from '@app/redux-api/case/types';
 import type { IName } from '@app/redux-api/user/types';
 
 export interface ISessionCase extends DeepLinkParams {
   readonly id: string;
   readonly type: CaseType;
-  readonly checkboxesSelected: Reason[];
   readonly foedselsnummer: string;
   readonly navn: IName;
   readonly fritekst: string;
