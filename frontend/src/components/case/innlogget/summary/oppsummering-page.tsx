@@ -1,7 +1,6 @@
 import { DigitalFormContainer } from '@app/components/case/common/digital/digital-form-container';
 import { PersonligeOpplysningerSummary } from '@app/components/case/common/summary/personlige-opplysninger-summary';
 import { VedtakSummary } from '@app/components/case/common/summary/vedtak-summary';
-import { SummaryReasons } from '@app/components/case/common/summary-reasons';
 import { CaseLoader } from '@app/components/case/innlogget/loader';
 import { AttachmentSummary } from '@app/components/case/innlogget/summary/attachment-summary';
 import { FinalizeDigitalCase } from '@app/components/case/innlogget/summary/finalize-digital';
@@ -12,7 +11,7 @@ import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-err
 import { useUserRequired } from '@app/hooks/use-user';
 import { Clipboard } from '@app/icons/clipboard';
 import { useTranslation } from '@app/language/use-translation';
-import { type Case, CaseStatus, CaseType } from '@app/redux-api/case/types';
+import { type Case, CaseStatus } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
 import { CenteredContainer } from '@app/styled-components/common';
 import { CenteredHeading } from '@app/styled-components/page-title';
@@ -83,11 +82,6 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
             {skjema.summary.sections.begrunnelse.title[data.type]}
           </Heading>
           <VerticalContent>
-            {data.type === CaseType.KLAGE ? (
-              <InformationPointBox header={skjema.summary.sections.begrunnelse.what[data.type]}>
-                <SummaryReasons checkboxesSelected={data.checkboxesSelected} />
-              </InformationPointBox>
-            ) : null}
             <InformationPointBox header={skjema.summary.sections.begrunnelse.why[data.type]}>
               <StyledBodyLong>{data.fritekst.length === 0 ? common.not_specified : data.fritekst}</StyledBodyLong>
             </InformationPointBox>
