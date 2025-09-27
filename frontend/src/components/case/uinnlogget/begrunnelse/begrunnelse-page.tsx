@@ -2,7 +2,6 @@ import { Errors } from '@app/components/case/common/errors';
 import { EttersendelseKaEnhet } from '@app/components/case/common/ettersendelse-ka-enhet';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { PostFormContainer } from '@app/components/case/common/post/post-form-container';
-import { Reasons } from '@app/components/case/common/reasons';
 import { Saksnummer } from '@app/components/case/common/saksnummer';
 import { VedtakDate } from '@app/components/case/common/vedtak-date';
 import { BegrunnelseText } from '@app/components/case/uinnlogget/begrunnelse/begrunnelse-text';
@@ -90,7 +89,6 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
   const { page_title, title_fragment } = skjema.common;
   const { steps } = skjema;
 
-  const isKlage = data.type === CaseType.KLAGE;
   const isEttersendelseKlage = data.type === CaseType.ETTERSENDELSE_KLAGE;
 
   return (
@@ -108,13 +106,6 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
       </GuidePanel>
 
       <UserInfo data={data} update={(info) => updateCase(info)} errors={errors} />
-
-      {isKlage ? (
-        <Reasons
-          checkedReasons={data.checkboxesSelected}
-          onChange={(checkboxesSelected) => updateCase({ checkboxesSelected })}
-        />
-      ) : null}
 
       <VedtakDate
         value={data.vedtakDate}

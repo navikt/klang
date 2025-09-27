@@ -3,7 +3,6 @@ import { DigitalFormContainer } from '@app/components/case/common/digital/digita
 import { Errors } from '@app/components/case/common/errors';
 import { EttersendelseKaEnhet } from '@app/components/case/common/ettersendelse-ka-enhet';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
-import { Reasons } from '@app/components/case/common/reasons';
 import { DebouncedSaksnummer } from '@app/components/case/common/saksnummer';
 import { PersonligeOpplysningerSummary } from '@app/components/case/common/summary/personlige-opplysninger-summary';
 import { VedtakDate } from '@app/components/case/common/vedtak-date';
@@ -85,7 +84,6 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
 
   const { title_fragment, page_title } = skjema.common;
 
-  const isKlage = data.type === CaseType.KLAGE;
   const isEttersendelseKlage = data.type === CaseType.ETTERSENDELSE_KLAGE;
 
   const onChange = useCallback(
@@ -114,13 +112,6 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         etternavn={isSuccess ? user.navn.etternavn : user_loader.loading_user}
         f_or_d_number={isSuccess ? user.folkeregisteridentifikator?.identifikasjonsnummer : user_loader.loading_user}
       />
-
-      {isKlage ? (
-        <Reasons
-          checkedReasons={data.checkboxesSelected}
-          onChange={(reasons) => onChange('checkboxesSelected', reasons)}
-        />
-      ) : null}
 
       <VedtakDate
         value={data.vedtakDate}

@@ -1,7 +1,6 @@
 import { PostFormContainer } from '@app/components/case/common/post/post-form-container';
 import { PersonligeOpplysningerSummary } from '@app/components/case/common/summary/personlige-opplysninger-summary';
 import { VedtakSummary } from '@app/components/case/common/summary/vedtak-summary';
-import { SummaryReasons } from '@app/components/case/common/summary-reasons';
 import { KlageSessionLoader } from '@app/components/case/uinnlogget/session-loader';
 import { DownloadButton } from '@app/components/case/uinnlogget/summary/download-button';
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
@@ -11,7 +10,7 @@ import { useSessionCaseErrors } from '@app/hooks/errors/use-session-case-errors'
 import { Clipboard } from '@app/icons/clipboard';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useTranslation } from '@app/language/use-translation';
-import { CaseType } from '@app/redux-api/case/types';
+import type { CaseType } from '@app/redux-api/case/types';
 import { CenteredContainer } from '@app/styled-components/common';
 import { CenteredHeading } from '@app/styled-components/page-title';
 import { getLoginRedirectPath } from '@app/user/login';
@@ -81,11 +80,6 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
             {skjema.summary.sections.begrunnelse.title[data.type]}
           </Heading>
           <VerticalContent>
-            {data.type === CaseType.KLAGE ? (
-              <InformationPointBox header={skjema.summary.sections.begrunnelse.what[data.type]}>
-                <SummaryReasons checkboxesSelected={data.checkboxesSelected} />
-              </InformationPointBox>
-            ) : null}
             <InformationPointBox header={skjema.summary.sections.begrunnelse.why[data.type]}>
               <StyledBodyLong>{data.fritekst.length === 0 ? common.not_specified : data.fritekst}</StyledBodyLong>
             </InformationPointBox>

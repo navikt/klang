@@ -24,7 +24,6 @@ export const createSessionCase = ({ type, innsendingsytelse, deepLinkParams }: P
   fritekst: '',
   userSaksnummer: null,
   vedtakDate: null,
-  checkboxesSelected: [],
   hasVedlegg: false,
   modifiedByUser: new Date().toISOString(),
   ...deepLinkParams,

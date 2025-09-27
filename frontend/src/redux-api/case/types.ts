@@ -32,7 +32,6 @@ interface ReadOnlyFields {
 }
 
 export interface UpdateCaseFields extends DeepLinkParams {
-  readonly checkboxesSelected: Reason[];
   readonly fritekst: string;
   readonly hasVedlegg: boolean;
   readonly userSaksnummer: string | null;
@@ -49,7 +48,6 @@ export type BaseCase = ReadOnlyFields & CreateCaseFields;
 
 export interface Klage extends BaseCase {
   readonly type: CaseType.KLAGE;
-  readonly checkboxesSelected: Reason[];
   readonly caseIsAtKA: never;
 }
 
