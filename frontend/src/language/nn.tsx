@@ -424,7 +424,7 @@ export const nn: Translations = {
   },
 };
 
-const CASE_TYPE_NAMES_LOWER_CASE_NN = {
+export const CASE_TYPE_NAMES_LOWER_CASE_NN = {
   [CaseType.KLAGE]: 'klage',
   [CaseType.ANKE]: 'anke',
   [CaseType.ETTERSENDELSE_KLAGE]: 'ettersending for klage',
