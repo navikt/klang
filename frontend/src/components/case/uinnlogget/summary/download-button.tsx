@@ -11,7 +11,6 @@ import { Button } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
 
 interface Props {
   caseData: ISessionCase;
@@ -76,8 +75,6 @@ export const DownloadButton = ({ caseData, validForm }: Props) => {
 
   return (
     <Button
-      as={Link}
-      to={NEXT_PAGE_URL}
       variant="primary"
       onClick={submitKlage}
       loading={pdfLoading}
