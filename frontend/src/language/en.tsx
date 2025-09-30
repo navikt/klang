@@ -423,7 +423,7 @@ export const en: Translations = {
   },
 };
 
-const CASE_TYPE_NAMES_LOWER_CASE_EN = {
+export const CASE_TYPE_NAMES_LOWER_CASE_EN = {
   [CaseType.KLAGE]: 'complaint',
   [CaseType.ANKE]: 'appeal',
   [CaseType.ETTERSENDELSE_KLAGE]: 'additional documentation for complaint',

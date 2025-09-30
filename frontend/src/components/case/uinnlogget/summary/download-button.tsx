@@ -1,10 +1,13 @@
 import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { useInnsendingsytelseName } from '@app/hooks/use-innsendingsytelser';
+import { CASE_TYPE_NAMES_LOWER_CASE_EN } from '@app/language/en';
+import { CASE_TYPE_NAMES_LOWER_CASE_NB } from '@app/language/nb';
+import { CASE_TYPE_NAMES_LOWER_CASE_NN } from '@app/language/nn';
+import { Languages } from '@app/language/types';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { apiEvent, appEvent, errorEvent } from '@app/logging/logger';
-import { CaseType } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
 import { DownloadIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
@@ -52,7 +55,7 @@ export const DownloadButton = ({ caseData, validForm }: Props) => {
       if (res.ok) {
         const blob = await res.blob();
         const a = document.createElement('a');
-        a.download = `Nav ${getTypeString(caseData.type)} - ${title} - ${format(new Date(), 'yyyy-MM-dd HH-mm-ss')}.pdf`;
+        a.download = `Nav ${CASE_TYPE_NAMES_LOWER_CASE[language][caseData.type]} - ${title} - ${format(new Date(), 'yyyy-MM-dd HH-mm-ss')}.pdf`;
         a.href = URL.createObjectURL(blob);
         a.click();
 
@@ -88,14 +91,8 @@ export const DownloadButton = ({ caseData, validForm }: Props) => {
 
 const NEXT_PAGE_URL = '../innsending';
 
-const getTypeString = (type: CaseType): string => {
-  switch (type) {
-    case CaseType.KLAGE:
-      return 'klage';
-    case CaseType.ANKE:
-      return 'anke';
-    case CaseType.ETTERSENDELSE_KLAGE:
-    case CaseType.ETTERSENDELSE_ANKE:
-      return 'ettersendelse';
-  }
+const CASE_TYPE_NAMES_LOWER_CASE: Record<Languages, typeof CASE_TYPE_NAMES_LOWER_CASE_NB> = {
+  [Languages.nb]: CASE_TYPE_NAMES_LOWER_CASE_NB,
+  [Languages.nn]: CASE_TYPE_NAMES_LOWER_CASE_NN,
+  [Languages.en]: CASE_TYPE_NAMES_LOWER_CASE_EN,
 };

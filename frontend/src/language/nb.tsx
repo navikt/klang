@@ -426,7 +426,7 @@ export const nb = {
   },
 };
 
-const CASE_TYPE_NAMES_LOWER_CASE_NB = {
+export const CASE_TYPE_NAMES_LOWER_CASE_NB = {
   [CaseType.KLAGE]: 'klage',
   [CaseType.ANKE]: 'anke',
   [CaseType.ETTERSENDELSE_KLAGE]: 'ettersendelse for klage',
