@@ -371,6 +371,7 @@ export const nn: Translations = {
     [ErrorMessageKeys.VIRUS]: 'Vi mistenker at fila di inneheld eit virus, den kan derfor ikkje sendast inn.',
     [ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]:
       'Du har prøvd å legge til eit vedlegg med eit format vi ikkje støttar. Vedlegg er avgrensa til PNG, JPEG og PDF.',
+    download: 'Klarte ikkje å laste ned PDF. Ver venleg og prøv på nytt seinare.',
     skjema: {
       title: 'Feil i skjema',
       fnr_dnr_or_npid: 'Du må fylle inn eit gyldig fødselsnummer, D-nummer eller NPID.',

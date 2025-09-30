@@ -18,9 +18,11 @@ import { useNavigate } from 'react-router';
 interface Props {
   caseData: ISessionCase;
   validForm?: () => boolean;
+  onError: () => void;
+  error: boolean;
 }
 
-export const DownloadButton = ({ caseData, validForm }: Props) => {
+export const DownloadButton = ({ caseData, validForm, onError, error }: Props) => {
   const { common } = useTranslation();
   const [pdfLoading, setpdfLoading] = useState(false);
   const [title] = useInnsendingsytelseName(caseData.innsendingsytelse);
@@ -64,6 +66,7 @@ export const DownloadButton = ({ caseData, validForm }: Props) => {
         navigate(NEXT_PAGE_URL);
       } else {
         apiEvent(endpoint, method, startTime, res.status, `Failed to generate PDF for ${caseData.type}.`);
+        onError();
       }
     } catch (e) {
       if (e instanceof Error) {
@@ -71,6 +74,8 @@ export const DownloadButton = ({ caseData, validForm }: Props) => {
       } else {
         errorEvent(`Failed to generate PDF for ${caseData.type}.`);
       }
+
+      onError();
     }
 
     setpdfLoading(false);
@@ -83,6 +88,7 @@ export const DownloadButton = ({ caseData, validForm }: Props) => {
       loading={pdfLoading}
       icon={<DownloadIcon aria-hidden />}
       iconPosition="left"
+      aria-errormessage={error ? 'download-error' : undefined}
     >
       {common.download}
     </Button>

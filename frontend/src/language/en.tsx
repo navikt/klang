@@ -370,6 +370,7 @@ export const en: Translations = {
     [ErrorMessageKeys.VIRUS]: 'We suspect that your file contains a virus, therefore is cannot be included.',
     [ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]:
       'You have tried to include an attachment with a format we do not support. Attachments are limited to til PNG, JPEG, and PDF.',
+    download: 'Failed to download PDF. Please try again later.',
     skjema: {
       title: 'Form is not complete',
       fnr_dnr_or_npid: 'You must input a valid national identity number, D number or NPID.',
