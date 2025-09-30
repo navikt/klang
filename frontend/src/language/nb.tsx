@@ -373,6 +373,7 @@ export const nb = {
     [ErrorMessageKeys.VIRUS]: 'Vi mistenker at filen din inneholder et virus, den kan derfor ikke sendes med.',
     [ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]:
       'Du har prøvd å legge til et vedlegg med et format vi ikke støtter. Vedlegg er begrenset til PNG, JPEG, og PDF.',
+    download: 'Klarte ikke å laste ned PDF. Vennligst prøv igjen senere.',
     skjema: {
       title: 'Feil i skjema',
       fnr_dnr_or_npid: 'Du må fylle inn et gyldig fødselsnummer, D-nummer eller NPID.',

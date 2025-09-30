@@ -11,11 +11,20 @@ import { Clipboard } from '@app/icons/clipboard';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useTranslation } from '@app/language/use-translation';
 import type { CaseType } from '@app/redux-api/case/types';
-import { CenteredContainer } from '@app/styled-components/common';
 import { CenteredHeading } from '@app/styled-components/page-title';
 import { getLoginRedirectPath } from '@app/user/login';
 import { EnterIcon } from '@navikt/aksel-icons';
-import { Alert, BodyLong, BodyShort, Button, ConfirmationPanel, Heading, Panel } from '@navikt/ds-react';
+import {
+  Alert,
+  BodyLong,
+  BodyShort,
+  Button,
+  ConfirmationPanel,
+  Heading,
+  HStack,
+  Panel,
+  VStack,
+} from '@navikt/ds-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
@@ -34,11 +43,12 @@ interface Props {
 }
 
 const PostKlageoppsummeringPage = ({ data }: Props) => {
-  const { common, skjema, icons } = useTranslation();
+  const { common, skjema, icons, error_messages } = useTranslation();
   const validate = useSessionCaseErrors(data.type);
   const [isValid] = validate(data);
   const [isUnderstood, setIsUnderstood] = useState(false);
   const [isUnderstoodError, setIsUnderstoodError] = useState<string | null>(null);
+  const [downloadError, setDownloadError] = useState<boolean>(false);
 
   useGoToBegrunnelseOnError(isValid);
 
@@ -108,25 +118,36 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
         error={isUnderstoodError}
       />
 
-      <CenteredContainer>
-        <Button as={Link} variant="secondary" to="../begrunnelse">
-          {common.back}
-        </Button>
-        <DownloadButton
-          caseData={data}
-          validForm={() => {
-            if (isUnderstood) {
-              setIsUnderstoodError(null);
+      <VStack align="center" gap="4">
+        <HStack align="center" justify="center" gap="4">
+          <Button as={Link} variant="secondary" to="../begrunnelse">
+            {common.back}
+          </Button>
 
-              return true;
-            }
+          <DownloadButton
+            caseData={data}
+            validForm={() => {
+              if (isUnderstood) {
+                setIsUnderstoodError(null);
 
-            setIsUnderstoodError(skjema.summary.sections.confirm.error[data.type]);
+                return true;
+              }
 
-            return false;
-          }}
-        />
-      </CenteredContainer>
+              setIsUnderstoodError(skjema.summary.sections.confirm.error[data.type]);
+
+              return false;
+            }}
+            onError={() => setDownloadError(true)}
+            error={downloadError}
+          />
+        </HStack>
+
+        {downloadError ? (
+          <Alert size="small" variant="error" aria-live="polite" id="download-error">
+            {error_messages.download}
+          </Alert>
+        ) : null}
+      </VStack>
     </PostFormContainer>
   );
 };
