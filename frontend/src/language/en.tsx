@@ -91,14 +91,14 @@ export const en: Translations = {
       vedtak_date: {
         title: {
           [CaseType.KLAGE]: 'Date of decision (optional)',
-          [CaseType.ANKE]: 'Date of the complaint decision from Nav klageinstans',
+          [CaseType.ANKE]: 'Date of the complaint decision from Klageinstans',
           [CaseType.ETTERSENDELSE_KLAGE]: 'Date of decision (optional)',
-          [CaseType.ETTERSENDELSE_ANKE]: 'Date of the complaint decision from Nav klageinstans',
+          [CaseType.ETTERSENDELSE_ANKE]: 'Date of the complaint decision from Klageinstans',
         },
       },
       klageenhet: {
         radio_title:
-          'Have you received a letter from Nav klageinstans or another unit in Nav stating that your case has been sent to Nav klageinstans?',
+          'Have you received a letter from Klageinstans or another unit in Nav stating that your case has been sent to Klageinstans?',
       },
       begrunnelse_text: {
         title: {
@@ -151,9 +151,9 @@ export const en: Translations = {
           title: 'Information from the case',
           vedtak: {
             [CaseType.KLAGE]: 'Date of decision',
-            [CaseType.ANKE]: 'Date of the complaint decision from Nav klageinstans',
+            [CaseType.ANKE]: 'Date of the complaint decision from Klageinstans',
             [CaseType.ETTERSENDELSE_KLAGE]: 'Date of decision',
-            [CaseType.ETTERSENDELSE_ANKE]: 'Date of the complaint decision from Nav klageinstans',
+            [CaseType.ETTERSENDELSE_ANKE]: 'Date of the complaint decision from Klageinstans',
           },
           saksnummer: 'Case number',
           from_system: 'Obtained from internal system',
