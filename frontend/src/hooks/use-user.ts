@@ -36,7 +36,7 @@ export const useIsAuthenticated = (): AuthResult => {
  * If the user is unauthorized, it will redirect to the login page.
  * It will return a loading state until the user is loaded or redirected.
  */
-export const useUserRequired = () => {
+export const useUserRequired = (): ReturnType<typeof useGetUserQuery> => {
   const user = useGetUserQuery();
   const { data, isSuccess } = user;
 
