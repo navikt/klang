@@ -94,14 +94,14 @@ export const nn: Translations = {
       vedtak_date: {
         title: {
           [CaseType.KLAGE]: 'Vedtaksdato (valfritt)',
-          [CaseType.ANKE]: 'Dato for klagevedtaket frå Nav klageinstans',
+          [CaseType.ANKE]: 'Dato for klagevedtaket frå Klageinstans',
           [CaseType.ETTERSENDELSE_KLAGE]: 'Vedtaksdato (valfritt)',
-          [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket frå Nav klageinstans',
+          [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket frå Klageinstans',
         },
       },
       klageenhet: {
         radio_title:
-          'Har du motteke eit brev frå Nav klageinstans eller ei anna eining i Nav om at saka di er sendt til Nav klageinstans?',
+          'Har du motteke eit brev frå Klageinstans eller ei anna eining i Nav om at saka di er sendt til Klageinstans?',
       },
       begrunnelse_text: {
         title: {
@@ -153,9 +153,9 @@ export const nn: Translations = {
           title: 'Opplysningar frå saka',
           vedtak: {
             [CaseType.KLAGE]: 'Vedtaksdato',
-            [CaseType.ANKE]: 'Dato for klagevedtaket frå Nav klageinstans',
+            [CaseType.ANKE]: 'Dato for klagevedtaket frå Klageinstans',
             [CaseType.ETTERSENDELSE_KLAGE]: 'Vedtaksdato',
-            [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket frå Nav klageinstans',
+            [CaseType.ETTERSENDELSE_ANKE]: 'Dato for klagevedtaket frå Klageinstans',
           },
           saksnummer: 'Saksnummer',
           from_system: 'Henta frå internt system',
