@@ -58,10 +58,10 @@ class IndexFile {
 
       const end = performance.now();
 
-      this.#indexHtml = this.INDEX_TEMPLATE.replace('{{DECORATOR_SCRIPTS}}', DECORATOR_SCRIPTS)
-        .replace('{{DECORATOR_STYLES}}', DECORATOR_STYLES)
-        .replace('{{DECORATOR_HEADER}}', DECORATOR_HEADER)
-        .replace('{{DECORATOR_FOOTER}}', DECORATOR_FOOTER)
+      this.#indexHtml = this.INDEX_TEMPLATE.replace('<decorator-scripts />', DECORATOR_SCRIPTS)
+        .replace('<decorator-styles />', DECORATOR_STYLES)
+        .replace('<decorator-header />', DECORATOR_HEADER)
+        .replace('<decorator-footer />', DECORATOR_FOOTER)
         .replace('{{ENVIRONMENT}}', ENVIRONMENT)
         .replace('{{VERSION}}', VERSION);
 
