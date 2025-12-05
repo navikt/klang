@@ -26,10 +26,10 @@
     "@grafana/faro-react": "2.0.2",
     "@grafana/faro-web-sdk": "2.0.2",
     "@grafana/faro-web-tracing": "2.0.2",
-    "@navikt/aksel-icons": "7.35.0",
-    "@navikt/ds-css": "7.35.0",
-    "@navikt/ds-react": "7.35.0",
-    "@navikt/fnrvalidator": "2.2.0",
+    "@navikt/aksel-icons": "7.35.1",
+    "@navikt/ds-css": "7.35.1",
+    "@navikt/ds-react": "7.35.1",
+    "@navikt/fnrvalidator": "2.2.1",
     "@navikt/nav-dekoratoren-moduler": "3.5.0",
     "@reduxjs/toolkit": "2.11.0",
     "@styled-icons/material": "10.47.0",
@@ -37,8 +37,8 @@
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-redux": "9.2.0",
-    "react-router": "7.10.0",
-    "react-router-dom": "7.10.0",
+    "react-router": "7.10.1",
+    "react-router-dom": "7.10.1",
     "styled-components": "6.1.19"
   }
 }
