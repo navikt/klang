@@ -58,6 +58,9 @@ const staggeredBaseQuery = (baseUrl: string) => {
         result.error.status === 403 ||
         result.error.status === 404 ||
         result.error.status === 405 ||
+        result.error.status === 409 ||
+        result.error.status === 410 ||
+        result.error.status === 411 ||
         result.error.status === 413 ||
         result.error.status === 501
       ) {
