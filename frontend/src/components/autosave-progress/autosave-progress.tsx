@@ -15,7 +15,7 @@ const AutosaveContainer = styled.div`
   text-align: right;
   column-gap: 4px;
   margin-top: 4px;
-  color: var(--a-text-subtle);
+  color: var(--ax-text-neutral-subtle);
 `;
 
 export const AutosaveProgressIndicator = ({ lastSaved }: Props) => {

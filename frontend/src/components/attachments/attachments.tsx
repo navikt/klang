@@ -57,7 +57,8 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
               </span>
             </ExternalLink>
             <Button
-              variant="danger"
+              data-color="danger"
+              variant="primary"
               size="xsmall"
               title={`${common.delete} ${tittel}`}
               onClick={() => deleteAttachment(id)}
@@ -66,14 +67,11 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
           </StyledListItem>
         ))}
       </StyledList>
-
       <Alert variant="info" inline>
         <BodyLong>{skjema.begrunnelse.attachments.supported_types}</BodyLong>
         <BodyLong>{skjema.begrunnelse.attachments.size_limit}</BodyLong>
       </Alert>
-
       <ShowErrors errors={attachmentErrors} clear={() => setAttachmentErrors([])} />
-
       <UploadButton
         inputId={FILE_INPUT_ID}
         setLoading={setAttachmentsLoading}
