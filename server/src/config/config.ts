@@ -3,8 +3,9 @@ import { requiredEnvNumber, requiredEnvString } from '@app/config/env-var';
 
 const KLAGE_DITTNAV_API = 'klage-dittnav-api';
 export const KLAGE_KODEVERK_API = 'klage-kodeverk-api';
+const KLAGE_UNLEASH_PROXY = 'klage-unleash-proxy';
 
-export const API_CLIENT_IDS = [KLAGE_DITTNAV_API, KLAGE_KODEVERK_API];
+export const API_CLIENT_IDS = [KLAGE_DITTNAV_API, KLAGE_KODEVERK_API, KLAGE_UNLEASH_PROXY];
 
 const cwd = process.cwd(); // This will be the server folder, as long as the paths in the NPM scripts are not changed.
 const serverDirectoryPath = cwd;
