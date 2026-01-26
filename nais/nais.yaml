@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "7200"
 spec:
   port: 8080
-  image: {{ image }}
+  image: "{{ image }}"
   resources:
     limits:
       memory: 1Gi
@@ -46,6 +46,7 @@ spec:
         - /nn/ettersendelse/**
         - /en/ettersendelse/**
         - /frontend-log
+        - /feature-toggle/**
   prometheus:
     enabled: true
   accessPolicy:
@@ -53,12 +54,13 @@ spec:
       rules:
         - application: klage-dittnav-api
         - application: klage-kodeverk-api
+        - application: klage-unleash-proxy
         - application: nav-dekoratoren
           namespace: personbruker
         - application: logging
           namespace: nais-system
   ingresses:
-    - {{ingress}}
+    - "{{ ingress }}"
   envFrom:
     - secret: slack-url
   observability:

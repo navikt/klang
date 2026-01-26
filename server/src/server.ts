@@ -18,6 +18,7 @@ import { serveIndexPlugin } from '@app/plugins/serve-index/serve-index';
 import { serveStaticFilesPlugin } from '@app/plugins/serve-static-files';
 import { serverTimingPlugin } from '@app/plugins/server-timing';
 import { traceparentPlugin } from '@app/plugins/traceparent/traceparent';
+import { unleashProxyPlugin } from '@app/plugins/unleash-proxy';
 import { processErrors } from '@app/process-errors';
 import { EmojiIcons, sendToSlack } from '@app/slack';
 import cors from '@fastify/cors';
@@ -55,6 +56,7 @@ fastify({ trustProxy: true, querystringParser, bodyLimit, caseSensitive: false }
   .register(serveStaticFilesPlugin)
   .register(oboAccessTokenPlugin)
   .register(apiProxyPlugin, { appNames: API_CLIENT_IDS, prefix: '/api' })
+  .register(unleashProxyPlugin)
   .register(localDevPlugin)
   .register(serveIndexPlugin)
   .register(notFoundPlugin)

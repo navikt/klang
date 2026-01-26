@@ -40,6 +40,11 @@ export default defineConfig({
         changeOrigin: true,
         headers: { Origin: 'https://klage.intern.dev.nav.no' },
       },
+      '/feature-toggle': {
+        target: 'https://klage.intern.dev.nav.no',
+        changeOrigin: true,
+        headers: { Origin: 'https://klage.intern.dev.nav.no' },
+      },
     },
   },
 });
