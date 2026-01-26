@@ -1,14 +1,4 @@
-import { Heading } from '@navikt/ds-react';
-import { styled } from 'styled-components';
-
-const TitleContainer = styled.div`
-  background-color: #cce1f3;
-  border-bottom: 4px solid #66a4dc;
-  padding: 16px 8px;
-  width: 100%;
-  margin-bottom: 32px;
-  text-align: center;
-`;
+import { Box, Heading, VStack } from '@navikt/ds-react';
 
 interface Props {
   tittel: string;
@@ -16,12 +6,22 @@ interface Props {
 }
 
 export const FormTitleContainer = ({ tittel, undertittel }: Props) => (
-  <TitleContainer>
+  <Box
+    as={VStack}
+    align="center"
+    width="100%"
+    marginBlock="space-0 space-32"
+    paddingInline="space-8"
+    paddingBlock="space-16"
+    borderColor="info"
+    borderWidth="0 0 4 0"
+    background="info-moderate"
+  >
     <Heading spacing level="1" size="medium">
       {tittel}
     </Heading>
     <Heading spacing level="2" size="small">
       {undertittel}
     </Heading>
-  </TitleContainer>
+  </Box>
 );

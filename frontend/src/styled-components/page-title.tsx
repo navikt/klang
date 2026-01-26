@@ -1,8 +1,3 @@
-import { Heading } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { Heading, type HeadingProps } from '@navikt/ds-react';
 
-export const CenteredHeading = styled(Heading)`
-  && {
-    text-align: center;
-  }
-`;
+export const CenteredHeading = (props: HeadingProps) => <Heading {...props} align="center" />;

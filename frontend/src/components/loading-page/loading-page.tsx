@@ -1,23 +1,12 @@
-import { BodyLong, Loader } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { BodyLong, Loader, VStack } from '@navikt/ds-react';
 
 interface Props {
   children?: string;
 }
 
 export const LoadingPage = ({ children }: Props) => (
-  <LoadingContainer>
+  <VStack align="center" justify="center" gap="space-16" paddingBlock="space-64">
     <Loader size="3xlarge" />
     {children === undefined ? null : <BodyLong>{children}</BodyLong>}
-  </LoadingContainer>
+  </VStack>
 );
-
-const LoadingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  padding-top: 64px;
-  padding-bottom: 64px;
-`;

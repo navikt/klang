@@ -15,7 +15,7 @@ export const ExternalLink = ({ openInSameWindow = false, inline = false, childre
       {...props}
       target={openInSameWindow ? '_self' : '_blank'}
       rel="noopener noreferrer"
-      style={{ display: inline ? 'inline' : undefined }}
+      className={inline ? 'inline' : undefined}
     >
       {children}
       {openInSameWindow ? null : <ExtLink title={icons.externalLink} />}

@@ -1,6 +1,5 @@
 import { useTranslation } from '@app/language/use-translation';
-import { Radio, RadioGroup } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { HStack, Radio, RadioGroup } from '@navikt/ds-react';
 
 interface Props {
   caseIsAtKA: boolean | null;
@@ -18,10 +17,10 @@ export const EttersendelseKaEnhet = ({ caseIsAtKA, onIsAtKaChange, error }: Prop
       value={toValue(caseIsAtKA)}
       error={error}
     >
-      <HorizontalOptions>
+      <HStack gap="space-16">
         <Radio value={YES}>{common.yes}</Radio>
         <Radio value={NO}>{common.no}</Radio>
-      </HorizontalOptions>
+      </HStack>
     </RadioGroup>
   );
 };
@@ -36,8 +35,3 @@ const toValue = (value: boolean | null) => {
 
   return value ? YES : NO;
 };
-
-const HorizontalOptions = styled.div`
-  display: flex;
-  gap: 16px;
-`;

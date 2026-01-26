@@ -4,11 +4,9 @@ import { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import type { Language } from '@app/language/language';
 import { useTranslation } from '@app/language/use-translation';
 import type { CaseType } from '@app/redux-api/case/types';
-import { CenteredContainer } from '@app/styled-components/common';
-import { Button, GuidePanel, Heading } from '@navikt/ds-react';
+import { Button, GuidePanel, Heading, HStack } from '@navikt/ds-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
 
 interface Props {
   type: CaseType;
@@ -36,29 +34,37 @@ export const RenderCaseinnsendingPage = ({ type, innsendingsytelse, hasVedlegg }
         {title}
       </Heading>
       <GuidePanel>
-        <InstructionList>
-          <ListItem>{stepTexts[0]}</ListItem>
-          <ListItem>{stepTexts[1]}</ListItem>
-          {hasVedlegg ? <ListItem>{stepTexts[2]}</ListItem> : null}
-          <ListItem>
+        <ol className="m-0 flex flex-col gap-2 p-0">
+          <li className="grid grid-cols-[min-content_1fr] items-start gap-x-2 [counter-increment:li] before:content-[counter(li)_'.']">
+            {stepTexts[0]}
+          </li>
+          <li className="grid grid-cols-[min-content_1fr] items-start gap-x-2 [counter-increment:li] before:content-[counter(li)_'.']">
+            {stepTexts[1]}
+          </li>
+          {hasVedlegg ? (
+            <li className="grid grid-cols-[min-content_1fr] items-start gap-x-2 [counter-increment:li] before:content-[counter(li)_'.']">
+              {stepTexts[2]}
+            </li>
+          ) : null}
+          <li className="grid grid-cols-[min-content_1fr] items-start gap-x-2 [counter-increment:li] before:content-[counter(li)_'.']">
             <span>
               {stepTexts[3]}
-              <Address>
+              <address className="block not-italic">
                 {address[0]}
                 <br />
                 {address[1]}
                 <br />
                 {address[2]}
-              </Address>
+              </address>
             </span>
-          </ListItem>
-        </InstructionList>
+          </li>
+        </ol>
       </GuidePanel>
-      <CenteredContainer>
+      <HStack justify="center" align="center" gap="space-16">
         <Button as={Link} to="../oppsummering" variant="secondary">
           {common.back}
         </Button>
-      </CenteredContainer>
+      </HStack>
     </PostFormContainer>
   );
 };
@@ -97,27 +103,3 @@ const useTexts = ({ innsendingsytelse, type }: UseTextsProps): Texts => {
     [address, common, innsendingsytelse, page_title, skjema.steps, steg, steg_simple, title, title_fragment, type],
   );
 };
-
-const InstructionList = styled.ol`
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
-  margin: 0;
-  padding: 0;
-`;
-
-const ListItem = styled.li`
-  display: grid;
-  align-items: flex-start;
-  grid-template-columns: min-content 1fr;
-  column-gap: 8px;
-  counter-increment: li;
-
-  &::before {
-    content: counter(li) '.';
-  }
-`;
-
-const Address = styled.address`
-  display: block;
-`;

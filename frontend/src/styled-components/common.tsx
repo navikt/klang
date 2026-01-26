@@ -1,15 +1,16 @@
-import { styled } from 'styled-components';
+import { HStack } from '@navikt/ds-react';
+import type { ReactNode } from 'react';
 
-export const CenteredContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-`;
+interface ContainerProps {
+  children: ReactNode;
+}
 
-export const SpaceBetweenFlexListContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-`;
+export const CenteredContainer = ({ children }: ContainerProps) => (
+  <HStack justify="center" align="center" gap="space-16">
+    {children}
+  </HStack>
+);
+
+export const SpaceBetweenFlexListContainer = ({ children }: ContainerProps) => (
+  <div className="grid grid-cols-2 gap-4">{children}</div>
+);

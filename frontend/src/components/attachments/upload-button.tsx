@@ -7,7 +7,6 @@ import { UploadIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRef } from 'react';
-import { styled } from 'styled-components';
 
 interface Props {
   caseId: string;
@@ -60,7 +59,8 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId 
 
   return (
     <>
-      <StyledUploadButton
+      <Button
+        className="self-start"
         variant="secondary"
         onClick={handleAttachmentClick}
         loading={isLoading}
@@ -68,8 +68,9 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId 
         icon={<UploadIcon aria-hidden />}
       >
         {skjema.begrunnelse.attachments.upload_button_text}
-      </StyledUploadButton>
-      <StyledUploadInput
+      </Button>
+      <input
+        className="hidden"
         id={inputId}
         type="file"
         multiple
@@ -83,11 +84,3 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId 
     </>
   );
 };
-
-const StyledUploadButton = styled(Button)`
-  align-self: flex-start;
-`;
-
-const StyledUploadInput = styled.input`
-  display: none;
-`;

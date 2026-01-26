@@ -1,11 +1,9 @@
-import { styled } from 'styled-components';
-
 interface Props {
   className?: string;
   title: string;
 }
 
-const EnvelopeSvg = ({ className, title }: Props) => (
+export const Envelope = ({ className, title }: Props) => (
   <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100" aria-hidden>
     <title>{title}</title>
     <path
@@ -36,7 +34,3 @@ const EnvelopeSvg = ({ className, title }: Props) => (
     />
   </svg>
 );
-
-export const Envelope = styled(EnvelopeSvg)`
-  width: 100px;
-`;

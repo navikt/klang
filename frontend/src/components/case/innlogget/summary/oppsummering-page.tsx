@@ -13,13 +13,10 @@ import { Clipboard } from '@app/icons/clipboard';
 import { useTranslation } from '@app/language/use-translation';
 import { type Case, CaseStatus } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
-import { CenteredContainer } from '@app/styled-components/common';
-import { CenteredHeading } from '@app/styled-components/page-title';
 import { Section } from '@app/styled-components/summary';
-import { Alert, BodyLong, Button, ErrorMessage, Heading, Panel } from '@navikt/ds-react';
+import { Alert, BodyLong, Box, Button, ErrorMessage, Heading, HStack, Panel, VStack } from '@navikt/ds-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
 
 export const CaseOppsummeringPage = () => <CaseLoader Component={DigitalCaseOppsummeringPage} />;
 
@@ -48,53 +45,59 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
       innsendingsytelse={data.innsendingsytelse}
       title_fragment={skjema.common.title_fragment[data.type]}
     >
-      <div>
-        <Icon title={icons.summary} />
-        <CenteredHeading level="2" size="medium">
+      <VStack align="center">
+        <Box marginInline="auto" marginBlock="space-0 space-16" width="100px">
+          <Clipboard title={icons.summary} className="w-full" />
+        </Box>
+        <Heading align="center" level="2" size="medium">
           {skjema.summary.title.logged_in}
-        </CenteredHeading>
-      </div>
+        </Heading>
+      </VStack>
 
-      <StyledPanel border>
-        <Section>
-          <Heading level="1" size="small" spacing>
-            {skjema.summary.sections.person.title}
-          </Heading>
-          <BodyLong spacing>{skjema.summary.sections.person.info_from}</BodyLong>
-          <PersonligeOpplysningerSummary
-            fornavn={isSuccess ? user.navn.fornavn : user_loader.loading_user}
-            etternavn={isSuccess ? user.navn.etternavn : user_loader.loading_user}
-            f_or_d_number={
-              isSuccess ? user.folkeregisteridentifikator?.identifikasjonsnummer : user_loader.loading_user
-            }
+      <Panel border>
+        <VStack gap="space-16">
+          <Section>
+            <Heading level="1" size="small" spacing>
+              {skjema.summary.sections.person.title}
+            </Heading>
+            <BodyLong spacing>{skjema.summary.sections.person.info_from}</BodyLong>
+            <PersonligeOpplysningerSummary
+              fornavn={isSuccess ? user.navn.fornavn : user_loader.loading_user}
+              etternavn={isSuccess ? user.navn.etternavn : user_loader.loading_user}
+              f_or_d_number={
+                isSuccess ? user.folkeregisteridentifikator?.identifikasjonsnummer : user_loader.loading_user
+              }
+            />
+          </Section>
+
+          <Section>
+            <Heading level="1" size="small" spacing>
+              {skjema.summary.sections.case.title}
+            </Heading>
+            <VedtakSummary {...data} />
+          </Section>
+
+          <Section>
+            <Heading level="1" size="small" spacing>
+              {skjema.summary.sections.begrunnelse.title[data.type]}
+            </Heading>
+            <VStack gap="space-16">
+              <InformationPointBox header={skjema.summary.sections.begrunnelse.why[data.type]}>
+                <BodyLong className="wrap-break-word whitespace-pre-wrap">
+                  {data.fritekst.length === 0 ? common.not_specified : data.fritekst}
+                </BodyLong>
+              </InformationPointBox>
+            </VStack>
+          </Section>
+
+          <AttachmentSummary
+            id={data.id}
+            status={data.status}
+            attachments={data.vedlegg}
+            basePath={`${API_PATH}/klanker`}
           />
-        </Section>
-
-        <Section>
-          <Heading level="1" size="small" spacing>
-            {skjema.summary.sections.case.title}
-          </Heading>
-          <VedtakSummary {...data} />
-        </Section>
-
-        <Section>
-          <Heading level="1" size="small" spacing>
-            {skjema.summary.sections.begrunnelse.title[data.type]}
-          </Heading>
-          <VerticalContent>
-            <InformationPointBox header={skjema.summary.sections.begrunnelse.why[data.type]}>
-              <StyledBodyLong>{data.fritekst.length === 0 ? common.not_specified : data.fritekst}</StyledBodyLong>
-            </InformationPointBox>
-          </VerticalContent>
-        </Section>
-
-        <AttachmentSummary
-          id={data.id}
-          status={data.status}
-          attachments={data.vedlegg}
-          basePath={`${API_PATH}/klanker`}
-        />
-      </StyledPanel>
+        </VStack>
+      </Panel>
 
       {data.status === CaseStatus.DONE ? null : (
         <Alert variant="info">{skjema.summary.kvitteringInfo[data.type]}</Alert>
@@ -102,14 +105,14 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
 
       {getError(error)}
 
-      <CenteredContainer>
+      <HStack justify="center" align="center" gap="space-16">
         {incompleteStatus ? (
           <Button as={Link} variant="secondary" to="../begrunnelse">
             {common.back}
           </Button>
         ) : null}
         <FinalizeDigitalCase {...data} id={data.id} setError={setError} />
-      </CenteredContainer>
+      </HStack>
 
       <PdfLink
         show={incompleteStatus}
@@ -130,30 +133,3 @@ const getError = (error: string | null) => {
 
   return <ErrorMessage spacing>{error}</ErrorMessage>;
 };
-
-const StyledPanel = styled(Panel)`
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
-`;
-
-const VerticalContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const StyledBodyLong = styled(BodyLong)`
-  white-space: pre-wrap;
-  word-break: break-word;
-`;
-
-const Icon = styled(Clipboard)`
-  && {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 16px;
-    width: 100px;
-  }
-`;

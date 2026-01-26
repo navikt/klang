@@ -1,17 +1,12 @@
-import { device } from '@app/styled-components/media-queries';
-import { styled } from 'styled-components';
+import { VStack } from '@navikt/ds-react';
+import type { ReactNode } from 'react';
 
-export const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  margin: 0 auto;
-  min-width: 320px;
+interface Props {
+  children: ReactNode;
+}
 
-  @media ${device.mobileS} {
-    max-width: 92%;
-  }
-  @media ${device.laptop} {
-    max-width: 800px;
-  }
-`;
+export const ContentContainer = ({ children }: Props) => (
+  <VStack gap="space-32" marginInline="auto" className="min-w-[320px] laptop:max-w-200 max-w-[92%]">
+    {children}
+  </VStack>
+);

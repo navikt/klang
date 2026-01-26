@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import "@navikt/ds-css" layer(components);
+@config "../tailwind.config.js";
+
+@theme {
+  --breakpoint-laptop: 1024px;
+}
+
+@keyframes bounce-envelope {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-envelope {
+  animation: bounce-envelope 1.5s linear infinite;
+}
