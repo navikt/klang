@@ -193,6 +193,7 @@ export const en: Translations = {
           action: 'Log in',
         },
         confirm: {
+          legend: 'Confirmation - send by post yourself',
           label: {
             [CaseType.KLAGE]: 'I understand that I have to print and send the complaint by post myself.',
             [CaseType.ANKE]: 'I understand that I have to print and send the appeal by post myself.',

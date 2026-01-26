@@ -18,7 +18,8 @@ export const DeleteCaseButton = ({ onDelete, isLoading, title }: Props) => {
   if (!showConfirm) {
     return (
       <Button
-        variant="danger"
+        data-color="danger"
+        variant="primary"
         size="medium"
         onClick={() => setShowConfirm(true)}
         title={title}
@@ -35,7 +36,8 @@ export const DeleteCaseButton = ({ onDelete, isLoading, title }: Props) => {
   return (
     <>
       <Button
-        variant="danger"
+        data-color="danger"
+        variant="primary"
         size="medium"
         onClick={deleteCase}
         loading={isLoading}

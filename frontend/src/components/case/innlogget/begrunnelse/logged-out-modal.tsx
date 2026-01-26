@@ -29,7 +29,7 @@ export const LoggedOutModal = () => {
       open
       onClose={() => undefined}
       header={{ heading: loggedOut, closeButton: false }}
-      style={{ padding: 'var(--a-spacing-5)' }}
+      style={{ padding: 'var(--ax-space-20)' }}
     >
       <ModalBody>
         <BodyShort>{login}</BodyShort>
@@ -50,10 +50,10 @@ export const LoggedOutModal = () => {
 const ModalBody = styled(Modal.Body)`
   display: flex;
   flex-direction: column;
-  gap: var(--a-spacing-4);
+  gap: var(--ax-space-16);
 `;
 
 const Buttons = styled.div`
   display: flex;
-  gap: var(--a-spacing-4);
+  gap: var(--ax-space-16);
 `;

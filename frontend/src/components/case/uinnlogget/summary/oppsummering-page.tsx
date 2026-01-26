@@ -18,11 +18,12 @@ import {
   Alert,
   BodyLong,
   BodyShort,
+  Box,
   Button,
-  ConfirmationPanel,
+  Checkbox,
+  CheckboxGroup,
   Heading,
   HStack,
-  Panel,
   VStack,
 } from '@navikt/ds-react';
 import { useState } from 'react';
@@ -42,6 +43,8 @@ interface Props {
   data: ISessionCase;
 }
 
+const UNDERSTOOD_VALUE = 'understood';
+
 const PostKlageoppsummeringPage = ({ data }: Props) => {
   const { common, skjema, icons, error_messages } = useTranslation();
   const validate = useSessionCaseErrors(data.type);
@@ -49,6 +52,8 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
   const [isUnderstood, setIsUnderstood] = useState(false);
   const [isUnderstoodError, setIsUnderstoodError] = useState<string | null>(null);
   const [downloadError, setDownloadError] = useState<boolean>(false);
+
+  const showIsUnderstoodError = isUnderstoodError !== null;
 
   useGoToBegrunnelseOnError(isValid);
 
@@ -70,39 +75,41 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
         </CenteredHeading>
       </div>
 
-      <StyledPanel border>
-        <Section>
-          <Heading level="1" size="small" spacing>
-            {skjema.summary.sections.person.title}
-          </Heading>
-          <PersonligeOpplysningerSummary {...data.navn} f_or_d_number={data.foedselsnummer} />
-        </Section>
+      <VStack asChild gap="space-16">
+        <Box padding="space-16" borderWidth="1" borderRadius="12">
+          <Section>
+            <Heading level="1" size="small" spacing>
+              {skjema.summary.sections.person.title}
+            </Heading>
+            <PersonligeOpplysningerSummary {...data.navn} f_or_d_number={data.foedselsnummer} />
+          </Section>
 
-        <Section>
-          <Heading level="1" size="small" spacing>
-            {skjema.summary.sections.case.title}
-          </Heading>
-          <VedtakSummary {...data} />
-        </Section>
+          <Section>
+            <Heading level="1" size="small" spacing>
+              {skjema.summary.sections.case.title}
+            </Heading>
+            <VedtakSummary {...data} />
+          </Section>
 
-        <Section>
-          <Heading level="1" size="small" spacing>
-            {skjema.summary.sections.begrunnelse.title[data.type]}
-          </Heading>
-          <VerticalContent>
-            <InformationPointBox header={skjema.summary.sections.begrunnelse.why[data.type]}>
-              <StyledBodyLong>{data.fritekst.length === 0 ? common.not_specified : data.fritekst}</StyledBodyLong>
-            </InformationPointBox>
-          </VerticalContent>
-        </Section>
+          <Section>
+            <Heading level="1" size="small" spacing>
+              {skjema.summary.sections.begrunnelse.title[data.type]}
+            </Heading>
+            <VerticalContent>
+              <InformationPointBox header={skjema.summary.sections.begrunnelse.why[data.type]}>
+                <StyledBodyLong>{data.fritekst.length === 0 ? common.not_specified : data.fritekst}</StyledBodyLong>
+              </InformationPointBox>
+            </VerticalContent>
+          </Section>
 
-        <Section>
-          <Heading level="1" size="small" spacing>
-            {skjema.summary.sections.begrunnelse.documents}
-          </Heading>
-          <BodyShort>{data.hasVedlegg ? common.yes : common.no}</BodyShort>
-        </Section>
-      </StyledPanel>
+          <Section>
+            <Heading level="1" size="small" spacing>
+              {skjema.summary.sections.begrunnelse.documents}
+            </Heading>
+            <BodyShort>{data.hasVedlegg ? common.yes : common.no}</BodyShort>
+          </Section>
+        </Box>
+      </VStack>
 
       <Alert variant="info">
         <BodyShort spacing>{skjema.summary.sections.login.notice[data.type]}</BodyShort>
@@ -111,15 +118,28 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
         </Button>
       </Alert>
 
-      <ConfirmationPanel
-        checked={isUnderstood}
-        label={skjema.summary.sections.confirm.label[data.type]}
-        onChange={() => setIsUnderstood((u) => !u)}
-        error={isUnderstoodError}
-      />
+      <Box
+        background={showIsUnderstoodError ? 'danger-moderate' : 'warning-moderate'}
+        borderColor={showIsUnderstoodError ? 'danger-strong' : 'warning-strong'}
+        borderRadius="12"
+        borderWidth="1"
+        padding="space-16"
+      >
+        <CheckboxGroup
+          value={isUnderstood ? [UNDERSTOOD_VALUE] : []}
+          onChange={(checked: string[]) => setIsUnderstood(checked.includes(UNDERSTOOD_VALUE))}
+          error={isUnderstoodError}
+          hideLegend
+          legend={skjema.summary.sections.confirm.legend}
+        >
+          <Checkbox value={UNDERSTOOD_VALUE} error={showIsUnderstoodError}>
+            {skjema.summary.sections.confirm.label[data.type]}
+          </Checkbox>
+        </CheckboxGroup>
+      </Box>
 
-      <VStack align="center" gap="4">
-        <HStack align="center" justify="center" gap="4">
+      <VStack align="center" gap="space-16">
+        <HStack align="center" justify="center" gap="space-16">
           <Button as={Link} variant="secondary" to="../begrunnelse">
             {common.back}
           </Button>
@@ -151,12 +171,6 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
     </PostFormContainer>
   );
 };
-
-const StyledPanel = styled(Panel)`
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
-`;
 
 const Section = styled.section`
   padding-bottom: 16px;

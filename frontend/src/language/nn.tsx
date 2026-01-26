@@ -195,6 +195,7 @@ export const nn: Translations = {
           action: 'Logg inn',
         },
         confirm: {
+          legend: 'Bekreftelse - sende sjølv i posten',
           label: {
             [CaseType.KLAGE]: 'Eg forstår at eg sjølv må skrive ut klaga og sende klaga i posten sjølv.',
             [CaseType.ANKE]: 'Eg forstår at eg sjølv må skrive ut anka og sende anka i posten sjølv.',

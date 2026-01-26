@@ -196,6 +196,7 @@ export const nb = {
           action: 'Logg inn',
         },
         confirm: {
+          legend: 'Bekreftelse - sende selv i posten',
           label: {
             [CaseType.KLAGE]: 'Jeg forstår at jeg selv må skrive ut og sende klagen i posten selv.',
             [CaseType.ANKE]: 'Jeg forstår at jeg selv må skrive ut og sende anken i posten selv.',
