@@ -6,10 +6,8 @@ import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import type { CaseType } from '@app/redux-api/case/types';
-import { CenteredHeading } from '@app/styled-components/page-title';
 import { DownloadIcon } from '@navikt/aksel-icons';
-import { Alert, BodyShort, Heading } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { Alert, BodyShort, Box, Heading, VStack } from '@navikt/ds-react';
 
 interface Props {
   children?: React.ReactNode;
@@ -22,12 +20,14 @@ export const Kvittering = ({ children, type, ytelse }: Props) => {
 
   return (
     <>
-      <div>
-        <Icon title={icons.receipt} />
-        <CenteredHeading level="2" size="medium">
+      <VStack align="center">
+        <Box marginInline="auto" marginBlock="space-0 space-16" width="100px">
+          <Envelope title={icons.receipt} className="w-full" />
+        </Box>
+        <Heading align="center" level="2" size="medium">
           {skjema.kvittering.title[type]}
-        </CenteredHeading>
-      </div>
+        </Heading>
+      </VStack>
 
       {children}
 
@@ -69,11 +69,3 @@ export const Journalpost = ({ caseId, finalizedDate, basePath, type }: Journalpo
     </>
   );
 };
-
-const Icon = styled(Envelope)`
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 16px;
-  width: 100px;
-`;

@@ -10,10 +10,9 @@ import { appEvent } from '@app/logging/logger';
 import type { DeleteAttachmentParams } from '@app/redux-api/case/params';
 import type { Attachment } from '@app/redux-api/case/types';
 import { TrashIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Alert, BodyLong, Button, ErrorMessage, ErrorSummary, Label } from '@navikt/ds-react';
+import { Alert, BodyLong, Box, Button, ErrorMessage, ErrorSummary, HStack, Label, VStack } from '@navikt/ds-react';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useState } from 'react';
-import { styled } from 'styled-components';
 
 interface Props {
   attachments: Attachment[];
@@ -44,9 +43,9 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
         </Label>
         <BodyLong>{skjema.begrunnelse.attachments.description}</BodyLong>
       </div>
-      <StyledList>
+      <VStack as="ul" gap="space-8" margin="space-0" padding="space-0" className="list-none">
         {attachments.map(({ id, tittel, sizeInBytes, contentType }) => (
-          <StyledListItem key={id}>
+          <HStack as="li" key={id} align="center" gap="space-8">
             <ExternalLink
               href={`${basePath}/${caseId}/vedlegg/${id}`}
               onClick={() => appEvent(AppEventEnum.ATTACHMENT_DOWNLOAD)}
@@ -64,9 +63,9 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
               onClick={() => deleteAttachment(id)}
               icon={<TrashIcon aria-hidden />}
             />
-          </StyledListItem>
+          </HStack>
         ))}
-      </StyledList>
+      </VStack>
       <Alert variant="info" inline>
         <BodyLong>{skjema.begrunnelse.attachments.supported_types}</BodyLong>
         <BodyLong>{skjema.begrunnelse.attachments.size_limit}</BodyLong>
@@ -102,10 +101,12 @@ const ShowErrors = ({ errors, clear }: ShowErrorsProps) => {
   };
 
   return (
-    <div>
-      <StyledClearButton size="small" variant="secondary" onClick={clearErrors} icon={<XMarkIcon aria-hidden />}>
-        {skjema.begrunnelse.attachments.clear_errors}
-      </StyledClearButton>
+    <VStack>
+      <Box marginBlock="space-0 space-8">
+        <Button size="small" variant="secondary" onClick={clearErrors} icon={<XMarkIcon aria-hidden />}>
+          {skjema.begrunnelse.attachments.clear_errors}
+        </Button>
+      </Box>
       <ErrorSummary>
         {errorMessages.map((error) => (
           <ErrorSummary.Item key={error} href="#upload-attachment">
@@ -113,7 +114,7 @@ const ShowErrors = ({ errors, clear }: ShowErrorsProps) => {
           </ErrorSummary.Item>
         ))}
       </ErrorSummary>
-    </div>
+    </VStack>
   );
 };
 
@@ -132,23 +133,3 @@ const useErrorMessages = (errors: FetchBaseQueryError[]): string[] => {
     return common.generic_error;
   });
 };
-
-const StyledClearButton = styled(Button)`
-  margin-bottom: 8px;
-`;
-
-const StyledList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const StyledListItem = styled.li`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  column-gap: 8px;
-`;

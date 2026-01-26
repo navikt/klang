@@ -3,8 +3,7 @@ import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { FnrDnrInput } from '@app/components/fnr-dnr-input/fnr-dnr-input';
 import type { ErrorState } from '@app/hooks/errors/types';
 import { useTranslation } from '@app/language/use-translation';
-import { TextField } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { TextField, VStack } from '@navikt/ds-react';
 
 type Data = Pick<ISessionCase, 'foedselsnummer' | 'navn'>;
 
@@ -24,7 +23,7 @@ export const UserInfo = ({ data, update, errors }: Props) => {
   };
 
   return (
-    <StyledUserInfo>
+    <VStack gap="space-12">
       <FnrDnrInput value={data.foedselsnummer} onChange={onChange} error={errors[FormFieldsIds.FNR_DNR_NPID]} />
 
       <TextInput
@@ -42,15 +41,9 @@ export const UserInfo = ({ data, update, errors }: Props) => {
         onChange={(etternavn) => update({ foedselsnummer: data.foedselsnummer, navn: { ...data.navn, etternavn } })}
         error={errors[FormFieldsIds.ETTERNAVN]}
       />
-    </StyledUserInfo>
+    </VStack>
   );
 };
-
-const StyledUserInfo = styled.div`
-  display: flex;
-  row-gap: 12px;
-  flex-direction: column;
-`;
 
 interface TextInputProps {
   id: FormFieldsIds;

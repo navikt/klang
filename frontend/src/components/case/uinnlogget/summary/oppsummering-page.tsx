@@ -11,7 +11,7 @@ import { Clipboard } from '@app/icons/clipboard';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useTranslation } from '@app/language/use-translation';
 import type { CaseType } from '@app/redux-api/case/types';
-import { CenteredHeading } from '@app/styled-components/page-title';
+import { Section } from '@app/styled-components/summary';
 import { getLoginRedirectPath } from '@app/user/login';
 import { EnterIcon } from '@navikt/aksel-icons';
 import {
@@ -28,7 +28,6 @@ import {
 } from '@navikt/ds-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
 
 interface IProps {
   innsendingsytelse: Innsendingsytelse;
@@ -68,12 +67,14 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
       title_fragment={title_fragment[data.type]}
       page_title={page_title[data.type]}
     >
-      <div>
-        <Icon title={icons.summary} />
-        <CenteredHeading level="2" size="medium">
+      <VStack align="center">
+        <Box marginInline="auto" marginBlock="space-0 space-16" width="100px">
+          <Clipboard title={icons.summary} className="w-full" />
+        </Box>
+        <Heading align="center" level="2" size="medium">
           {skjema.summary.title.not_logged_in}
-        </CenteredHeading>
-      </div>
+        </Heading>
+      </VStack>
 
       <VStack asChild gap="space-16">
         <Box padding="space-16" borderWidth="1" borderRadius="12">
@@ -95,11 +96,13 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
             <Heading level="1" size="small" spacing>
               {skjema.summary.sections.begrunnelse.title[data.type]}
             </Heading>
-            <VerticalContent>
+            <VStack gap="space-16">
               <InformationPointBox header={skjema.summary.sections.begrunnelse.why[data.type]}>
-                <StyledBodyLong>{data.fritekst.length === 0 ? common.not_specified : data.fritekst}</StyledBodyLong>
+                <BodyLong className="wrap-break-word whitespace-pre-wrap">
+                  {data.fritekst.length === 0 ? common.not_specified : data.fritekst}
+                </BodyLong>
               </InformationPointBox>
-            </VerticalContent>
+            </VStack>
           </Section>
 
           <Section>
@@ -171,33 +174,3 @@ const PostKlageoppsummeringPage = ({ data }: Props) => {
     </PostFormContainer>
   );
 };
-
-const Section = styled.section`
-  padding-bottom: 16px;
-  border-bottom: 1px solid #a2a1a1;
-
-  :last-child {
-    border-bottom: none;
-  }
-`;
-
-const VerticalContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const StyledBodyLong = styled(BodyLong)`
-  white-space: pre-wrap;
-  word-break: break-word;
-`;
-
-const Icon = styled(Clipboard)`
-  && {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 16px;
-    width: 100px;
-  }
-`;

@@ -4,8 +4,7 @@ import { displayBytes } from '@app/functions/display';
 import { useTranslation } from '@app/language/use-translation';
 import { type Attachment, CaseStatus } from '@app/redux-api/case/types';
 import { Section } from '@app/styled-components/summary';
-import { Heading } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { Heading, HStack, VStack } from '@navikt/ds-react';
 
 interface Props {
   status: CaseStatus;
@@ -27,16 +26,16 @@ export const AttachmentSummary = ({ status, id, attachments, basePath }: Props) 
         <Heading level="1" size="small" spacing>
           {skjema.summary.documents} ({attachments.length})
         </Heading>
-        <AttachmentList>
+        <VStack as="ul" gap="space-4" margin="space-0" padding="space-0" className="list-none">
           {attachments.map((attachment) => (
-            <StyledListItem key={attachment.id}>
+            <HStack as="li" key={attachment.id} align="center" gap="space-4">
               <FileIcon contentType={attachment.contentType} />
               <span>
                 {attachment.tittel} ({displayBytes(attachment.sizeInBytes)})
               </span>
-            </StyledListItem>
+            </HStack>
           ))}
-        </AttachmentList>
+        </VStack>
       </Section>
     );
   }
@@ -46,7 +45,7 @@ export const AttachmentSummary = ({ status, id, attachments, basePath }: Props) 
       <Heading level="1" size="small" spacing>
         {skjema.summary.documents} ({attachments.length})
       </Heading>
-      <AttachmentList>
+      <VStack as="ul" gap="space-4" margin="space-0" padding="space-0" className="list-none">
         {attachments.map((attachment) => (
           <li key={attachment.id}>
             <ExternalLink href={`${basePath}/${id}/vedlegg/${attachment.id}`}>
@@ -57,20 +56,7 @@ export const AttachmentSummary = ({ status, id, attachments, basePath }: Props) 
             </ExternalLink>
           </li>
         ))}
-      </AttachmentList>
+      </VStack>
     </Section>
   );
 };
-
-const AttachmentList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
-const StyledListItem = styled.li`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  column-gap: 4px;
-`;

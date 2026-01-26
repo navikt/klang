@@ -35,13 +35,11 @@
     "@navikt/fnrvalidator": "2.2.1",
     "@navikt/nav-dekoratoren-moduler": "3.6.1",
     "@reduxjs/toolkit": "2.11.2",
-    "@styled-icons/material": "10.47.0",
     "date-fns": "4.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-redux": "9.2.0",
     "react-router": "7.13.0",
-    "react-router-dom": "7.13.0",
-    "styled-components": "6.3.8"
+    "react-router-dom": "7.13.0"
   }
 }

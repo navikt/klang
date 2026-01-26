@@ -3,10 +3,9 @@ import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import { useAppSelector } from '@app/redux/configure-store';
 import { getLoginRedirectPath } from '@app/user/login';
-import { BodyShort, Button, Modal } from '@navikt/ds-react';
+import { BodyShort, Button, HStack, Modal, VStack } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
 
 export const LoggedOutModal = () => {
   const { show } = useAppSelector(({ loggedOutModal }) => loggedOutModal);
@@ -31,29 +30,20 @@ export const LoggedOutModal = () => {
       header={{ heading: loggedOut, closeButton: false }}
       style={{ padding: 'var(--ax-space-20)' }}
     >
-      <ModalBody>
-        <BodyShort>{login}</BodyShort>
+      <Modal.Body>
+        <VStack gap="space-16">
+          <BodyShort>{login}</BodyShort>
 
-        <Buttons>
-          <Button as={Link} to={getLoginRedirectPath()}>
-            {yes}
-          </Button>
-          <Button as={Link} to="/oauth2/logout" variant="secondary">
-            {logout}
-          </Button>
-        </Buttons>
-      </ModalBody>
+          <HStack gap="space-16">
+            <Button as={Link} to={getLoginRedirectPath()}>
+              {yes}
+            </Button>
+            <Button as={Link} to="/oauth2/logout" variant="secondary">
+              {logout}
+            </Button>
+          </HStack>
+        </VStack>
+      </Modal.Body>
     </Modal>
   );
 };
-
-const ModalBody = styled(Modal.Body)`
-  display: flex;
-  flex-direction: column;
-  gap: var(--ax-space-16);
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  gap: var(--ax-space-16);
-`;
