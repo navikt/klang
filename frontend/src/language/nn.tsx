@@ -418,6 +418,24 @@ export const nn: Translations = {
     expires_in: (exp: string) => `Du vil bli logga ut ${exp}. For å halde fram må du berre logge inn igjen.`,
     has_attachments_label: 'Eg skal sende med vedlegg.',
     not_specified: 'Ikkje spesifisert',
+    maintenance: {
+      title: 'Vedlikehald mellom kl. 07:00 og 11:00 (GMT+1)',
+      logged_in: [
+        'Vi utfører for tida vedlikehald på tenesta. Ver venleg og prøv igjen seinare.',
+        'Alt innhald er lagra.',
+        'Bokmerk denne sida om du vil kome tilbake, eller la ho vere open.',
+        'Denne meldinga vil forsvinne når vedlikehaldet er ferdig.',
+      ],
+      session: [
+        'Vi utfører for tida vedlikehald på tenesta. Ver venleg og prøv igjen seinare.',
+        'Om denne meldinga avbraut det du heldt på med, bør du ikkje lukke sida. Då vert innhaldet du har jobba med sletta.',
+        'Denne meldinga vil forsvinne når vedlikehaldet er ferdig.',
+      ],
+    },
+    maintenance_warning: {
+      title: 'Vedlikehald torsdag morgon - 30.01.2026',
+      message: 'Tenesta vil vere utilgjengeleg torsdag (30.01.2026) morgon mellom kl. 07:00 og 11:00 (GMT+1).',
+    },
   },
   icons: {
     externalLink: 'Åpne lenke i ny fane',

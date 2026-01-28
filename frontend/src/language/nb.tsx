@@ -420,6 +420,24 @@ export const nb = {
     expires_in: (exp: string) => `Du vil bli logget ut ${exp}. For å fortsette trenger du bare logge inn igjen.`,
     has_attachments_label: 'Jeg skal sende med vedlegg.',
     not_specified: 'Ikke angitt',
+    maintenance: {
+      title: 'Vedlikehold mellom kl. 07:00 og 11:00 (GMT+1)',
+      logged_in: [
+        'Vi utfører for øyeblikket vedlikehold på tjenesten. Vennligst prøv igjen senere.',
+        'Alt innhold er lagret.',
+        'Bokmerk denne siden om du vil komme tilbake, eller la den være åpen.',
+        'Denne meldingen vil forsvinne når vedlikeholdet er ferdig.',
+      ],
+      session: [
+        'Vi utfører for øyeblikket vedlikehold på tjenesten. Vennligst prøv igjen senere.',
+        'Om denne meldingen avbrøt det du holdt på med, bør du ikke lukke siden. Da slettes innholdet du har jobbet med.',
+        'Denne meldingen vil forsvinne når vedlikeholdet er ferdig.',
+      ],
+    },
+    maintenance_warning: {
+      title: 'Vedlikehold torsdag morgen - 30.01.2026',
+      message: 'Tjenesten vil være utilgjengelig torsdag (30.01.2026) morgen mellom kl. 07:00 og 11:00 (GMT+1).',
+    },
   },
   icons: {
     externalLink: 'Åpne lenke i ny fane',
