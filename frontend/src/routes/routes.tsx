@@ -6,6 +6,8 @@ import { CaseOppsummeringPage } from '@app/components/case/innlogget/summary/opp
 import { SessionCasebegrunnelsePage } from '@app/components/case/uinnlogget/begrunnelse/begrunnelse-page';
 import { SessionCaseInnsendingPage } from '@app/components/case/uinnlogget/innsending/innsending-page';
 import { SessionCaseOppsummeringPage } from '@app/components/case/uinnlogget/summary/oppsummering-page';
+import { LoggedInMaintenanceMode } from '@app/components/maintenance-mode/logged-in';
+import { SessionMaintenanceMode } from '@app/components/maintenance-mode/session';
 import { INNSENDINGSYTELSER, type Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { LanguageComponent } from '@app/language/component';
 import { CaseType } from '@app/redux-api/case/types';
@@ -26,7 +28,7 @@ export const Router = () => (
             <Routes>
               <Route path="/:lang">
                 <Route path="sak" element={<LoginRequired />}>
-                  <Route path=":id">
+                  <Route path=":id" element={<LoggedInMaintenanceMode />}>
                     <Route index element={<Navigate to="begrunnelse" replace />} />
                     <Route path="begrunnelse" element={<CaseBegrunnelsePage />} />
                     <Route path="oppsummering" element={<CaseOppsummeringPage />} />
@@ -35,43 +37,41 @@ export const Router = () => (
                   </Route>
                 </Route>
 
-                <Route path="klage">
-                  {getRoutes(CreateCase, CaseType.KLAGE)}
-
-                  {getRoutesWithSuffix(SessionCasebegrunnelsePage, 'begrunnelse', CaseType.KLAGE)}
-                  {getRoutesWithSuffix(SessionCaseOppsummeringPage, 'oppsummering', CaseType.KLAGE)}
-                  {getRoutesWithSuffix(SessionCaseInnsendingPage, 'innsending', CaseType.KLAGE)}
-                </Route>
-
-                <Route path="anke">
-                  {getRoutes(CreateCase, CaseType.ANKE)}
-
-                  {getRoutesWithSuffix(SessionCasebegrunnelsePage, 'begrunnelse', CaseType.ANKE)}
-                  {getRoutesWithSuffix(SessionCaseOppsummeringPage, 'oppsummering', CaseType.ANKE)}
-                  {getRoutesWithSuffix(SessionCaseInnsendingPage, 'innsending', CaseType.ANKE)}
-                </Route>
-
-                <Route path="ettersendelse">
+                <Route element={<SessionMaintenanceMode />}>
                   <Route path="klage">
-                    {getRoutes(CreateCase, CaseType.ETTERSENDELSE_KLAGE)}
+                    {getRoutes(CreateCase, CaseType.KLAGE)}
 
-                    {getRoutesWithSuffix(SessionCasebegrunnelsePage, 'begrunnelse', CaseType.ETTERSENDELSE_KLAGE)}
-                    {getRoutesWithSuffix(SessionCaseOppsummeringPage, 'oppsummering', CaseType.ETTERSENDELSE_KLAGE)}
-                    {getRoutesWithSuffix(SessionCaseInnsendingPage, 'innsending', CaseType.ETTERSENDELSE_KLAGE)}
+                    {getRoutesWithSuffix(SessionCasebegrunnelsePage, 'begrunnelse', CaseType.KLAGE)}
+                    {getRoutesWithSuffix(SessionCaseOppsummeringPage, 'oppsummering', CaseType.KLAGE)}
+                    {getRoutesWithSuffix(SessionCaseInnsendingPage, 'innsending', CaseType.KLAGE)}
                   </Route>
 
                   <Route path="anke">
-                    {getRoutes(CreateCase, CaseType.ETTERSENDELSE_ANKE)}
+                    {getRoutes(CreateCase, CaseType.ANKE)}
 
-                    {getRoutesWithSuffix(SessionCasebegrunnelsePage, 'begrunnelse', CaseType.ETTERSENDELSE_ANKE)}
-                    {getRoutesWithSuffix(SessionCaseOppsummeringPage, 'oppsummering', CaseType.ETTERSENDELSE_ANKE)}
-                    {getRoutesWithSuffix(SessionCaseInnsendingPage, 'innsending', CaseType.ETTERSENDELSE_ANKE)}
+                    {getRoutesWithSuffix(SessionCasebegrunnelsePage, 'begrunnelse', CaseType.ANKE)}
+                    {getRoutesWithSuffix(SessionCaseOppsummeringPage, 'oppsummering', CaseType.ANKE)}
+                    {getRoutesWithSuffix(SessionCaseInnsendingPage, 'innsending', CaseType.ANKE)}
                   </Route>
 
-                  <Route path="*" element={<NotFoundPage />} />
-                </Route>
+                  <Route path="ettersendelse">
+                    <Route path="klage">
+                      {getRoutes(CreateCase, CaseType.ETTERSENDELSE_KLAGE)}
 
-                <Route path="*" element={<NotFoundPage />} />
+                      {getRoutesWithSuffix(SessionCasebegrunnelsePage, 'begrunnelse', CaseType.ETTERSENDELSE_KLAGE)}
+                      {getRoutesWithSuffix(SessionCaseOppsummeringPage, 'oppsummering', CaseType.ETTERSENDELSE_KLAGE)}
+                      {getRoutesWithSuffix(SessionCaseInnsendingPage, 'innsending', CaseType.ETTERSENDELSE_KLAGE)}
+                    </Route>
+
+                    <Route path="anke">
+                      {getRoutes(CreateCase, CaseType.ETTERSENDELSE_ANKE)}
+
+                      {getRoutesWithSuffix(SessionCasebegrunnelsePage, 'begrunnelse', CaseType.ETTERSENDELSE_ANKE)}
+                      {getRoutesWithSuffix(SessionCaseOppsummeringPage, 'oppsummering', CaseType.ETTERSENDELSE_ANKE)}
+                      {getRoutesWithSuffix(SessionCaseInnsendingPage, 'innsending', CaseType.ETTERSENDELSE_ANKE)}
+                    </Route>
+                  </Route>
+                </Route>
               </Route>
 
               <Route path="*" element={<NotFoundPage />} />
