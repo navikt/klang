@@ -417,24 +417,6 @@ export const en: Translations = {
     expires_in: (exp: string) => `You will be logged out ${exp}. To continue, you just need to log in again.`,
     has_attachments_label: 'I will include attachments.',
     not_specified: 'Not specified.',
-    maintenance: {
-      title: 'Maintenance between 07:00 and 11:00 (GMT+1)',
-      logged_in: [
-        'We are currently performing maintenance on the service. Please try again later.',
-        'All content is saved.',
-        'Bookmark this page if you want to come back or leave it open.',
-        'This message will disappear when the maintenance is complete.',
-      ],
-      session: [
-        'We are currently performing maintenance on the service. Please try again later.',
-        'If this message interrupted what you were doing, you should not close the page. Otherwise, the content you have been working on will be deleted.',
-        'This message will disappear when the maintenance is complete.',
-      ],
-    },
-    maintenance_warning: {
-      title: 'Maintenance Friday morning - 30.01.2026',
-      message: 'The service will be unavailable Friday (30.01.2026) morning between 07:00 and 11:00 (GMT+1).',
-    },
   },
   icons: {
     externalLink: 'Open link in new tab',
