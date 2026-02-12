@@ -59,6 +59,8 @@ spec:
           namespace: personbruker
         - application: logging
           namespace: nais-system
+      external:
+        - host: hooks.slack.com
   ingresses:
     - "{{ ingress }}"
   envFrom:
