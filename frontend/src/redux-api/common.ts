@@ -77,6 +77,7 @@ const staggeredBaseQuery = (baseUrl: string) => {
 
 export const API_PATH = '/api/klage-dittnav-api/api';
 export const API_BASE_QUERY = staggeredBaseQuery(API_PATH);
+export const AUTH_BASE_QUERY = staggeredBaseQuery('');
 
 export const KODEVERK_API_PATH = '/api/klage-kodeverk-api/kodeverk';
 export const KODEVERK_API_BASE_QUERY = staggeredBaseQuery(KODEVERK_API_PATH);

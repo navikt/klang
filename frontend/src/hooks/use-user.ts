@@ -1,3 +1,4 @@
+import { useIsAuthenticatedQuery } from '@app/redux-api/auth/api';
 import { useGetUserQuery } from '@app/redux-api/user/api';
 import { login } from '@app/user/login';
 import { useEffect } from 'react';
@@ -15,18 +16,14 @@ interface LoadedAuth {
 type AuthResult = LoadingAuth | LoadedAuth;
 
 export const useIsAuthenticated = (): AuthResult => {
-  const { data, isSuccess, isError, isLoading } = useGetUserQuery();
+  const { data, isSuccess, isError } = useIsAuthenticatedQuery();
 
   if (isSuccess) {
-    return { isAuthenticated: data !== undefined, isLoadingAuth: false };
+    return { isAuthenticated: data?.session.active ?? false, isLoadingAuth: false };
   }
 
   if (isError) {
     return { isAuthenticated: false, isLoadingAuth: false };
-  }
-
-  if (isLoading) {
-    return { isAuthenticated: undefined, isLoadingAuth: true };
   }
 
   return { isAuthenticated: undefined, isLoadingAuth: true };
