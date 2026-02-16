@@ -7,6 +7,9 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [tsconfigPaths(), react(), tailwindcss()],
   base: 'https://cdn.nav.no/klage/klang',
+  build: {
+    sourcemap: true,
+  },
   server: {
     port: 8064,
     proxy: {
