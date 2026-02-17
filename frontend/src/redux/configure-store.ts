@@ -31,7 +31,6 @@ const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
     console.error('rtkQueryError', action);
 
     if (action.payload.status === 401) {
-      reduxStore.dispatch(userApi.util.invalidateTags(['user']));
       reduxStore.dispatch(authApi.util.invalidateTags(['isAuthenticated']));
     }
   }

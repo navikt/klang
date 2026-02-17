@@ -1,6 +1,7 @@
+import { useAppDispatch } from '@app/redux/configure-store';
+import { setShowLoggedOutModal } from '@app/redux/logged-out-modal';
 import { useIsAuthenticatedQuery } from '@app/redux-api/auth/api';
 import { useGetUserQuery } from '@app/redux-api/user/api';
-import { login } from '@app/user/login';
 import { useEffect } from 'react';
 
 interface LoadingAuth {
@@ -30,18 +31,17 @@ export const useIsAuthenticated = (): AuthResult => {
 };
 
 /** Only for use in authorized contexts.
- * If the user is unauthorized, it will redirect to the login page.
- * It will return a loading state until the user is loaded or redirected.
+ * If the user is unauthorized, it will show the logged out modal.
  */
 export const useUserRequired = (): ReturnType<typeof useGetUserQuery> => {
   const user = useGetUserQuery();
-  const { data, isSuccess } = user;
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isSuccess && data === undefined) {
-      login();
+    if (user.isError) {
+      dispatch(setShowLoggedOutModal(true));
     }
-  }, [data, isSuccess]);
+  }, [user.isError, dispatch]);
 
   return user;
 };

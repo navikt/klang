@@ -6,12 +6,10 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: API_BASE_QUERY,
-  tagTypes: ['user'],
   endpoints: (builder) => ({
     getUser: builder.query<IUser | undefined, void>({
-      query: () => ({ url: '/bruker', validateStatus: ({ status, ok }) => ok || status === 401 }),
+      query: () => ({ url: '/bruker' }),
       transformResponse: (response: IUser | ApiErrorData) => (isApiErrorData(response) ? undefined : response),
-      providesTags: ['user'],
     }),
   }),
 });

@@ -8,7 +8,7 @@ export const loggedOutModalSlice = createSlice({
   name: 'loggedOutModal',
   initialState,
   reducers: {
-    setShow: (state, { payload }) => {
+    setShowLoggedOutModal: (state, { payload }) => {
       state.show = payload;
 
       return state;
@@ -16,4 +16,4 @@ export const loggedOutModalSlice = createSlice({
   },
 });
 
-export const { setShow } = loggedOutModalSlice.actions;
+export const { setShowLoggedOutModal } = loggedOutModalSlice.actions;

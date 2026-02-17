@@ -1,5 +1,6 @@
 import { getBooleanQueryValue, getQueryValue } from '@app/functions/get-query-value';
 import { useSessionCase } from '@app/hooks/use-session-klage';
+import { useIsAuthenticated } from '@app/hooks/use-user';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
@@ -21,7 +22,8 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const language = useLanguage();
   const { case_loader, error_messages } = useTranslation();
   const [query] = useSearchParams();
-  const { data: user, isLoading: isLoadingUser, isSuccess } = useGetUserQuery();
+  const { isAuthenticated, isLoadingAuth } = useIsAuthenticated();
+  const { data: user, isLoading: isLoadingUser, isSuccess } = useGetUserQuery(undefined, { skip: !isAuthenticated });
 
   const internalSaksnummer = getQueryValue(query.get('saksnummer'));
   const sakSakstype = getQueryValue(query.get('sakstype'));
@@ -42,11 +44,11 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
   const [sessionCase, sessionCaseIsLoading] = useSessionCase(type, innsendingsytelse, deepLinkParams);
   const dispatch = useAppDispatch();
 
-  const isLoading = isLoadingUser || createIsLoading || resumeIsLoading;
+  const isLoading = isLoadingUser || createIsLoading || resumeIsLoading || isLoadingAuth;
   const isDone = createHasFailed || createIsSuccess || resumeHasFailed || resumeIsSuccess;
 
   useEffect(() => {
-    if (!isSuccess || isLoading || isDone || sessionCaseIsLoading || innsendingsytelse === null) {
+    if ((isAuthenticated && !isSuccess) || isLoading || isDone || sessionCaseIsLoading || innsendingsytelse === null) {
       return;
     }
 
@@ -80,6 +82,7 @@ export const useCase = (type: CaseType, innsendingsytelse: Innsendingsytelse): I
     sessionCaseIsLoading,
     type,
     user,
+    isAuthenticated,
   ]);
 
   const hasFailed = createHasFailed || resumeHasFailed;
