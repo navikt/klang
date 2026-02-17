@@ -1,7 +1,7 @@
 import { isNotUndefined } from '@app/functions/is-not-type-guards';
 import { apiEvent } from '@app/logging/logger';
 import { reduxStore } from '@app/redux/configure-store';
-import { setShow } from '@app/redux/logged-out-modal';
+import { setShowLoggedOutModal } from '@app/redux/logged-out-modal';
 import { type FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 
 const IS_LOCALHOST = window.location.hostname === 'localhost';
@@ -16,7 +16,6 @@ const staggeredBaseQuery = (baseUrl: string) => {
   });
 
   return retry(
-    // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: ¯\_(ツ)_/¯
     async (args: string | FetchArgs, api, extraOptions) => {
       const startTime = performance.now();
       const result = await fetch(args, api, extraOptions);
@@ -48,10 +47,8 @@ const staggeredBaseQuery = (baseUrl: string) => {
         retry.fail(result.error);
       }
 
-      const url = argsIsString ? args : args.url;
-
-      if (result.error.status === 401 && url !== '/bruker') {
-        reduxStore.dispatch(setShow(true));
+      if (result.error.status === 401) {
+        reduxStore.dispatch(setShowLoggedOutModal(true));
         retry.fail(result.error.data);
       } else if (
         result.error.status === 400 ||
@@ -66,8 +63,6 @@ const staggeredBaseQuery = (baseUrl: string) => {
       ) {
         retry.fail(result.error);
       }
-
-      reduxStore.dispatch(setShow(false));
 
       return result;
     },

@@ -2,7 +2,6 @@ import { AppEventEnum } from '@app/logging/action';
 import { apiEvent, appEvent } from '@app/logging/logger';
 import { reduxStore } from '@app/redux/configure-store';
 import { authApi } from '@app/redux-api/auth/api';
-import { userApi } from '@app/redux-api/user/api';
 
 export enum ServerSentEventType {
   JOURNALPOSTID = 'journalpostId',
@@ -98,7 +97,6 @@ export class ServerSentEventManager {
 
         if (!preflightOK) {
           // Probably the session timed out. Double check the logged in status.
-          reduxStore.dispatch(userApi.util.invalidateTags(['user']));
           reduxStore.dispatch(authApi.util.invalidateTags(['isAuthenticated']));
 
           return;
