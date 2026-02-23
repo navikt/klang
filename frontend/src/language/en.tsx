@@ -129,6 +129,14 @@ export const en: Translations = {
         [CaseType.ETTERSENDELSE_KLAGE]: 'Delete additional documentation and return to start page',
         [CaseType.ETTERSENDELSE_ANKE]: 'Delete additional documentation and return to start page',
       },
+      errors: {
+        finished: {
+          [CaseType.KLAGE]: 'The complaint has already been submitted',
+          [CaseType.ANKE]: 'The appeal has already been submitted',
+          [CaseType.ETTERSENDELSE_KLAGE]: 'The additional documentation has already been submitted',
+          [CaseType.ETTERSENDELSE_ANKE]: 'The additional documentation has already been submitted',
+        },
+      },
     },
     summary: {
       title: {

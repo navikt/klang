@@ -133,6 +133,14 @@ export const nb = {
         [CaseType.ETTERSENDELSE_KLAGE]: 'Slett ettersendelsen og returner til hovedsiden',
         [CaseType.ETTERSENDELSE_ANKE]: 'Slett ettersendelsen og returner til hovedsiden',
       },
+      errors: {
+        finished: {
+          [CaseType.KLAGE]: 'Klagen er allerede sendt inn',
+          [CaseType.ANKE]: 'Anken er allerede sendt inn',
+          [CaseType.ETTERSENDELSE_KLAGE]: 'Ettersendelsen er allerede sendt inn',
+          [CaseType.ETTERSENDELSE_ANKE]: 'Ettersendelsen er allerede sendt inn',
+        },
+      },
     },
     summary: {
       title: {
