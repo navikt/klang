@@ -27,7 +27,7 @@ const FILE_INPUT_ID = 'file-upload-input';
 export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, error }: Props) => {
   const { skjema, common } = useTranslation();
   const [attachmentsLoading, setAttachmentsLoading] = useState<boolean>(false);
-  const [attachmentErrors, setAttachmentErrors] = useState<FetchBaseQueryError[]>([]);
+  const [attachmentErrors, setAttachmentErrors] = useState<(FetchBaseQueryError | string)[]>([]);
 
   const deleteAttachment = (attachmentId: number) => {
     appEvent(AppEventEnum.ATTACHMENT_DELETE);
@@ -77,13 +77,14 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
         caseId={caseId}
         addError={(err) => setAttachmentErrors((e) => [...e, err])}
         isLoading={attachmentsLoading}
+        attachments={attachments}
       />
     </>
   );
 };
 
 interface ShowErrorsProps {
-  errors: FetchBaseQueryError[];
+  errors: (FetchBaseQueryError | string)[];
   clear: () => void;
 }
 
@@ -118,10 +119,14 @@ const ShowErrors = ({ errors, clear }: ShowErrorsProps) => {
   );
 };
 
-const useErrorMessages = (errors: FetchBaseQueryError[]): string[] => {
+const useErrorMessages = (errors: (FetchBaseQueryError | string)[]): string[] => {
   const { common, error_messages } = useTranslation();
 
   return errors.map((error): string => {
+    if (typeof error === 'string') {
+      return error;
+    }
+
     if (isApiError(error)) {
       return isErrorMessageKey(error.data.detail) ? error_messages[error.data.detail] : common.generic_error;
     }
