@@ -138,6 +138,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
       <BegrunnelseText
         caseId={data.id}
         value={data.fritekst}
+        type={data.type}
         description={skjema.begrunnelse.begrunnelse_text.description[data.type]}
         placeholder={skjema.begrunnelse.begrunnelse_text.placeholder[data.type]}
         label={skjema.begrunnelse.begrunnelse_text.title[data.type]}

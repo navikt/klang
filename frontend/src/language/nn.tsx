@@ -132,6 +132,14 @@ export const nn: Translations = {
         [CaseType.ETTERSENDELSE_KLAGE]: 'Slett ettersendinga og gå tilbake til hovudsida',
         [CaseType.ETTERSENDELSE_ANKE]: 'Slett ettersendinga og gå tilbake til hovudsida',
       },
+      errors: {
+        finished: {
+          [CaseType.KLAGE]: 'Klaga er allereie sendt inn',
+          [CaseType.ANKE]: 'Anka er allereie sendt inn',
+          [CaseType.ETTERSENDELSE_KLAGE]: 'Ettersendinga er allereie sendt inn',
+          [CaseType.ETTERSENDELSE_ANKE]: 'Ettersendinga er allereie sendt inn',
+        },
+      },
     },
     summary: {
       title: {
