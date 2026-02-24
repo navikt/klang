@@ -22,9 +22,9 @@ export const nn: Translations = {
       [CaseType.ANKE]:
         'Dersom du er ein arbeidsgivar må du logge ut og sende anka i posten. Du legg inn fødselsnummeret eller D-nummeret til den arbeidstakaren som vedtaket gjeld for, skriv ut anka og signerer som arbeidsgivar.',
       [CaseType.ETTERSENDELSE_KLAGE]:
-        'Dersom du er ein arbeidsgivar må du logge ut og legge inn fødselsnummeret eller D-nummeret til den arbeidstakaren som ettersendinga gjeld for, skriv ut framsida og signerer som arbeidsgivar.',
+        'Dersom du er ein arbeidsgivar må du logge ut og leggje inn fødselsnummeret eller D-nummeret til den arbeidstakaren som ettersendinga gjeld for, skriv ut framsida og signerer som arbeidsgivar.',
       [CaseType.ETTERSENDELSE_ANKE]:
-        'Dersom du er ein arbeidsgivar må du logge ut og legge inn fødselsnummeret eller D-nummeret til den arbeidstakaren som ettersendinga gjeld for, skriv ut framsida og signerer som arbeidsgivar.',
+        'Dersom du er ein arbeidsgivar må du logge ut og leggje inn fødselsnummeret eller D-nummeret til den arbeidstakaren som ettersendinga gjeld for, skriv ut framsida og signerer som arbeidsgivar.',
     },
     common: {
       title_fragment: {
@@ -56,7 +56,7 @@ export const nn: Translations = {
         clear_errors: 'Fjern feilmeldingar',
         title: 'Vedlegg',
         upload_button_text: 'Last opp nytt vedlegg',
-        description: 'Har du informasjon du ønsker å legge ved, lastar du det opp her.',
+        description: 'Har du informasjon du ønsker å leggje ved, lastar du det opp her.',
         supported_types: [
           <span key="1">Filtyper som støttast: </span>,
           <span key="2">
@@ -379,8 +379,9 @@ export const nn: Translations = {
     [ErrorMessageKeys.EMPTY]: 'Du kan ikkje sende inn ei tom fil.',
     [ErrorMessageKeys.VIRUS]: 'Vi mistenker at fila di inneheld eit virus, den kan derfor ikkje sendast inn.',
     [ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]:
-      'Du har prøvd å legge til eit vedlegg med eit format vi ikkje støttar. Vedlegg er avgrensa til PNG, JPEG og PDF.',
+      'Du har prøvd å leggje til eit vedlegg med eit format vi ikkje støttar. Vedlegg er avgrensa til PNG, JPEG og PDF.',
     download: 'Klarte ikkje å laste ned PDF. Ver venleg og prøv på nytt seinare.',
+    could_not_add: 'Kunne ikkje leggje til',
     skjema: {
       title: 'Feil i skjema',
       fnr_dnr_or_npid: 'Du må fylle inn eit gyldig fødselsnummer, D-nummer eller NPID.',

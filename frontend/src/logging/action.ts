@@ -23,6 +23,7 @@ export enum AppEventEnum {
   UPLOAD_FILES_CLICK = 'Click upload attachment',
   UPLOAD_FILES_DONE = 'Done uploading files',
   UPLOAD_FILES_START = 'Start uploading files',
+  UPLOAD_FILES_ERROR = 'Upload files error',
   USER_LOGIN = 'Login',
   MISSING_AUTH = 'Missing authentication',
   LOGGED_OUT_MODAL_OPEN = 'Logged out modal open',
