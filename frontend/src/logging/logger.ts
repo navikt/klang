@@ -35,8 +35,8 @@ class FrontendLogger {
   public navigationEvent = () =>
     send({ type: EventTypes.NAVIGATION, message: 'App navigation', ...this.getBase(Level.DEBUG) });
 
-  public appEvent = (action: AppEventEnum) =>
-    send({ type: EventTypes.APP, message: action, action, ...this.getBase(Level.DEBUG) });
+  public appEvent = (action: AppEventEnum, context?: Record<string, unknown>) =>
+    send({ type: EventTypes.APP, message: action, action, context, ...this.getBase(Level.DEBUG) });
 
   public errorEvent = (message: string, stack?: string, user_id?: string) =>
     send({

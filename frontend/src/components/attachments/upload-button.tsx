@@ -18,6 +18,8 @@ const OVERHEAD_BYTES = 288;
 const MAX_SIZE_BYTES_SINGLE = MAX_SIZE_MIB_SINGLE * BYTES_PER_MIB - OVERHEAD_BYTES;
 const MAX_SIZE_BYTES_TOTAL = MAX_SIZE_MIB_TOTAL * BYTES_PER_MIB;
 
+const FORMATTER = new Intl.NumberFormat('nb-NO');
+
 interface Props {
   caseId: string;
   inputId: string;
@@ -41,11 +43,17 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId,
   const upload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
-    appEvent(AppEventEnum.UPLOAD_FILES_START);
+    const files = Array.from(event.target.files ?? []);
 
-    const { files } = event.target;
+    appEvent(AppEventEnum.UPLOAD_FILES_START, {
+      file_count: files.length,
+      files: files.map((file) => ({
+        size_kib: `${FORMATTER.format(file.size / BYTES_PER_KB)}`,
+        type: file.type,
+      })),
+    });
 
-    if (files === null || files.length === 0) {
+    if (files.length === 0) {
       return;
     }
 
