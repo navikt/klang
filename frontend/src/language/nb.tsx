@@ -1,5 +1,6 @@
 import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
 import { ExternalLink } from '@app/components/link/link';
+import { MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { ErrorMessageKeys } from '@app/language/error-messages';
 import { CaseStatus, CaseType, getEttersendelsePath, Reason } from '@app/redux-api/case/types';
@@ -73,8 +74,7 @@ export const nb = {
           </span>,
           <span key="7">.</span>,
         ],
-        size_limit:
-          'Filstørrelsen kan ikke være større enn 8 MB, og total størrelse av alle vedlegg kan ikke være større enn 32 MB.',
+        size_limit: `Filstørrelsen kan ikke være større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB, og total størrelse av alle vedlegg kan ikke være større enn ${MAX_SIZE_UPLOAD_MIB_TOTAL} MB.`,
       },
       saksnummer: {
         title: 'Saksnummer (valgfri)',
@@ -374,9 +374,9 @@ export const nb = {
     go_back: 'Gå tilbake til nav.no/klage',
   },
   error_messages: {
-    [ErrorMessageKeys.MAX_UPLOAD_SIZE]: 'Filstørrelsen kan ikke være større enn 8 MB.',
-    [ErrorMessageKeys.TOO_LARGE]: 'Filstørrelsen kan ikke være større enn 8 MB.',
-    [ErrorMessageKeys.TOTAL_TOO_LARGE]: 'Total filstørrelse kan ikke være større enn 32 MB.',
+    [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `Filstørrelsen kan ikke være større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
+    [ErrorMessageKeys.TOO_LARGE]: `Filstørrelsen kan ikke være større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
+    [ErrorMessageKeys.TOTAL_TOO_LARGE]: `Total filstørrelse kan ikke være større enn ${MAX_SIZE_UPLOAD_MIB_TOTAL} MB.`,
     [ErrorMessageKeys.ENCRYPTED]: 'Vi mistenker at filen din er kryptert, den kan derfor ikke sendes med.',
     [ErrorMessageKeys.EMPTY]: 'Du kan ikke sende med en tom fil.',
     [ErrorMessageKeys.VIRUS]: 'Vi mistenker at filen din inneholder et virus, den kan derfor ikke sendes med.',

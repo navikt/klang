@@ -1,5 +1,6 @@
 import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
 import { ExternalLink } from '@app/components/link/link';
+import { MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { ErrorMessageKeys } from '@app/language/error-messages';
 import type { Translations } from '@app/language/nb';
@@ -72,7 +73,7 @@ export const en: Translations = {
           </span>,
           <span key="7">.</span>,
         ],
-        size_limit: 'The file size cannot exceed 8 MB, and the total size of all attachments cannot exceed 32 MB.',
+        size_limit: `The file size cannot exceed ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB, and the total size of all attachments cannot exceed ${MAX_SIZE_UPLOAD_MIB_TOTAL} MB.`,
       },
       saksnummer: {
         title: 'Case number (optional)',
@@ -371,9 +372,9 @@ export const en: Translations = {
     go_back: 'Go back to nav.no/klage',
   },
   error_messages: {
-    [ErrorMessageKeys.MAX_UPLOAD_SIZE]: 'The file size cannot be larger than 8 MB.',
-    [ErrorMessageKeys.TOO_LARGE]: 'The file size cannot be larger than 8 MB.',
-    [ErrorMessageKeys.TOTAL_TOO_LARGE]: 'Total file size cannot exceed 32 MB.',
+    [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `The file size cannot be larger than ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
+    [ErrorMessageKeys.TOO_LARGE]: `The file size cannot be larger than ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
+    [ErrorMessageKeys.TOTAL_TOO_LARGE]: `Total file size cannot exceed ${MAX_SIZE_UPLOAD_MIB_TOTAL} MB.`,
     [ErrorMessageKeys.ENCRYPTED]: 'We suspect that your file is encrypted, therefore it cannot be included.',
     [ErrorMessageKeys.EMPTY]: 'You cannot include an empty file.',
     [ErrorMessageKeys.VIRUS]: 'We suspect that your file contains a virus, therefore is cannot be included.',

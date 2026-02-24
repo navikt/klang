@@ -1,5 +1,6 @@
 import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
 import { ExternalLink } from '@app/components/link/link';
+import { MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { ErrorMessageKeys } from '@app/language/error-messages';
 import type { Translations } from '@app/language/nb';
@@ -72,8 +73,7 @@ export const nn: Translations = {
           </span>,
           <span key="7">.</span>,
         ],
-        size_limit:
-          'Filstorleiken kan ikkje vere større enn 8 MB, og den total storleiken av alle vedlegg kan ikkje vere større enn 32 MB.',
+        size_limit: `Filstorleiken kan ikkje vere større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB, og den total storleiken av alle vedlegg kan ikkje vere større enn ${MAX_SIZE_UPLOAD_MIB_TOTAL} MB.`,
       },
       saksnummer: {
         title: 'Saksnummer (valfritt)',
@@ -372,9 +372,9 @@ export const nn: Translations = {
     go_back: 'Gå tilbake til nav.no/klage',
   },
   error_messages: {
-    [ErrorMessageKeys.MAX_UPLOAD_SIZE]: 'Filstorleiken kan ikkje vere større enn 8 MB.',
-    [ErrorMessageKeys.TOO_LARGE]: 'Filstorleiken kan ikkje vere større enn 8 MB.',
-    [ErrorMessageKeys.TOTAL_TOO_LARGE]: 'Total filstorleik kan ikkje vere større enn 32 MB.',
+    [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `Filstorleiken kan ikkje vere større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
+    [ErrorMessageKeys.TOO_LARGE]: `Filstorleiken kan ikkje vere større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
+    [ErrorMessageKeys.TOTAL_TOO_LARGE]: `Total filstorleik kan ikkje vere større enn ${MAX_SIZE_UPLOAD_MIB_TOTAL} MB.`,
     [ErrorMessageKeys.ENCRYPTED]: 'Vi mistenker at fila di er kryptert, den kan derfor ikkje sendast inn.',
     [ErrorMessageKeys.EMPTY]: 'Du kan ikkje sende inn ei tom fil.',
     [ErrorMessageKeys.VIRUS]: 'Vi mistenker at fila di inneheld eit virus, den kan derfor ikkje sendast inn.',

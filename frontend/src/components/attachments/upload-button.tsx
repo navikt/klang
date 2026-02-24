@@ -1,3 +1,4 @@
+import { MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
 import { isError } from '@app/functions/is-api-error';
 import { ErrorMessageKeys } from '@app/language/error-messages';
 import { useTranslation } from '@app/language/use-translation';
@@ -12,11 +13,9 @@ import { useRef } from 'react';
 
 const BYTES_PER_KB = 1_024;
 const BYTES_PER_MIB = BYTES_PER_KB * BYTES_PER_KB;
-const MAX_SIZE_MIB_SINGLE = 8;
-const MAX_SIZE_MIB_TOTAL = 32;
 const OVERHEAD_BYTES = 288;
-const MAX_SIZE_BYTES_SINGLE = MAX_SIZE_MIB_SINGLE * BYTES_PER_MIB - OVERHEAD_BYTES;
-const MAX_SIZE_BYTES_TOTAL = MAX_SIZE_MIB_TOTAL * BYTES_PER_MIB;
+const MAX_SIZE_BYTES_SINGLE = MAX_SIZE_UPLOAD_MIB_SINGLE * BYTES_PER_MIB - OVERHEAD_BYTES;
+const MAX_SIZE_BYTES_TOTAL = MAX_SIZE_UPLOAD_MIB_TOTAL * BYTES_PER_MIB;
 
 const FORMATTER = new Intl.NumberFormat('nb-NO');
 
