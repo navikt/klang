@@ -45,6 +45,7 @@ export interface BaseEventData {
 interface CommonEventData {
   message: string;
   user_id?: string;
+  context?: Record<string, unknown>;
 }
 
 interface NavigationEvent extends BaseEventData, CommonEventData {
