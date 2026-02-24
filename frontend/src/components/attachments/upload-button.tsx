@@ -20,6 +20,8 @@ const MAX_SIZE_BYTES_TOTAL = MAX_SIZE_MIB_TOTAL * BYTES_PER_MIB;
 
 const FORMATTER = new Intl.NumberFormat('nb-NO');
 
+const VALID_FILE_TYPES = ['image/png', 'image/jpeg', 'image/jpg', 'application/pdf'];
+
 interface Props {
   caseId: string;
   inputId: string;
@@ -57,28 +59,49 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId,
       return;
     }
 
+    const uploadedSize = attachments.reduce((total, attachment) => total + attachment.sizeInBytes, 0);
+    const includedFiles: File[] = [];
+    const exclusionReasons: string[] = [];
     let pickedSize = 0;
 
     for (const file of files) {
-      pickedSize += file.size;
+      if (!VALID_FILE_TYPES.includes(file.type)) {
+        addError(`${file.name}: ${error_messages[ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]}`);
+        exclusionReasons.push(`Invalid type: ${file.type}`);
+        continue;
+      }
 
       if (file.size > MAX_SIZE_BYTES_SINGLE) {
         addError(`${file.name}: ${error_messages[ErrorMessageKeys.TOO_LARGE]}`);
-        return;
+        exclusionReasons.push(`File too large: ${FORMATTER.format(file.size / BYTES_PER_KB)} KiB`);
+        continue;
       }
+
+      const overhead = (includedFiles.length + 1) * OVERHEAD_BYTES;
+
+      if (uploadedSize + pickedSize + overhead + file.size > MAX_SIZE_BYTES_TOTAL) {
+        addError(`${error_messages.could_not_add} ${file.name}. ${error_messages[ErrorMessageKeys.TOTAL_TOO_LARGE]}`);
+        exclusionReasons.push(
+          `Total size exceeded. Could not add file of size: ${FORMATTER.format(file.size / BYTES_PER_KB)} KiB. Used: ${FORMATTER.format((uploadedSize + pickedSize + overhead) / BYTES_PER_KB)} KiB.`,
+        );
+        continue;
+      }
+
+      pickedSize += file.size;
+      includedFiles.push(file);
     }
 
-    const uploadedSize = attachments.reduce((total, attachment) => total + attachment.sizeInBytes, 0);
-    const overhead = files.length * OVERHEAD_BYTES;
+    if (exclusionReasons.length > 0) {
+      appEvent(AppEventEnum.UPLOAD_FILES_ERROR, { exclusions: exclusionReasons });
+    }
 
-    if (uploadedSize + pickedSize + overhead > MAX_SIZE_BYTES_TOTAL) {
-      addError(error_messages[ErrorMessageKeys.TOTAL_TOO_LARGE]);
+    if (includedFiles.length === 0) {
       return;
     }
 
     setLoading(true);
 
-    const uploads = Array.from(files).map(async (file) => {
+    const uploads = includedFiles.map(async (file) => {
       try {
         await uploadAttachment({ caseId, file }).unwrap();
       } catch (err) {
@@ -112,7 +135,7 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId,
         id={inputId}
         type="file"
         multiple
-        accept="image/png, image/jpeg, image/jpg, .pdf"
+        accept={[...VALID_FILE_TYPES, '.pdf'].join(',')}
         ref={fileInput}
         onChange={(e) => {
           upload(e);
