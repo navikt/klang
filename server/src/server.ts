@@ -14,6 +14,7 @@ import { localDevPlugin } from '@app/plugins/local-dev';
 import { notFoundPlugin } from '@app/plugins/not-found/not-found';
 import { oboAccessTokenPlugin } from '@app/plugins/obo-token';
 import { proxyVersionPlugin } from '@app/plugins/proxy-version';
+import { redirectLegacyPathsPlugin } from '@app/plugins/redirect-legacy-paths';
 import { serveIndexPlugin } from '@app/plugins/serve-index/serve-index';
 import { serveStaticFilesPlugin } from '@app/plugins/serve-static-files';
 import { serverTimingPlugin } from '@app/plugins/server-timing';
@@ -65,6 +66,7 @@ fastify({
   .register(apiProxyPlugin, { appNames: API_CLIENT_IDS, prefix: '/api' })
   .register(unleashProxyPlugin)
   .register(localDevPlugin)
+  .register(redirectLegacyPathsPlugin)
   .register(serveIndexPlugin)
   .register(notFoundPlugin)
   .register(httpLoggerPlugin)
