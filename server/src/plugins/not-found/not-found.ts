@@ -14,7 +14,7 @@ const log = getLogger('not-found-plugin');
 
 export const NOT_FOUND_PLUGIN_ID = 'not-found';
 
-const HARMLESS_NOT_FOUND_PATHS = ['/favicon.ico', '/'];
+const HARMLESS_NOT_FOUND_PATHS = ['/favicon.ico', '/apple-touch-icon.png', '/apple-touch-icon-precomposed.png', '/'];
 
 export const notFoundPlugin = fastifyPlugin(
   async (app) => {
