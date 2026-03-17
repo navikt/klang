@@ -1,4 +1,4 @@
-import { MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
+import { MAX_FILENAME_LENGTH, MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
 import { isError } from '@app/functions/is-api-error';
 import { ErrorMessageKeys } from '@app/language/error-messages';
 import { useTranslation } from '@app/language/use-translation';
@@ -62,6 +62,12 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId,
     let pickedSize = 0;
 
     for (const file of files) {
+      if (file.name.length > MAX_FILENAME_LENGTH) {
+        addError(`${file.name}: ${error_messages[ErrorMessageKeys.FILENAME_TOO_LONG]}`);
+        exclusionReasons.push(`Filename too long: ${file.name.length} characters`);
+        continue;
+      }
+
       if (!VALID_FILE_TYPES.includes(file.type)) {
         addError(`${file.name}: ${error_messages[ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]}`);
         exclusionReasons.push(`Invalid type: ${file.type}`);

@@ -1,2 +1,4 @@
 export const MAX_SIZE_UPLOAD_MIB_SINGLE = 50;
 export const MAX_SIZE_UPLOAD_MIB_TOTAL = 150;
+
+export const MAX_FILENAME_LENGTH = 196;
