@@ -49,7 +49,7 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId,
     appEvent(AppEventEnum.UPLOAD_FILES_START, {
       file_count: files.length,
       max_size_kib: files.reduce((max, file) => (file.size > max ? file.size : max), 0) / BYTES_PER_KB,
-      ...files.map((f) => ({ type: f.type, size_kib: f.size / BYTES_PER_KB })),
+      files: files.map(({ type, size }): string => `${type}: ${FORMATTER.format(size / BYTES_PER_KB)} KiB`).join(', '),
     });
 
     if (files.length === 0) {
