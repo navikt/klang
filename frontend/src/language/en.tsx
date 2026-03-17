@@ -383,6 +383,7 @@ export const en: Translations = {
     [ErrorMessageKeys.FILENAME_TOO_LONG]: `The file has a name that is too long. Try giving the file a name with a maximum of ${MAX_FILENAME_LENGTH} characters and upload again.`,
     download: 'Failed to download PDF. Please try again later.',
     could_not_add: 'Could not add',
+    uploaded_files: 'Uploaded files',
     skjema: {
       title: 'Form is not complete',
       fnr_dnr_or_npid: 'You must input a valid national identity number, D number or NPID.',

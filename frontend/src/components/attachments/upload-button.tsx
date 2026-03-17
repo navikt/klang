@@ -26,7 +26,7 @@ interface Props {
   inputId: string;
   setLoading: (loading: boolean) => void;
   isLoading: boolean;
-  addError: (error: FetchBaseQueryError | string) => void;
+  addError: (error: [string, string[] | FetchBaseQueryError]) => void;
   attachments: Attachment[];
 }
 
@@ -41,6 +41,7 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId,
     fileInput.current?.click();
   };
 
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Many possible errors to handle
   const upload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
@@ -62,36 +63,49 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId,
     let pickedSize = 0;
 
     for (const file of files) {
+      const singleFileErrors: string[] = [];
+      let countFileSize = true;
+
       if (file.name.length > MAX_FILENAME_LENGTH) {
-        addError(`${file.name}: ${error_messages[ErrorMessageKeys.FILENAME_TOO_LONG]}`);
+        singleFileErrors.push(error_messages[ErrorMessageKeys.FILENAME_TOO_LONG]);
         exclusionReasons.push(`Filename too long: ${file.name.length} characters`);
-        continue;
       }
 
       if (!VALID_FILE_TYPES.includes(file.type)) {
-        addError(`${file.name}: ${error_messages[ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]}`);
+        singleFileErrors.push(error_messages[ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]);
         exclusionReasons.push(`Invalid type: ${file.type}`);
-        continue;
+        countFileSize = false;
       }
 
       if (file.size > MAX_SIZE_BYTES_SINGLE) {
-        addError(`${file.name}: ${error_messages[ErrorMessageKeys.TOO_LARGE]}`);
+        singleFileErrors.push(error_messages[ErrorMessageKeys.TOO_LARGE]);
         exclusionReasons.push(`File too large: ${FORMATTER.format(file.size / BYTES_PER_KB)} KiB`);
-        continue;
+        countFileSize = false;
+      }
+
+      if (singleFileErrors.length > 0) {
+        addError([file.name, singleFileErrors]);
       }
 
       const overhead = (includedFiles.length + 1) * OVERHEAD_BYTES;
 
-      if (uploadedSize + pickedSize + overhead + file.size > MAX_SIZE_BYTES_TOTAL) {
-        addError(`${error_messages.could_not_add} ${file.name}. ${error_messages[ErrorMessageKeys.TOTAL_TOO_LARGE]}`);
+      let totalSizeError = false;
+
+      if (countFileSize && uploadedSize + pickedSize + overhead + file.size > MAX_SIZE_BYTES_TOTAL) {
+        addError([error_messages.uploaded_files, [error_messages[ErrorMessageKeys.TOTAL_TOO_LARGE]]]);
         exclusionReasons.push(
           `Total size exceeded. Could not add file of size: ${FORMATTER.format(file.size / BYTES_PER_KB)} KiB. Used: ${FORMATTER.format((uploadedSize + pickedSize + overhead) / BYTES_PER_KB)} KiB.`,
         );
-        continue;
+        totalSizeError = true;
       }
 
-      pickedSize += file.size;
-      includedFiles.push(file);
+      if (countFileSize) {
+        pickedSize += file.size;
+      }
+
+      if (singleFileErrors.length === 0 && !totalSizeError) {
+        includedFiles.push(file);
+      }
     }
 
     if (exclusionReasons.length > 0) {
@@ -109,7 +123,7 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId,
         await uploadAttachment({ caseId, file }).unwrap();
       } catch (err) {
         if (isError(err)) {
-          addError(err);
+          addError([file.name, err]);
         }
 
         return null;
