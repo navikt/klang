@@ -383,6 +383,7 @@ export const nn: Translations = {
     [ErrorMessageKeys.FILENAME_TOO_LONG]: `Fila har eit namn som er for langt. Prøv å gje fila eit namn på maksimum ${MAX_FILENAME_LENGTH} teikn og last opp igjen.`,
     download: 'Klarte ikkje å laste ned PDF. Ver venleg og prøv på nytt seinare.',
     could_not_add: 'Kunne ikkje leggje til',
+    uploaded_files: 'Opplasta filer',
     skjema: {
       title: 'Feil i skjema',
       fnr_dnr_or_npid: 'Du må fylle inn eit gyldig fødselsnummer, D-nummer eller NPID.',

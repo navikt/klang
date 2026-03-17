@@ -385,6 +385,7 @@ export const nb = {
     [ErrorMessageKeys.FILENAME_TOO_LONG]: `Filen har et navn som er for langt. Prøv å gi filen et navn på maksimum ${MAX_FILENAME_LENGTH} tegn og last opp igjen.`,
     download: 'Klarte ikke å laste ned PDF. Vennligst prøv igjen senere.',
     could_not_add: 'Kunne ikke legge til',
+    uploaded_files: 'Opplastede filer',
     skjema: {
       title: 'Feil i skjema',
       fnr_dnr_or_npid: 'Du må fylle inn et gyldig fødselsnummer, D-nummer eller NPID.',

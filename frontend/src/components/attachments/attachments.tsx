@@ -10,7 +10,18 @@ import { appEvent } from '@app/logging/logger';
 import type { DeleteAttachmentParams } from '@app/redux-api/case/params';
 import type { Attachment } from '@app/redux-api/case/types';
 import { TrashIcon, XMarkIcon } from '@navikt/aksel-icons';
-import { Alert, BodyLong, Box, Button, ErrorMessage, ErrorSummary, HStack, Label, VStack } from '@navikt/ds-react';
+import {
+  Alert,
+  BodyLong,
+  Box,
+  Button,
+  ErrorMessage,
+  ErrorSummary,
+  HStack,
+  Label,
+  List,
+  VStack,
+} from '@navikt/ds-react';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useState } from 'react';
 
@@ -23,11 +34,12 @@ interface Props {
 }
 
 const FILE_INPUT_ID = 'file-upload-input';
+type Errors = Record<string, string[] | FetchBaseQueryError>;
 
 export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, error }: Props) => {
   const { skjema, common } = useTranslation();
   const [attachmentsLoading, setAttachmentsLoading] = useState<boolean>(false);
-  const [attachmentErrors, setAttachmentErrors] = useState<(FetchBaseQueryError | string)[]>([]);
+  const [attachmentErrors, setAttachmentErrors] = useState<Errors>({});
 
   const deleteAttachment = (attachmentId: number) => {
     appEvent(AppEventEnum.ATTACHMENT_DELETE);
@@ -70,12 +82,12 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
         <BodyLong>{skjema.begrunnelse.attachments.supported_types}</BodyLong>
         <BodyLong>{skjema.begrunnelse.attachments.size_limit}</BodyLong>
       </Alert>
-      <ShowErrors errors={attachmentErrors} clear={() => setAttachmentErrors([])} />
+      <ShowErrors errors={attachmentErrors} clear={() => setAttachmentErrors({})} />
       <UploadButton
         inputId={FILE_INPUT_ID}
         setLoading={setAttachmentsLoading}
         caseId={caseId}
-        addError={(err) => setAttachmentErrors((e) => [...e, err])}
+        addError={([key, value]) => setAttachmentErrors((prev) => ({ ...prev, [key]: value }))}
         isLoading={attachmentsLoading}
         attachments={attachments}
       />
@@ -84,7 +96,7 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
 };
 
 interface ShowErrorsProps {
-  errors: (FetchBaseQueryError | string)[];
+  errors: Errors;
   clear: () => void;
 }
 
@@ -92,7 +104,7 @@ const ShowErrors = ({ errors, clear }: ShowErrorsProps) => {
   const errorMessages = useErrorMessages(errors);
   const { skjema } = useTranslation();
 
-  if (errors.length === 0) {
+  if (errorMessages.length === 0) {
     return null;
   }
 
@@ -109,9 +121,14 @@ const ShowErrors = ({ errors, clear }: ShowErrorsProps) => {
         </Button>
       </Box>
       <ErrorSummary>
-        {errorMessages.map((error) => (
-          <ErrorSummary.Item key={error} href="#upload-attachment" className="wrap-anywhere">
-            {error}
+        {errorMessages.map(([fileName, errors]) => (
+          <ErrorSummary.Item key={fileName} href="#upload-attachment" className="wrap-anywhere flex-col items-start">
+            <b>{fileName}</b>
+            <List>
+              {errors.map((error) => (
+                <List.Item key={error}>{error}</List.Item>
+              ))}
+            </List>
           </ErrorSummary.Item>
         ))}
       </ErrorSummary>
@@ -119,22 +136,25 @@ const ShowErrors = ({ errors, clear }: ShowErrorsProps) => {
   );
 };
 
-const useErrorMessages = (errors: (FetchBaseQueryError | string)[]): string[] => {
+const useErrorMessages = (errors: Errors): [string, string[]][] => {
   const { common, error_messages } = useTranslation();
 
-  return errors.map((error): string => {
-    if (typeof error === 'string') {
-      return error;
+  return Object.entries(errors).map(([fileName, details]): [string, string[]] => {
+    if (Array.isArray(details)) {
+      return [fileName, details];
     }
 
-    if (isApiError(error)) {
-      return isErrorMessageKey(error.data.detail) ? error_messages[error.data.detail] : common.generic_error;
+    if (isApiError(details)) {
+      return [
+        fileName,
+        [isErrorMessageKey(details.data.detail) ? error_messages[details.data.detail] : common.generic_error],
+      ];
     }
 
-    if (isError(error)) {
-      return typeof error.data === 'string' ? error.data : common.generic_error;
+    if (isError(details)) {
+      return [fileName, [typeof details.data === 'string' ? details.data : common.generic_error]];
     }
 
-    return common.generic_error;
+    return [fileName, [common.generic_error]];
   });
 };
