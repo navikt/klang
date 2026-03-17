@@ -6,6 +6,7 @@ export enum ErrorMessageKeys {
   EMPTY = 'EMPTY',
   VIRUS = 'VIRUS',
   FILE_COULD_NOT_BE_CONVERTED = 'FILE_COULD_NOT_BE_CONVERTED',
+  FILENAME_TOO_LONG = 'FILENAME_TOO_LONG',
 }
 
 const KEYS = Object.values(ErrorMessageKeys);

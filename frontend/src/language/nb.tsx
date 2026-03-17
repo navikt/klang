@@ -1,6 +1,6 @@
 import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
 import { ExternalLink } from '@app/components/link/link';
-import { MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
+import { MAX_FILENAME_LENGTH, MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { ErrorMessageKeys } from '@app/language/error-messages';
 import { CaseStatus, CaseType, getEttersendelsePath, Reason } from '@app/redux-api/case/types';
@@ -382,6 +382,7 @@ export const nb = {
     [ErrorMessageKeys.VIRUS]: 'Vi mistenker at filen din inneholder et virus, den kan derfor ikke sendes med.',
     [ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]:
       'Du har prøvd å legge til et vedlegg med et format vi ikke støtter. Vedlegg er begrenset til PNG, JPEG, og PDF.',
+    [ErrorMessageKeys.FILENAME_TOO_LONG]: `Filen har et navn som er for langt. Prøv å gi filen et navn på maksimum ${MAX_FILENAME_LENGTH} tegn og last opp igjen.`,
     download: 'Klarte ikke å laste ned PDF. Vennligst prøv igjen senere.',
     could_not_add: 'Kunne ikke legge til',
     skjema: {

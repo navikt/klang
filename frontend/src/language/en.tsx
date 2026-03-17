@@ -1,6 +1,6 @@
 import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
 import { ExternalLink } from '@app/components/link/link';
-import { MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
+import { MAX_FILENAME_LENGTH, MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { ErrorMessageKeys } from '@app/language/error-messages';
 import type { Translations } from '@app/language/nb';
@@ -380,6 +380,7 @@ export const en: Translations = {
     [ErrorMessageKeys.VIRUS]: 'We suspect that your file contains a virus, therefore is cannot be included.',
     [ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]:
       'You have tried to include an attachment with a format we do not support. Attachments are limited to til PNG, JPEG, and PDF.',
+    [ErrorMessageKeys.FILENAME_TOO_LONG]: `The file has a name that is too long. Try giving the file a name with a maximum of ${MAX_FILENAME_LENGTH} characters and upload again.`,
     download: 'Failed to download PDF. Please try again later.',
     could_not_add: 'Could not add',
     skjema: {

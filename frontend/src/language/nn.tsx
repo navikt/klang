@@ -1,6 +1,6 @@
 import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
 import { ExternalLink } from '@app/components/link/link';
-import { MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
+import { MAX_FILENAME_LENGTH, MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { ErrorMessageKeys } from '@app/language/error-messages';
 import type { Translations } from '@app/language/nb';
@@ -380,6 +380,7 @@ export const nn: Translations = {
     [ErrorMessageKeys.VIRUS]: 'Vi mistenker at fila di inneheld eit virus, den kan derfor ikkje sendast inn.',
     [ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]:
       'Du har prøvd å leggje til eit vedlegg med eit format vi ikkje støttar. Vedlegg er avgrensa til PNG, JPEG og PDF.',
+    [ErrorMessageKeys.FILENAME_TOO_LONG]: `Fila har eit namn som er for langt. Prøv å gje fila eit namn på maksimum ${MAX_FILENAME_LENGTH} teikn og last opp igjen.`,
     download: 'Klarte ikkje å laste ned PDF. Ver venleg og prøv på nytt seinare.',
     could_not_add: 'Kunne ikkje leggje til',
     skjema: {
