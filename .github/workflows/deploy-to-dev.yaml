@@ -56,13 +56,13 @@ jobs:
       - name: Install common dependencies
         env:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --ignore-scripts
 
       - name: Install frontend dependencies
         working-directory: ./frontend
         env:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --ignore-scripts
 
       - name: Test frontend
         working-directory: ./frontend
@@ -87,7 +87,7 @@ jobs:
         working-directory: ./server
         env:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --ignore-scripts
 
       - name: Test server
         working-directory: ./server

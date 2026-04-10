@@ -31,7 +31,7 @@ jobs:
       - name: Install common dependencies
         env:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --ignore-scripts
 
       - name: Install ${{ matrix.apps }} dependencies
         shell: bash
@@ -39,7 +39,7 @@ jobs:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
         run: |
           cd ${{ matrix.apps }}
-          bun install --frozen-lockfile
+          bun install --frozen-lockfile --ignore-scripts
 
       - name: Restore caches for ${{ matrix.apps }}
         uses: actions/cache/restore@v3

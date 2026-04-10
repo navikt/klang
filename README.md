@@ -119,7 +119,7 @@ Denne klienten interagerer med https://github.com/navikt/klage-dittnav-api, som 
 - https://bun.sh/docs/install/registries
 
 ```
-bun i
+bun i --ignore-scripts
 bun start
 ```
 
