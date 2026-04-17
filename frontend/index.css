@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@import "@navikt/ds-css" layer(components);
+@config "./tailwind.config.js";
+
+@theme {
+  --breakpoint-laptop: 1024px;
+}

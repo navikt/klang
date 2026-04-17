@@ -13,7 +13,7 @@ export const KvitteringLoading = ({ informStillWorking, type }: Props) => {
 
   return (
     <VStack align="center">
-      <Box marginInline="auto" marginBlock="space-16" width="100px" className="animate-bounce-envelope">
+      <Box marginInline="auto" marginBlock="space-16" width="100px" className="animate-bounce">
         <Envelope title={icons.receipt} />
       </Box>
       <Heading align="center" size="medium" level="1" spacing>

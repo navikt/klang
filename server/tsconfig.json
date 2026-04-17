@@ -2,11 +2,12 @@
   "compilerOptions": {
     // Enable latest features
     "lib": ["ESNext"],
+    "types": ["@types/bun"],
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "esnext",
     "moduleDetection": "force",
     // Bundler mode
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     // Best practices
     "strict": true,
     "skipLibCheck": true,
@@ -25,9 +26,8 @@
     "isolatedModules": true,
     "rootDir": "./src",
     "outDir": "./dist",
-    "baseUrl": "./src",
     "paths": {
-      "@app/*": ["*"]
+      "@app/*": ["./src/*"]
     },
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo"
