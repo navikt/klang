@@ -1,4 +1,5 @@
 import { getLogger } from '@app/logger';
+import { shutdownTracing } from '@app/tracing';
 import { EmojiIcons, sendToSlack } from './slack';
 
 const log = getLogger('');
@@ -13,14 +14,24 @@ export const processErrors = () => {
     .on('uncaughtException', (error) =>
       log.error({ error, msg: `Process ${process.pid} received a uncaughtException signal` }),
     )
-    .on('SIGTERM', (signal) => {
+    .on('SIGTERM', async (signal) => {
       log.info({ msg: `Process ${process.pid} received a ${signal} signal.` });
-      process.exit(0);
+
+      try {
+        await shutdownTracing();
+      } finally {
+        process.exit(0);
+      }
     })
-    .on('SIGINT', (signal) => {
+    .on('SIGINT', async (signal) => {
       const error = new Error(`Process ${process.pid} has been interrupted, ${signal}.`);
       log.error({ error });
-      process.exit(1);
+
+      try {
+        await shutdownTracing();
+      } finally {
+        process.exit(1);
+      }
     })
     .on('beforeExit', async (code) => {
       const msg = `Crash ${JSON.stringify(code)}`;

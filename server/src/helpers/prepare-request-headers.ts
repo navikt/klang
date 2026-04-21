@@ -1,6 +1,7 @@
 import { PROXY_VERSION } from '@app/config/config';
 import { DEV_DOMAIN, isDeployed } from '@app/config/env';
 import { AUTHORIZATION_HEADER, CLIENT_VERSION_HEADER, PROXY_VERSION_HEADER, TOKEN_X_TOKEN_HEADER } from '@app/headers';
+import { getTraceContext } from '@app/helpers/trace-context';
 import { getLogger } from '@app/logger';
 import type { FastifyRequest, RawServerBase, RequestGenericInterface } from 'fastify';
 
@@ -10,12 +11,11 @@ export const getProxyRequestHeaders = (
   req: FastifyRequest<RequestGenericInterface, RawServerBase>,
   appName: string,
 ): Record<string, string> => {
-  const { traceparent, client_version, accessToken, trace_id, span_id } = req;
+  const { client_version, accessToken } = req;
 
   const headers: Record<string, string> = {
     ...omit(req.raw.headers, 'set-cookie'),
     host: isDeployed ? appName : DEV_DOMAIN,
-    traceparent,
     [PROXY_VERSION_HEADER]: PROXY_VERSION,
   };
 
@@ -36,8 +36,7 @@ export const getProxyRequestHeaders = (
 
   log.debug({
     msg: 'Prepared proxy request headers',
-    trace_id,
-    span_id,
+    ...getTraceContext(req),
     data: { contentType: headers['content-type'], contentLength: headers['content-length'] },
   });
 

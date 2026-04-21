@@ -1,4 +1,5 @@
 import { isDeployed, NAIS_APP_NAME, NAIS_POD_NAME } from '@app/config/env';
+import { getTraceContext } from '@app/helpers/trace-context';
 import { getLogger } from '@app/logger';
 import type { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import fastifyPlugin from 'fastify-plugin';
@@ -22,8 +23,7 @@ export const unleashProxyPlugin = fastifyPlugin(
           if (!toggleResponse.ok) {
             log.error({
               msg: 'Unleash proxy request failed',
-              trace_id: req.trace_id,
-              span_id: req.span_id,
+              ...getTraceContext(req),
               client_version: req.client_version,
               data: {
                 status: toggleResponse.status,
