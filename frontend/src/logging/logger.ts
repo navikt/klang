@@ -33,10 +33,20 @@ class FrontendLogger {
   };
 
   public navigationEvent = () =>
-    send({ type: EventTypes.NAVIGATION, message: 'App navigation', ...this.getBase(Level.DEBUG) });
+    send({
+      type: EventTypes.NAVIGATION,
+      message: 'App navigation',
+      ...this.getBase(Level.DEBUG),
+    });
 
   public appEvent = (action: AppEventEnum, context?: Record<string, unknown>) =>
-    send({ type: EventTypes.APP, message: action, action, context, ...this.getBase(Level.DEBUG) });
+    send({
+      type: EventTypes.APP,
+      message: action,
+      action,
+      context,
+      ...this.getBase(Level.DEBUG),
+    });
 
   public errorEvent = (message: string, stack?: string, user_id?: string) =>
     send({
@@ -68,7 +78,12 @@ class FrontendLogger {
   };
 
   public sessionEvent = (action: SessionAction) =>
-    send({ type: EventTypes.SESSION, action, message: SESSION_ACTIONS[action], ...this.getBase(Level.DEBUG) });
+    send({
+      type: EventTypes.SESSION,
+      action,
+      message: SESSION_ACTIONS[action],
+      ...this.getBase(Level.DEBUG),
+    });
 
   public setTokenExpires = (tokenExpires: string) => {
     this.tokenExpiresAt = tokenExpires;

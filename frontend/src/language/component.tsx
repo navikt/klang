@@ -1,4 +1,4 @@
-import { LANGUAGES } from '@app/language/language';
+import { LANGUAGES } from '@app/language/types';
 import { currentPath } from '@app/routes/current-path';
 import { onLanguageSelect, setAvailableLanguages, setParams } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect } from 'react';

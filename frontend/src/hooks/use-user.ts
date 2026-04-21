@@ -20,7 +20,10 @@ export const useIsAuthenticated = (): AuthResult => {
   const { data, isSuccess, isError } = useIsAuthenticatedQuery();
 
   if (isSuccess) {
-    return { isAuthenticated: data?.session.active ?? false, isLoadingAuth: false };
+    return {
+      isAuthenticated: data?.session.active ?? false,
+      isLoadingAuth: false,
+    };
   }
 
   if (isError) {

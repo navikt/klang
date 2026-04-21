@@ -82,7 +82,12 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
   };
 
   const deleteAndReturn = () => {
-    dispatch(deleteSessionCase({ type: data.type, innsendingsytelse: data.innsendingsytelse }));
+    dispatch(
+      deleteSessionCase({
+        type: data.type,
+        innsendingsytelse: data.innsendingsytelse,
+      }),
+    );
     redirectToNav();
   };
 

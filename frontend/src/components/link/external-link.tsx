@@ -1,6 +1,13 @@
 import { ExtLink } from '@app/icons/external-link';
-import { useTranslation } from '@app/language/use-translation';
+import { Languages } from '@app/language/types';
+import { useLanguage } from '@app/language/use-language';
 import { Link, type LinkProps } from '@navikt/ds-react';
+
+const ICON_TITLES: Record<Languages, string> = {
+  [Languages.nb]: 'Åpne lenke i ny fane',
+  [Languages.en]: 'Open link in new tab',
+  [Languages.nn]: 'Åpne lenke i ny fane',
+};
 
 interface ExternalLinkProps extends Omit<LinkProps, 'target' | 'rel' | 'style'> {
   openInSameWindow?: boolean;
@@ -8,7 +15,7 @@ interface ExternalLinkProps extends Omit<LinkProps, 'target' | 'rel' | 'style'> 
 }
 
 export const ExternalLink = ({ openInSameWindow = false, inline = false, children, ...props }: ExternalLinkProps) => {
-  const { icons } = useTranslation();
+  const lang = useLanguage();
 
   return (
     <Link
@@ -18,7 +25,7 @@ export const ExternalLink = ({ openInSameWindow = false, inline = false, childre
       className={inline ? 'inline' : undefined}
     >
       {children}
-      {openInSameWindow ? null : <ExtLink title={icons.externalLink} />}
+      {openInSameWindow ? null : <ExtLink title={ICON_TITLES[lang]} />}
     </Link>
   );
 };

@@ -3,8 +3,6 @@ import { nb, type Translations } from '@app/language/nb';
 import { nn } from '@app/language/nn';
 import { Languages } from '@app/language/types';
 
-export const LANGUAGES = Object.values(Languages);
-
 const languages: Map<Languages, Translations> = new Map([
   [Languages.nb, nb],
   [Languages.en, en],

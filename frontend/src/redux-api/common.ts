@@ -1,6 +1,5 @@
 import { isNotUndefined } from '@app/functions/is-not-type-guards';
 import { apiEvent } from '@app/logging/logger';
-import { reduxStore } from '@app/redux/configure-store';
 import { setShowLoggedOutModal } from '@app/redux/logged-out-modal';
 import { type FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 
@@ -48,7 +47,7 @@ const staggeredBaseQuery = (baseUrl: string) => {
       }
 
       if (result.error.status === 401) {
-        reduxStore.dispatch(setShowLoggedOutModal(true));
+        api.dispatch(setShowLoggedOutModal(true));
         retry.fail(result.error.data);
       } else if (
         result.error.status === 400 ||

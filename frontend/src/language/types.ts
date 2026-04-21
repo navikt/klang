@@ -3,3 +3,5 @@ export enum Languages {
   en = 'en',
   nn = 'nn',
 }
+
+export const LANGUAGES = Object.values(Languages);

@@ -1,7 +1,5 @@
 import { AppEventEnum } from '@app/logging/action';
 import { apiEvent, appEvent } from '@app/logging/logger';
-import { reduxStore } from '@app/redux/configure-store';
-import { authApi } from '@app/redux-api/auth/api';
 
 export enum ServerSentEventType {
   JOURNALPOSTID = 'journalpostId',
@@ -22,9 +20,12 @@ export class ServerSentEventManager {
 
   public isConnected = false;
 
-  constructor(url: string, initialEventId: string | null = null) {
+  private onSessionExpired?: () => void;
+
+  constructor(url: string, initialEventId: string | null = null, onSessionExpired?: () => void) {
     this.url = url;
     this.lastEventId = initialEventId;
+    this.onSessionExpired = onSessionExpired;
     this.events = this.createEventSource();
   }
 
@@ -96,8 +97,7 @@ export class ServerSentEventManager {
         const preflightOK = await this.preflight(url);
 
         if (!preflightOK) {
-          // Probably the session timed out. Double check the logged in status.
-          reduxStore.dispatch(authApi.util.invalidateTags(['isAuthenticated']));
+          this.onSessionExpired?.();
 
           return;
         }

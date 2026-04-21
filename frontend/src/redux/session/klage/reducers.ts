@@ -77,7 +77,11 @@ const loadOrCreateSessionCase: CaseReducer<State, PayloadAction<SessionCaseCreat
   const savedCase = readSessionCase(sessionKey);
 
   if (savedCase === undefined) {
-    const newCase = createSessionCase({ type, innsendingsytelse, deepLinkParams });
+    const newCase = createSessionCase({
+      type,
+      innsendingsytelse,
+      deepLinkParams,
+    });
 
     const key = saveSessionCase(innsendingsytelse, newCase);
 

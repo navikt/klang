@@ -36,11 +36,11 @@ export const useValidators = () => {
     const validateCaseIsAtKa: Validator<boolean | null> = (value) =>
       value === null ? error_messages.skjema.case_is_at_ka : undefined;
 
-    const validateVedleggOrFritekst: Validator<{ hasVedlegg: boolean; fritekst: string; isLoggedIn: boolean }> = ({
-      hasVedlegg,
-      fritekst,
-      isLoggedIn,
-    }) => {
+    const validateVedleggOrFritekst: Validator<{
+      hasVedlegg: boolean;
+      fritekst: string;
+      isLoggedIn: boolean;
+    }> = ({ hasVedlegg, fritekst, isLoggedIn }) => {
       if (hasVedlegg || fritekst.length !== 0) {
         return undefined;
       }

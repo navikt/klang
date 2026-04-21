@@ -1,5 +1,5 @@
 import { FileIcon } from '@app/components/attachments/file-icon';
-import { ExternalLink } from '@app/components/link/link';
+import { ExternalLink } from '@app/components/link/external-link';
 import { displayBytes } from '@app/functions/display';
 import { useTranslation } from '@app/language/use-translation';
 import { type Attachment, CaseStatus } from '@app/redux-api/case/types';

@@ -1,4 +1,4 @@
-import { ExternalLink } from '@app/components/link/link';
+import { ExternalLink } from '@app/components/link/external-link';
 import { type ISODate, isoDateToPretty } from '@app/domain/date/date';
 import { Envelope } from '@app/icons/envelope';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';

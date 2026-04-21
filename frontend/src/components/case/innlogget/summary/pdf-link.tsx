@@ -72,7 +72,9 @@ interface CheckboxProps {
 }
 
 const KlageCheckbox = ({ id }: CheckboxProps) => {
-  const [updateCase, { isError }] = useUpdateCaseMutation({ fixedCacheKey: `${id}-hasVedlegg` });
+  const [updateCase, { isError }] = useUpdateCaseMutation({
+    fixedCacheKey: `${id}-hasVedlegg`,
+  });
 
   return <CaseCheckbox id={id} isError={isError} onChange={(value) => updateCase({ id, key: 'hasVedlegg', value })} />;
 };

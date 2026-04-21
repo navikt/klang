@@ -30,7 +30,12 @@ export const UserInfo = ({ data, update, errors }: Props) => {
         id={FormFieldsIds.FORNAVN}
         label={common.fornavn}
         value={data.navn.fornavn}
-        onChange={(fornavn) => update({ foedselsnummer: data.foedselsnummer, navn: { ...data.navn, fornavn } })}
+        onChange={(fornavn) =>
+          update({
+            foedselsnummer: data.foedselsnummer,
+            navn: { ...data.navn, fornavn },
+          })
+        }
         error={errors[FormFieldsIds.FORNAVN]}
       />
 
@@ -38,7 +43,12 @@ export const UserInfo = ({ data, update, errors }: Props) => {
         id={FormFieldsIds.ETTERNAVN}
         label={common.etternavn}
         value={data.navn.etternavn}
-        onChange={(etternavn) => update({ foedselsnummer: data.foedselsnummer, navn: { ...data.navn, etternavn } })}
+        onChange={(etternavn) =>
+          update({
+            foedselsnummer: data.foedselsnummer,
+            navn: { ...data.navn, etternavn },
+          })
+        }
         error={errors[FormFieldsIds.ETTERNAVN]}
       />
     </VStack>
