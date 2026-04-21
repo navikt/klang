@@ -13,10 +13,17 @@ const useValidateCaseFn: ValidateFnFactory<Case> = (type: CaseType) => {
 
   return useCallback(
     (data) => {
-      const errors: ErrorState = { ...INITIAL_ERRORS, ...validateCommonCase(data) };
+      const errors: ErrorState = {
+        ...INITIAL_ERRORS,
+        ...validateCommonCase(data),
+      };
       const { fritekst, vedlegg } = data;
 
-      const error = validateVedleggOrFritekst({ hasVedlegg: vedlegg.length !== 0, fritekst, isLoggedIn: true });
+      const error = validateVedleggOrFritekst({
+        hasVedlegg: vedlegg.length !== 0,
+        fritekst,
+        isLoggedIn: true,
+      });
 
       errors[FormFieldsIds.FRITEKST] = error;
       errors[FormFieldsIds.VEDLEGG] = error;

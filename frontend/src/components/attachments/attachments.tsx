@@ -1,6 +1,6 @@
 import { FileIcon } from '@app/components/attachments/file-icon';
 import { UploadButton } from '@app/components/attachments/upload-button';
-import { ExternalLink } from '@app/components/link/link';
+import { ExternalLink } from '@app/components/link/external-link';
 import { displayBytes } from '@app/functions/display';
 import { isApiError, isError } from '@app/functions/is-api-error';
 import { isErrorMessageKey } from '@app/language/error-messages';

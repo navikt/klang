@@ -20,13 +20,19 @@ interface Props extends Omit<TextareaProps, 'label' | 'onError' | 'onChange'> {
 
 export const BegrunnelseText = ({ caseId, value, modified, error, type, ...props }: Props) => {
   const [localValue, setLocalValue] = useState(value);
-  const [updateCase, { reset, ...status }] = useUpdateCaseMutation({ fixedCacheKey: caseId });
+  const [updateCase, { reset, ...status }] = useUpdateCaseMutation({
+    fixedCacheKey: caseId,
+  });
   const [lastSaved, setLastSaved] = useState<string>(modified);
   const errorMessage = useErrorMessage(type, status.error, error);
 
   const updateFritekst = useCallback(
     async (newValue: string) => {
-      const { modifiedByUser } = await updateCase({ key: 'fritekst', value: newValue, id: caseId }).unwrap();
+      const { modifiedByUser } = await updateCase({
+        key: 'fritekst',
+        value: newValue,
+        id: caseId,
+      }).unwrap();
       setLastSaved(modifiedByUser);
     },
     [caseId, updateCase],

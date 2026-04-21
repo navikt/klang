@@ -1,5 +1,6 @@
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
+import { authApi } from '@app/redux-api/auth/api';
 import type {
   DeleteAttachmentParams,
   ResumeCaseParams,
@@ -20,7 +21,10 @@ export const caseApi = createApi({
   endpoints: (builder) => ({
     getCase: builder.query<Case, string>({
       query: (id) => `/klanker/${id}`,
-      onCacheEntryAdded: async (id, { updateCachedData, cacheEntryRemoved, cacheDataLoaded, getCacheEntry }) => {
+      onCacheEntryAdded: async (
+        id,
+        { updateCachedData, cacheEntryRemoved, cacheDataLoaded, getCacheEntry, dispatch },
+      ) => {
         try {
           await cacheDataLoaded;
 
@@ -30,11 +34,16 @@ export const caseApi = createApi({
             return;
           }
 
-          const events = new ServerSentEventManager(`${API_PATH}/klanker/${id}/events`);
+          const events = new ServerSentEventManager(`${API_PATH}/klanker/${id}/events`, null, () => {
+            dispatch(authApi.util.invalidateTags(['isAuthenticated']));
+          });
 
           events.addEventListener(ServerSentEventType.JOURNALPOSTID, (event) => {
             if (event.data.length !== 0) {
-              updateCachedData((draft) => ({ ...draft, journalpostId: event.data }));
+              updateCachedData((draft) => ({
+                ...draft,
+                journalpostId: event.data,
+              }));
               events.close();
               appEvent(AppEventEnum.CASE_JOURNALFØRT);
             }
@@ -78,12 +87,20 @@ export const caseApi = createApi({
       }),
       onQueryStarted: async ({ id, key, value }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
-          caseApi.util.updateQueryData('getCase', id, (draft) => ({ ...draft, [key]: value })),
+          caseApi.util.updateQueryData('getCase', id, (draft) => ({
+            ...draft,
+            [key]: value,
+          })),
         );
 
         try {
           const { data } = await queryFulfilled;
-          dispatch(caseApi.util.updateQueryData('getCase', id, (draft) => ({ ...draft, ...data })));
+          dispatch(
+            caseApi.util.updateQueryData('getCase', id, (draft) => ({
+              ...draft,
+              ...data,
+            })),
+          );
         } catch {
           patchResult.undo();
         }
@@ -120,7 +137,11 @@ export const caseApi = createApi({
         const formData = new FormData();
         formData.append('vedlegg', file, file.name);
 
-        return { method: 'POST', url: `/klanker/${caseId}/vedlegg`, body: formData };
+        return {
+          method: 'POST',
+          url: `/klanker/${caseId}/vedlegg`,
+          body: formData,
+        };
       },
       onQueryStarted: async ({ caseId }, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;

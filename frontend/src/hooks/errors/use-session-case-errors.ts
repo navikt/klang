@@ -14,7 +14,10 @@ const useValidateSessionCaseFn: ValidateFnFactory<ISessionCase> = (type) => {
 
   return useCallback(
     (data) => {
-      const errors: ErrorState = { ...INITIAL_ERRORS, ...validateCommonCase(data) };
+      const errors: ErrorState = {
+        ...INITIAL_ERRORS,
+        ...validateCommonCase(data),
+      };
 
       const { foedselsnummer, navn, fritekst, hasVedlegg } = data;
 
@@ -22,7 +25,11 @@ const useValidateSessionCaseFn: ValidateFnFactory<ISessionCase> = (type) => {
       errors[FormFieldsIds.FORNAVN] = validateFornavn(navn.fornavn);
       errors[FormFieldsIds.ETTERNAVN] = validateEtternavn(navn.etternavn);
 
-      const error = validateVedleggOrFritekst({ hasVedlegg, fritekst, isLoggedIn: false });
+      const error = validateVedleggOrFritekst({
+        hasVedlegg,
+        fritekst,
+        isLoggedIn: false,
+      });
 
       errors[FormFieldsIds.FRITEKST] = error;
       errors[FormFieldsIds.VEDLEGG] = error;

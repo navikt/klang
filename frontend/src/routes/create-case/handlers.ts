@@ -42,11 +42,21 @@ export const handleSessionCase = ({
   if (sessionCase === null) {
     appEvent(AppEventEnum.CASE_CREATE_SESSION);
     dispatch(
-      setSessionCase({ type, innsendingsytelse, data: createSessionCase({ type, innsendingsytelse, deepLinkParams }) }),
+      setSessionCase({
+        type,
+        innsendingsytelse,
+        data: createSessionCase({ type, innsendingsytelse, deepLinkParams }),
+      }),
     );
   } else if (changedDeepLink(sessionCase, deepLinkParams)) {
     appEvent(AppEventEnum.CASE_RESUME_SESSION_WITH_CHANGED_DEEP_LINK);
-    dispatch(updateSessionCase({ type, innsendingsytelse: innsendingsytelse, data: deepLinkParams }));
+    dispatch(
+      updateSessionCase({
+        type,
+        innsendingsytelse: innsendingsytelse,
+        data: deepLinkParams,
+      }),
+    );
   } else {
     appEvent(AppEventEnum.CASE_RESUME_SESSION);
   }

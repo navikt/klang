@@ -109,7 +109,9 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId,
     }
 
     if (exclusionReasons.length > 0) {
-      appEvent(AppEventEnum.UPLOAD_FILES_ERROR, { exclusions: exclusionReasons });
+      appEvent(AppEventEnum.UPLOAD_FILES_ERROR, {
+        exclusions: exclusionReasons,
+      });
     }
 
     if (includedFiles.length === 0) {

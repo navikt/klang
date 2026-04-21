@@ -1,5 +1,5 @@
 import { PRETTY_FORMAT } from '@app/components/date-picker/constants';
-import { ExternalLink } from '@app/components/link/link';
+import { ExternalLink } from '@app/components/link/external-link';
 import { MAX_FILENAME_LENGTH, MAX_SIZE_UPLOAD_MIB_SINGLE, MAX_SIZE_UPLOAD_MIB_TOTAL } from '@app/constants';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { ErrorMessageKeys } from '@app/language/error-messages';
