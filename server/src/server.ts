@@ -1,3 +1,5 @@
+// biome-ignore assist/source/organizeImports: tracing must be imported first to initialize OTel SDK before other modules
+import { fastifyOtelInstrumentation } from '@app/tracing';
 import { API_CLIENT_IDS, PORT } from '@app/config/config';
 import { corsOptions } from '@app/config/cors';
 import { isDeployed } from '@app/config/env';
@@ -18,7 +20,6 @@ import { redirectLegacyPathsPlugin } from '@app/plugins/redirect-legacy-paths';
 import { serveIndexPlugin } from '@app/plugins/serve-index/serve-index';
 import { serveStaticFilesPlugin } from '@app/plugins/serve-static-files';
 import { serverTimingPlugin } from '@app/plugins/server-timing';
-import { traceparentPlugin } from '@app/plugins/traceparent/traceparent';
 import { unleashProxyPlugin } from '@app/plugins/unleash-proxy';
 import { processErrors } from '@app/process-errors';
 import { EmojiIcons, sendToSlack } from '@app/slack';
@@ -38,14 +39,18 @@ if (isDeployed) {
 
 const bodyLimit = 300 * 1024 * 1024; // 300 MB
 
-fastify({
+const app = fastify({
   trustProxy: true,
   bodyLimit,
   routerOptions: {
     querystringParser,
     caseSensitive: false,
   },
-})
+});
+
+await app.register(fastifyOtelInstrumentation.plugin());
+
+app
   .register(cors, corsOptions)
   .register(healthPlugin)
   .register(metricsPlugin, {
@@ -55,7 +60,6 @@ fastify({
     },
   })
   .register(proxyVersionPlugin)
-  .register(traceparentPlugin)
   .register(clientVersionPlugin)
   .register(serverTimingPlugin, { enableAutoTotal: true })
   .register(frontendLogPlugin)
