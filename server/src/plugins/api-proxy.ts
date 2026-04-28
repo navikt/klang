@@ -6,6 +6,7 @@ import { getLogger } from '@app/logger';
 import { OBO_ACCESS_TOKEN_PLUGIN_ID } from '@app/plugins/obo-token';
 import { SERVER_TIMING_HEADER, SERVER_TIMING_PLUGIN_ID } from '@app/plugins/server-timing';
 import proxy from '@fastify/http-proxy';
+import { SpanStatusCode, trace } from '@opentelemetry/api';
 import fastifyPlugin from 'fastify-plugin';
 
 const log = getLogger('api-proxy');
@@ -83,6 +84,27 @@ export const apiProxyPlugin = fastifyPlugin<ApiProxyPluginOptions>(
         },
         retryMethods: ['GET'], // Only retry GET requests. All others are not idempotent.
         replyOptions: {
+          onError: (reply, { error }) => {
+            const code = 'code' in error && typeof error.code === 'string' ? error.code : undefined;
+
+            log.warn({
+              msg: `Proxy error (${appName}): ${error.message}`,
+              error,
+              ...getTraceContext(reply.request),
+              data: {
+                method: reply.request.method,
+                url: reply.request.url,
+                client_version: reply.request.client_version,
+                code,
+              },
+            });
+
+            const span = trace.getActiveSpan();
+            span?.setStatus({ code: SpanStatusCode.ERROR, message: error.message });
+            span?.recordException(error);
+
+            reply.code(502).send('Bad Gateway');
+          },
           rewriteRequestHeaders: (req) => getProxyRequestHeaders(req, appName),
           rewriteHeaders: (headers, req) => {
             const serverTiming = headers[SERVER_TIMING_HEADER];
