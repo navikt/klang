@@ -33,20 +33,14 @@ class AbortErrorSpanProcessor implements SpanProcessor {
   }
 
   onEnding(span: Span): void {
+    if (isAbortError(span)) {
+      span.setStatus({ code: SpanStatusCode.OK, message: 'Client disconnected' });
+    }
+
     this.delegate.onEnding?.(span);
   }
 
   onEnd(span: ReadableSpan): void {
-    if (isAbortError(span)) {
-      this.delegate.onEnd(
-        Object.create(span, {
-          status: { value: { code: SpanStatusCode.OK, message: 'Client disconnected' } },
-        }),
-      );
-
-      return;
-    }
-
     this.delegate.onEnd(span);
   }
 
