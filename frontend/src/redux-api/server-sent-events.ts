@@ -21,11 +21,14 @@ export class ServerSentEventManager {
   public isConnected = false;
 
   private onSessionExpired?: () => void;
+  private onBeforeUnload: () => void;
 
   constructor(url: string, initialEventId: string | null = null, onSessionExpired?: () => void) {
     this.url = url;
     this.lastEventId = initialEventId;
     this.onSessionExpired = onSessionExpired;
+    this.onBeforeUnload = () => this.close();
+    window.addEventListener('beforeunload', this.onBeforeUnload);
     this.events = this.createEventSource();
   }
 
@@ -122,6 +125,7 @@ export class ServerSentEventManager {
 
   public close() {
     appEvent(AppEventEnum.SSE_CLOSE);
+    window.removeEventListener('beforeunload', this.onBeforeUnload);
     this.events?.close();
     this.removeAllEventListeners();
   }
