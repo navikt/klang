@@ -23,7 +23,7 @@ import { API_PATH } from '@app/redux-api/common';
 import { CenteredContainer } from '@app/styled-components/common';
 import { BodyLong, Button, GuidePanel } from '@navikt/ds-react';
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 
 export const CaseBegrunnelsePage = () => <CaseLoader Component={RenderCasebegrunnelsePage} />;
 

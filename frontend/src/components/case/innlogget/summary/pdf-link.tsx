@@ -4,7 +4,7 @@ import { appEvent } from '@app/logging/logger';
 import { useUpdateCaseMutation } from '@app/redux-api/case/api';
 import { CenteredContainer } from '@app/styled-components/common';
 import { Button, Checkbox, CheckboxGroup, ReadMore } from '@navikt/ds-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 interface Props extends CheckboxProps {
   hasUploadedVedlegg: boolean;

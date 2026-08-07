@@ -6,7 +6,7 @@ import { ErrorMessageKeys } from '@app/language/error-messages';
 import { CaseStatus, CaseType, getEttersendelsePath, Reason } from '@app/redux-api/case/types';
 import { Link } from '@navikt/ds-react';
 import { format } from 'date-fns';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router';
 
 export type Translations = typeof nb;
 

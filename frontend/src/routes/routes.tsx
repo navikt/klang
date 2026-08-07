@@ -15,7 +15,7 @@ import { ErrorBoundary } from '@app/routes/error-boundary';
 import { LoginRequired } from '@app/routes/login-required';
 import { NavigationLogger } from '@app/routes/navigation-logger';
 import { NotFoundPage } from '@app/routes/not-found-page';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 
 export const Router = () => (
   <BrowserRouter>

@@ -2,7 +2,7 @@ import { LANGUAGES } from '@app/language/types';
 import { currentPath } from '@app/routes/current-path';
 import { onLanguageSelect, setAvailableLanguages, setParams } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 interface Props {
   children: React.JSX.Element;

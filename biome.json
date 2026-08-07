@@ -1,6 +1,6 @@
 {
   "root": true,
-  "$schema": "https://biomejs.dev/schemas/2.4.14/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -14,7 +14,9 @@
         "organizeImports": {
           "level": "on",
           "options": {
-            "groups": ["**"]
+            "groups": [
+              "**"
+            ]
           }
         }
       }
@@ -99,7 +101,12 @@
           "level": "error",
           "fix": "none",
           "options": {
-            "allow": ["debug", "info", "warn", "error"]
+            "allow": [
+              "debug",
+              "info",
+              "warn",
+              "error"
+            ]
           }
         },
         "noReactSpecificProps": "off",
@@ -174,6 +181,10 @@
     }
   },
   "files": {
-    "includes": ["**", "!**/*.css", "!.bruno"]
+    "includes": [
+      "**",
+      "!**/*.css",
+      "!.bruno"
+    ]
   }
 }

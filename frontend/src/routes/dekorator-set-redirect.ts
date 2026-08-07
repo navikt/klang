@@ -2,7 +2,7 @@ import { LOGGED_IN_PATH } from '@app/environment/environment';
 import { currentPath } from '@app/routes/current-path';
 import { setParams } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 interface Props {
   children: React.JSX.Element;

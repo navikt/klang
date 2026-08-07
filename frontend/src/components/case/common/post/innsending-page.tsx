@@ -6,7 +6,7 @@ import { useTranslation } from '@app/language/use-translation';
 import type { CaseType } from '@app/redux-api/case/types';
 import { Button, GuidePanel, Heading, HStack } from '@navikt/ds-react';
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 interface Props {
   type: CaseType;

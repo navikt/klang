@@ -9,7 +9,7 @@ import { deleteSessionCase, setSessionCase, updateSessionCase } from '@app/redux
 import type { useCreateCaseMutation, useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
 import type { CreateCaseFields } from '@app/redux-api/case/types';
 import { CASE_TYPE_PATH_SEGMENTS, type CaseType, type DeepLinkParams } from '@app/redux-api/case/types';
-import type { NavigateFunction } from 'react-router-dom';
+import type { NavigateFunction } from 'react-router';
 
 interface IHandler {
   language: Languages;

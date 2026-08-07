@@ -4,7 +4,7 @@ import { CaseLoader } from '@app/components/case/innlogget/loader';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { type Case, CaseStatus } from '@app/redux-api/case/types';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 
 export const CaseKvitteringPage = () => <CaseLoader Component={RenderCaseKvitteringPage} />;
 

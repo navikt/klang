@@ -8,7 +8,7 @@ import { useGetUserQuery } from '@app/redux-api/user/api';
 import { Alert } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 interface Props {
   Component: React.ComponentType<{ data: Case }>;
