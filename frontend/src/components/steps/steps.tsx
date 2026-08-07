@@ -1,6 +1,6 @@
 import { Stepper } from '@navikt/ds-react';
 import type { StepperStepProps } from '@navikt/ds-react/Stepper';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 interface Props {
   activeStep: number;

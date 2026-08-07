@@ -1,6 +1,6 @@
 import { navigationEvent } from '@app/logging/logger';
 import { useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 interface Props {
   children: React.JSX.Element;

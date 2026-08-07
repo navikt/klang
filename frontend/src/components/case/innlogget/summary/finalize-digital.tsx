@@ -5,8 +5,7 @@ import { useFinalizeCaseMutation } from '@app/redux-api/case/api';
 import { type Attachment, CaseStatus, type CaseType } from '@app/redux-api/case/types';
 import { Button } from '@navikt/ds-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 
 interface Props {
   setError: (error: string | null) => void;

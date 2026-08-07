@@ -16,7 +16,7 @@ import { API_PATH } from '@app/redux-api/common';
 import { Section } from '@app/styled-components/summary';
 import { Alert, BodyLong, Box, Button, ErrorMessage, Heading, HStack, Panel, VStack } from '@navikt/ds-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 export const CaseOppsummeringPage = () => <CaseLoader Component={DigitalCaseOppsummeringPage} />;
 

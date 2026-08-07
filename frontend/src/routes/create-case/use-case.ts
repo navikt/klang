@@ -10,7 +10,7 @@ import type { CaseType, DeepLinkParams } from '@app/redux-api/case/types';
 import { useGetUserQuery } from '@app/redux-api/user/api';
 import { handleCreateCase, handleResumeOrCreateCase, handleSessionCase } from '@app/routes/create-case/handlers';
 import { useEffect, useMemo } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router';
 
 interface IResult {
   error: string | null;

@@ -5,7 +5,7 @@ import { useAppSelector } from '@app/redux/configure-store';
 import { getLoginRedirectPath } from '@app/user/login';
 import { BodyShort, Button, HStack, Modal, VStack } from '@navikt/ds-react';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 export const LoggedOutModal = () => {
   const { show } = useAppSelector(({ loggedOutModal }) => loggedOutModal);

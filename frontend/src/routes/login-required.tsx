@@ -4,7 +4,7 @@ import { useTranslation } from '@app/language/use-translation';
 import { useAppDispatch } from '@app/redux/configure-store';
 import { setShowLoggedOutModal } from '@app/redux/logged-out-modal';
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 export const LoginRequired = () => {
   const { isAuthenticated, isLoadingAuth } = useIsAuthenticated();
