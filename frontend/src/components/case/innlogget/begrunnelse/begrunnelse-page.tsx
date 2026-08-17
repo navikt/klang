@@ -38,7 +38,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
 
   const { skjema, user_loader } = useTranslation();
 
-  const [updateCase] = useUpdateCaseMutation();
+  const [updateCase, { isError, reset }] = useUpdateCaseMutation();
   const [deleteAttachment] = useDeleteAttachmentMutation();
   const [deleteCase, { isLoading }] = useDeleteCaseMutation();
 
@@ -133,6 +133,8 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         internalSaksnummer={data.internalSaksnummer}
         onChange={(userSaksnummer) => onChange('userSaksnummer', userSaksnummer)}
         error={errors[FormFieldsIds.SAKSNUMMER]}
+        isError={isError}
+        resetError={reset}
       />
 
       <BegrunnelseText
