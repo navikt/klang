@@ -9,6 +9,7 @@ import { VedtakDate } from '@app/components/case/common/vedtak-date';
 import { BegrunnelseText } from '@app/components/case/innlogget/begrunnelse/begrunnelse-text';
 import { CaseLoader } from '@app/components/case/innlogget/loader';
 import { DeleteCaseButton } from '@app/components/delete-case-button/delete-case-button';
+import { isApiError } from '@app/functions/is-api-error';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { INITIAL_ERRORS } from '@app/hooks/errors/types';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
@@ -38,7 +39,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
 
   const { skjema, user_loader } = useTranslation();
 
-  const [updateCase, { isError, reset }] = useUpdateCaseMutation();
+  const [updateCase, { isError, reset, error }] = useUpdateCaseMutation({ fixedCacheKey: data.id });
   const [deleteAttachment] = useDeleteAttachmentMutation();
   const [deleteCase, { isLoading }] = useDeleteCaseMutation();
 
@@ -58,6 +59,8 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
       navigate(NEXT_PAGE_URL, { replace: true });
     }
   }, [data, navigate]);
+
+  const isSent = (isApiError(error) && error.status === 409) || data.finalizedDate !== null;
 
   const submitKlage = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
@@ -118,6 +121,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         error={errors[FormFieldsIds.VEDTAK_DATE]}
         type={data.type}
         onChange={(vedtakDate) => onChange('vedtakDate', vedtakDate)}
+        disabled={isSent}
       />
 
       {isEttersendelseKlage ? (
@@ -125,6 +129,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
           caseIsAtKA={data.caseIsAtKA}
           onIsAtKaChange={(caseIsAtKA) => onChange('caseIsAtKA', caseIsAtKA)}
           error={errors[FormFieldsIds.CASE_IS_AT_KA]}
+          disabled={isSent}
         />
       ) : null}
 
@@ -135,6 +140,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         error={errors[FormFieldsIds.SAKSNUMMER]}
         isError={isError}
         resetError={reset}
+        disabled={isSent}
       />
 
       <BegrunnelseText
@@ -146,6 +152,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         label={skjema.begrunnelse.begrunnelse_text.title[data.type]}
         error={errors[FormFieldsIds.FRITEKST]}
         modified={data.modifiedByUser}
+        disabled={isSent}
       />
 
       <AttachmentsSection
@@ -154,16 +161,19 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         basePath={`${API_PATH}/klanker`}
         onDelete={deleteAttachment}
         error={errors[FormFieldsIds.VEDLEGG]}
+        isSent={isSent}
       />
 
       <Errors {...errors} />
 
       <CenteredContainer>
-        <DeleteCaseButton
-          isLoading={isLoading}
-          onDelete={deleteAndReturn}
-          title={skjema.begrunnelse.delete_title[data.type]}
-        />
+        {isSent ? null : (
+          <DeleteCaseButton
+            isLoading={isLoading}
+            onDelete={deleteAndReturn}
+            title={skjema.begrunnelse.delete_title[data.type]}
+          />
+        )}
 
         <Button as={Link} variant="primary" onClick={submitKlage} to={NEXT_PAGE_URL} disabled={user === undefined}>
           {skjema.begrunnelse.next_button}

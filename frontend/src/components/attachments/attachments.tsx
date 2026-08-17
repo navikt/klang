@@ -31,60 +31,44 @@ interface Props {
   basePath: string;
   caseId: string;
   error: string | undefined;
+  isSent: boolean;
 }
 
-const FILE_INPUT_ID = 'file-upload-input';
+const ATTACHMENTS_ID = 'attachments';
 type Errors = Record<string, string[] | FetchBaseQueryError>;
 
-export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, error }: Props) => {
-  const { skjema, common } = useTranslation();
+export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, error, isSent }: Props) => {
+  const { skjema } = useTranslation();
   const [attachmentsLoading, setAttachmentsLoading] = useState<boolean>(false);
   const [attachmentErrors, setAttachmentErrors] = useState<Errors>({});
 
-  const deleteAttachment = (attachmentId: number) => {
-    appEvent(AppEventEnum.ATTACHMENT_DELETE);
-    onDelete({ caseId, attachmentId });
-  };
+  const title = (
+    <Label htmlFor={ATTACHMENTS_ID} as="label">
+      {skjema.begrunnelse.attachments.title} ({attachments.length})
+      {error === undefined ? null : <ErrorMessage>{error}</ErrorMessage>}
+    </Label>
+  );
+
+  if (isSent) {
+    return (
+      <>
+        {title}
+        <Attachments attachments={attachments} onDelete={onDelete} basePath={basePath} caseId={caseId} isSent />
+      </>
+    );
+  }
 
   return (
     <>
-      <div>
-        <Label htmlFor={FILE_INPUT_ID} as="label">
-          {skjema.begrunnelse.attachments.title} ({attachments.length})
-          {error === undefined ? null : <ErrorMessage>{error}</ErrorMessage>}
-        </Label>
-        <BodyLong>{skjema.begrunnelse.attachments.description}</BodyLong>
-      </div>
-      <VStack as="ul" gap="space-8" margin="space-0" padding="space-0" className="list-none">
-        {attachments.map(({ id, tittel, sizeInBytes, contentType }) => (
-          <HStack as="li" key={id} align="center" gap="space-8">
-            <ExternalLink
-              href={`${basePath}/${caseId}/vedlegg/${id}`}
-              onClick={() => appEvent(AppEventEnum.ATTACHMENT_DOWNLOAD)}
-            >
-              <FileIcon contentType={contentType} />
-              <span>
-                {tittel} ({displayBytes(sizeInBytes)})
-              </span>
-            </ExternalLink>
-            <Button
-              data-color="danger"
-              variant="primary"
-              size="xsmall"
-              title={`${common.delete} ${tittel}`}
-              onClick={() => deleteAttachment(id)}
-              icon={<TrashIcon aria-hidden />}
-            />
-          </HStack>
-        ))}
-      </VStack>
+      {title}
+      <BodyLong>{skjema.begrunnelse.attachments.description}</BodyLong>
+      <Attachments attachments={attachments} onDelete={onDelete} basePath={basePath} caseId={caseId} isSent={false} />
       <Alert variant="info" inline>
         <BodyLong>{skjema.begrunnelse.attachments.supported_types}</BodyLong>
         <BodyLong>{skjema.begrunnelse.attachments.size_limit}</BodyLong>
       </Alert>
       <ShowErrors errors={attachmentErrors} clear={() => setAttachmentErrors({})} />
       <UploadButton
-        inputId={FILE_INPUT_ID}
         setLoading={setAttachmentsLoading}
         caseId={caseId}
         addError={([key, value]) => setAttachmentErrors((prev) => ({ ...prev, [key]: value }))}
@@ -92,6 +76,76 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
         attachments={attachments}
       />
     </>
+  );
+};
+
+interface AttachmentsProps {
+  attachments: Attachment[];
+  onDelete: (attachment: DeleteAttachmentParams) => void;
+  basePath: string;
+  caseId: string;
+  isSent: boolean;
+}
+
+const Attachments = ({ attachments, onDelete, basePath, caseId, isSent }: AttachmentsProps) => {
+  const { common } = useTranslation();
+
+  const deleteAttachment = (attachmentId: number) => {
+    appEvent(AppEventEnum.ATTACHMENT_DELETE);
+    onDelete({ caseId, attachmentId });
+  };
+
+  return (
+    <VStack as="ul" gap="space-8" margin="space-0" padding="space-0" className="list-none" id={ATTACHMENTS_ID}>
+      {attachments.map((a) => (
+        <HStack as="li" key={a.id} align="center" gap="space-8">
+          <AttachmentName isSent={isSent} basePath={basePath} caseId={caseId} {...a} />
+          {isSent ? null : (
+            <Button
+              data-color="danger"
+              variant="primary"
+              size="xsmall"
+              title={`${common.delete} ${a.tittel}`}
+              onClick={() => deleteAttachment(a.id)}
+              icon={<TrashIcon aria-hidden />}
+            />
+          )}
+        </HStack>
+      ))}
+    </VStack>
+  );
+};
+
+interface AttachmentNameProps {
+  tittel: string;
+  sizeInBytes: number;
+  isSent: boolean;
+  basePath: string;
+  caseId: string;
+  id: number;
+  contentType: string;
+}
+
+const AttachmentName = ({ tittel, sizeInBytes, isSent, basePath, caseId, id, contentType }: AttachmentNameProps) => {
+  const content = (
+    <>
+      <span>
+        {tittel} ({displayBytes(sizeInBytes)})
+      </span>
+      <FileIcon contentType={contentType} />
+    </>
+  );
+
+  return isSent ? (
+    content
+  ) : (
+    <ExternalLink
+      href={`${basePath}/${caseId}/vedlegg/${id}`}
+      onClick={() => appEvent(AppEventEnum.ATTACHMENT_DOWNLOAD)}
+    >
+      <FileIcon contentType={contentType} />
+      {content}
+    </ExternalLink>
   );
 };
 

@@ -7,18 +7,27 @@ interface UserSaksnummerProps {
   value: string | null;
   onChange: (saksnummer: string | null) => void;
   error: string | undefined;
+  disabled?: boolean;
 }
 
 interface Props extends UserSaksnummerProps {
   internalSaksnummer: string | null;
 }
 
-interface ErrorProps {
+interface DebouncedProps {
   isError: boolean;
   resetError: () => void;
+  disabled: boolean;
 }
 
-const DebouncedUserSaksnummer = ({ value, onChange, error, isError, resetError }: UserSaksnummerProps & ErrorProps) => {
+const DebouncedUserSaksnummer = ({
+  value,
+  onChange,
+  error,
+  isError,
+  resetError,
+  disabled,
+}: UserSaksnummerProps & DebouncedProps) => {
   const [localValue, setLocalValue] = useState(value);
 
   useEffect(() => {
@@ -39,6 +48,7 @@ const DebouncedUserSaksnummer = ({ value, onChange, error, isError, resetError }
         setLocalValue(v);
         resetError();
       }}
+      disabled={disabled}
     />
   );
 };
@@ -56,7 +66,7 @@ const InternalSaksnummer = ({ internalSaksnummer }: { internalSaksnummer: string
   }
 };
 
-const UserSaksnummer = ({ value, onChange, error }: UserSaksnummerProps) => {
+const UserSaksnummer = ({ value, onChange, error, disabled }: UserSaksnummerProps) => {
   const { skjema } = useTranslation();
 
   return (
@@ -67,6 +77,7 @@ const UserSaksnummer = ({ value, onChange, error }: UserSaksnummerProps) => {
       onChange={({ target }) => onChange(target.value)}
       htmlSize={24}
       error={error}
+      disabled={disabled}
     />
   );
 };
@@ -79,7 +90,7 @@ export const Saksnummer = ({ value, internalSaksnummer, onChange, error }: Props
   return <UserSaksnummer value={value} onChange={onChange} error={error} />;
 };
 
-export const DebouncedSaksnummer = ({ internalSaksnummer, ...props }: Props & ErrorProps) => {
+export const DebouncedSaksnummer = ({ internalSaksnummer, ...props }: Props & DebouncedProps) => {
   if (typeof internalSaksnummer === 'string' && internalSaksnummer.length !== 0) {
     return <InternalSaksnummer internalSaksnummer={internalSaksnummer} />;
   }

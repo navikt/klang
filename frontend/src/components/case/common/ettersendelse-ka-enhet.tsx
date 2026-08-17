@@ -5,9 +5,10 @@ interface Props {
   caseIsAtKA: boolean | null;
   onIsAtKaChange: (caseIsAtKA: boolean) => void;
   error: string | undefined;
+  disabled?: boolean;
 }
 
-export const EttersendelseKaEnhet = ({ caseIsAtKA, onIsAtKaChange, error }: Props) => {
+export const EttersendelseKaEnhet = ({ caseIsAtKA, onIsAtKaChange, error, disabled }: Props) => {
   const { skjema, common } = useTranslation();
 
   return (
@@ -16,6 +17,7 @@ export const EttersendelseKaEnhet = ({ caseIsAtKA, onIsAtKaChange, error }: Prop
       onChange={(v) => onIsAtKaChange(v === YES)}
       value={toValue(caseIsAtKA)}
       error={error}
+      disabled={disabled}
     >
       <HStack gap="space-16">
         <Radio value={YES}>{common.yes}</Radio>

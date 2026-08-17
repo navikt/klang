@@ -23,14 +23,13 @@ const VALID_FILE_TYPES = ['image/png', 'image/jpeg', 'image/jpg', 'application/p
 
 interface Props {
   caseId: string;
-  inputId: string;
   setLoading: (loading: boolean) => void;
   isLoading: boolean;
   addError: (error: [string, string[] | FetchBaseQueryError]) => void;
   attachments: Attachment[];
 }
 
-export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId, attachments }: Props) => {
+export const UploadButton = ({ setLoading, isLoading, addError, caseId, attachments }: Props) => {
   const { skjema, error_messages } = useTranslation();
   const fileInput = useRef<HTMLInputElement>(null);
   const [uploadAttachment] = useUploadAttachmentMutation();
@@ -151,7 +150,6 @@ export const UploadButton = ({ inputId, setLoading, isLoading, addError, caseId,
       </Button>
       <input
         className="hidden"
-        id={inputId}
         type="file"
         multiple
         accept={[...VALID_FILE_TYPES, '.pdf'].join(',')}
