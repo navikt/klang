@@ -13,20 +13,34 @@ interface Props extends UserSaksnummerProps {
   internalSaksnummer: string | null;
 }
 
-const DebouncedUserSaksnummer = ({ value, onChange, error }: UserSaksnummerProps) => {
+interface ErrorProps {
+  isError: boolean;
+  resetError: () => void;
+}
+
+const DebouncedUserSaksnummer = ({ value, onChange, error, isError, resetError }: UserSaksnummerProps & ErrorProps) => {
   const [localValue, setLocalValue] = useState(value);
 
   useEffect(() => {
-    if (value === localValue) {
+    if (value === localValue || isError) {
       return;
     }
 
     const timeout = setTimeout(() => onChange(localValue), 1000);
 
     return () => clearTimeout(timeout);
-  }, [onChange, value, localValue]);
+  }, [onChange, value, localValue, isError]);
 
-  return <UserSaksnummer error={error} value={localValue} onChange={setLocalValue} />;
+  return (
+    <UserSaksnummer
+      error={error}
+      value={localValue}
+      onChange={(v) => {
+        setLocalValue(v);
+        resetError();
+      }}
+    />
+  );
 };
 
 const InternalSaksnummer = ({ internalSaksnummer }: { internalSaksnummer: string }) => {
@@ -65,10 +79,10 @@ export const Saksnummer = ({ value, internalSaksnummer, onChange, error }: Props
   return <UserSaksnummer value={value} onChange={onChange} error={error} />;
 };
 
-export const DebouncedSaksnummer = ({ value, internalSaksnummer, onChange, error }: Props) => {
+export const DebouncedSaksnummer = ({ internalSaksnummer, ...props }: Props & ErrorProps) => {
   if (typeof internalSaksnummer === 'string' && internalSaksnummer.length !== 0) {
     return <InternalSaksnummer internalSaksnummer={internalSaksnummer} />;
   }
 
-  return <DebouncedUserSaksnummer value={value} onChange={onChange} error={error} />;
+  return <DebouncedUserSaksnummer {...props} />;
 };
