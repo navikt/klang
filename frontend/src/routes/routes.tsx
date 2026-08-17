@@ -1,4 +1,5 @@
 import { CaseBegrunnelsePage } from '@app/components/case/innlogget/begrunnelse/begrunnelse-page';
+import { CaseSentModal } from '@app/components/case/innlogget/begrunnelse/case-sent-modal';
 import { LoggedOutModal } from '@app/components/case/innlogget/begrunnelse/logged-out-modal';
 import { CaseInnsendingPage } from '@app/components/case/innlogget/innsending/innsending-page';
 import { CaseKvitteringPage } from '@app/components/case/innlogget/kvittering/kvittering-page';
@@ -77,6 +78,7 @@ export const Router = () => (
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
             <LoggedOutModal />
+            <CaseSentModal />
           </ErrorBoundary>
         </LanguageComponent>
       </DekoratorSetRedirect>

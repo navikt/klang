@@ -49,6 +49,36 @@ export const nb = {
         yes: 'Ja',
         logout: 'Logg ut',
       },
+      case_done_modal: {
+        title: {
+          [CaseType.KLAGE]: 'Klagen er allerede sendt inn',
+          [CaseType.ANKE]: 'Anken er allerede sendt inn',
+          [CaseType.ETTERSENDELSE_KLAGE]: 'Ettersendelsen er allerede sendt inn',
+          [CaseType.ETTERSENDELSE_ANKE]: 'Ettersendelsen er allerede sendt inn',
+        },
+        message: {
+          [CaseType.KLAGE]: (
+            <span>
+              Klagen din er allerede sendt inn. Du kan se kvitteringen <Link href="./kvittering">her</Link>.
+            </span>
+          ),
+          [CaseType.ANKE]: (
+            <span>
+              Anken din er allerede sendt inn. Du kan se kvitteringen <Link href="./kvittering">her</Link>.
+            </span>
+          ),
+          [CaseType.ETTERSENDELSE_KLAGE]: (
+            <span>
+              Ettersendelsen din er allerede sendt inn. Du kan se kvitteringen <Link href="./kvittering">her</Link>.
+            </span>
+          ),
+          [CaseType.ETTERSENDELSE_ANKE]: (
+            <span>
+              Ettersendelsen din er allerede sendt inn. Du kan se kvitteringen <Link href="./kvittering">her</Link>.
+            </span>
+          ),
+        },
+      },
       autosave: {
         tooltip: 'Vi lagrer endringene dine automatisk.',
         saved: 'Sist lagret',

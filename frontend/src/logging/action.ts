@@ -27,4 +27,5 @@ export enum AppEventEnum {
   USER_LOGIN = 'Login',
   MISSING_AUTH = 'Missing authentication',
   LOGGED_OUT_MODAL_OPEN = 'Logged out modal open',
+  CASE_SENT_MODAL_OPEN = 'Case sent modal open',
 }

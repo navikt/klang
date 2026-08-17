@@ -1,5 +1,7 @@
+import { isError } from '@app/functions/is-api-error';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
+import { setCaseSentId } from '@app/redux/case-sent-modal';
 import { authApi } from '@app/redux-api/auth/api';
 import type {
   DeleteAttachmentParams,
@@ -11,6 +13,8 @@ import type { CreateCaseFields } from '@app/redux-api/case/types';
 import { type Attachment, type BaseCase, type Case, CaseStatus, type FinalizedCase } from '@app/redux-api/case/types';
 import { API_BASE_QUERY, API_PATH } from '@app/redux-api/common';
 import { ServerSentEventManager, ServerSentEventType } from '@app/redux-api/server-sent-events';
+import { isObject } from '@grafana/faro-web-sdk';
+import type { ThunkDispatch, UnknownAction } from '@reduxjs/toolkit';
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 type BaseUpdateResponse = Pick<BaseCase, 'modifiedByUser'>;
@@ -101,7 +105,9 @@ export const caseApi = createApi({
               ...data,
             })),
           );
-        } catch {
+        } catch (error) {
+          setCaseSentOnClict(id, error, dispatch);
+
           patchResult.undo();
         }
       },
@@ -112,8 +118,12 @@ export const caseApi = createApi({
         url: `/klanker/${id}`,
       }),
       onQueryStarted: async (id, { dispatch, queryFulfilled }) => {
-        await queryFulfilled;
-        dispatch(caseApi.util.updateQueryData('getCase', id, () => undefined));
+        try {
+          await queryFulfilled;
+          dispatch(caseApi.util.updateQueryData('getCase', id, () => undefined));
+        } catch (error) {
+          setCaseSentOnClict(id, error, dispatch);
+        }
       },
     }),
     finalizeCase: builder.mutation<FinalizedCase, string>({
@@ -122,14 +132,18 @@ export const caseApi = createApi({
         url: `/klanker/${id}/finalize`,
       }),
       onQueryStarted: async (id, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        dispatch(
-          caseApi.util.updateQueryData('getCase', id, (draft) => ({
-            ...draft,
-            ...data,
-            status: CaseStatus.DONE,
-          })),
-        );
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            caseApi.util.updateQueryData('getCase', id, (draft) => ({
+              ...draft,
+              ...data,
+              status: CaseStatus.DONE,
+            })),
+          );
+        } catch (error) {
+          setCaseSentOnClict(id, error, dispatch);
+        }
       },
     }),
     uploadAttachment: builder.mutation<Attachment, UploadAttachmentParams>({
@@ -144,14 +158,18 @@ export const caseApi = createApi({
         };
       },
       onQueryStarted: async ({ caseId }, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
+        try {
+          const { data } = await queryFulfilled;
 
-        dispatch(
-          caseApi.util.updateQueryData('getCase', caseId, (draft) => ({
-            ...draft,
-            vedlegg: [...draft.vedlegg, data],
-          })),
-        );
+          dispatch(
+            caseApi.util.updateQueryData('getCase', caseId, (draft) => ({
+              ...draft,
+              vedlegg: [...draft.vedlegg, data],
+            })),
+          );
+        } catch (error) {
+          setCaseSentOnClict(caseId, error, dispatch);
+        }
       },
     }),
     deleteAttachment: builder.mutation<void, DeleteAttachmentParams>({
@@ -169,7 +187,8 @@ export const caseApi = createApi({
 
         try {
           await queryFulfilled;
-        } catch {
+        } catch (error) {
+          setCaseSentOnClict(caseId, error, dispatch);
           patchResult.undo();
         }
       },
@@ -187,3 +206,15 @@ export const {
   useUploadAttachmentMutation,
   useDeleteAttachmentMutation,
 } = caseApi;
+
+const setCaseSentOnClict = (
+  caseId: string | null,
+  error: unknown,
+  dispatch: ThunkDispatch<unknown, unknown, UnknownAction>,
+) => {
+  if (isObject(error) && 'error' in error && isError(error.error) && error.error.status === 409) {
+    dispatch(setCaseSentId(caseId));
+  } else {
+    dispatch(setCaseSentId(null));
+  }
+};
