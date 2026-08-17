@@ -12,9 +12,10 @@ interface VedtakDateProps {
   type: CaseType;
   error: string | undefined;
   onChange: (value: ISODate | null) => void;
+  disabled?: boolean;
 }
 
-export const VedtakDate = ({ value, type, error, onChange }: VedtakDateProps) => {
+export const VedtakDate = ({ value, type, error, onChange, disabled }: VedtakDateProps) => {
   const { skjema } = useTranslation();
   const [date, setDate] = useState<Date | null>(value === null ? null : parse(value, FORMAT, new Date()));
 
@@ -42,6 +43,7 @@ export const VedtakDate = ({ value, type, error, onChange }: VedtakDateProps) =>
       value={date}
       label={skjema.begrunnelse.vedtak_date.title[type]}
       size="medium"
+      disabled={disabled}
     />
   );
 };

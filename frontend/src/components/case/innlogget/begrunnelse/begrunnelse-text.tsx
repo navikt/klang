@@ -16,9 +16,10 @@ interface Props extends Omit<TextareaProps, 'label' | 'onError' | 'onChange'> {
   label: string;
   modified: string;
   type: CaseType;
+  disabled: boolean;
 }
 
-export const BegrunnelseText = ({ caseId, value, modified, error, type, ...props }: Props) => {
+export const BegrunnelseText = ({ caseId, value, modified, error, type, disabled, ...props }: Props) => {
   const [localValue, setLocalValue] = useState(value);
   const [updateCase, { reset, ...status }] = useUpdateCaseMutation({
     fixedCacheKey: caseId,
@@ -68,6 +69,7 @@ export const BegrunnelseText = ({ caseId, value, modified, error, type, ...props
         value={localValue}
         placeholder="Skriv her"
         error={errorMessage}
+        disabled={disabled}
         {...props}
       />
       <AutosaveProgressIndicator {...status} lastSaved={lastSaved} />
