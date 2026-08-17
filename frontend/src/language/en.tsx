@@ -48,6 +48,38 @@ export const en: Translations = {
         yes: 'Yes',
         logout: 'Log out',
       },
+      case_done_modal: {
+        title: {
+          [CaseType.KLAGE]: 'The complaint has already been submitted',
+          [CaseType.ANKE]: 'The appeal has already been submitted',
+          [CaseType.ETTERSENDELSE_KLAGE]: 'The additional documentation has already been submitted',
+          [CaseType.ETTERSENDELSE_ANKE]: 'The additional documentation has already been submitted',
+        },
+        message: {
+          [CaseType.KLAGE]: (
+            <span>
+              Your complaint has already been submitted. You can view the receipt <Link href="./kvittering">here</Link>.
+            </span>
+          ),
+          [CaseType.ANKE]: (
+            <span>
+              Your appeal has already been submitted. You can view the receipt <Link href="./kvittering">here</Link>.
+            </span>
+          ),
+          [CaseType.ETTERSENDELSE_KLAGE]: (
+            <span>
+              Your additional documentation has already been submitted. You can view the receipt{' '}
+              <Link href="./kvittering">here</Link>.
+            </span>
+          ),
+          [CaseType.ETTERSENDELSE_ANKE]: (
+            <span>
+              Your additional documentation has already been submitted. You can view the receipt{' '}
+              <Link href="./kvittering">here</Link>.
+            </span>
+          ),
+        },
+      },
       autosave: {
         tooltip: 'We are saving your changes automatically.',
         saved: 'Last saved',

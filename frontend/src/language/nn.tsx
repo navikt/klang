@@ -48,6 +48,36 @@ export const nn: Translations = {
         yes: 'Ja',
         logout: 'Logg ut',
       },
+      case_done_modal: {
+        title: {
+          [CaseType.KLAGE]: 'Klaga er allereie send inn',
+          [CaseType.ANKE]: 'Anka er allereie send inn',
+          [CaseType.ETTERSENDELSE_KLAGE]: 'Ettersendinga er allereie send inn',
+          [CaseType.ETTERSENDELSE_ANKE]: 'Ettersendinga er allereie send inn',
+        },
+        message: {
+          [CaseType.KLAGE]: (
+            <span>
+              Klaga di er allereie send inn. Du kan sjå kvitteringa <Link href="./kvittering">her</Link>.
+            </span>
+          ),
+          [CaseType.ANKE]: (
+            <span>
+              Anka di er allereie send inn. Du kan sjå kvitteringa <Link href="./kvittering">her</Link>.
+            </span>
+          ),
+          [CaseType.ETTERSENDELSE_KLAGE]: (
+            <span>
+              Ettersendinga di er allereie send inn. Du kan sjå kvitteringa <Link href="./kvittering">her</Link>.
+            </span>
+          ),
+          [CaseType.ETTERSENDELSE_ANKE]: (
+            <span>
+              Ettersendinga di er allereie send inn. Du kan sjå kvitteringa <Link href="./kvittering">her</Link>.
+            </span>
+          ),
+        },
+      },
       autosave: {
         tooltip: 'Vi lagrar endringane dine automatisk.',
         saved: 'Sist lagra',

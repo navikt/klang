@@ -1,3 +1,4 @@
+import { caseSentSlice } from '@app/redux/case-sent-modal';
 import { loggedOutModalSlice } from '@app/redux/logged-out-modal';
 import { sessionSlice } from '@app/redux/session/session';
 import { authApi } from '@app/redux-api/auth/api';
@@ -13,6 +14,7 @@ export const rootReducer = combineReducers({
   [caseApi.reducerPath]: caseApi.reducer,
   session: sessionSlice.reducer,
   loggedOutModal: loggedOutModalSlice.reducer,
+  caseSentModal: caseSentSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
