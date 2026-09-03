@@ -96,6 +96,10 @@ jobs:
         id: version
         run: echo "version=$(TZ="Europe/Oslo" git show -s --format=%cd --date='format-local:%Y-%m-%dT%H:%M:%S')" >> "$GITHUB_OUTPUT"
 
+      - name: Remove dev dependencies
+        working-directory: ./server
+        run: bun prune --ignore-scripts --production
+
       - name: Build & push Docker image
         uses: nais/docker-build-push@v0
         id: docker-build-push
