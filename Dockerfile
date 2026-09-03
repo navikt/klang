@@ -14,5 +14,5 @@ WORKDIR /usr/src/app/server
 ARG VERSION
 ENV VERSION=$VERSION
 
-CMD ["--trace-warnings", "dist/server.js"]
+CMD ["--enable-source-maps", "--trace-warnings", "dist/server.js"]
 EXPOSE 8080
