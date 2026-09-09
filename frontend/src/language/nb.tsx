@@ -156,6 +156,18 @@ export const nb = {
           [CaseType.ETTERSENDELSE_ANKE]: 'Skriv her',
         },
       },
+      no_document_for_tema: {
+        title: 'Er du sikker på at du har valgt riktig?',
+        content: {
+          [CaseType.KLAGE]: (ytelse: string) => `Vi finner ingen dokumenter registrert på deg som gjelder «${ytelse}».`,
+          [CaseType.ANKE]: (ytelse: string) => `Vi finner ingen dokumenter registrert på deg som gjelder «${ytelse}».`,
+          [CaseType.ETTERSENDELSE_KLAGE]: (ytelse: string) =>
+            `Vi finner ingen dokumenter registrert på deg som gjelder «${ytelse}».`,
+          [CaseType.ETTERSENDELSE_ANKE]: (ytelse: string) =>
+            `Vi finner ingen dokumenter registrert på deg som gjelder «${ytelse}».`,
+        },
+        link: 'Du kan endre hva saken gjelder ved å gå til nav.no/klage',
+      },
       next_button: 'Gå videre',
       delete_title: {
         [CaseType.KLAGE]: 'Slett klagen og returner til hovedsiden',

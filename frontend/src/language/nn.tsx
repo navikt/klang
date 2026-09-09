@@ -155,6 +155,18 @@ export const nn: Translations = {
           [CaseType.ETTERSENDELSE_ANKE]: 'Skriv her',
         },
       },
+      no_document_for_tema: {
+        title: 'Er du sikker på at du har valt rett?',
+        content: {
+          [CaseType.KLAGE]: (ytelse: string) => `Vi finn ingen dokument registrerte på deg som gjeld «${ytelse}».`,
+          [CaseType.ANKE]: (ytelse: string) => `Vi finn ingen dokument registrerte på deg som gjeld «${ytelse}».`,
+          [CaseType.ETTERSENDELSE_KLAGE]: (ytelse: string) =>
+            `Vi finn ingen dokument registrerte på deg som gjeld «${ytelse}».`,
+          [CaseType.ETTERSENDELSE_ANKE]: (ytelse: string) =>
+            `Vi finn ingen dokument registrerte på deg som gjeld «${ytelse}».`,
+        },
+        link: 'Du kan endre kva saka gjeld ved å gå til nav.no/klage',
+      },
       next_button: 'Gå vidare',
       delete_title: {
         [CaseType.KLAGE]: 'Slett klaga og gå tilbake til hovudsida',
