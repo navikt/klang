@@ -9,10 +9,13 @@ import { VedtakDate } from '@app/components/case/common/vedtak-date';
 import { BegrunnelseText } from '@app/components/case/innlogget/begrunnelse/begrunnelse-text';
 import { CaseLoader } from '@app/components/case/innlogget/loader';
 import { DeleteCaseButton } from '@app/components/delete-case-button/delete-case-button';
+import { ExternalLink } from '@app/components/link/external-link';
+import { NAV_URL } from '@app/constants';
 import { isApiError } from '@app/functions/is-api-error';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { INITIAL_ERRORS } from '@app/hooks/errors/types';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
+import { useInnsendingsytelseName } from '@app/hooks/use-innsendingsytelser';
 import { useUserRequired } from '@app/hooks/use-user';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
@@ -22,7 +25,8 @@ import { useDeleteAttachmentMutation, useDeleteCaseMutation, useUpdateCaseMutati
 import { type Case, CaseStatus, CaseType, type UpdateCaseFields } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
 import { CenteredContainer } from '@app/styled-components/common';
-import { BodyLong, Button, GuidePanel } from '@navikt/ds-react';
+import { ExclamationmarkTriangleIcon } from '@navikt/aksel-icons';
+import { BodyLong, Button, GuidePanel, InfoCard } from '@navikt/ds-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 
@@ -36,6 +40,7 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
   const navigate = useNavigate();
   const language = useLanguage();
   const { data: user, isSuccess } = useUserRequired();
+  const [innsendingsytelseName, isLoadingInnsendingsytelseName] = useInnsendingsytelseName(data.innsendingsytelse);
 
   const { skjema, user_loader } = useTranslation();
 
@@ -109,6 +114,24 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
       <GuidePanel>
         <BodyLong>{skjema.employer_info[data.type]}</BodyLong>
       </GuidePanel>
+
+      {data.userHasDocumentForThisTema || isLoadingInnsendingsytelseName ? null : (
+        <InfoCard data-color="warning">
+          <InfoCard.Header icon={<ExclamationmarkTriangleIcon aria-hidden />}>
+            <InfoCard.Title as="h2">{skjema.begrunnelse.no_document_for_tema.title}</InfoCard.Title>
+          </InfoCard.Header>
+
+          <InfoCard.Content>
+            <BodyLong spacing>
+              {skjema.begrunnelse.no_document_for_tema.content[data.type](innsendingsytelseName)}
+            </BodyLong>
+
+            <ExternalLink href={NAV_URL} inline openInSameWindow>
+              {skjema.begrunnelse.no_document_for_tema.link}
+            </ExternalLink>
+          </InfoCard.Content>
+        </InfoCard>
+      )}
 
       <PersonligeOpplysningerSummary
         fornavn={isSuccess ? user.navn.fornavn : user_loader.loading_user}
