@@ -16,13 +16,13 @@
   "devDependencies": {
     "@navikt/ds-tailwind": "8.16.2",
     "@tailwindcss/vite": "4.3.3",
-    "@types/bun": "1.4.1",
-    "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.7",
+    "@types/bun": "1.4.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.1.1",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2",
-    "vite": "8.2.2"
+    "vite": "8.3.0"
   },
   "dependencies": {
     "@grafana/faro-react": "2.11.0",
@@ -35,9 +35,9 @@
     "@navikt/nav-dekoratoren-moduler": "4.3.0",
     "@reduxjs/toolkit": "2.12.0",
     "date-fns": "4.4.0",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
     "react-redux": "9.3.0",
-    "react-router": "8.3.1"
+    "react-router": "8.4.0"
   }
 }
