@@ -461,6 +461,8 @@ export const nb = {
     expires_in: (exp: string) => `Du vil bli logget ut ${exp}. For å fortsette trenger du bare logge inn igjen.`,
     has_attachments_label: 'Jeg skal sende med vedlegg.',
     not_specified: 'Ikke angitt',
+    login_copy_reminder:
+      'Hvis du logger inn blir forklaring, saksnummer og vedtaksdato borte. Kopier det du vil ta vare på før du logger inn.',
     maintenance: {
       title: 'Vedlikehold mellom kl. 12:00 og 13:00 (GMT+2)',
       logged_in: [

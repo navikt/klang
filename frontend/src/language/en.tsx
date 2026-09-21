@@ -461,6 +461,8 @@ export const en: Translations = {
     expires_in: (exp: string) => `You will be logged out ${exp}. To continue, you just need to log in again.`,
     has_attachments_label: 'I will include attachments.',
     not_specified: 'Not specified.',
+    login_copy_reminder:
+      'If you log in, the explanation, case number and date of decision will be lost. Copy what you want to keep before you log in.',
     maintenance: {
       title: 'Maintenance between 12:00 and 13:00 (GMT+2)',
       logged_in: [

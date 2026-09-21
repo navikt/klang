@@ -1,4 +1,4 @@
-import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import { useSessionCase } from '@app/components/case/uinnlogget/session-case-context';
 import { useInnsendingsytelseName } from '@app/hooks/use-innsendingsytelser';
 import { CASE_TYPE_NAMES_LOWER_CASE_EN } from '@app/language/en';
 import { CASE_TYPE_NAMES_LOWER_CASE_NB } from '@app/language/nb';
@@ -16,16 +16,16 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 interface Props {
-  caseData: ISessionCase;
   validForm?: () => boolean;
   onError: () => void;
   error: boolean;
 }
 
-export const DownloadButton = ({ caseData, validForm, onError, error }: Props) => {
+export const DownloadButton = ({ validForm, onError, error }: Props) => {
+  const { type, innsendingsytelse, sessionCase } = useSessionCase();
   const { common } = useTranslation();
   const [pdfLoading, setpdfLoading] = useState(false);
-  const [title] = useInnsendingsytelseName(caseData.innsendingsytelse);
+  const [title] = useInnsendingsytelseName(innsendingsytelse);
   const navigate = useNavigate();
   const language = useLanguage();
 
@@ -51,28 +51,28 @@ export const DownloadButton = ({ caseData, validForm, onError, error }: Props) =
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...caseData, language }),
+        body: JSON.stringify({ ...sessionCase, type, innsendingsytelse, language }),
       });
 
       if (res.ok) {
         const blob = await res.blob();
         const a = document.createElement('a');
-        a.download = `Nav ${CASE_TYPE_NAMES_LOWER_CASE[language][caseData.type]} - ${title} - ${format(new Date(), 'yyyy-MM-dd HH-mm-ss')}.pdf`;
+        a.download = `Nav ${CASE_TYPE_NAMES_LOWER_CASE[language][type]} - ${title} - ${format(new Date(), 'yyyy-MM-dd HH-mm-ss')}.pdf`;
         a.href = URL.createObjectURL(blob);
         a.click();
 
-        apiEvent(endpoint, method, startTime, res.status, `Successfully generated PDF for ${caseData.type}.`);
+        apiEvent(endpoint, method, startTime, res.status, `Successfully generated PDF for ${type}.`);
 
         navigate(NEXT_PAGE_URL);
       } else {
-        apiEvent(endpoint, method, startTime, res.status, `Failed to generate PDF for ${caseData.type}.`);
+        apiEvent(endpoint, method, startTime, res.status, `Failed to generate PDF for ${type}.`);
         onError();
       }
     } catch (e) {
       if (e instanceof Error) {
-        errorEvent(`(${caseData.type}) ${e.message}`, e.stack);
+        errorEvent(`(${type}) ${e.message}`, e.stack);
       } else {
-        errorEvent(`Failed to generate PDF for ${caseData.type}.`);
+        errorEvent(`Failed to generate PDF for ${type}.`);
       }
 
       onError();

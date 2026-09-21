@@ -88,6 +88,8 @@ export enum CaseType {
   ETTERSENDELSE_ANKE = 'ANKE_ETTERSENDELSE',
 }
 
+export const CASE_TYPES = Object.values(CaseType);
+
 export const CASE_TYPE_PATH_SEGMENTS = {
   [CaseType.KLAGE]: 'klage',
   [CaseType.ANKE]: 'anke',

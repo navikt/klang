@@ -1,6 +1,5 @@
 import { caseSentSlice } from '@app/redux/case-sent-modal';
 import { loggedOutModalSlice } from '@app/redux/logged-out-modal';
-import { sessionSlice } from '@app/redux/session/session';
 import { authApi } from '@app/redux-api/auth/api';
 import { caseApi } from '@app/redux-api/case/api';
 import { innsendingsytelserApi } from '@app/redux-api/innsendingsytelser';
@@ -12,7 +11,6 @@ export const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [caseApi.reducerPath]: caseApi.reducer,
-  session: sessionSlice.reducer,
   loggedOutModal: loggedOutModalSlice.reducer,
   caseSentModal: caseSentSlice.reducer,
 });

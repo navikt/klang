@@ -6,52 +6,29 @@ import { Saksnummer } from '@app/components/case/common/saksnummer';
 import { VedtakDate } from '@app/components/case/common/vedtak-date';
 import { BegrunnelseText } from '@app/components/case/uinnlogget/begrunnelse/begrunnelse-text';
 import { UserInfo } from '@app/components/case/uinnlogget/begrunnelse/user-info';
-import { KlageSessionLoader } from '@app/components/case/uinnlogget/session-loader';
-import type { ISessionCase } from '@app/components/case/uinnlogget/types';
+import { useSessionCase } from '@app/components/case/uinnlogget/session-case-context';
 import { DeleteCaseButton } from '@app/components/delete-case-button/delete-case-button';
 import { redirectToNav } from '@app/functions/redirect-to-nav';
 import { INITIAL_ERRORS } from '@app/hooks/errors/types';
 import { useSessionCaseErrors } from '@app/hooks/errors/use-session-case-errors';
-import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
-import { useAppDispatch } from '@app/redux/configure-store';
-import { deleteSessionCase, updateSessionCase } from '@app/redux/session/session';
 import { CaseType } from '@app/redux-api/case/types';
 import { CenteredContainer } from '@app/styled-components/common';
-import { BodyLong, Button, Checkbox, CheckboxGroup, GuidePanel } from '@navikt/ds-react';
+import { BodyLong, Box, Button, Checkbox, CheckboxGroup, GuidePanel, InlineMessage } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 
-interface IProps {
-  innsendingsytelse: Innsendingsytelse;
-  type: CaseType;
-}
-
-export const SessionCasebegrunnelsePage = (props: IProps) => (
-  <KlageSessionLoader Component={RenderKlagebegrunnelsePage} {...props} />
-);
-
-interface Props {
-  data: ISessionCase;
-}
-
-const RenderKlagebegrunnelsePage = ({ data }: Props) => {
+export const SessionCaseBegrunnelsePage = () => {
+  const { type, innsendingsytelse, sessionCase: data, updateSessionCase, deleteSessionCase } = useSessionCase();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const language = useLanguage();
-
-  const updateCase = (update: Partial<ISessionCase>) => {
-    const { type, innsendingsytelse: ytelse } = data;
-
-    dispatch(updateSessionCase({ type, innsendingsytelse: ytelse, data: update }));
-  };
 
   const { skjema, post, common } = useTranslation();
 
-  const validate = useSessionCaseErrors(data.type);
+  const validate = useSessionCaseErrors(type);
 
   const [errors, setErrors] = useState(INITIAL_ERRORS);
   const [isValid, setIsValid] = useState(false);
@@ -81,47 +58,43 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
   };
 
   const deleteAndReturn = () => {
-    dispatch(
-      deleteSessionCase({
-        type: data.type,
-        innsendingsytelse: data.innsendingsytelse,
-      }),
-    );
+    deleteSessionCase();
     redirectToNav();
   };
 
   const { page_title, title_fragment } = skjema.common;
   const { steps } = skjema;
 
-  const isEttersendelseKlage = data.type === CaseType.ETTERSENDELSE_KLAGE;
+  const isEttersendelseKlage = type === CaseType.ETTERSENDELSE_KLAGE;
 
   return (
     <PostFormContainer
       activeStep={1}
       isValid={isValid}
-      page_title={page_title[data.type]}
-      steps={steps[data.type]}
-      innsendingsytelse={data.innsendingsytelse}
-      title_fragment={title_fragment[data.type]}
+      page_title={page_title[type]}
+      steps={steps[type]}
+      innsendingsytelse={innsendingsytelse}
+      title_fragment={title_fragment[type]}
     >
       <GuidePanel>
-        <BodyLong spacing>{post.should_log_in_digital[data.type]}</BodyLong>
-        <BodyLong>{post.employer_info[data.type]}</BodyLong>
+        <BodyLong spacing>{post.should_log_in_digital[type]}</BodyLong>
+        <BodyLong spacing>{common.login_copy_reminder}</BodyLong>
+        <BodyLong>{post.employer_info[type]}</BodyLong>
       </GuidePanel>
 
-      <UserInfo data={data} update={(info) => updateCase(info)} errors={errors} />
+      <UserInfo data={data} update={(info) => updateSessionCase(info)} errors={errors} />
 
       <VedtakDate
         value={data.vedtakDate}
-        onChange={(vedtakDate) => updateCase({ vedtakDate })}
+        onChange={(vedtakDate) => updateSessionCase({ vedtakDate })}
         error={errors[FormFieldsIds.VEDTAK_DATE]}
-        type={data.type}
+        type={type}
       />
 
       {isEttersendelseKlage ? (
         <EttersendelseKaEnhet
           caseIsAtKA={data.caseIsAtKA}
-          onIsAtKaChange={(caseIsAtKA) => updateCase({ caseIsAtKA })}
+          onIsAtKaChange={(caseIsAtKA) => updateSessionCase({ caseIsAtKA })}
           error={errors[FormFieldsIds.CASE_IS_AT_KA]}
         />
       ) : null}
@@ -129,24 +102,27 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
       <Saksnummer
         internalSaksnummer={data.internalSaksnummer}
         value={data.userSaksnummer}
-        onChange={(userSaksnummer) => updateCase({ userSaksnummer, internalSaksnummer: null })}
+        onChange={(userSaksnummer) => updateSessionCase({ userSaksnummer, internalSaksnummer: null })}
         error={errors[FormFieldsIds.SAKSNUMMER]}
       />
 
+      <Box background="warning-moderate" borderColor="warning" borderWidth="1" padding="space-8" borderRadius="8">
+        <InlineMessage status="warning">{common.login_copy_reminder}</InlineMessage>
+      </Box>
+
       <BegrunnelseText
         value={data.fritekst}
-        description={skjema.begrunnelse.begrunnelse_text.description[data.type]}
-        placeholder={skjema.begrunnelse.begrunnelse_text.placeholder[data.type]}
-        label={skjema.begrunnelse.begrunnelse_text.title[data.type]}
-        onChange={(fritekst) => updateCase({ fritekst })}
+        description={skjema.begrunnelse.begrunnelse_text.description[type]}
+        placeholder={skjema.begrunnelse.begrunnelse_text.placeholder[type]}
+        label={skjema.begrunnelse.begrunnelse_text.title[type]}
+        onChange={(fritekst) => updateSessionCase({ fritekst })}
         error={errors[FormFieldsIds.FRITEKST]}
-        type={data.type}
       />
 
       <CheckboxGroup
         value={data.hasVedlegg ? [HAS_VEDLEGG] : []}
         error={errors[FormFieldsIds.VEDLEGG]}
-        onChange={(value: string[]) => updateCase({ hasVedlegg: value.includes(HAS_VEDLEGG) })}
+        onChange={(value: string[]) => updateSessionCase({ hasVedlegg: value.includes(HAS_VEDLEGG) })}
         legend={common.has_attachments_label}
         hideLegend
       >
@@ -156,11 +132,7 @@ const RenderKlagebegrunnelsePage = ({ data }: Props) => {
       <Errors {...errors} />
 
       <CenteredContainer>
-        <DeleteCaseButton
-          isLoading={false}
-          onDelete={deleteAndReturn}
-          title={skjema.begrunnelse.delete_title[data.type]}
-        />
+        <DeleteCaseButton isLoading={false} onDelete={deleteAndReturn} title={skjema.begrunnelse.delete_title[type]} />
 
         <Button as={Link} variant="primary" onClick={submitKlage} to="../oppsummering" relative="path">
           {skjema.begrunnelse.next_button}

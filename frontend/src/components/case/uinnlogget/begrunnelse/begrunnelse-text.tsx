@@ -1,5 +1,4 @@
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
-import type { CaseType } from '@app/redux-api/case/types';
 import { Textarea, type TextareaProps } from '@navikt/ds-react';
 
 interface Props extends Omit<TextareaProps, 'label' | 'onError' | 'onChange'> {
@@ -7,7 +6,6 @@ interface Props extends Omit<TextareaProps, 'label' | 'onError' | 'onChange'> {
   onChange: (value: string) => void;
   error: string | undefined;
   label: string;
-  type: CaseType;
 }
 
 export const BegrunnelseText = ({ error, label, onChange, ...props }: Props) => (

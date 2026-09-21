@@ -459,6 +459,8 @@ export const nn: Translations = {
     expires_in: (exp: string) => `Du vil bli logga ut ${exp}. For å halde fram må du berre logge inn igjen.`,
     has_attachments_label: 'Eg skal sende med vedlegg.',
     not_specified: 'Ikkje spesifisert',
+    login_copy_reminder:
+      'Om du loggar inn, vil forklaring, saksnummer og vedtaksdato forsvinne. Kopier det du vil ta vare på før du loggar inn.',
     maintenance: {
       title: 'Vedlikehald mellom kl. 12:00 og 13:00 (GMT+2)',
       logged_in: [

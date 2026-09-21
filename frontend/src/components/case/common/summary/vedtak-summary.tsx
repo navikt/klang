@@ -1,13 +1,19 @@
-import type { ISessionCase } from '@app/components/case/uinnlogget/types';
 import { InformationPointBox } from '@app/components/information-point-box/information-point-box';
 import { type ISODate, isoDateToPretty } from '@app/domain/date/date';
 import { useTranslation } from '@app/language/use-translation';
-import type { Case } from '@app/redux-api/case/types';
+import type { CaseType } from '@app/redux-api/case/types';
 import { SpaceBetweenFlexListContainer } from '@app/styled-components/common';
 import { BodyShort } from '@navikt/ds-react';
 import { useMemo } from 'react';
 
-export const VedtakSummary = ({ vedtakDate, internalSaksnummer, userSaksnummer, type }: Case | ISessionCase) => {
+interface Props {
+  vedtakDate: ISODate | null;
+  internalSaksnummer: string | null;
+  userSaksnummer: string | null;
+  type: CaseType;
+}
+
+export const VedtakSummary = ({ vedtakDate, internalSaksnummer, userSaksnummer, type }: Props) => {
   const { skjema, common } = useTranslation();
 
   return (

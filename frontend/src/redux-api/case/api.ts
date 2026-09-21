@@ -9,7 +9,6 @@ import type {
   UpdateCaseParams,
   UploadAttachmentParams,
 } from '@app/redux-api/case/params';
-import type { CreateCaseFields } from '@app/redux-api/case/types';
 import { type Attachment, type BaseCase, type Case, CaseStatus, type FinalizedCase } from '@app/redux-api/case/types';
 import { API_BASE_QUERY, API_PATH } from '@app/redux-api/common';
 import { ServerSentEventManager, ServerSentEventType } from '@app/redux-api/server-sent-events';
@@ -64,17 +63,6 @@ export const caseApi = createApi({
     resumeOrCreateCase: builder.mutation<Case, ResumeCaseParams>({
       query: (body) => ({
         method: 'PUT',
-        url: '/klanker',
-        body,
-      }),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled;
-        dispatch(caseApi.util.updateQueryData('getCase', data.id, () => data));
-      },
-    }),
-    createCase: builder.mutation<Case, CreateCaseFields>({
-      query: (body) => ({
-        method: 'POST',
         url: '/klanker',
         body,
       }),
@@ -199,7 +187,6 @@ export const caseApi = createApi({
 export const {
   useGetCaseQuery,
   useResumeOrCreateCaseMutation,
-  useCreateCaseMutation,
   useUpdateCaseMutation,
   useDeleteCaseMutation,
   useFinalizeCaseMutation,
