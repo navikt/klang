@@ -460,7 +460,7 @@ export const nn: Translations = {
     has_attachments_label: 'Eg skal sende med vedlegg.',
     not_specified: 'Ikkje spesifisert',
     maintenance: {
-      title: 'Vedlikehald mellom kl. 07:00 og 11:00 (GMT+1)',
+      title: 'Vedlikehald mellom kl. 12:00 og 13:00 (GMT+2)',
       logged_in: [
         'Vi utfører for tida vedlikehald på tenesta. Ver venleg og prøv igjen seinare.',
         'Alt innhald er lagra.',
@@ -474,8 +474,8 @@ export const nn: Translations = {
       ],
     },
     maintenance_warning: {
-      title: 'Vedlikehald fredag morgon - 30.01.2026',
-      message: 'Tenesta vil vere utilgjengeleg fredag (30.01.2026) morgon mellom kl. 07:00 og 11:00 (GMT+1).',
+      title: 'Vedlikehald tirsdag ettermiddag - 22.09.2026',
+      message: 'Tenesta vil vere utilgjengeleg tirsdag (22.09.2026) ettermiddag mellom kl. 12:00 og 13:00 (GMT+2).',
     },
   },
   icons: {

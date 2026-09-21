@@ -462,7 +462,7 @@ export const nb = {
     has_attachments_label: 'Jeg skal sende med vedlegg.',
     not_specified: 'Ikke angitt',
     maintenance: {
-      title: 'Vedlikehold mellom kl. 07:00 og 11:00 (GMT+1)',
+      title: 'Vedlikehold mellom kl. 12:00 og 13:00 (GMT+2)',
       logged_in: [
         'Vi utfører for øyeblikket vedlikehold på tjenesten. Vennligst prøv igjen senere.',
         'Alt innhold er lagret.',
@@ -476,8 +476,8 @@ export const nb = {
       ],
     },
     maintenance_warning: {
-      title: 'Vedlikehold fredag morgen - 30.01.2026',
-      message: 'Tjenesten vil være utilgjengelig fredag (30.01.2026) morgen mellom kl. 07:00 og 11:00 (GMT+1).',
+      title: 'Vedlikehold tirsdag ettermiddag - 22.09.2026',
+      message: 'Tjenesten vil være utilgjengelig tirsdag (22.09.2026) ettermiddag mellom kl. 12:00 og 13:00 (GMT+2).',
     },
   },
   icons: {

@@ -462,7 +462,7 @@ export const en: Translations = {
     has_attachments_label: 'I will include attachments.',
     not_specified: 'Not specified.',
     maintenance: {
-      title: 'Maintenance between 07:00 and 11:00 (GMT+1)',
+      title: 'Maintenance between 12:00 and 13:00 (GMT+2)',
       logged_in: [
         'We are currently performing maintenance on the service. Please try again later.',
         'All content is saved.',
@@ -476,8 +476,8 @@ export const en: Translations = {
       ],
     },
     maintenance_warning: {
-      title: 'Maintenance Friday morning - 30.01.2026',
-      message: 'The service will be unavailable Friday (30.01.2026) morning between 07:00 and 11:00 (GMT+1).',
+      title: 'Maintenance Tuesday afternoon - 22.09.2026',
+      message: 'The service will be unavailable Tuesday (22.09.2026) afternoon between 12:00 and 13:00 (GMT+2).',
     },
   },
   icons: {
