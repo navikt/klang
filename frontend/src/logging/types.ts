@@ -70,26 +70,17 @@ interface ApiEvent extends BaseEventData, CommonEventData {
 }
 
 export enum SessionAction {
-  /** Load session case */
-  LOAD = 'load',
   /** Create session case */
   CREATE = 'create',
-  /** Load or create session case */
-  LOAD_OR_CREATE = 'load-create',
   /** Delete session case */
   DELETE = 'delete',
-  /** Set session case */
-  SET = 'set',
   /** Update session case */
   UPDATE = 'update',
 }
 
 export const SESSION_ACTIONS: Record<SessionAction, string> = {
-  [SessionAction.LOAD]: 'Load session case',
   [SessionAction.CREATE]: 'Create session case',
-  [SessionAction.LOAD_OR_CREATE]: 'Load or create session case',
   [SessionAction.DELETE]: 'Delete session case',
-  [SessionAction.SET]: 'Set session case',
   [SessionAction.UPDATE]: 'Update session case',
 };
 
