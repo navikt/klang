@@ -3,7 +3,7 @@ import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import { useAppSelector } from '@app/redux/configure-store';
 import { useGetCaseQuery } from '@app/redux-api/case/api';
-import { BodyShort, Modal } from '@navikt/ds-react';
+import { BodyShort, Dialog } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect } from 'react';
 
@@ -27,10 +27,15 @@ export const CaseSentModal = () => {
   const { title, message } = skjema.begrunnelse.case_done_modal;
 
   return (
-    <Modal open onClose={() => undefined} header={{ heading: title[data.type], closeButton: false }} className="p-3">
-      <Modal.Body>
-        <BodyShort>{message[data.type]}</BodyShort>
-      </Modal.Body>
-    </Modal>
+    <Dialog open>
+      <Dialog.Popup className="p-3">
+        <Dialog.Header withClosebutton={false}>
+          <Dialog.Title>{title[data.type]}</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Body>
+          <BodyShort>{message[data.type]}</BodyShort>
+        </Dialog.Body>
+      </Dialog.Popup>
+    </Dialog>
   );
 };
