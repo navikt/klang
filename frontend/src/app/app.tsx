@@ -10,3 +10,15 @@ export const App = () => (
     </Provider>
   </StrictMode>
 );
+
+const KLANG_PREFIX = 'klang-';
+
+const cleanSessionStorage = () => {
+  const keys = Object.keys(sessionStorage).filter((key) => key.startsWith(KLANG_PREFIX));
+
+  for (const key of keys) {
+    sessionStorage.removeItem(key);
+  }
+};
+
+cleanSessionStorage();
