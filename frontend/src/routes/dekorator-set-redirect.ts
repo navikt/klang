@@ -1,5 +1,5 @@
-import { LOGGED_IN_PATH } from '@app/environment/environment';
 import { currentPath } from '@app/routes/current-path';
+import { getLoginPath } from '@app/user/login';
 import { setParams } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
@@ -12,8 +12,7 @@ export const DekoratorSetRedirect = ({ children }: Props) => {
   const location = useLocation();
 
   useEffect(() => {
-    const path = currentPath(location);
-    const redirectToUrl = `${window.location.origin}${LOGGED_IN_PATH}?redirect=${encodeURIComponent(path)}`;
+    const redirectToUrl = `${window.location.origin}${getLoginPath(currentPath(location))}`;
     setParams({ redirectToUrl });
   }, [location]);
 
