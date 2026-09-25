@@ -463,24 +463,6 @@ export const nb = {
     not_specified: 'Ikke angitt',
     login_copy_reminder:
       'Hvis du logger inn blir forklaring, saksnummer og vedtaksdato borte. Kopier det du vil ta vare på før du logger inn.',
-    maintenance: {
-      title: 'Vedlikehold mellom kl. 12:00 og 13:00 (GMT+2)',
-      logged_in: [
-        'Vi utfører for øyeblikket vedlikehold på tjenesten. Vennligst prøv igjen senere.',
-        'Alt innhold er lagret.',
-        'Bokmerk denne siden om du vil komme tilbake, eller la den være åpen.',
-        'Denne meldingen vil forsvinne når vedlikeholdet er ferdig.',
-      ],
-      session: [
-        'Vi utfører for øyeblikket vedlikehold på tjenesten. Vennligst prøv igjen senere.',
-        'Om denne meldingen avbrøt det du holdt på med, bør du ikke lukke siden. Da slettes innholdet du har jobbet med.',
-        'Denne meldingen vil forsvinne når vedlikeholdet er ferdig.',
-      ],
-    },
-    maintenance_warning: {
-      title: 'Vedlikehold tirsdag ettermiddag - 22.09.2026',
-      message: 'Tjenesten vil være utilgjengelig tirsdag (22.09.2026) ettermiddag mellom kl. 12:00 og 13:00 (GMT+2).',
-    },
   },
   icons: {
     externalLink: 'Åpne lenke i ny fane',
