@@ -461,24 +461,6 @@ export const nn: Translations = {
     not_specified: 'Ikkje spesifisert',
     login_copy_reminder:
       'Om du loggar inn, vil forklaring, saksnummer og vedtaksdato forsvinne. Kopier det du vil ta vare på før du loggar inn.',
-    maintenance: {
-      title: 'Vedlikehald mellom kl. 12:00 og 13:00 (GMT+2)',
-      logged_in: [
-        'Vi utfører for tida vedlikehald på tenesta. Ver venleg og prøv igjen seinare.',
-        'Alt innhald er lagra.',
-        'Bokmerk denne sida om du vil kome tilbake, eller la ho vere open.',
-        'Denne meldinga vil forsvinne når vedlikehaldet er ferdig.',
-      ],
-      session: [
-        'Vi utfører for tida vedlikehald på tenesta. Ver venleg og prøv igjen seinare.',
-        'Om denne meldinga avbraut det du heldt på med, bør du ikkje lukke sida. Då vert innhaldet du har jobba med sletta.',
-        'Denne meldinga vil forsvinne når vedlikehaldet er ferdig.',
-      ],
-    },
-    maintenance_warning: {
-      title: 'Vedlikehald tirsdag ettermiddag - 22.09.2026',
-      message: 'Tenesta vil vere utilgjengeleg tirsdag (22.09.2026) ettermiddag mellom kl. 12:00 og 13:00 (GMT+2).',
-    },
   },
   icons: {
     externalLink: 'Åpne lenke i ny fane',

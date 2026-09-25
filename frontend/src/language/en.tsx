@@ -463,24 +463,6 @@ export const en: Translations = {
     not_specified: 'Not specified.',
     login_copy_reminder:
       'If you log in, the explanation, case number and date of decision will be lost. Copy what you want to keep before you log in.',
-    maintenance: {
-      title: 'Maintenance between 12:00 and 13:00 (GMT+2)',
-      logged_in: [
-        'We are currently performing maintenance on the service. Please try again later.',
-        'All content is saved.',
-        'Bookmark this page if you want to come back or leave it open.',
-        'This message will disappear when the maintenance is complete.',
-      ],
-      session: [
-        'We are currently performing maintenance on the service. Please try again later.',
-        'If this message interrupted what you were doing, you should not close the page. Otherwise, the content you have been working on will be deleted.',
-        'This message will disappear when the maintenance is complete.',
-      ],
-    },
-    maintenance_warning: {
-      title: 'Maintenance Tuesday afternoon - 22.09.2026',
-      message: 'The service will be unavailable Tuesday (22.09.2026) afternoon between 12:00 and 13:00 (GMT+2).',
-    },
   },
   icons: {
     externalLink: 'Open link in new tab',

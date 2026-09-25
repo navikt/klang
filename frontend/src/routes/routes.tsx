@@ -4,8 +4,6 @@ import { LoggedOutModal } from '@app/components/case/innlogget/begrunnelse/logge
 import { CaseInnsendingPage } from '@app/components/case/innlogget/innsending/innsending-page';
 import { CaseKvitteringPage } from '@app/components/case/innlogget/kvittering/kvittering-page';
 import { CaseOppsummeringPage } from '@app/components/case/innlogget/summary/oppsummering-page';
-import { LoggedInMaintenanceMode } from '@app/components/maintenance-mode/logged-in';
-import { SessionMaintenanceMode } from '@app/components/maintenance-mode/session';
 import { LanguageComponent } from '@app/language/component';
 import { DekoratorSetRedirect } from '@app/routes/dekorator-set-redirect';
 import { ErrorBoundary } from '@app/routes/error-boundary';
@@ -25,7 +23,7 @@ export const Router = () => (
               <Route path="/:lang">
                 {/* Cases for logged in users. State lives in the case API. */}
                 <Route path="sak" element={<LoginRequired />}>
-                  <Route path=":id" element={<LoggedInMaintenanceMode />}>
+                  <Route path=":id">
                     <Route index element={<Navigate to="begrunnelse" replace />} />
                     <Route path="begrunnelse" element={<CaseBegrunnelsePage />} />
                     <Route path="oppsummering" element={<CaseOppsummeringPage />} />
@@ -34,7 +32,7 @@ export const Router = () => (
                   </Route>
                 </Route>
 
-                <Route element={<SessionMaintenanceMode />}>{sessionCaseRoutes()}</Route>
+                {sessionCaseRoutes()}
               </Route>
 
               <Route path="*" element={<NotFoundPage />} />
