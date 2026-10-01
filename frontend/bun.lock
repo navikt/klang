@@ -12,7 +12,7 @@
         "@navikt/ds-css": "8.16.2",
         "@navikt/ds-react": "8.16.2",
         "@navikt/fnrvalidator": "2.2.1",
-        "@navikt/nav-dekoratoren-moduler": "4.3.0",
+        "@navikt/nav-dekoratoren-moduler": "4.5.0",
         "@reduxjs/toolkit": "2.12.0",
         "date-fns": "4.4.0",
         "react": "19.3.0",
@@ -78,7 +78,7 @@
 
     "@navikt/fnrvalidator": ["@navikt/fnrvalidator@2.2.1", "https://npm.pkg.github.com/download/@navikt/fnrvalidator/2.2.1/37ed0feb23a7525139ad5512684ff6b0977112c6", {}, "sha512-R6x3MBFC0E/B7oTs+P2jAP+ym7+d6cwSpDsLeMja9IwPpJq3HV/OClFBVWm9fJZPmXfumKRMGy6gqsQPj90ftg=="],
 
-    "@navikt/nav-dekoratoren-moduler": ["@navikt/nav-dekoratoren-moduler@4.3.0", "https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.3.0/d2d64c4afd0201f3a1e8ec8fba9651c05fdfb736", { "dependencies": { "@navikt/analytics-types": "0.0.9", "csp-header": "6.3.1", "js-cookie": "3.0.8" }, "peerDependencies": { "html-react-parser": ">=5.x", "react": ">=17.x" } }, "sha512-DpUW0J1pIAncsEh698x6mSt7UsILEIbrYFzKTDuXem0y2bYjG+ki78NV2lhN/nPYXcoVYizsC1eetH72VMEoEw=="],
+    "@navikt/nav-dekoratoren-moduler": ["@navikt/nav-dekoratoren-moduler@4.5.0", "https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.5.0/e3c7d8e6e3f2efd2fb46952564e6c9c47ca200ad", { "dependencies": { "@navikt/analytics-types": "0.0.9", "csp-header": "6.4.0", "js-cookie": "3.0.8" }, "peerDependencies": { "html-react-parser": ">=5.x", "react": ">=17.x" } }, "sha512-0eTtpgk+kOGjxncAA5PT2+yLPIobPdvIMVJzWDVdlZmuKUGG1NMoom8DYtnCPkro3Mw+dZeoFJ0TVY+4F57J5Q=="],
 
     "@opentelemetry/api": ["@opentelemetry/api@1.9.1", "", {}, "sha512-gLyJlPHPZYdAk1JENA9LeHejZe1Ti77/pTeFm/nMXmQH/HFZlcS/O2XJB+L8fkbrNSqhdtlvjBVjxwUYanNH5Q=="],
 
@@ -242,7 +242,7 @@
 
     "cookie-es": ["cookie-es@3.1.1", "", {}, "sha512-UaXxwISYJPTr9hwQxMFYZ7kNhSXboMXP+Z3TRX6f1/NyaGPfuNUZOWP1pUEb75B2HjfklIYLVRfWiFZJyC6Npg=="],
 
-    "csp-header": ["csp-header@6.3.1", "", {}, "sha512-ykcqGMOGP/uU7RLXDD83k2Ge5Stgc/N3qgKgSN+dATDlNgLHnIoI1IdZBjOskD5Ev1RSKTabLdIETJ6VzXTmvA=="],
+    "csp-header": ["csp-header@6.4.0", "", {}, "sha512-9YEpW20tPtKzVouyAxNtXqSE4EGaTd4ZiT1n/FbUQ5xhmFkPCjC3Db/gHDbesryQoO/TigBAUCqgKypOHviRgQ=="],
 
     "csstype": ["csstype@3.2.3", "", {}, "sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ=="],
 
