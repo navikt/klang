@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@fastify/cors": "11.3.0",
-    "@fastify/http-proxy": "11.6.2",
+    "@fastify/http-proxy": "11.6.3",
     "@fastify/otel": "0.21.0",
     "@fastify/type-provider-typebox": "6.1.0",
     "@navikt/oasis": "4.2.2",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@types/bun": "1.4.2",
-    "@types/node": "26.6.1",
+    "@types/node": "26.6.3",
     "tsc-alias": "1.9.5",
     "typescript": "7.0.2"
   }
