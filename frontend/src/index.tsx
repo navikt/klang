@@ -18,6 +18,7 @@ if (import.meta.env.MODE === 'development') {
   injectDecoratorClientSide({
     env: 'dev',
     params: {
+      teamName: 'klage-dittnav.klage',
       simple: true,
       chatbot: true,
       redirectToApp: true,
