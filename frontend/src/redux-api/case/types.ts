@@ -29,6 +29,7 @@ interface ReadOnlyFields {
   readonly modifiedByUser: ISODateTime;
   readonly status: CaseStatus;
   readonly vedlegg: Attachment[];
+  readonly userHasDocumentForThisTema: boolean;
 }
 
 export interface UpdateCaseFields extends DeepLinkParams {

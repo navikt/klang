@@ -155,6 +155,18 @@ export const en: Translations = {
           [CaseType.ETTERSENDELSE_ANKE]: 'Write here',
         },
       },
+      no_document_for_tema: {
+        title: 'Are you sure you have made the right choice?',
+        content: {
+          [CaseType.KLAGE]: (ytelse: string) => `We cannot find any documents registered to you regarding “${ytelse}”.`,
+          [CaseType.ANKE]: (ytelse: string) => `We cannot find any documents registered to you regarding “${ytelse}”.`,
+          [CaseType.ETTERSENDELSE_KLAGE]: (ytelse: string) =>
+            `We cannot find any documents registered to you regarding “${ytelse}”.`,
+          [CaseType.ETTERSENDELSE_ANKE]: (ytelse: string) =>
+            `We cannot find any documents registered to you regarding “${ytelse}”.`,
+        },
+        link: 'You can change what the case is about by going to nav.no/klage',
+      },
       next_button: 'Continue',
       delete_title: {
         [CaseType.KLAGE]: 'Delete complaint and return to start page',
