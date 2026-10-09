@@ -231,6 +231,16 @@ export const en: Translations = {
             [CaseType.ETTERSENDELSE_ANKE]:
               'You can still log in to submit the additional documentation digitally. Then you do not have to print and send the additional documentation by post yourself.',
           },
+          employer_notice: {
+            [CaseType.KLAGE]:
+              'If you are a representative or an employer who wishes to complain, you must send the complaint by post.',
+            [CaseType.ANKE]:
+              'If you are a representative or an employer who wishes to appeal, you must send the appeal by post.',
+            [CaseType.ETTERSENDELSE_KLAGE]:
+              'If you are a representative or an employer who wishes to send additional documentation, you must send the documentation by post.',
+            [CaseType.ETTERSENDELSE_ANKE]:
+              'If you are a representative or an employer who wishes to send additional documentation, you must send the documentation by post.',
+          },
           action: 'Log in',
         },
         confirm: {
