@@ -231,6 +231,16 @@ export const nb = {
             [CaseType.ETTERSENDELSE_ANKE]:
               'Du kan fortsatt logge inn for å sende inn ettersendelsen digitalt. Da slipper du å skrive ut og sende ettersendelsen i posten selv.',
           },
+          employer_notice: {
+            [CaseType.KLAGE]:
+              'Hvis du er en fullmektig eller en arbeidsgiver som skal klage, må du sende klagen i posten.',
+            [CaseType.ANKE]:
+              'Hvis du er en fullmektig eller en arbeidsgiver som skal anke, må du sende anken i posten.',
+            [CaseType.ETTERSENDELSE_KLAGE]:
+              'Hvis du er en fullmektig eller en arbeidsgiver som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
+            [CaseType.ETTERSENDELSE_ANKE]:
+              'Hvis du er en fullmektig eller en arbeidsgiver som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
+          },
           action: 'Logg inn',
         },
         confirm: {

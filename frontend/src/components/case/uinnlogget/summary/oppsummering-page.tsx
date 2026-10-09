@@ -104,47 +104,48 @@ export const SessionCaseOppsummeringPage = () => {
       </VStack>
 
       <Alert variant="info">
-        <BodyShort spacing>{skjema.summary.sections.login.notice[type]}</BodyShort>
-        <BodyShort spacing>{common.login_copy_reminder}</BodyShort>
+          <BodyShort spacing>{skjema.summary.sections.login.notice[type]}</BodyShort>
+          <BodyShort spacing>{common.login_copy_reminder}</BodyShort>
+          <BodyShort spacing>{skjema.summary.sections.login.employer_notice[type]}</BodyShort>
 
-        <Dialog>
-          <Dialog.Trigger>
-            <Button>{skjema.summary.sections.login.action}</Button>
-          </Dialog.Trigger>
+          <Dialog>
+            <Dialog.Trigger>
+              <Button>{skjema.summary.sections.login.action}</Button>
+            </Dialog.Trigger>
 
-          <Dialog.Popup>
-            <Dialog.Header>
-              <Dialog.Title>{skjema.summary.sections.login.action}</Dialog.Title>
-            </Dialog.Header>
+            <Dialog.Popup>
+              <Dialog.Header>
+                <Dialog.Title>{skjema.summary.sections.login.action}</Dialog.Title>
+              </Dialog.Header>
 
-            <Dialog.Body>
-              <BodyLong spacing>{common.login_copy_reminder}</BodyLong>
-              <CopyButton text={skjema.summary.sections.begrunnelse.title[type]} copyText={data.fritekst} />
-              {saksnummer === null ? null : (
-                <CopyButton text={skjema.summary.sections.case.saksnummer} copyText={saksnummer} />
-              )}
-              {data.vedtakDate === null || data.vedtakDate.length === 0 ? null : (
-                <CopyButton text={skjema.summary.sections.case.vedtak[type]} copyText={data.vedtakDate} />
-              )}
-            </Dialog.Body>
+              <Dialog.Body>
+                <BodyLong spacing>{common.login_copy_reminder}</BodyLong>
+                <CopyButton text={skjema.summary.sections.begrunnelse.title[type]} copyText={data.fritekst} />
+                {saksnummer === null ? null : (
+                  <CopyButton text={skjema.summary.sections.case.saksnummer} copyText={saksnummer} />
+                )}
+                {data.vedtakDate === null || data.vedtakDate.length === 0 ? null : (
+                  <CopyButton text={skjema.summary.sections.case.vedtak[type]} copyText={data.vedtakDate} />
+                )}
+              </Dialog.Body>
 
-            <Dialog.Footer>
-              <Dialog.CloseTrigger>
-                <Button variant="secondary">{common.cancel}</Button>
-              </Dialog.CloseTrigger>
+              <Dialog.Footer>
+                <Dialog.CloseTrigger>
+                  <Button variant="secondary">{common.cancel}</Button>
+                </Dialog.CloseTrigger>
 
-              <Button
-                variant="primary"
-                size="medium"
-                as="a"
-                href={getLoginRedirectPath()}
-                icon={<EnterIcon aria-hidden />}
-              >
-                {skjema.summary.sections.login.action}
-              </Button>
-            </Dialog.Footer>
-          </Dialog.Popup>
-        </Dialog>
+                <Button
+                  variant="primary"
+                  size="medium"
+                  as="a"
+                  href={getLoginRedirectPath()}
+                  icon={<EnterIcon aria-hidden />}
+                >
+                  {skjema.summary.sections.login.action}
+                </Button>
+              </Dialog.Footer>
+            </Dialog.Popup>
+          </Dialog>
       </Alert>
 
       <Box
