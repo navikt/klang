@@ -106,6 +106,7 @@ export const SessionCaseOppsummeringPage = () => {
       <Alert variant="info">
         <BodyShort spacing>{skjema.summary.sections.login.notice[type]}</BodyShort>
         <BodyShort spacing>{common.login_copy_reminder}</BodyShort>
+        <BodyShort spacing>{skjema.summary.sections.login.employer_notice[type]}</BodyShort>
 
         <Dialog>
           <Dialog.Trigger>
