@@ -22,6 +22,7 @@ import { serveStaticFilesPlugin } from '@app/plugins/serve-static-files';
 import { serverTimingPlugin } from '@app/plugins/server-timing';
 import { unleashProxyPlugin } from '@app/plugins/unleash-proxy';
 import { processErrors } from '@app/process-errors';
+import { registerServer } from '@app/shutdown';
 import { EmojiIcons, sendToSlack } from '@app/slack';
 import cors from '@fastify/cors';
 import { fastify } from 'fastify';
@@ -47,6 +48,8 @@ const app = fastify({
     caseSensitive: false,
   },
 });
+
+registerServer(app);
 
 await app.register(fastifyOtelInstrumentation.plugin());
 

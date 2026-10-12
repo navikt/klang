@@ -1,5 +1,6 @@
 import { DEV_URL, isDeployed } from '@app/config/env';
 import { getDuration } from '@app/helpers/duration';
+import { createGracefulEventStream, isEventStream } from '@app/helpers/event-stream';
 import { getProxyRequestHeaders } from '@app/helpers/prepare-request-headers';
 import { getTraceContext } from '@app/helpers/trace-context';
 import { getLogger } from '@app/logger';
@@ -104,6 +105,22 @@ export const apiProxyPlugin = fastifyPlugin<ApiProxyPluginOptions>(
             span?.recordException(error);
 
             reply.code(502).send('Bad Gateway');
+          },
+          onResponse: (req, reply, res) => {
+            if (!isEventStream(reply.getHeader('content-type'))) {
+              return reply.send(res.stream);
+            }
+
+            const stream = createGracefulEventStream(res.stream, (error) =>
+              log.info({
+                msg: `Event stream from ${appName} ended unexpectedly: ${error.message}`,
+                error,
+                ...getTraceContext(req),
+                data: { method: req.method, url: req.url, client_version: req.client_version },
+              }),
+            );
+
+            return reply.send(stream);
           },
           rewriteRequestHeaders: (req) => getProxyRequestHeaders(req, appName),
           rewriteHeaders: (headers, req) => {

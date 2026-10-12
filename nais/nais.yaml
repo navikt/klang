@@ -26,6 +26,9 @@ spec:
   readiness:
     path: /isReady
     initialDelay: 3
+  # No preStopHook: graceful shutdown (server/src/shutdown.ts) relies on Nais' default preStop hook,
+  # which sleeps 5s so the ingress stops routing to the pod before it receives SIGTERM.
+  # A custom preStopHook replaces that sleep.
   tokenx:
     enabled: true
   idporten:
