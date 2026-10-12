@@ -1,4 +1,5 @@
 import { getLogger } from '@app/logger';
+import { gracefulShutdown } from '@app/shutdown';
 import { shutdownTracing } from '@app/tracing';
 import { EmojiIcons, sendToSlack } from './slack';
 
@@ -18,6 +19,7 @@ export const processErrors = () => {
       log.info({ msg: `Process ${process.pid} received a ${signal} signal.` });
 
       try {
+        await gracefulShutdown();
         await shutdownTracing();
       } finally {
         process.exit(0);

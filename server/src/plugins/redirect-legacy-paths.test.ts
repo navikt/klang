@@ -2,8 +2,7 @@ import { describe, expect, it, mock } from 'bun:test';
 import Fastify from 'fastify';
 
 mock.module('@app/logger', () => ({
-  // biome-ignore lint/suspicious/noEmptyBlockStatements: Don't want logs in tests
-  getLogger: () => ({ info: () => {}, warn: () => {}, error: () => {} }),
+  getLogger: () => ({ info: () => undefined, warn: () => undefined, error: () => undefined }),
 }));
 
 const { redirectLegacyPathsPlugin } = await import('./redirect-legacy-paths');
