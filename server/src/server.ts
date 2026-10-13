@@ -20,6 +20,7 @@ import { redirectLegacyPathsPlugin } from '@app/plugins/redirect-legacy-paths';
 import { serveIndexPlugin } from '@app/plugins/serve-index/serve-index';
 import { serveStaticFilesPlugin } from '@app/plugins/serve-static-files';
 import { serverTimingPlugin } from '@app/plugins/server-timing';
+import { traceContextPlugin } from '@app/plugins/trace-context';
 import { unleashProxyPlugin } from '@app/plugins/unleash-proxy';
 import { processErrors } from '@app/process-errors';
 import { registerServer } from '@app/shutdown';
@@ -52,6 +53,7 @@ const app = fastify({
 registerServer(app);
 
 await app.register(fastifyOtelInstrumentation.plugin());
+await app.register(traceContextPlugin);
 
 app
   .register(cors, corsOptions)
