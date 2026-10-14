@@ -112,11 +112,11 @@ export const apiProxyPlugin = fastifyPlugin<ApiProxyPluginOptions>(
             }
 
             const stream = createGracefulEventStream(res.stream, (error) =>
-              log.info({
+              log.warn({
                 msg: `Event stream from ${appName} ended unexpectedly: ${error.message}`,
                 error,
                 ...getTraceContext(req),
-                data: { method: req.method, url: req.url, client_version: req.client_version },
+                data: { method: req.method, url: req.url, appName, client_version: req.client_version },
               }),
             );
 

@@ -4,6 +4,8 @@ import type { FastifyInstance } from 'fastify';
 
 const log = getLogger('shutdown');
 
+const LOG_PREFIX = 'Preparing to shut down';
+
 // Nais' default preStop hook sleeps 5s before SIGTERM, so the ingress has already stopped routing to this pod.
 // preStop (5s) + close (20s) must leave time for shutting down tracing within the termination grace period (30s).
 const CLOSE_TIMEOUT_MS = 20_000;
@@ -54,7 +56,7 @@ export const gracefulShutdown = (): Promise<void> => {
 
 const shutdown = async () => {
   if (openStreams.size > 0) {
-    log.info({ msg: `Ending ${openStreams.size} open event streams` });
+    log.info({ msg: `${LOG_PREFIX}: Ending ${openStreams.size} open event streams` });
 
     for (const end of openStreams) {
       end();
@@ -74,12 +76,12 @@ const shutdown = async () => {
     ]);
 
     if (result === CloseResult.TIMEOUT) {
-      log.warn({ msg: `Server did not close within ${CLOSE_TIMEOUT_MS}ms` });
+      log.warn({ msg: `${LOG_PREFIX}: Server did not close within ${CLOSE_TIMEOUT_MS}ms` });
     } else {
-      log.info({ msg: 'Server closed' });
+      log.info({ msg: `${LOG_PREFIX}: Server closed` });
     }
   } catch (error) {
-    log.error({ msg: 'Failed to close server', error });
+    log.error({ msg: `${LOG_PREFIX}: Failed to close server`, error });
   }
 };
 
