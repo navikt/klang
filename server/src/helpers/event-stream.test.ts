@@ -2,8 +2,12 @@ import { afterEach, describe, expect, it, mock } from 'bun:test';
 import { PassThrough } from 'node:stream';
 import Fastify from 'fastify';
 
+const logger = await import('@app/logger');
+const noop = () => undefined;
+
 mock.module('@app/logger', () => ({
-  getLogger: () => ({ info: () => undefined, warn: () => undefined, error: () => undefined }),
+  ...logger,
+  getLogger: () => ({ debug: noop, info: noop, warn: noop, error: noop }),
 }));
 
 const { createGracefulEventStream, isEventStream } = await import('./event-stream');
