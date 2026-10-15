@@ -20,7 +20,7 @@ export const CaseLoader = ({ Component }: Props) => {
   const [error, setError] = useState<string | null>(null);
   const { data: user } = useGetUserQuery();
 
-  const { data, isLoading, isError, error: apiError } = useGetCaseQuery(id ?? skipToken);
+  const { currentData, isLoading, isError, error: apiError } = useGetCaseQuery(id ?? skipToken);
 
   useEffect(() => {
     if (typeof id !== 'string') {
@@ -53,9 +53,9 @@ export const CaseLoader = ({ Component }: Props) => {
     return <Alert variant="error">{error}</Alert>;
   }
 
-  if (isLoading || data === undefined) {
+  if (isLoading || currentData === undefined) {
     return <LoadingPage>{klage_loader.loading}</LoadingPage>;
   }
 
-  return <Component data={data} />;
+  return <Component key={currentData.id} data={currentData} />;
 };

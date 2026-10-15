@@ -1,6 +1,6 @@
 import { DigitalFormContainer } from '@app/components/case/common/digital/digital-form-container';
-import { PersonligeOpplysningerSummary } from '@app/components/case/common/summary/personlige-opplysninger-summary';
 import { VedtakSummary } from '@app/components/case/common/summary/vedtak-summary';
+import { SakenGjelderSummary } from '@app/components/case/innlogget/begrunnelse/saken-gjelder-summary';
 import { CaseLoader } from '@app/components/case/innlogget/loader';
 import { AttachmentSummary } from '@app/components/case/innlogget/summary/attachment-summary';
 import { FinalizeDigitalCase } from '@app/components/case/innlogget/summary/finalize-digital';
@@ -8,7 +8,6 @@ import { PdfLink } from '@app/components/case/innlogget/summary/pdf-link';
 import { InformationPointBox } from '@app/components/information-point-box/information-point-box';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
-import { useUserRequired } from '@app/hooks/use-user';
 import { Clipboard } from '@app/icons/clipboard';
 import { useTranslation } from '@app/language/use-translation';
 import { type Case, CaseStatus } from '@app/redux-api/case/types';
@@ -25,8 +24,7 @@ interface Props {
 }
 
 const DigitalCaseOppsummeringPage = ({ data }: Props) => {
-  const { common, skjema, user_loader, icons } = useTranslation();
-  const { data: user, isSuccess } = useUserRequired();
+  const { common, skjema, icons } = useTranslation();
   const validate = useCaseErrors(data.type);
   const [isValid] = validate(data);
   const [error, setError] = useState<string | null>(null);
@@ -61,13 +59,7 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
               {skjema.summary.sections.person.title}
             </Heading>
             <BodyLong spacing>{skjema.summary.sections.person.info_from}</BodyLong>
-            <PersonligeOpplysningerSummary
-              fornavn={isSuccess ? user.navn.fornavn : user_loader.loading_user}
-              etternavn={isSuccess ? user.navn.etternavn : user_loader.loading_user}
-              f_or_d_number={
-                isSuccess ? user.folkeregisteridentifikator?.identifikasjonsnummer : user_loader.loading_user
-              }
-            />
+            <SakenGjelderSummary fullmaktsgivere={data.fullmaktsgivere} sakenGjelder={data.sakenGjelder} />
           </Section>
 
           <Section>

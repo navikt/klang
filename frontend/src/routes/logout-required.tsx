@@ -36,9 +36,13 @@ export const LogoutRequired = ({ type, innsendingsytelse }: Props) => {
 
     appEvent(AppEventEnum.CASE_CREATE_OR_RESUME);
 
-    resumeOrCreateCase({ innsendingsytelse, type, ...deepLinkParams })
+    resumeOrCreateCase({ innsendingsytelse, type, sakenGjelder: null, ...deepLinkParams })
       .unwrap()
-      .then(({ id }) => navigate(`/${language}/sak/${id}/begrunnelse`, { replace: true }));
+      .then(({ id, fullmaktsgivere }) => {
+        // Keep deep link params if there are fullmaktsmuligheter
+        const search = fullmaktsgivere.length > 0 ? window.location.search : '';
+        navigate({ pathname: `/${language}/sak/${id}/begrunnelse`, search }, { replace: true });
+      });
   }, [
     deepLinkParams,
     innsendingsytelse,
