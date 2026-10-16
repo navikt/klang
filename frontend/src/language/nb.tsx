@@ -20,13 +20,13 @@ export const nb = {
     },
     employer_info: {
       [CaseType.KLAGE]:
-        'Hvis du er en fullmektig eller en arbeidsgiver som skal klage, må du logge ut og sende klagen i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut klagen og signerer som fullmektig eller arbeidsgiver.',
+        'Hvis du er en arbeidsgiver som skal klage, må du logge ut og sende klagen i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut klagen og signerer som arbeidsgiver.',
       [CaseType.ANKE]:
-        'Hvis du er en fullmektig eller en arbeidsgiver som skal anke, må du logge ut og sende anken i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut anken og signerer som fullmektig eller arbeidsgiver.',
+        'Hvis du er en arbeidsgiver som skal anke, må du logge ut og sende anken i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut anken og signerer som arbeidsgiver.',
       [CaseType.ETTERSENDELSE_KLAGE]:
-        'Hvis du er en fullmektig eller en arbeidsgiver som skal ettersende dokumentasjon, må du logge ut og sende dokumentasjonen i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut dokumentasjonen og signerer som fullmektig eller arbeidsgiver.',
+        'Hvis du er en arbeidsgiver som skal ettersende dokumentasjon, må du logge ut og sende dokumentasjonen i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut dokumentasjonen og signerer som arbeidsgiver.',
       [CaseType.ETTERSENDELSE_ANKE]:
-        'Hvis du er en fullmektig eller en arbeidsgiver som skal ettersende dokumentasjon, må du logge ut og sende dokumentasjonen i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut dokumentasjonen og signerer som fullmektig eller arbeidsgiver.',
+        'Hvis du er en arbeidsgiver som skal ettersende dokumentasjon, må du logge ut og sende dokumentasjonen i posten. Du legger inn fødselsnummeret eller D-nummeret til den vedtaket gjelder for, skriver ut dokumentasjonen og signerer som arbeidsgiver.',
     },
     common: {
       title_fragment: {
@@ -171,6 +171,13 @@ export const nb = {
           [CaseType.ETTERSENDELSE_ANKE]: 'Ettersendelsen er allerede sendt inn',
         },
       },
+      fullmakt: {
+        saken_gjelder: 'Saken gjelder',
+        fullmakt: 'Fullmakt',
+        fetch_user_error: 'Feil ved henting av bruker',
+        set_saken_gjelder_error: 'Ukjent feil ved valg av hvem saken gjelder',
+        me: 'Meg selv',
+      },
     },
     summary: {
       title: {
@@ -232,14 +239,12 @@ export const nb = {
               'Du kan fortsatt logge inn for å sende inn ettersendelsen digitalt. Da slipper du å skrive ut og sende ettersendelsen i posten selv.',
           },
           employer_notice: {
-            [CaseType.KLAGE]:
-              'Hvis du er en fullmektig eller en arbeidsgiver som skal klage, må du sende klagen i posten.',
-            [CaseType.ANKE]:
-              'Hvis du er en fullmektig eller en arbeidsgiver som skal anke, må du sende anken i posten.',
+            [CaseType.KLAGE]: 'Hvis du er en arbeidsgiver som skal klage, må du sende klagen i posten.',
+            [CaseType.ANKE]: 'Hvis du er en arbeidsgiver som skal anke, må du sende anken i posten.',
             [CaseType.ETTERSENDELSE_KLAGE]:
-              'Hvis du er en fullmektig eller en arbeidsgiver som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
+              'Hvis du er en arbeidsgiver som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
             [CaseType.ETTERSENDELSE_ANKE]:
-              'Hvis du er en fullmektig eller en arbeidsgiver som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
+              'Hvis du er en arbeidsgiver som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
           },
           action: 'Logg inn',
         },
@@ -404,6 +409,7 @@ export const nb = {
   },
   user_loader: {
     loading_user: 'Laster...',
+    error: 'Feil ved lasting av bruker',
   },
   case_loader: {
     loading: 'Laster...',

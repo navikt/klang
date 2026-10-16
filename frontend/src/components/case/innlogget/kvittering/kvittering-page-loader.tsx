@@ -41,6 +41,7 @@ export const KvitteringPageLoader = ({ type, caseId }: Props) => {
             finalizedDate={data.finalizedDate}
             basePath={`${API_PATH}/klanker`}
             type={data.type}
+            sakenGjelder={data.sakenGjelder}
           />
         ) : null}
       </Kvittering>

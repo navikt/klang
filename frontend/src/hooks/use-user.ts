@@ -36,7 +36,7 @@ export const useIsAuthenticated = (): AuthResult => {
 /** Only for use in authorized contexts.
  * If the user is unauthorized, it will show the logged out modal.
  */
-export const useUserRequired = (): ReturnType<typeof useGetUserQuery> => {
+export const useUserRequired = () => {
   const user = useGetUserQuery();
   const dispatch = useAppDispatch();
 

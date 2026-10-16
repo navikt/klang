@@ -22,4 +22,5 @@ export interface DeleteAttachmentParams {
 export interface ResumeCaseParams extends DeepLinkParams {
   readonly type: CaseType;
   readonly innsendingsytelse: Innsendingsytelse;
+  readonly sakenGjelder: string | null;
 }

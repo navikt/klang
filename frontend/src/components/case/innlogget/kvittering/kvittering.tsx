@@ -1,5 +1,6 @@
 import { ExternalLink } from '@app/components/link/external-link';
 import { type ISODate, isoDateToPretty } from '@app/domain/date/date';
+import { useUserRequired } from '@app/hooks/use-user';
 import { Envelope } from '@app/icons/envelope';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import { useTranslation } from '@app/language/use-translation';
@@ -50,19 +51,23 @@ interface JournalpostProps {
   finalizedDate: ISODate | null;
   basePath: string;
   type: CaseType;
+  sakenGjelder: string;
 }
 
-export const Journalpost = ({ caseId, finalizedDate, basePath, type }: JournalpostProps) => {
+export const Journalpost = ({ caseId, finalizedDate, basePath, type, sakenGjelder }: JournalpostProps) => {
   const { skjema } = useTranslation();
+  const { data } = useUserRequired();
 
   return (
     <>
-      <BodyShort>
-        <ExternalLink href={`${basePath}/${caseId}/pdf`} onClick={() => appEvent(AppEventEnum.CASE_DOWNLOAD)}>
-          <DownloadIcon aria-hidden />
-          <span>{skjema.kvittering.download[type]}</span>
-        </ExternalLink>
-      </BodyShort>
+      {data !== undefined && data.folkeregisteridentifikator.identifikasjonsnummer === sakenGjelder ? (
+        <BodyShort>
+          <ExternalLink href={`${basePath}/${caseId}/pdf`} onClick={() => appEvent(AppEventEnum.CASE_DOWNLOAD)}>
+            <DownloadIcon aria-hidden />
+            <span>{skjema.kvittering.download[type]}</span>
+          </ExternalLink>
+        </BodyShort>
+      ) : null}
       <BodyShort>
         {skjema.kvittering.sent}: {isoDateToPretty(finalizedDate)}
       </BodyShort>

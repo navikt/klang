@@ -170,6 +170,13 @@ export const en: Translations = {
           [CaseType.ETTERSENDELSE_ANKE]: 'The additional documentation has already been submitted',
         },
       },
+      fullmakt: {
+        saken_gjelder: 'The case concerns',
+        fullmakt: 'Power of attorney',
+        fetch_user_error: 'Error fetching user',
+        set_saken_gjelder_error: 'Unknown error when selecting who the case concerns',
+        me: 'Myself',
+      },
     },
     summary: {
       title: {
@@ -232,14 +239,12 @@ export const en: Translations = {
               'You can still log in to submit the additional documentation digitally. Then you do not have to print and send the additional documentation by post yourself.',
           },
           employer_notice: {
-            [CaseType.KLAGE]:
-              'If you are a representative or an employer who wishes to complain, you must send the complaint by post.',
-            [CaseType.ANKE]:
-              'If you are a representative or an employer who wishes to appeal, you must send the appeal by post.',
+            [CaseType.KLAGE]: 'If you are an employer who wishes to complain, you must send the complaint by post.',
+            [CaseType.ANKE]: 'If you are an employer who wishes to appeal, you must send the appeal by post.',
             [CaseType.ETTERSENDELSE_KLAGE]:
-              'If you are a representative or an employer who wishes to send additional documentation, you must send the documentation by post.',
+              'If you are an employer who wishes to send additional documentation, you must send the documentation by post.',
             [CaseType.ETTERSENDELSE_ANKE]:
-              'If you are a representative or an employer who wishes to send additional documentation, you must send the documentation by post.',
+              'If you are an employer who wishes to send additional documentation, you must send the documentation by post.',
           },
           action: 'Log in',
         },
@@ -404,6 +409,7 @@ export const en: Translations = {
   },
   user_loader: {
     loading_user: 'Loading...',
+    error: 'Error loading user.',
   },
   case_loader: {
     loading: 'Loading...',

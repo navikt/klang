@@ -170,6 +170,13 @@ export const nn: Translations = {
           [CaseType.ETTERSENDELSE_ANKE]: 'Ettersendinga er allereie sendt inn',
         },
       },
+      fullmakt: {
+        saken_gjelder: 'Saka gjeld',
+        fullmakt: 'Fullmakt',
+        fetch_user_error: 'Feil ved henting av brukar',
+        set_saken_gjelder_error: 'Ukjent feil ved val av kven saka gjeld',
+        me: 'Meg sjølv',
+      },
     },
     summary: {
       title: {
@@ -231,14 +238,12 @@ export const nn: Translations = {
               'Du kan fortsatt logge inn for å sende inn ettersendinga digitalt. Da slepp du å skrive ut og sende ettersendinga i posten sjølv.',
           },
           employer_notice: {
-            [CaseType.KLAGE]:
-              'Dersom du er ein fullmektig eller ein arbeidsgivar som skal klage, må du sende klaga i posten.',
-            [CaseType.ANKE]:
-              'Dersom du er ein fullmektig eller ein arbeidsgivar som skal anke, må du sende anka i posten.',
+            [CaseType.KLAGE]: 'Dersom du er ein arbeidsgivar som skal klage, må du sende klaga i posten.',
+            [CaseType.ANKE]: 'Dersom du er ein arbeidsgivar som skal anke, må du sende anka i posten.',
             [CaseType.ETTERSENDELSE_KLAGE]:
-              'Dersom du er ein fullmektig eller ein arbeidsgivar som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
+              'Dersom du er ein arbeidsgivar som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
             [CaseType.ETTERSENDELSE_ANKE]:
-              'Dersom du er ein fullmektig eller ein arbeidsgivar som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
+              'Dersom du er ein arbeidsgivar som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
           },
           action: 'Logg inn',
         },
@@ -402,6 +407,7 @@ export const nn: Translations = {
   },
   user_loader: {
     loading_user: 'Lastar...',
+    error: 'Feil ved henting av brukar.',
   },
   case_loader: {
     loading: 'Lastar...',

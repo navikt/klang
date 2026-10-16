@@ -4,11 +4,11 @@ interface IIdentifikator {
 }
 
 export interface IName {
-  fornavn?: string;
-  etternavn?: string;
+  fornavn: string;
+  etternavn: string;
 }
 
 export interface IUser {
   navn: IName;
-  folkeregisteridentifikator?: IIdentifikator;
+  folkeregisteridentifikator: IIdentifikator;
 }
