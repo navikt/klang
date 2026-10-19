@@ -1,6 +1,7 @@
 import type { ISODate, ISODateTime } from '@app/domain/date/date';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
 import type { Languages } from '@app/language/types';
+import type { IUser } from '@app/redux-api/user/types';
 
 export enum CaseStatus {
   OPEN = 'OPEN',
@@ -29,6 +30,7 @@ interface ReadOnlyFields {
   readonly modifiedByUser: ISODateTime;
   readonly status: CaseStatus;
   readonly vedlegg: Attachment[];
+  readonly fullmaktsgivere: IUser[];
 }
 
 export interface UpdateCaseFields extends DeepLinkParams {
@@ -36,6 +38,7 @@ export interface UpdateCaseFields extends DeepLinkParams {
   readonly hasVedlegg: boolean;
   readonly userSaksnummer: string | null;
   readonly vedtakDate: ISODate | null;
+  readonly sakenGjelder: string;
 }
 
 export interface CreateCaseFields extends UpdateCaseFields {

@@ -4,9 +4,10 @@ import { Errors } from '@app/components/case/common/errors';
 import { EttersendelseKaEnhet } from '@app/components/case/common/ettersendelse-ka-enhet';
 import { FormFieldsIds } from '@app/components/case/common/form-fields-ids';
 import { DebouncedSaksnummer } from '@app/components/case/common/saksnummer';
-import { PersonligeOpplysningerSummary } from '@app/components/case/common/summary/personlige-opplysninger-summary';
 import { VedtakDate } from '@app/components/case/common/vedtak-date';
 import { BegrunnelseText } from '@app/components/case/innlogget/begrunnelse/begrunnelse-text';
+import { SakenGjelderSummary } from '@app/components/case/innlogget/begrunnelse/saken-gjelder-summary';
+import { SelectSakenGjelder } from '@app/components/case/innlogget/begrunnelse/select-saken-gjelder';
 import { CaseLoader } from '@app/components/case/innlogget/loader';
 import { DeleteCaseButton } from '@app/components/delete-case-button/delete-case-button';
 import { isApiError } from '@app/functions/is-api-error';
@@ -18,11 +19,16 @@ import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
-import { useDeleteAttachmentMutation, useDeleteCaseMutation, useUpdateCaseMutation } from '@app/redux-api/case/api';
+import {
+  useDeleteAttachmentMutation,
+  useDeleteCaseMutation,
+  useResumeOrCreateCaseMutation,
+  useUpdateCaseMutation,
+} from '@app/redux-api/case/api';
 import { type Case, CaseStatus, CaseType, type UpdateCaseFields } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
 import { CenteredContainer } from '@app/styled-components/common';
-import { BodyLong, Button, GuidePanel } from '@navikt/ds-react';
+import { BodyLong, Button, GuidePanel, Loader, VStack } from '@navikt/ds-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 
@@ -35,14 +41,16 @@ interface Props {
 const RenderCasebegrunnelsePage = ({ data }: Props) => {
   const navigate = useNavigate();
   const language = useLanguage();
-  const { data: user, isSuccess } = useUserRequired();
+  const { data: user } = useUserRequired();
 
-  const { skjema, user_loader } = useTranslation();
+  const { skjema } = useTranslation();
 
   const [updateCase, { isError, reset, error }] = useUpdateCaseMutation({ fixedCacheKey: data.id });
   const [deleteAttachment] = useDeleteAttachmentMutation();
   const [deleteCase, { isLoading }] = useDeleteCaseMutation();
-
+  const [, { isLoading: creatingOrResuming }] = useResumeOrCreateCaseMutation({
+    fixedCacheKey: user?.folkeregisteridentifikator.identifikasjonsnummer,
+  });
   const validate = useCaseErrors(data.type);
 
   const [errors, setErrors] = useState(INITIAL_ERRORS);
@@ -110,75 +118,82 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         <BodyLong>{skjema.employer_info[data.type]}</BodyLong>
       </GuidePanel>
 
-      <PersonligeOpplysningerSummary
-        fornavn={isSuccess ? user.navn.fornavn : user_loader.loading_user}
-        etternavn={isSuccess ? user.navn.etternavn : user_loader.loading_user}
-        f_or_d_number={isSuccess ? user.folkeregisteridentifikator?.identifikasjonsnummer : user_loader.loading_user}
-      />
+      {creatingOrResuming ? <Loader size="3xlarge" className="fixed inset-0 z-10 m-auto" /> : null}
 
-      <VedtakDate
-        value={data.vedtakDate}
-        error={errors[FormFieldsIds.VEDTAK_DATE]}
-        type={data.type}
-        onChange={(vedtakDate) => onChange('vedtakDate', vedtakDate)}
-        disabled={isSent}
-      />
+      <VStack
+        inert={creatingOrResuming}
+        aria-busy={creatingOrResuming}
+        className={creatingOrResuming ? 'opacity-50 blur-sm transition' : 'transition'}
+        gap="space-32"
+      >
+        <SelectSakenGjelder case={data} />
 
-      {isEttersendelseKlage ? (
-        <EttersendelseKaEnhet
-          caseIsAtKA={data.caseIsAtKA}
-          onIsAtKaChange={(caseIsAtKA) => onChange('caseIsAtKA', caseIsAtKA)}
-          error={errors[FormFieldsIds.CASE_IS_AT_KA]}
+        <SakenGjelderSummary fullmaktsgivere={data.fullmaktsgivere} sakenGjelder={data.sakenGjelder} />
+
+        <VedtakDate
+          value={data.vedtakDate}
+          error={errors[FormFieldsIds.VEDTAK_DATE]}
+          type={data.type}
+          onChange={(vedtakDate) => onChange('vedtakDate', vedtakDate)}
           disabled={isSent}
         />
-      ) : null}
 
-      <DebouncedSaksnummer
-        value={data.userSaksnummer}
-        internalSaksnummer={data.internalSaksnummer}
-        onChange={(userSaksnummer) => onChange('userSaksnummer', userSaksnummer)}
-        error={errors[FormFieldsIds.SAKSNUMMER]}
-        isError={isError}
-        resetError={reset}
-        disabled={isSent}
-      />
-
-      <BegrunnelseText
-        caseId={data.id}
-        value={data.fritekst}
-        type={data.type}
-        description={skjema.begrunnelse.begrunnelse_text.description[data.type]}
-        placeholder={skjema.begrunnelse.begrunnelse_text.placeholder[data.type]}
-        label={skjema.begrunnelse.begrunnelse_text.title[data.type]}
-        error={errors[FormFieldsIds.FRITEKST]}
-        modified={data.modifiedByUser}
-        disabled={isSent}
-      />
-
-      <AttachmentsSection
-        attachments={data.vedlegg}
-        caseId={data.id}
-        basePath={`${API_PATH}/klanker`}
-        onDelete={deleteAttachment}
-        error={errors[FormFieldsIds.VEDLEGG]}
-        isSent={isSent}
-      />
-
-      <Errors {...errors} />
-
-      <CenteredContainer>
-        {isSent ? null : (
-          <DeleteCaseButton
-            isLoading={isLoading}
-            onDelete={deleteAndReturn}
-            title={skjema.begrunnelse.delete_title[data.type]}
+        {isEttersendelseKlage ? (
+          <EttersendelseKaEnhet
+            caseIsAtKA={data.caseIsAtKA}
+            onIsAtKaChange={(caseIsAtKA) => onChange('caseIsAtKA', caseIsAtKA)}
+            error={errors[FormFieldsIds.CASE_IS_AT_KA]}
+            disabled={isSent}
           />
-        )}
+        ) : null}
 
-        <Button as={Link} variant="primary" onClick={submitKlage} to={NEXT_PAGE_URL} disabled={user === undefined}>
-          {skjema.begrunnelse.next_button}
-        </Button>
-      </CenteredContainer>
+        <DebouncedSaksnummer
+          value={data.userSaksnummer}
+          internalSaksnummer={data.internalSaksnummer}
+          onChange={(userSaksnummer) => onChange('userSaksnummer', userSaksnummer)}
+          error={errors[FormFieldsIds.SAKSNUMMER]}
+          isError={isError}
+          resetError={reset}
+          disabled={isSent}
+        />
+
+        <BegrunnelseText
+          caseId={data.id}
+          value={data.fritekst}
+          type={data.type}
+          description={skjema.begrunnelse.begrunnelse_text.description[data.type]}
+          placeholder={skjema.begrunnelse.begrunnelse_text.placeholder[data.type]}
+          label={skjema.begrunnelse.begrunnelse_text.title[data.type]}
+          error={errors[FormFieldsIds.FRITEKST]}
+          modified={data.modifiedByUser}
+          disabled={isSent}
+        />
+
+        <AttachmentsSection
+          attachments={data.vedlegg}
+          caseId={data.id}
+          basePath={`${API_PATH}/klanker`}
+          onDelete={deleteAttachment}
+          error={errors[FormFieldsIds.VEDLEGG]}
+          isSent={isSent}
+        />
+
+        <Errors {...errors} />
+
+        <CenteredContainer>
+          {isSent ? null : (
+            <DeleteCaseButton
+              isLoading={isLoading}
+              onDelete={deleteAndReturn}
+              title={skjema.begrunnelse.delete_title[data.type]}
+            />
+          )}
+
+          <Button as={Link} variant="primary" onClick={submitKlage} to={NEXT_PAGE_URL} disabled={user === undefined}>
+            {skjema.begrunnelse.next_button}
+          </Button>
+        </CenteredContainer>
+      </VStack>
     </DigitalFormContainer>
   );
 };

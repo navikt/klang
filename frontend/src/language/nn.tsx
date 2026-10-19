@@ -19,13 +19,13 @@ export const nn: Translations = {
     },
     employer_info: {
       [CaseType.KLAGE]:
-        'Dersom du er ein arbeidsgivar må du logge ut og sende klaga i posten. Du legg inn fødselsnummeret eller D-nummeret til den arbeidstakaren som vedtaket gjeld for, skriv ut klaga og signerer som arbeidsgivar.',
+        'Er du fullmektig utan registrert fullmakt i Navs fullmaktsløysing, advokat eller arbeidsgivar som klagar, må du sende klaga i posten. Oppgi fødselsnummer eller D-nummer til personen vedtaket gjeld, skriv ut klaga og signer ho som fullmektig eller arbeidsgivar.',
       [CaseType.ANKE]:
-        'Dersom du er ein arbeidsgivar må du logge ut og sende anka i posten. Du legg inn fødselsnummeret eller D-nummeret til den arbeidstakaren som vedtaket gjeld for, skriv ut anka og signerer som arbeidsgivar.',
+        'Er du fullmektig utan registrert fullmakt i Navs fullmaktsløysing, advokat eller arbeidsgivar som ankar, må du sende anka i posten. Oppgi fødselsnummer eller D-nummer til personen vedtaket gjeld, skriv ut anka og signer ho som fullmektig eller arbeidsgivar.',
       [CaseType.ETTERSENDELSE_KLAGE]:
-        'Dersom du er ein arbeidsgivar må du logge ut og leggje inn fødselsnummeret eller D-nummeret til den arbeidstakaren som ettersendinga gjeld for, skriv ut framsida og signerer som arbeidsgivar.',
+        'Er du fullmektig utan registrert fullmakt i Navs fullmaktsløysing, advokat eller arbeidsgivar som ettersender dokumentasjon til klaga, må du sende dokumentasjonen i posten. Oppgi fødselsnummer eller D-nummer til personen vedtaket gjeld, skriv ut dokumentasjonen og signer den som fullmektig eller arbeidsgivar.',
       [CaseType.ETTERSENDELSE_ANKE]:
-        'Dersom du er ein arbeidsgivar må du logge ut og leggje inn fødselsnummeret eller D-nummeret til den arbeidstakaren som ettersendinga gjeld for, skriv ut framsida og signerer som arbeidsgivar.',
+        'Er du fullmektig utan registrert fullmakt i Navs fullmaktsløysing, advokat eller arbeidsgivar som ettersender dokumentasjon til anka, må du sende dokumentasjonen i posten. Oppgi fødselsnummer eller D-nummer til personen vedtaket gjeld, skriv ut dokumentasjonen og signer den som fullmektig eller arbeidsgivar.',
     },
     common: {
       title_fragment: {
@@ -170,6 +170,13 @@ export const nn: Translations = {
           [CaseType.ETTERSENDELSE_ANKE]: 'Ettersendinga er allereie sendt inn',
         },
       },
+      fullmakt: {
+        saken_gjelder: 'Saka gjeld',
+        fullmakt: 'Fullmakt',
+        fetch_user_error: 'Feil ved henting av brukar',
+        set_saken_gjelder_error: 'Ukjent feil ved val av kven saka gjeld',
+        me: 'Meg sjølv',
+      },
     },
     summary: {
       title: {
@@ -222,23 +229,23 @@ export const nn: Translations = {
         login: {
           notice: {
             [CaseType.KLAGE]:
-              'Du kan fortsatt logge inn for å sende inn klaga digitalt. Da slepp du å skrive ut og sende klaga i posten sjølv.',
+              'Du kan framleis logge inn dersom du klagar på vegner av deg sjølv eller på vegner av nokon med registrert fullmakt i Navs fullmaktsløysing. Då kan du sende inn klaga digitalt.',
             [CaseType.ANKE]:
-              'Du kan fortsatt logge inn for å sende inn anka digitalt. Da slepp du å skrive ut og sende anka i posten sjølv.',
+              'Du kan framleis logge inn dersom du ankar på vegner av deg sjølv eller på vegner av nokon med registrert fullmakt i Navs fullmaktsløysing. Då kan du sende inn anka digitalt.',
             [CaseType.ETTERSENDELSE_KLAGE]:
-              'Du kan fortsatt logge inn for å sende inn ettersendinga digitalt. Da slepp du å skrive ut og sende ettersendinga i posten sjølv.',
+              'Du kan framleis logge inn dersom du ettersender dokumentasjon for deg sjølv eller på vegner av nokon med registrert fullmakt i Navs fullmaktsløysing. Då kan du ettersende dokumentasjonen digitalt.',
             [CaseType.ETTERSENDELSE_ANKE]:
-              'Du kan fortsatt logge inn for å sende inn ettersendinga digitalt. Da slepp du å skrive ut og sende ettersendinga i posten sjølv.',
+              'Du kan framleis logge inn dersom du ettersender dokumentasjon for deg sjølv eller på vegner av nokon med registrert fullmakt i Navs fullmaktsløysing. Då kan du ettersende dokumentasjonen digitalt.',
           },
           employer_notice: {
             [CaseType.KLAGE]:
-              'Dersom du er ein fullmektig eller ein arbeidsgivar som skal klage, må du sende klaga i posten.',
+              'Er du fullmektig utan registrert fullmakt, advokat eller arbeidsgivar som klagar, må du skrive ut klaga, signere ho og sende ho i posten.',
             [CaseType.ANKE]:
-              'Dersom du er ein fullmektig eller ein arbeidsgivar som skal anke, må du sende anka i posten.',
+              'Er du fullmektig utan registrert fullmakt, advokat eller arbeidsgivar som ankar, må du skrive ut anka, signere ho og sende ho i posten.',
             [CaseType.ETTERSENDELSE_KLAGE]:
-              'Dersom du er ein fullmektig eller ein arbeidsgivar som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
+              'Er du fullmektig utan registrert fullmakt, advokat eller arbeidsgivar som ettersender dokumentasjon til klaga, må du skrive ut dokumentasjonen, signere den og sende den i posten.',
             [CaseType.ETTERSENDELSE_ANKE]:
-              'Dersom du er ein fullmektig eller ein arbeidsgivar som skal ettersende dokumentasjon, må du sende dokumentasjonen i posten.',
+              'Er du fullmektig utan registrert fullmakt, advokat eller arbeidsgivar som ettersender dokumentasjon til anka, må du skrive ut dokumentasjonen, signere den og sende den i posten.',
           },
           action: 'Logg inn',
         },
@@ -379,29 +386,46 @@ export const nn: Translations = {
     },
   },
   post: {
+    should_log_in_digital_heading: {
+      [CaseType.KLAGE]: 'Logg inn for å sende klaga og vedlegg digitalt',
+      [CaseType.ANKE]: 'Logg inn for å sende anka og vedlegg digitalt',
+      [CaseType.ETTERSENDELSE_KLAGE]: 'Logg inn for å ettersende dokumentasjon digitalt',
+      [CaseType.ETTERSENDELSE_ANKE]: 'Logg inn for å ettersende dokumentasjon digitalt',
+    },
     should_log_in_digital: {
       [CaseType.KLAGE]:
-        'Dersom du loggar deg inn kan du sende inn klaga og vedlegg digitalt her. Du kan halde fram utan å logge deg inn, men hugs at du då må skrive ut klaga, signere ho og sende ho i posten.',
+        'Du kan halde fram utan å logge inn, men då må du skrive ut klaga, signere ho og sende ho i posten.',
       [CaseType.ANKE]:
-        'Dersom du loggar deg inn kan du sende inn anka og vedlegg digitalt her. Du kan halde fram utan å logge deg inn, men hugs at du då må skrive ut anka, signere ho og sende ho i posten.',
+        'Du kan halde fram utan å logge inn, men då må du skrive ut anka, signere ho og sende ho i posten.',
       [CaseType.ETTERSENDELSE_KLAGE]:
-        'Dersom du loggar deg inn kan du ettersende dokumentasjon digitalt her. Du kan halde fram utan å logge deg inn, men hugs at du då må skrive ut dokumentasjonen, signere ho og sende ho i posten.',
+        'Du kan halde fram utan å logge inn, men då må du skrive ut dokumentasjonen, signere den og sende den i posten.',
       [CaseType.ETTERSENDELSE_ANKE]:
-        'Dersom du loggar deg inn kan du ettersende dokumentasjon digitalt her. Du kan halde fram utan å logge deg inn, men hugs at du då må skrive ut dokumentasjonen, signere ho og sende ho i posten.',
+        'Du kan halde fram utan å logge inn, men då må du skrive ut dokumentasjonen, signere den og sende den i posten.',
     },
-    employer_info: {
+    employer_info_registered_power_of_attorney: {
       [CaseType.KLAGE]:
-        'Som arbeidsgivar må du sende klaga i posten. Du legg inn fødselsnummeret eller D-nummeret til den arbeidstakaren som vedtaket gjeld for, skriv ut klaga og signerer som arbeidsgivar.',
+        'Har du registrert fullmakt i Navs fullmaktsløysing, kan du logge inn og sende inn klaga på vegner av ein annan person.',
       [CaseType.ANKE]:
-        'Som arbeidsgivar må du sende anka i posten. Du legg inn fødselsnummeret eller D-nummeret til den arbeidstakaren som vedtaket gjeld for, skriv ut anka og signerer som arbeidsgivar.',
+        'Har du registrert fullmakt i Navs fullmaktsløysing, kan du logge inn og sende inn anka på vegner av ein annan person.',
       [CaseType.ETTERSENDELSE_KLAGE]:
-        'Som arbeidsgivar må du sende dokumentasjonen i posten. Du legg inn fødselsnummeret eller D-nummeret til den arbeidstakaren som vedtaket gjeld for, skriv ut dokumentasjonen og signerer som arbeidsgivar.',
+        'Har du registrert fullmakt i Navs fullmaktsløysing, kan du logge inn og ettersende dokumentasjon til klaga på vegner av ein annan person.',
       [CaseType.ETTERSENDELSE_ANKE]:
-        'Som arbeidsgivar må du sende dokumentasjonen i posten. Du legg inn fødselsnummeret eller D-nummeret til den arbeidstakaren som vedtaket gjeld for, skriv ut dokumentasjonen og signerer som arbeidsgivar.',
+        'Har du registrert fullmakt i Navs fullmaktsløysing, kan du logge inn og ettersende dokumentasjon til anka på vegner av ein annan person.',
+    },
+    employer_info_unregistered_power_of_attorney: {
+      [CaseType.KLAGE]:
+        'Er du fullmektig utan registrert fullmakt i Navs fullmaktsløysing, advokat eller arbeidsgivar som klagar, må du sende klaga i posten. Oppgi fødselsnummer eller D-nummer til personen vedtaket gjeld, skriv ut klaga og signer ho.',
+      [CaseType.ANKE]:
+        'Er du fullmektig utan registrert fullmakt i Navs fullmaktsløysing, advokat eller arbeidsgivar som ankar, må du sende anka i posten. Oppgi fødselsnummer eller D-nummer til personen vedtaket gjeld, skriv ut anka og signer ho.',
+      [CaseType.ETTERSENDELSE_KLAGE]:
+        'Er du fullmektig utan registrert fullmakt i Navs fullmaktsløysing, advokat eller arbeidsgivar som ettersender dokumentasjon til klaga, må du sende dokumentasjonen i posten. Oppgi fødselsnummer eller D-nummer til personen vedtaket gjeld, skriv ut dokumentasjonen og signer den.',
+      [CaseType.ETTERSENDELSE_ANKE]:
+        'Er du fullmektig utan registrert fullmakt i Navs fullmaktsløysing, advokat eller arbeidsgivar som ettersender dokumentasjon til anka, må du sende dokumentasjonen i posten. Oppgi fødselsnummer eller D-nummer til personen vedtaket gjeld, skriv ut dokumentasjonen og signer den.',
     },
   },
   user_loader: {
     loading_user: 'Lastar...',
+    error: 'Feil ved henting av brukar.',
   },
   case_loader: {
     loading: 'Lastar...',
@@ -470,7 +494,7 @@ export const nn: Translations = {
     has_attachments_label: 'Eg skal sende med vedlegg.',
     not_specified: 'Ikkje spesifisert',
     login_copy_reminder:
-      'Om du loggar inn, vil forklaring, saksnummer og vedtaksdato forsvinne. Kopier det du vil ta vare på før du loggar inn.',
+      'Når du loggar inn, blir forklaring, saksnummer og vedtaksdato sletta. Kopier det du vil ta vare på før du loggar inn.',
   },
   icons: {
     externalLink: 'Åpne lenke i ny fane',
