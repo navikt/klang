@@ -36,7 +36,7 @@ export const LogoutRequired = ({ type, innsendingsytelse }: Props) => {
 
     appEvent(AppEventEnum.CASE_CREATE_OR_RESUME);
 
-    resumeOrCreateCase({ innsendingsytelse, type, ...deepLinkParams })
+    resumeOrCreateCase({ innsendingsytelse, type, sakenGjelder: null, ...deepLinkParams })
       .unwrap()
       .then(({ id }) => navigate(`/${language}/sak/${id}/begrunnelse`, { replace: true }));
   }, [

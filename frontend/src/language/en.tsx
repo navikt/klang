@@ -19,13 +19,13 @@ export const en: Translations = {
     },
     employer_info: {
       [CaseType.KLAGE]:
-        'As an employer, you must log out and send the complaint by post. You enter the national identity number or D-number of the employee to whom the decision applies, print out the complaint, and sign as the employer.',
+        "If you are a representative without power of attorney registered in Nav's power of attorney service, a lawyer or an employer submitting a complaint, you must send the complaint by post. Enter the national identity number or D-number of the person the decision applies to, print the complaint and sign it as a representative or employer.",
       [CaseType.ANKE]:
-        'As an employer, you must log out and send the appeal by post. You enter the national identity number or D-number of the employee to whom the decision applies, print out the appeal, and sign as the employer.',
+        "If you are a representative without power of attorney registered in Nav's power of attorney service, a lawyer or an employer submitting an appeal, you must send the appeal by post. Enter the national identity number or D-number of the person the decision applies to, print the appeal and sign it as a representative or employer.",
       [CaseType.ETTERSENDELSE_KLAGE]:
-        'As an employer, you must log out and enter the national identity number or D-number of the employee to whom the additional documentation applies, print out the front page, and sign as the employer.',
+        "If you are a representative without power of attorney registered in Nav's power of attorney service, a lawyer or an employer submitting additional documentation for the complaint, you must send the documentation by post. Enter the national identity number or D-number of the person the decision applies to, print the documentation and sign it as a representative or employer.",
       [CaseType.ETTERSENDELSE_ANKE]:
-        'As an employer, you must log out and enter the national identity number or D-number of the employee to whom the additional documentation applies, print out the front page, and sign as the employer.',
+        "If you are a representative without power of attorney registered in Nav's power of attorney service, a lawyer or an employer submitting additional documentation for the appeal, you must send the documentation by post. Enter the national identity number or D-number of the person the decision applies to, print the documentation and sign it as a representative or employer.",
     },
     common: {
       title_fragment: {
@@ -170,6 +170,13 @@ export const en: Translations = {
           [CaseType.ETTERSENDELSE_ANKE]: 'The additional documentation has already been submitted',
         },
       },
+      fullmakt: {
+        saken_gjelder: 'The case concerns',
+        fullmakt: 'Power of attorney',
+        fetch_user_error: 'Error fetching user',
+        set_saken_gjelder_error: 'Unknown error when selecting who the case concerns',
+        me: 'Myself',
+      },
     },
     summary: {
       title: {
@@ -223,23 +230,23 @@ export const en: Translations = {
         login: {
           notice: {
             [CaseType.KLAGE]:
-              'You can still log in to submit the complaint digitally. Then you do not have to print and send the complaint by post yourself.',
+              "You can still log in if you are submitting a complaint on your own behalf or on behalf of someone you represent through a power of attorney registered in Nav's power of attorney service. You can then submit the complaint online.",
             [CaseType.ANKE]:
-              'You can still log in to submit the appeal digitally. Then you do not have to print and send the appeal by post yourself.',
+              "You can still log in if you are submitting an appeal on your own behalf or on behalf of someone you represent through a power of attorney registered in Nav's power of attorney service. You can then submit the appeal online.",
             [CaseType.ETTERSENDELSE_KLAGE]:
-              'You can still log in to submit the additional documentation digitally. Then you do not have to print and send the additional documentation by post yourself.',
+              "You can still log in if you are submitting additional documentation on your own behalf or on behalf of someone you represent through a power of attorney registered in Nav's power of attorney service. You can then submit the documentation online.",
             [CaseType.ETTERSENDELSE_ANKE]:
-              'You can still log in to submit the additional documentation digitally. Then you do not have to print and send the additional documentation by post yourself.',
+              "You can still log in if you are submitting additional documentation on your own behalf or on behalf of someone you represent through a power of attorney registered in Nav's power of attorney service. You can then submit the documentation online.",
           },
           employer_notice: {
             [CaseType.KLAGE]:
-              'If you are a representative or an employer who wishes to complain, you must send the complaint by post.',
+              'If you are a representative without registered power of attorney, a lawyer or an employer submitting a complaint, you must print the complaint, sign it and send it by post.',
             [CaseType.ANKE]:
-              'If you are a representative or an employer who wishes to appeal, you must send the appeal by post.',
+              'If you are a representative without registered power of attorney, a lawyer or an employer submitting an appeal, you must print the appeal, sign it and send it by post.',
             [CaseType.ETTERSENDELSE_KLAGE]:
-              'If you are a representative or an employer who wishes to send additional documentation, you must send the documentation by post.',
+              'If you are a representative without registered power of attorney, a lawyer or an employer submitting additional documentation for the complaint, you must print the documentation, sign it and send it by post.',
             [CaseType.ETTERSENDELSE_ANKE]:
-              'If you are a representative or an employer who wishes to send additional documentation, you must send the documentation by post.',
+              'If you are a representative without registered power of attorney, a lawyer or an employer submitting additional documentation for the appeal, you must print the documentation, sign it and send it by post.',
           },
           action: 'Log in',
         },
@@ -381,29 +388,46 @@ export const en: Translations = {
     },
   },
   post: {
+    should_log_in_digital_heading: {
+      [CaseType.KLAGE]: 'Log in to submit the complaint and attachments online',
+      [CaseType.ANKE]: 'Log in to submit the appeal and attachments online',
+      [CaseType.ETTERSENDELSE_KLAGE]: 'Log in to submit additional documentation online',
+      [CaseType.ETTERSENDELSE_ANKE]: 'Log in to submit additional documentation online',
+    },
     should_log_in_digital: {
       [CaseType.KLAGE]:
-        'If you log in, you will be able to send the complaint and attachments digitally. You can continue without logging in, but you will have to print your complaint, sign it, and send it by post.',
+        'You can continue without logging in, but you must then print the complaint, sign it and send it by post.',
       [CaseType.ANKE]:
-        'If you log in, you will be able to send the appeal and attachments digitally. You can continue without logging in, but you will have to print your appeal, sign it, and send it by post.',
+        'You can continue without logging in, but you must then print the appeal, sign it and send it by post.',
       [CaseType.ETTERSENDELSE_KLAGE]:
-        'If you log in, you will be able to send the additional documentation and attachments digitally. You can continue without logging in, but you will have to print your documentation, sign it, and send it by post.',
+        'You can continue without logging in, but you must then print the documentation, sign it and send it by post.',
       [CaseType.ETTERSENDELSE_ANKE]:
-        'If you log in, you will be able to send the additional documentation and attachments digitally. You can continue without logging in, but you will have to print your documentation, sign it, and send it by post.',
+        'You can continue without logging in, but you must then print the documentation, sign it and send it by post.',
     },
-    employer_info: {
+    employer_info_registered_power_of_attorney: {
       [CaseType.KLAGE]:
-        'As an employer, you must send the complaint by post. You enter the national identity number or D-number of the employee to whom the decision applies, print out the complaint, and sign as the employer.',
+        "If you have power of attorney registered in Nav's power of attorney service, you can log in and submit the complaint on behalf of another person.",
       [CaseType.ANKE]:
-        'As an employer, you must send the appeal by post. You enter the national identity number or D-number of the employee to whom the decision applies, print out the appeal, and sign as the employer.',
+        "If you have power of attorney registered in Nav's power of attorney service, you can log in and submit the appeal on behalf of another person.",
       [CaseType.ETTERSENDELSE_KLAGE]:
-        'As an employer, you must send the additional documentation by post. You enter the national identity number or D-number of the employee to whom the decision applies, print out the documentation, and sign as the employer.',
+        "If you have power of attorney registered in Nav's power of attorney service, you can log in and submit additional documentation for the complaint on behalf of another person.",
       [CaseType.ETTERSENDELSE_ANKE]:
-        'As an employer, you must send the additional documentation by post. You enter the national identity number or D-number of the employee to whom the decision applies, print out the documentation, and sign as the employer.',
+        "If you have power of attorney registered in Nav's power of attorney service, you can log in and submit additional documentation for the appeal on behalf of another person.",
+    },
+    employer_info_unregistered_power_of_attorney: {
+      [CaseType.KLAGE]:
+        "If you are a representative without power of attorney registered in Nav's power of attorney service, a lawyer or an employer submitting a complaint, you must send the complaint by post. Enter the national identity number or D-number of the person the decision applies to, print the complaint and sign it.",
+      [CaseType.ANKE]:
+        "If you are a representative without power of attorney registered in Nav's power of attorney service, a lawyer or an employer submitting an appeal, you must send the appeal by post. Enter the national identity number or D-number of the person the decision applies to, print the appeal and sign it.",
+      [CaseType.ETTERSENDELSE_KLAGE]:
+        "If you are a representative without power of attorney registered in Nav's power of attorney service, a lawyer or an employer submitting additional documentation for the complaint, you must send the documentation by post. Enter the national identity number or D-number of the person the decision applies to, print the documentation and sign it.",
+      [CaseType.ETTERSENDELSE_ANKE]:
+        "If you are a representative without power of attorney registered in Nav's power of attorney service, a lawyer or an employer submitting additional documentation for the appeal, you must send the documentation by post. Enter the national identity number or D-number of the person the decision applies to, print the documentation and sign it.",
     },
   },
   user_loader: {
     loading_user: 'Loading...',
+    error: 'Error loading user.',
   },
   case_loader: {
     loading: 'Loading...',
@@ -472,7 +496,7 @@ export const en: Translations = {
     has_attachments_label: 'I will include attachments.',
     not_specified: 'Not specified.',
     login_copy_reminder:
-      'If you log in, the explanation, case number and date of decision will be lost. Copy what you want to keep before you log in.',
+      'When you log in, your explanation, case number and decision date will be deleted. Copy any information you want to keep before logging in.',
   },
   icons: {
     externalLink: 'Open link in new tab',

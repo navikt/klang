@@ -17,7 +17,7 @@ import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import { CaseType } from '@app/redux-api/case/types';
 import { CenteredContainer } from '@app/styled-components/common';
-import { BodyLong, Box, Button, Checkbox, CheckboxGroup, GuidePanel, InlineMessage } from '@navikt/ds-react';
+import { BodyShort, Box, Button, Checkbox, CheckboxGroup, GuidePanel, Heading, InlineMessage } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 
@@ -77,9 +77,13 @@ export const SessionCaseBegrunnelsePage = () => {
       title_fragment={title_fragment[type]}
     >
       <GuidePanel>
-        <BodyLong spacing>{post.should_log_in_digital[type]}</BodyLong>
-        <BodyLong spacing>{common.login_copy_reminder}</BodyLong>
-        <BodyLong>{post.employer_info[type]}</BodyLong>
+        <Heading size="small" spacing>
+          {post.should_log_in_digital_heading[type]}
+        </Heading>
+        <BodyShort spacing>{post.should_log_in_digital[type]}</BodyShort>
+        <BodyShort spacing>{common.login_copy_reminder}</BodyShort>
+        <BodyShort spacing>{post.employer_info_registered_power_of_attorney[type]}</BodyShort>
+        <BodyShort>{post.employer_info_unregistered_power_of_attorney[type]}</BodyShort>
       </GuidePanel>
 
       <UserInfo data={data} update={(info) => updateSessionCase(info)} errors={errors} />
