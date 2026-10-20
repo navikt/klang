@@ -6,8 +6,7 @@ metadata:
   labels:
     team: klage
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "100M"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "7200"
+    haproxy.org/timeout-server: "2h"
 spec:
   port: 8080
   image: "{{ image }}"
