@@ -2,11 +2,9 @@ import { afterEach, describe, expect, it, mock } from 'bun:test';
 import { PassThrough } from 'node:stream';
 import Fastify from 'fastify';
 
-const logger = await import('@app/logger');
 const noop = () => undefined;
 
 mock.module('@app/logger', () => ({
-  ...logger,
   getLogger: () => ({ debug: noop, info: noop, warn: noop, error: noop }),
 }));
 
