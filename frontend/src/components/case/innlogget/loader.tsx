@@ -5,7 +5,7 @@ import { errorEvent } from '@app/logging/logger';
 import { useGetCaseQuery } from '@app/redux-api/case/api';
 import type { Case } from '@app/redux-api/case/types';
 import { useGetUserQuery } from '@app/redux-api/user/api';
-import { Alert } from '@navikt/ds-react';
+import { LocalAlert } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
@@ -50,7 +50,13 @@ export const CaseLoader = ({ Component }: Props) => {
   }, [id, klage_loader, isError, apiError, user]);
 
   if (error !== null) {
-    return <Alert variant="error">{error}</Alert>;
+    return (
+      <LocalAlert status="error">
+        <LocalAlert.Header>
+          <LocalAlert.Title>{error}</LocalAlert.Title>
+        </LocalAlert.Header>
+      </LocalAlert>
+    );
   }
 
   if (isLoading || currentData === undefined) {

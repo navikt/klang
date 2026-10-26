@@ -1,5 +1,7 @@
-import { LANGUAGES } from '@app/language/types';
+import { LANGUAGES, Languages } from '@app/language/types';
 import { currentPath } from '@app/routes/current-path';
+import { Provider } from '@navikt/ds-react';
+import { en, nb, nn } from '@navikt/ds-react/locales';
 import { onLanguageSelect, setAvailableLanguages, setParams } from '@navikt/nav-dekoratoren-moduler';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
@@ -8,9 +10,15 @@ interface Props {
   children: React.JSX.Element;
 }
 
+const AKSEL_LOCALES = { [Languages.nb]: nb, [Languages.nn]: nn, [Languages.en]: en };
+
 export const LanguageComponent = (props: Props) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const path = currentPath(location);
+  const currentLanguage = LANGUAGES.find(
+    (l) => location.pathname === `/${l}` || location.pathname.startsWith(`/${l}/`),
+  );
 
   useEffect(() => {
     onLanguageSelect((language) => {
@@ -21,8 +29,6 @@ export const LanguageComponent = (props: Props) => {
       }
     });
 
-    const path = currentPath(location);
-    const currentLanguage = LANGUAGES.find((l) => path.startsWith(`/${l}`));
     let languageIndependentPath = path;
 
     if (typeof currentLanguage === 'string') {
@@ -37,7 +43,7 @@ export const LanguageComponent = (props: Props) => {
         handleInApp: true,
       })),
     );
-  }, [navigate, location]);
+  }, [navigate, path, currentLanguage]);
 
-  return props.children;
+  return <Provider locale={AKSEL_LOCALES[currentLanguage ?? Languages.nb]}>{props.children}</Provider>;
 };
