@@ -8,7 +8,7 @@ import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import { useResumeOrCreateCaseMutation } from '@app/redux-api/case/api';
 import type { CaseType } from '@app/redux-api/case/types';
-import { Alert } from '@navikt/ds-react';
+import { LocalAlert } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router';
 
@@ -59,7 +59,11 @@ export const LogoutRequired = ({ type, innsendingsytelse }: Props) => {
 
   if (isAuthenticated) {
     return isError ? (
-      <Alert variant="error">{error_messages.create_error[type]}</Alert>
+      <LocalAlert status="error">
+        <LocalAlert.Header>
+          <LocalAlert.Title as="div">{error_messages.create_error[type]}</LocalAlert.Title>
+        </LocalAlert.Header>
+      </LocalAlert>
     ) : (
       // Waiting for case to be created/resumed and redirect to case.
       <LoadingPage>{case_loader.loading}</LoadingPage>

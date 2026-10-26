@@ -1,5 +1,6 @@
+import { InfoBox } from '@app/components/info-box/info-box';
 import { errorEvent } from '@app/logging/logger';
-import { Alert, BodyShort } from '@navikt/ds-react';
+import { BodyShort } from '@navikt/ds-react';
 import { Component, type ErrorInfo } from 'react';
 
 interface Props {
@@ -25,10 +26,10 @@ export class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <Alert variant="warning">
+        <InfoBox variant="warning">
           <BodyShort>Beklager, det skjedde en feil.</BodyShort>
           <BodyShort>Sorry, something went wrong.</BodyShort>
-        </Alert>
+        </InfoBox>
       );
     }
 

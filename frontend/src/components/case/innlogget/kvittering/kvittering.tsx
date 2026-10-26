@@ -1,3 +1,4 @@
+import { InfoBox } from '@app/components/info-box/info-box';
 import { ExternalLink } from '@app/components/link/external-link';
 import { type ISODate, isoDateToPretty } from '@app/domain/date/date';
 import { useUserRequired } from '@app/hooks/use-user';
@@ -8,7 +9,7 @@ import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
 import type { CaseType } from '@app/redux-api/case/types';
 import { DownloadIcon } from '@navikt/aksel-icons';
-import { Alert, BodyShort, Box, Heading, VStack } from '@navikt/ds-react';
+import { BodyShort, Box, Heading, VStack } from '@navikt/ds-react';
 
 interface Props {
   children?: React.ReactNode;
@@ -32,12 +33,12 @@ export const Kvittering = ({ children, type, ytelse }: Props) => {
 
       {children}
 
-      <Alert variant="success">
+      <InfoBox variant="success">
         <Heading spacing size="small" level="3">
           {skjema.kvittering.general_info.title}
         </Heading>
         <BodyShort>{skjema.kvittering.general_info.description(type, ytelse)}</BodyShort>
-      </Alert>
+      </InfoBox>
 
       <BodyShort>
         {skjema.kvittering.read_more} {skjema.kvittering.see_estimate}

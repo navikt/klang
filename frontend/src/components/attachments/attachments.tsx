@@ -11,13 +11,13 @@ import type { DeleteAttachmentParams } from '@app/redux-api/case/params';
 import type { Attachment } from '@app/redux-api/case/types';
 import { TrashIcon, XMarkIcon } from '@navikt/aksel-icons';
 import {
-  Alert,
   BodyLong,
   Box,
   Button,
   ErrorMessage,
   ErrorSummary,
   HStack,
+  InlineMessage,
   Label,
   List,
   VStack,
@@ -63,10 +63,10 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
       {title}
       <BodyLong>{skjema.begrunnelse.attachments.description}</BodyLong>
       <Attachments attachments={attachments} onDelete={onDelete} basePath={basePath} caseId={caseId} isSent={false} />
-      <Alert variant="info" inline>
+      <InlineMessage status="info">
         <BodyLong>{skjema.begrunnelse.attachments.supported_types}</BodyLong>
         <BodyLong>{skjema.begrunnelse.attachments.size_limit}</BodyLong>
-      </Alert>
+      </InlineMessage>
       <ShowErrors errors={attachmentErrors} clear={() => setAttachmentErrors({})} />
       <UploadButton
         setLoading={setAttachmentsLoading}

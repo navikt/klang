@@ -3,6 +3,7 @@ import { PersonligeOpplysningerSummary } from '@app/components/case/common/summa
 import { VedtakSummary } from '@app/components/case/common/summary/vedtak-summary';
 import { useSessionCase } from '@app/components/case/uinnlogget/session-case-context';
 import { DownloadButton } from '@app/components/case/uinnlogget/summary/download-button';
+import { InfoBox } from '@app/components/info-box/info-box';
 import { InformationPointBox } from '@app/components/information-point-box/information-point-box';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
 import { useSessionCaseErrors } from '@app/hooks/errors/use-session-case-errors';
@@ -12,7 +13,6 @@ import { Section } from '@app/styled-components/summary';
 import { getLoginRedirectPath } from '@app/user/login';
 import { EnterIcon } from '@navikt/aksel-icons';
 import {
-  Alert,
   BodyLong,
   BodyShort,
   Box,
@@ -23,6 +23,7 @@ import {
   Dialog,
   Heading,
   HStack,
+  InlineMessage,
   VStack,
 } from '@navikt/ds-react';
 import { useState } from 'react';
@@ -103,7 +104,7 @@ export const SessionCaseOppsummeringPage = () => {
         </Box>
       </VStack>
 
-      <Alert variant="info">
+      <InfoBox variant="info">
         <BodyShort spacing>{skjema.summary.sections.login.notice[type]}</BodyShort>
         <BodyShort spacing>{common.login_copy_reminder}</BodyShort>
         <BodyShort spacing>{skjema.summary.sections.login.employer_notice[type]}</BodyShort>
@@ -146,7 +147,7 @@ export const SessionCaseOppsummeringPage = () => {
             </Dialog.Footer>
           </Dialog.Popup>
         </Dialog>
-      </Alert>
+      </InfoBox>
 
       <Box
         background={showIsUnderstoodError ? 'danger-moderate' : 'warning-moderate'}
@@ -192,9 +193,9 @@ export const SessionCaseOppsummeringPage = () => {
         </HStack>
 
         {downloadError ? (
-          <Alert size="small" variant="error" aria-live="polite" id="download-error">
+          <InlineMessage size="small" status="error" aria-live="polite" id="download-error">
             {error_messages.download}
-          </Alert>
+          </InlineMessage>
         ) : null}
       </VStack>
     </PostFormContainer>

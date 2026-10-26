@@ -5,6 +5,7 @@ import { CaseLoader } from '@app/components/case/innlogget/loader';
 import { AttachmentSummary } from '@app/components/case/innlogget/summary/attachment-summary';
 import { FinalizeDigitalCase } from '@app/components/case/innlogget/summary/finalize-digital';
 import { PdfLink } from '@app/components/case/innlogget/summary/pdf-link';
+import { InfoBox } from '@app/components/info-box/info-box';
 import { InformationPointBox } from '@app/components/information-point-box/information-point-box';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
@@ -13,7 +14,7 @@ import { useTranslation } from '@app/language/use-translation';
 import { type Case, CaseStatus } from '@app/redux-api/case/types';
 import { API_PATH } from '@app/redux-api/common';
 import { Section } from '@app/styled-components/summary';
-import { Alert, BodyLong, Box, Button, ErrorMessage, Heading, HStack, Panel, VStack } from '@navikt/ds-react';
+import { BodyLong, Box, Button, ErrorMessage, Heading, HStack, VStack } from '@navikt/ds-react';
 import { useState } from 'react';
 import { Link } from 'react-router';
 
@@ -52,7 +53,7 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
         </Heading>
       </VStack>
 
-      <Panel border>
+      <Box padding="space-16" borderWidth="1">
         <VStack gap="space-16">
           <Section>
             <Heading level="1" size="small" spacing>
@@ -89,10 +90,10 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
             basePath={`${API_PATH}/klanker`}
           />
         </VStack>
-      </Panel>
+      </Box>
 
       {data.status === CaseStatus.DONE ? null : (
-        <Alert variant="info">{skjema.summary.kvitteringInfo[data.type]}</Alert>
+        <InfoBox variant="info">{skjema.summary.kvitteringInfo[data.type]}</InfoBox>
       )}
 
       {getError(error)}
