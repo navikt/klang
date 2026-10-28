@@ -176,7 +176,7 @@ const ShowErrors = ({ errors, clear }: ShowErrorsProps) => {
       </Box>
       <ErrorSummary>
         {errorMessages.map(([fileName, errors]) => (
-          <ErrorSummary.Item key={fileName} href="#upload-attachment" className="wrap-anywhere flex-col items-start">
+          <ErrorSummary.Item key={fileName} href="#upload-attachment" className="flex-col items-start wrap-anywhere">
             <b>{fileName}</b>
             <List>
               {errors.map((error) => (
