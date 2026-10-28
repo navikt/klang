@@ -62,7 +62,7 @@ const sdk = new NodeSDK({
   resource: resourceFromAttributes({
     [ATTR_SERVICE_NAME]: 'klang-frontend-bff',
   }),
-  spanProcessor: new AbortErrorSpanProcessor(new BatchSpanProcessor(exporter)),
+  spanProcessors: [new AbortErrorSpanProcessor(new BatchSpanProcessor(exporter))],
   instrumentations: [
     new DnsInstrumentation(),
     new HttpInstrumentation(),
