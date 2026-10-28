@@ -1,5 +1,4 @@
-Digital klage- og ankeinngang
-================
+# Digital klage- og ankeinngang
 
 Digital innsending av klager, anker og ettersendelser.
 
@@ -11,8 +10,7 @@ Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på Git
 
 Interne henvendelser kan sendes via Slack i kanalen [#team-digital-klage](https://nav-it.slack.com/archives/C01L59AQVQA).
 
-Bruk og integrasjon
-===================
+# Bruk og integrasjon
 
 ## Hvordan kommer bruker seg til skjema for klage, anke og ettersendelse?
 
@@ -33,6 +31,7 @@ For å lenke direkte til et klageskjema må `innsendingsytelse` være satt i URL
 _Det samme gjelder for anker og ettersendelser._
 
 ### Saksnummer
+
 `saksnummer` er valgfritt og kan settes som et query-parameter i URL-en.
 
 Saksnummeret settes i klagen/anken/ettersendelsen. Bruker kan fortsatt låse opp feltet og overstyre det.
@@ -40,17 +39,20 @@ Saksnummeret settes i klagen/anken/ettersendelsen. Bruker kan fortsatt låse opp
 Dersom saksnummer ikke er oppgitt som query-parameter, får bruker mulighet til å fylle inn saksnummer selv. Feltet er valgfritt.
 
 ### Eksempler på fullstendige URLer
-| Skjema | URL |
-|--------|-----|
-| Klage | `https://klage.nav.no/nb/klage/DAGPENGER?saksnummer=12345` |
-| Anke  | `https://klage.nav.no/nb/anke/DAGPENGER?saksnummer=12345`  |
+
+| Skjema                  | URL                                                                         |
+| ----------------------- | --------------------------------------------------------------------------- |
+| Klage                   | `https://klage.nav.no/nb/klage/DAGPENGER?saksnummer=12345`                  |
+| Anke                    | `https://klage.nav.no/nb/anke/DAGPENGER?saksnummer=12345`                   |
 | Ettersendelse til klage | `https://klage.nav.no/nb/ettersendelse/klage/DAGPENGER?saksnummer=12345&ka` |
-| Ettersendelse til anke | `https://klage.nav.no/nb/ettersendelse/anke/DAGPENGER?saksnummer=12345` |
+| Ettersendelse til anke  | `https://klage.nav.no/nb/ettersendelse/anke/DAGPENGER?saksnummer=12345`     |
 
 ## URL-format
+
 ```
 https://klage.nav.no/{språk}/{type}/{innsendingsytelse}?saksnummer={saksnummer}&ka
 ```
+
 - `språk` = `nb | nn | en`
 - `type` = `klage | anke | ettersendelse/klage | ettersendelse/anke`
 - `innsendingsytelse` = Se liste over tilgjengelige ytelser under.
@@ -58,6 +60,7 @@ https://klage.nav.no/{språk}/{type}/{innsendingsytelse}?saksnummer={saksnummer}
 - `ka` = Kun relevant for klageettersendelse. Om saken er sendt til Nav klageinstans. Om parameteret finnes vil det tolkes som `true`. Unntak er om verdien er `false` eller `0`. Dersom parameteret ikke tolkes til `true`, må bruker ta stilling til valget.
 
 ### Hvilke ytelser støttes?
+
 [Se tilgjengelige ytelser her.](https://klage.intern.dev.nav.no/)
 
 ## Legge til ny ytelse
@@ -106,15 +109,18 @@ Denne klienten interagerer med https://github.com/navikt/klage-dittnav-api, som 
 # Utvikling
 
 ## Autorisering mot @navikt-NPM-registeret
+
 1. [Lag et Personal Access Token (PAT)](https://github.com/settings/tokens) med scope: `read:packages`. _Tokenet må være autorisert for organisasjonen `navikt`._
 2. Opprett filen `bunfig.toml` i din `$HOME`-mappe med følgende innhold:
-  ```toml
-  [install.scopes]
-  "@navikt" = { token = "ghp_Qj6Xxn8HTUSJL9dNiZ0TW7R5YvupTZclTXsK", url = "https://npm.pkg.github.com/" }
-  ```
+```toml
+[install.scopes]
+"@navikt" = { token = "ghp_Qj6Xxn8HTUSJL9dNiZ0TW7R5YvupTZclTXsK", url = "https://npm.pkg.github.com/" }
+```
+
 3. Bytt ut `ghp_Qj6Xxn8HTUSJL9dNiZ0TW7R5YvupTZclTXsK` med ditt eget token.
 
 ### Referanser
+
 - https://github.com/navikt/nav-dekoratoren-moduler?tab=readme-ov-file#kom-i-gang
 - https://bun.sh/docs/install/registries
 

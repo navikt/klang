@@ -5,7 +5,7 @@ interface Props {
 
 export const ExtLink = ({ className, title }: Props) => (
   <svg
-    className={`ml-1 inline h-[1.25em] w-4 fill-ax-accent-800 align-top ${className ?? ''}`}
+    className={`fill-ax-accent-800 ml-1 inline h-[1.25em] w-4 align-top ${className ?? ''}`}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
     aria-hidden

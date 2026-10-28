@@ -39,7 +39,7 @@ jobs:
       image: ${{ steps.docker-build-push.outputs.image }}
     env:
       BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      XDG_CONFIG_HOME: ${{ github.workspace }}      
+      XDG_CONFIG_HOME: ${{ github.workspace }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
