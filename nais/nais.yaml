@@ -36,7 +36,8 @@ spec:
       enabled: true
       autoLogin: true
       autoLoginIgnorePaths:
-        - /api/**
+        - /api/klage-kodeverk-api/** # Innsendingsytelse names, used without login.
+        - /api/klage-dittnav-api/api/pdf/klanke # PDF download for cases sent by post, without login.
         - /
         - /nb/klage/**
         - /nn/klage/**
