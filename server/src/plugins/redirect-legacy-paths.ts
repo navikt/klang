@@ -1,5 +1,6 @@
 import { LOWER_CASE_INNSENDINGSYTELSER } from '@app/innsendingsytelser';
 import { getLogger } from '@app/logger';
+import { STEPS } from '@app/plugins/serve-index/segments';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import fastifyPlugin from 'fastify-plugin';
 
@@ -49,11 +50,43 @@ const redirect = (
 
   log.info({ msg: 'Redirecting legacy path', data: { from_path: req.url, to_path: redirectPath } });
 
-  return reply.redirect(redirectPath, 301);
+  return reply.redirect(redirectPath);
+};
+
+interface EttersendelseKlageParams {
+  lang: string;
+  ytelse: string;
+  step?: string;
+}
+
+const isStep = (step: string): boolean => STEPS.some((s) => s === step);
+
+const ettersendelseKlageRedirectHandler = (
+  req: FastifyRequest<{ Params: EttersendelseKlageParams }>,
+  reply: FastifyReply,
+) => {
+  const { lang, ytelse, step } = req.params;
+  const lowerCaseYtelse = ytelse.toLowerCase();
+  const lowerCaseStep = step?.toLowerCase();
+
+  if (!YTELSER.has(lowerCaseYtelse) || (lowerCaseStep !== undefined && !isStep(lowerCaseStep))) {
+    return reply.callNotFound();
+  }
+
+  const stepSuffix = lowerCaseStep === undefined ? '' : `/${lowerCaseStep}`;
+  const [, queryString] = req.url.split('?');
+  const query = queryString === undefined ? '' : `?${queryString}`;
+  const redirectPath = `/${lang}/ettersendelse/${lowerCaseYtelse}${stepSuffix}${query}`;
+
+  log.info({ msg: 'Redirecting legacy ettersendelse path', data: { from_path: req.url, to_path: redirectPath } });
+
+  return reply.redirect(redirectPath);
 };
 
 export const redirectLegacyPathsPlugin = fastifyPlugin(
   async (app) => {
+    app.get('/:lang/ettersendelse/klage/:ytelse', ettersendelseKlageRedirectHandler);
+    app.get('/:lang/ettersendelse/klage/:ytelse/:step', ettersendelseKlageRedirectHandler);
     app.get('/:lang/:type/uinnlogget/:ytelseOrTema', redirectHandler);
     app.get('/:lang/:type/uinnlogget/:ytelseOrTema/*', redirectHandler);
     app.get('/:lang/:type/ny/:ytelseOrTema', redirectHandler);
