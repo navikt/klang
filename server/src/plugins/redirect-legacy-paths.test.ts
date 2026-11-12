@@ -139,6 +139,20 @@ describe('redirect-legacy-paths', () => {
       expect(res.headers.location).toBe('/nb/klage/dagpenger?saksnummer=123');
     });
 
+    it('should preserve query string containing question marks', async () => {
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/nb/klage/uinnlogget/dagpenger?saksnummer=123?456&ka' });
+      expect(res.statusCode).toBe(302);
+      expect(res.headers.location).toBe('/nb/klage/dagpenger?saksnummer=123?456&ka');
+    });
+
+    it('should preserve query string containing question marks for ettersendelse/klage', async () => {
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/nb/ettersendelse/klage/dagpenger?saksnummer=123?456&ka' });
+      expect(res.statusCode).toBe(302);
+      expect(res.headers.location).toBe('/nb/ettersendelse/dagpenger?saksnummer=123?456&ka');
+    });
+
     it('should preserve query string with tema', async () => {
       const app = await buildApp();
       const res = await app.inject({ method: 'GET', url: '/nb/klage/uinnlogget/arbeid/dagpenger?saksnummer=123' });

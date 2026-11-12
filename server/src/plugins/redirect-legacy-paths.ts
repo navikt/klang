@@ -10,6 +10,11 @@ const YTELSER = new Set(LOWER_CASE_INNSENDINGSYTELSER);
 
 const log = getLogger('redirect-legacy-paths-plugin');
 
+const getQuery = (url: string): string => {
+  const index = url.indexOf('?');
+  return index === -1 ? '' : url.slice(index);
+};
+
 interface LegacyParams {
   lang: string;
   type: string;
@@ -44,9 +49,7 @@ const redirect = (
   rest: string,
 ) => {
   const suffix = rest ? `/${rest}` : '';
-  const [, queryString] = req.url.split('?');
-  const query = queryString === undefined ? '' : `?${queryString}`;
-  const redirectPath = `/${lang}/${type}/${ytelse}${suffix}${query}`;
+  const redirectPath = `/${lang}/${type}/${ytelse}${suffix}${getQuery(req.url)}`;
 
   log.info({ msg: 'Redirecting legacy path', data: { from_path: req.url, to_path: redirectPath } });
 
@@ -74,9 +77,7 @@ const ettersendelseKlageRedirectHandler = (
   }
 
   const stepSuffix = lowerCaseStep === undefined ? '' : `/${lowerCaseStep}`;
-  const [, queryString] = req.url.split('?');
-  const query = queryString === undefined ? '' : `?${queryString}`;
-  const redirectPath = `/${lang}/ettersendelse/${lowerCaseYtelse}${stepSuffix}${query}`;
+  const redirectPath = `/${lang}/ettersendelse/${lowerCaseYtelse}${stepSuffix}${getQuery(req.url)}`;
 
   log.info({ msg: 'Redirecting legacy ettersendelse path', data: { from_path: req.url, to_path: redirectPath } });
 
