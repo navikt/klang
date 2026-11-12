@@ -13,6 +13,10 @@ enum CaseType {
 
 export const CASE_TYPES = Object.values(CaseType);
 
+/** Ettersendelse for klage is the default ettersendelse and lives at `/ettersendelse`. */
+export const getEttersendelsePath = (type: CaseType): string =>
+  type === CaseType.KLAGE ? 'ettersendelse' : `ettersendelse/${type}`;
+
 enum Step {
   BEGRUNNELSE = 'begrunnelse',
   OPPSUMMERING = 'oppsummering',
