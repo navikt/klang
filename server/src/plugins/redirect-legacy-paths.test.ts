@@ -115,6 +115,29 @@ describe('redirect-legacy-paths', () => {
     });
   });
 
+  describe('language', () => {
+    for (const url of ['/%2Fexample.org/klage/uinnlogget/dagpenger', '/%2Fexample.org/ettersendelse/klage/dagpenger']) {
+      it(`should not redirect to another host for ${url}`, async () => {
+        const app = await buildApp();
+        const res = await app.inject({ method: 'GET', url });
+        expect(res.statusCode).toBe(404);
+      });
+    }
+
+    it('should not redirect unknown language', async () => {
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/de/ettersendelse/klage/dagpenger' });
+      expect(res.statusCode).toBe(404);
+    });
+
+    it('should lowercase language', async () => {
+      const app = await buildApp();
+      const res = await app.inject({ method: 'GET', url: '/NB/klage/uinnlogget/dagpenger' });
+      expect(res.statusCode).toBe(302);
+      expect(res.headers.location).toBe('/nb/klage/dagpenger');
+    });
+  });
+
   describe('case insensitivity', () => {
     it('should lowercase ytelse', async () => {
       const app = await buildApp();

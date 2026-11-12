@@ -1,12 +1,14 @@
 import { LOWER_CASE_INNSENDINGSYTELSER } from '@app/innsendingsytelser';
 import { getLogger } from '@app/logger';
-import { STEPS } from '@app/plugins/serve-index/segments';
+import { LANGUAGES, STEPS } from '@app/plugins/serve-index/segments';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import fastifyPlugin from 'fastify-plugin';
 
 export const REDIRECT_LEGACY_PATHS_PLUGIN_ID = 'redirect-legacy-paths';
 
 const YTELSER = new Set(LOWER_CASE_INNSENDINGSYTELSER);
+
+const isLanguage = (lang: string): boolean => LANGUAGES.some((l) => l === lang);
 
 const log = getLogger('redirect-legacy-paths-plugin');
 
@@ -23,9 +25,15 @@ interface LegacyParams {
 }
 
 const redirectHandler = (req: FastifyRequest<{ Params: LegacyParams }>, reply: FastifyReply) => {
-  const { lang, type, ytelseOrTema } = req.params;
+  const { type, ytelseOrTema } = req.params;
   const rest = req.params['*'] ?? '';
+  const lang = req.params.lang.toLowerCase();
   const lowerCaseYtelseOrTema = ytelseOrTema.toLowerCase();
+
+  // Prevents open redirects, e.g. `/%2Fexample.org/...` redirecting to `//example.org/...`.
+  if (!isLanguage(lang)) {
+    return reply.callNotFound();
+  }
 
   if (YTELSER.has(lowerCaseYtelseOrTema)) {
     return redirect(req, reply, lang, type, lowerCaseYtelseOrTema, rest);
@@ -68,11 +76,12 @@ const ettersendelseKlageRedirectHandler = (
   req: FastifyRequest<{ Params: EttersendelseKlageParams }>,
   reply: FastifyReply,
 ) => {
-  const { lang, ytelse, step } = req.params;
+  const { ytelse, step } = req.params;
+  const lang = req.params.lang.toLowerCase();
   const lowerCaseYtelse = ytelse.toLowerCase();
   const lowerCaseStep = step?.toLowerCase();
 
-  if (!YTELSER.has(lowerCaseYtelse) || (lowerCaseStep !== undefined && !isStep(lowerCaseStep))) {
+  if (!isLanguage(lang) || !YTELSER.has(lowerCaseYtelse) || (lowerCaseStep !== undefined && !isStep(lowerCaseStep))) {
     return reply.callNotFound();
   }
 
