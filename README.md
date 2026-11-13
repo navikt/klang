@@ -44,7 +44,7 @@ Dersom saksnummer ikke er oppgitt som query-parameter, får bruker mulighet til 
 | ----------------------- | --------------------------------------------------------------------------- |
 | Klage                   | `https://klage.nav.no/nb/klage/DAGPENGER?saksnummer=12345`                  |
 | Anke                    | `https://klage.nav.no/nb/anke/DAGPENGER?saksnummer=12345`                   |
-| Ettersendelse til klage | `https://klage.nav.no/nb/ettersendelse/klage/DAGPENGER?saksnummer=12345&ka` |
+| Ettersendelse til klage | `https://klage.nav.no/nb/ettersendelse/DAGPENGER?saksnummer=12345&ka`       |
 | Ettersendelse til anke  | `https://klage.nav.no/nb/ettersendelse/anke/DAGPENGER?saksnummer=12345`     |
 
 ## URL-format
@@ -54,7 +54,8 @@ https://klage.nav.no/{språk}/{type}/{innsendingsytelse}?saksnummer={saksnummer}
 ```
 
 - `språk` = `nb | nn | en`
-- `type` = `klage | anke | ettersendelse/klage | ettersendelse/anke`
+- `type` = `klage | anke | ettersendelse | ettersendelse/anke`
+  - `ettersendelse/klage` er en eldre URL som videresendes til `ettersendelse`.
 - `innsendingsytelse` = Se liste over tilgjengelige ytelser under.
 - `saksnummer` = Relevant saksnummer.
 - `ka` = Kun relevant for klageettersendelse. Om saken er sendt til Nav klageinstans. Om parameteret finnes vil det tolkes som `true`. Unntak er om verdien er `false` eller `0`. Dersom parameteret ikke tolkes til `true`, må bruker ta stilling til valget.
