@@ -6,7 +6,7 @@ import { overviewCss } from '@app/plugins/not-found/overview-css';
 import { generateHtml } from '@app/plugins/not-found/overview-template';
 import { externalRedirectCounter } from '@app/plugins/serve-index/counters';
 import { removeSaksnummer } from '@app/plugins/serve-index/remove-saksnummer';
-import { CASE_TYPES } from '@app/plugins/serve-index/segments';
+import { CASE_TYPES, getEttersendelsePath } from '@app/plugins/serve-index/segments';
 import { SERVE_INDEX_PLUGIN_ID } from '@app/plugins/serve-index/serve-index';
 import fastifyPlugin from 'fastify-plugin';
 
@@ -18,27 +18,30 @@ const HARMLESS_NOT_FOUND_PATHS = ['/favicon.ico', '/apple-touch-icon.png', '/app
 
 export const notFoundPlugin = fastifyPlugin(
   async (app) => {
+    if (!isDeployedToProd) {
+      app.setNotFoundHandler((_req, reply) =>
+        reply.status(404).header('content-type', 'text/html').send(OVERVIEW_PAGE_HTML),
+      );
+      return;
+    }
+
     app.setNotFoundHandler((req, reply) => {
-      if (isDeployedToProd) {
-        const harmless = HARMLESS_NOT_FOUND_PATHS.includes(req.url);
+      const harmless = HARMLESS_NOT_FOUND_PATHS.includes(req.url);
 
-        log[harmless ? 'debug' : 'warn']({
-          msg: `Invalid URL. Redirecting to external URL ${NAV_KLAGE_URL_PROD}`,
-          data: {
-            url: req.url,
-            referer: req.headers.referer ?? 'undefined',
-            referrer: req.headers.referrer ?? 'undefined',
-          },
-        });
+      log[harmless ? 'debug' : 'warn']({
+        msg: `Invalid URL. Redirecting to external URL ${NAV_KLAGE_URL_PROD}`,
+        data: {
+          url: req.url,
+          referer: req.headers.referer ?? 'undefined',
+          referrer: req.headers.referrer ?? 'undefined',
+        },
+      });
 
-        externalRedirectCounter.inc({
-          url: removeSaksnummer(req.url),
-        });
+      externalRedirectCounter.inc({
+        url: removeSaksnummer(req.url),
+      });
 
-        return reply.redirect(NAV_KLAGE_URL_PROD);
-      }
-
-      return reply.status(404).header('content-type', 'text/html').send(OVERVIEW_PAGE_HTML);
+      return reply.redirect(NAV_KLAGE_URL_PROD);
     });
   },
   { fastify: '5', name: NOT_FOUND_PLUGIN_ID, dependencies: [SERVE_INDEX_PLUGIN_ID] },
@@ -49,7 +52,7 @@ const createLink = (path: string, type: string) => html`<a class="capitalized li
 const getLinks = (ytelse: string): string[] =>
   CASE_TYPES.flatMap((type) => [
     createLink(`/nb/${type}/${ytelse}`, type),
-    createLink(`/nb/ettersendelse/${type}/${ytelse}`, `Ettersendelse ${type}`),
+    createLink(`/nb/${getEttersendelsePath(type)}/${ytelse}`, `Ettersendelse ${type}`),
   ]);
 
 const HIDDEN_YTELSER = [
