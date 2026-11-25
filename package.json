@@ -3,6 +3,6 @@
     "lint": "biome check"
   },
   "dependencies": {
-    "@biomejs/biome": "2.6.3"
+    "@biomejs/biome": "2.6.8"
   }
 }

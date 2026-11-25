@@ -14,30 +14,30 @@
     "lint": "biome check"
   },
   "devDependencies": {
-    "@navikt/ds-tailwind": "8.20.0",
-    "@tailwindcss/vite": "4.3.3",
-    "@types/bun": "1.4.4",
+    "@navikt/ds-tailwind": "8.23.0",
+    "@tailwindcss/vite": "4.3.5",
+    "@types/bun": "1.4.5",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
-    "@vitejs/plugin-react": "6.1.2",
-    "tailwindcss": "4.3.3",
+    "@vitejs/plugin-react": "6.3.0",
+    "tailwindcss": "4.3.5",
     "typescript": "7.0.2",
-    "vite": "8.3.5"
+    "vite": "8.3.8"
   },
   "dependencies": {
-    "@grafana/faro-react": "2.13.0",
-    "@grafana/faro-web-sdk": "2.13.0",
-    "@grafana/faro-web-tracing": "2.13.0",
-    "@navikt/aksel-icons": "8.20.0",
-    "@navikt/ds-css": "8.20.0",
-    "@navikt/ds-react": "8.20.0",
+    "@grafana/faro-react": "2.14.0",
+    "@grafana/faro-web-sdk": "2.14.0",
+    "@grafana/faro-web-tracing": "2.14.0",
+    "@navikt/aksel-icons": "8.23.0",
+    "@navikt/ds-css": "8.23.0",
+    "@navikt/ds-react": "8.23.0",
     "@navikt/fnrvalidator": "2.2.1",
-    "@navikt/nav-dekoratoren-moduler": "4.5.3",
-    "@reduxjs/toolkit": "2.13.0",
+    "@navikt/nav-dekoratoren-moduler": "4.6.1",
+    "@reduxjs/toolkit": "2.15.0",
     "date-fns": "4.4.0",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "react-redux": "9.3.0",
-    "react-router": "8.5.0"
+    "react-redux": "9.3.1",
+    "react-router": "8.5.2"
   }
 }
