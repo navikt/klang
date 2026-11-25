@@ -441,7 +441,7 @@ export const nb = {
     [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `Filstørrelsen kan ikke være større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
     [ErrorMessageKeys.TOO_LARGE]: `Filstørrelsen kan ikke være større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
     [ErrorMessageKeys.TOTAL_TOO_LARGE]: `Total filstørrelse kan ikke være større enn ${MAX_SIZE_UPLOAD_MIB_TOTAL} MB.`,
-    [ErrorMessageKeys.ENCRYPTED]: 'Vi mistenker at filen din er kryptert, den kan derfor ikke sendes med.',
+    [ErrorMessageKeys.ENCRYPTED]: 'Filen kan være passordbeskyttet. Fjern passordbeskyttelsen og last opp på nytt.',
     [ErrorMessageKeys.EMPTY]: 'Du kan ikke sende med en tom fil.',
     [ErrorMessageKeys.VIRUS]: 'Vi mistenker at filen din inneholder et virus, den kan derfor ikke sendes med.',
     [ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]:

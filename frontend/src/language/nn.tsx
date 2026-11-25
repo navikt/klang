@@ -439,7 +439,7 @@ export const nn: Translations = {
     [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `Filstorleiken kan ikkje vere større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
     [ErrorMessageKeys.TOO_LARGE]: `Filstorleiken kan ikkje vere større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
     [ErrorMessageKeys.TOTAL_TOO_LARGE]: `Total filstorleik kan ikkje vere større enn ${MAX_SIZE_UPLOAD_MIB_TOTAL} MB.`,
-    [ErrorMessageKeys.ENCRYPTED]: 'Vi mistenker at fila di er kryptert, den kan derfor ikkje sendast inn.',
+    [ErrorMessageKeys.ENCRYPTED]: 'Fila kan vere passordverna. Fjern passordvernet og last opp på nytt.',
     [ErrorMessageKeys.EMPTY]: 'Du kan ikkje sende inn ei tom fil.',
     [ErrorMessageKeys.VIRUS]: 'Vi mistenker at fila di inneheld eit virus, den kan derfor ikkje sendast inn.',
     [ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]:

@@ -441,7 +441,8 @@ export const en: Translations = {
     [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `The file size cannot be larger than ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
     [ErrorMessageKeys.TOO_LARGE]: `The file size cannot be larger than ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
     [ErrorMessageKeys.TOTAL_TOO_LARGE]: `Total file size cannot exceed ${MAX_SIZE_UPLOAD_MIB_TOTAL} MB.`,
-    [ErrorMessageKeys.ENCRYPTED]: 'We suspect that your file is encrypted, therefore it cannot be included.',
+    [ErrorMessageKeys.ENCRYPTED]:
+      'The file may be password protected. Remove the password protection and upload it again.',
     [ErrorMessageKeys.EMPTY]: 'You cannot include an empty file.',
     [ErrorMessageKeys.VIRUS]: 'We suspect that your file contains a virus, therefore is cannot be included.',
     [ErrorMessageKeys.FILE_COULD_NOT_BE_CONVERTED]:
