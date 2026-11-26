@@ -5,12 +5,14 @@ import { SessionCaseOppsummeringPage } from '@app/components/case/uinnlogget/sum
 import { INNSENDINGSYTELSER } from '@app/innsendingsytelser/innsendingsytelser';
 import { CASE_TYPE_PATH_SEGMENTS, CASE_TYPES } from '@app/redux-api/case/types';
 import { LogoutRequired } from '@app/routes/logout-required';
+import { NotFoundPage } from '@app/routes/not-found-page';
 import { Navigate, Route } from 'react-router';
 
 /** Routes for cases belonging to users that are not logged in. One branch per case type, each scoped to its own case context. */
 export const sessionCaseRoutes = () =>
   CASE_TYPES.map((type) => (
     <Route key={type} path={CASE_TYPE_PATH_SEGMENTS[type]}>
+      <Route index element={<NotFoundPage />} />
       {INNSENDINGSYTELSER.map((innsendingsytelse) => (
         <Route
           key={innsendingsytelse}

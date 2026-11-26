@@ -23,14 +23,19 @@ export const Router = () => (
           <ErrorBoundary>
             <Routes>
               <Route path="/:lang" element={<LanguageRequired />}>
+                <Route index element={<NotFoundPage />} />
+
                 {/* Cases for logged in users. State lives in the case API. */}
-                <Route path="sak" element={<LoginRequired />}>
-                  <Route path=":id">
-                    <Route index element={<Navigate to="begrunnelse" replace />} />
-                    <Route path="begrunnelse" element={<CaseBegrunnelsePage />} />
-                    <Route path="oppsummering" element={<CaseOppsummeringPage />} />
-                    <Route path="innsending" element={<CaseInnsendingPage />} />
-                    <Route path="kvittering" element={<CaseKvitteringPage />} />
+                <Route path="sak">
+                  <Route index element={<NotFoundPage />} />
+                  <Route element={<LoginRequired />}>
+                    <Route path=":id">
+                      <Route index element={<Navigate to="begrunnelse" replace />} />
+                      <Route path="begrunnelse" element={<CaseBegrunnelsePage />} />
+                      <Route path="oppsummering" element={<CaseOppsummeringPage />} />
+                      <Route path="innsending" element={<CaseInnsendingPage />} />
+                      <Route path="kvittering" element={<CaseKvitteringPage />} />
+                    </Route>
                   </Route>
                 </Route>
 

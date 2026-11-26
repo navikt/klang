@@ -435,7 +435,8 @@ export const en: Translations = {
   },
   not_found_page: {
     title: 'Page not found',
-    go_back: 'Go back to nav.no/klage',
+    description: 'The page you were sent to does not exist.',
+    go_to_nav_klage: 'Go to Complaint and appeal',
   },
   error_messages: {
     [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `The file size cannot be larger than ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,

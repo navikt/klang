@@ -12,6 +12,12 @@ export default defineConfig({
   server: {
     port: 8064,
     proxy: {
+      // Show the same overview of ytelser as dev on the index page.
+      '^/$': {
+        target: 'https://klage.intern.dev.nav.no',
+        changeOrigin: true,
+        headers: { Origin: 'https://klage.intern.dev.nav.no' },
+      },
       '/api': {
         target: 'https://klage.intern.dev.nav.no',
         changeOrigin: true,

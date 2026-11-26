@@ -10,11 +10,11 @@ export const viewCountCounter = new Counter({
   registers: [proxyRegister],
 });
 
-const externalRedirectLabels = ['url', 'has_saksnummer', 'redirected_from', 'referrer'] as const;
+const notFoundLabels = ['url'] as const;
 
-export const externalRedirectCounter = new Counter({
-  name: 'external_redirect',
-  help: 'Number of redirects to nav.no/klage.',
-  labelNames: externalRedirectLabels,
+export const notFoundCounter = new Counter({
+  name: 'not_found',
+  help: 'Number of requests to unknown URLs, responded to with a 404 page.',
+  labelNames: notFoundLabels,
   registers: [proxyRegister],
 });

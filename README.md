@@ -17,7 +17,7 @@ Interne henvendelser kan sendes via Slack i kanalen [#team-digital-klage](https:
 Bruker må bli sendt direkte til ett av skjemaene fra en annen tjeneste.
 Andre tjenester kan f.eks. lenke til skjema for klage med følgende URL `https://klage.nav.no/nb/klage/DAGPENGER?saksnummer=12345`.
 
-> I `dev` er det mulig å gå til forsiden, https://klage.intern.dev.nav.no, for å se en oversikt over alle ytelser og sakstyper. I `prod` redirecter forsiden til https://nav.no/klage.
+> I `dev` er det mulig å gå til forsiden, https://klage.intern.dev.nav.no, for å se en oversikt over alle ytelser og sakstyper. Andre ukjente URL-er og rot (`/`) i `prod` viser en 404-side med lenke til https://nav.no/klage, uten krav om innlogging.
 
 ### Direkte lenke
 
@@ -40,12 +40,12 @@ Dersom saksnummer ikke er oppgitt som query-parameter, får bruker mulighet til 
 
 ### Eksempler på fullstendige URLer
 
-| Skjema                  | URL                                                                         |
-| ----------------------- | --------------------------------------------------------------------------- |
-| Klage                   | `https://klage.nav.no/nb/klage/DAGPENGER?saksnummer=12345`                  |
-| Anke                    | `https://klage.nav.no/nb/anke/DAGPENGER?saksnummer=12345`                   |
-| Ettersendelse til klage | `https://klage.nav.no/nb/ettersendelse/DAGPENGER?saksnummer=12345&ka`       |
-| Ettersendelse til anke  | `https://klage.nav.no/nb/ettersendelse/anke/DAGPENGER?saksnummer=12345`     |
+| Skjema                  | URL                                                                     |
+| ----------------------- | ----------------------------------------------------------------------- |
+| Klage                   | `https://klage.nav.no/nb/klage/DAGPENGER?saksnummer=12345`              |
+| Anke                    | `https://klage.nav.no/nb/anke/DAGPENGER?saksnummer=12345`               |
+| Ettersendelse til klage | `https://klage.nav.no/nb/ettersendelse/DAGPENGER?saksnummer=12345&ka`   |
+| Ettersendelse til anke  | `https://klage.nav.no/nb/ettersendelse/anke/DAGPENGER?saksnummer=12345` |
 
 ## URL-format
 

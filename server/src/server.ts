@@ -47,6 +47,8 @@ const app = fastify({
   routerOptions: {
     querystringParser,
     caseSensitive: false,
+    // Match React Router, which ignores trailing slashes.
+    ignoreTrailingSlash: true,
   },
 });
 

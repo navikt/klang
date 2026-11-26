@@ -433,7 +433,8 @@ export const nn: Translations = {
   },
   not_found_page: {
     title: 'Finn ikkje sida',
-    go_back: 'Gå tilbake til nav.no/klage',
+    description: 'Sida du vart send til, finst ikkje.',
+    go_to_nav_klage: 'Gå til Klage og anke',
   },
   error_messages: {
     [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `Filstorleiken kan ikkje vere større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,

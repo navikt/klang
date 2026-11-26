@@ -435,7 +435,8 @@ export const nb = {
   },
   not_found_page: {
     title: 'Finner ikke siden',
-    go_back: 'Gå tilbake til nav.no/klage',
+    description: 'Siden du ble sendt til, finnes ikke.',
+    go_to_nav_klage: 'Gå til Klage og anke',
   },
   error_messages: {
     [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `Filstørrelsen kan ikke være større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
