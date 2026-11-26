@@ -49,12 +49,28 @@ const Provider = ({ type, innsendingsytelse }: ProviderProps) => {
   const deepLinkParams = useDeepLinkParams();
   const [sessionCase, setSessionCase] = useState<ISessionCase>(() => createSessionCase(deepLinkParams));
   const lastUpdated = useRef(0);
+  const hasUnsavedChanges = useRef(false);
 
   useEffect(() => {
     sessionEvent(SessionAction.CREATE);
   }, []);
 
+  useEffect(() => {
+    // The case is only kept in memory, so warn the user before a reload or close discards their changes.
+    const onBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (hasUnsavedChanges.current) {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener('beforeunload', onBeforeUnload);
+
+    return () => window.removeEventListener('beforeunload', onBeforeUnload);
+  }, []);
+
   const updateSessionCase = useCallback((update: Partial<ISessionCase>) => {
+    hasUnsavedChanges.current = true;
+
     // Rate limit updates.
     if (Date.now() - lastUpdated.current > RATE_LIMIT) {
       sessionEvent(SessionAction.UPDATE);
@@ -67,6 +83,7 @@ const Provider = ({ type, innsendingsytelse }: ProviderProps) => {
   const deleteSessionCase = useCallback(() => {
     sessionEvent(SessionAction.DELETE);
     lastUpdated.current = 0;
+    hasUnsavedChanges.current = false;
     setSessionCase(createSessionCase(deepLinkParams));
   }, [deepLinkParams]);
 
