@@ -1,5 +1,11 @@
 import { LOWER_CASE_INNSENDINGSYTELSER } from '@app/innsendingsytelser';
-import { CASE_TYPES, getEttersendelsePath, LANGUAGES, LOGGED_IN_STEPS, STEPS } from '@app/plugins/serve-index/segments';
+import {
+  CASE_TYPES,
+  COMMON_STEPS,
+  getEttersendelsePath,
+  LANGUAGES,
+  LOGGED_IN_STEPS,
+} from '@app/plugins/serve-index/segments';
 
 export const getAnonymousPaths = (): string[] => {
   const paths: string[] = [];
@@ -11,7 +17,7 @@ export const getAnonymousPaths = (): string[] => {
         paths.push(`/${lang}/${type}/${ytelse}`);
         paths.push(`/${lang}/${ettersendelsePath}/${ytelse}`);
 
-        for (const step of STEPS) {
+        for (const step of COMMON_STEPS) {
           paths.push(`/${lang}/${type}/${ytelse}/${step}`);
           paths.push(`/${lang}/${ettersendelsePath}/${ytelse}/${step}`);
         }
@@ -28,7 +34,7 @@ export const getLoggedInPaths = (): string[] => {
   for (const lang of LANGUAGES) {
     paths.push(`/${lang}/sak/:id`);
 
-    for (const step of STEPS) {
+    for (const step of COMMON_STEPS) {
       paths.push(`/${lang}/sak/:id/${step}`);
     }
 

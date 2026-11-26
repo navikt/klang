@@ -1,6 +1,6 @@
 import { LOWER_CASE_INNSENDINGSYTELSER } from '@app/innsendingsytelser';
 import { getLogger } from '@app/logger';
-import { LANGUAGES, STEPS } from '@app/plugins/serve-index/segments';
+import { COMMON_STEPS, LANGUAGES } from '@app/plugins/serve-index/segments';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import fastifyPlugin from 'fastify-plugin';
 
@@ -70,7 +70,7 @@ interface EttersendelseKlageParams {
   step?: string;
 }
 
-const isStep = (step: string): boolean => STEPS.some((s) => s === step);
+const isStep = (step: string): boolean => COMMON_STEPS.some((s) => s === step);
 
 const ettersendelseKlageRedirectHandler = (
   req: FastifyRequest<{ Params: EttersendelseKlageParams }>,
