@@ -26,7 +26,6 @@ import {
   useUpdateCaseMutation,
 } from '@app/redux-api/case/api';
 import { type Case, CaseStatus, CaseType, type UpdateCaseFields } from '@app/redux-api/case/types';
-import { API_PATH } from '@app/redux-api/common';
 import { CenteredContainer } from '@app/styled-components/common';
 import { BodyLong, Button, GuidePanel, Loader, VStack } from '@navikt/ds-react';
 import { useCallback, useEffect, useState } from 'react';
@@ -172,7 +171,6 @@ const RenderCasebegrunnelsePage = ({ data }: Props) => {
         <AttachmentsSection
           attachments={data.vedlegg}
           caseId={data.id}
-          basePath={`${API_PATH}/klanker`}
           onDelete={deleteAttachment}
           error={errors[FormFieldsIds.VEDLEGG]}
           isSent={isSent}

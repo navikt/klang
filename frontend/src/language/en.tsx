@@ -438,6 +438,56 @@ export const en: Translations = {
     description: 'The page you were sent to does not exist.',
     go_to_nav_klage: 'Go to Complaint and appeal',
   },
+  case_file_error_page: {
+    attachment: {
+      not_found: {
+        title: 'Attachment not found',
+        description: 'The attachment does not exist. It may have been deleted.',
+      },
+      gone: {
+        title: 'The attachment is no longer available',
+        description:
+          'The case has been submitted, so the attachments have been deleted from here. The attachments were submitted together with the case. You can find your case on My page.',
+      },
+      forbidden: {
+        title: 'You do not have access to the attachment',
+        description: 'You do not have a valid power of attorney for the person the case concerns.',
+      },
+      unavailable: {
+        title: 'The attachment cannot be displayed',
+        description: 'The case may have been deleted or already submitted.',
+      },
+      error: {
+        title: 'Something went wrong',
+        description: 'We could not retrieve the attachment right now. Please try again shortly.',
+      },
+    },
+    pdf: {
+      not_found: {
+        title: 'PDF not found',
+        description: 'The PDF does not exist.',
+      },
+      gone: {
+        title: 'The PDF is no longer available',
+        description:
+          'The case has been submitted, so the PDF is no longer available here. You can find your case on My page.',
+      },
+      forbidden: {
+        title: 'You do not have access to the PDF',
+        description: 'You do not have a valid power of attorney for the person the case concerns.',
+      },
+      unavailable: {
+        title: 'The PDF cannot be displayed',
+        description: 'The case may have been deleted or already submitted.',
+      },
+      error: {
+        title: 'Something went wrong',
+        description: 'We could not retrieve the PDF right now. Please try again shortly.',
+      },
+    },
+    try_again: 'Try again',
+    go_to_min_side: 'Go to My page',
+  },
   error_messages: {
     [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `The file size cannot be larger than ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
     [ErrorMessageKeys.TOO_LARGE]: `The file size cannot be larger than ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,

@@ -436,6 +436,55 @@ export const nn: Translations = {
     description: 'Sida du vart send til, finst ikkje.',
     go_to_nav_klage: 'Gå til Klage og anke',
   },
+  case_file_error_page: {
+    attachment: {
+      not_found: {
+        title: 'Fann ikkje vedlegget',
+        description: 'Vedlegget finst ikkje. Det kan ha blitt sletta.',
+      },
+      gone: {
+        title: 'Vedlegget er ikkje lenger tilgjengeleg',
+        description:
+          'Saka er send inn, og vedlegga er difor sletta herifrå. Vedlegga vart sende inn saman med saka. Du finn saka di på Mi side.',
+      },
+      forbidden: {
+        title: 'Du har ikkje tilgang til vedlegget',
+        description: 'Du har ikkje ei gyldig fullmakt for personen saka gjeld.',
+      },
+      unavailable: {
+        title: 'Vedlegget kan ikkje visast',
+        description: 'Saka kan ha blitt sletta eller allereie send inn.',
+      },
+      error: {
+        title: 'Noko gjekk gale',
+        description: 'Vi kunne ikkje hente vedlegget akkurat no. Prøv igjen om litt.',
+      },
+    },
+    pdf: {
+      not_found: {
+        title: 'Fann ikkje PDF-en',
+        description: 'PDF-en finst ikkje.',
+      },
+      gone: {
+        title: 'PDF-en er ikkje lenger tilgjengeleg',
+        description: 'Saka er send inn, og PDF-en er difor ikkje lenger tilgjengeleg her. Du finn saka di på Mi side.',
+      },
+      forbidden: {
+        title: 'Du har ikkje tilgang til PDF-en',
+        description: 'Du har ikkje ei gyldig fullmakt for personen saka gjeld.',
+      },
+      unavailable: {
+        title: 'PDF-en kan ikkje visast',
+        description: 'Saka kan ha blitt sletta eller allereie send inn.',
+      },
+      error: {
+        title: 'Noko gjekk gale',
+        description: 'Vi kunne ikkje hente PDF-en akkurat no. Prøv igjen om litt.',
+      },
+    },
+    try_again: 'Prøv igjen',
+    go_to_min_side: 'Gå til Mi side',
+  },
   error_messages: {
     [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `Filstorleiken kan ikkje vere større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
     [ErrorMessageKeys.TOO_LARGE]: `Filstorleiken kan ikkje vere større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,

@@ -79,7 +79,7 @@ export enum Reason {
 
 export interface Attachment {
   readonly contentType: string; // Default value is "Ukjent" in backend.
-  readonly id: number;
+  readonly id: string;
   readonly sizeInBytes: number;
   readonly tittel: string;
 }

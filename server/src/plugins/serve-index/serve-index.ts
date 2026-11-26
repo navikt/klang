@@ -1,44 +1,17 @@
-import { getTraceContext } from '@app/helpers/trace-context';
+import { redirectToLoginIfLoggedOut } from '@app/helpers/require-login';
 import { indexFile } from '@app/index-file';
-import { getLogger } from '@app/logger';
 import { ACCESS_TOKEN_PLUGIN_ID } from '@app/plugins/access-token';
 import { API_PROXY_PLUGIN_ID } from '@app/plugins/api-proxy';
 import { LOCAL_DEV_PLUGIN_ID } from '@app/plugins/local-dev';
 import { viewCountCounter } from '@app/plugins/serve-index/counters';
 import { getAnonymousPaths, getLoggedInPaths } from '@app/plugins/serve-index/get-paths';
-import { validateToken } from '@navikt/oasis';
 import type { FastifyReply, FastifyRequest, RouteShorthandOptions } from 'fastify';
 import fastifyPlugin from 'fastify-plugin';
-
-const log = getLogger('serve-index');
 
 const serveIndexHandler = async (_: FastifyRequest, reply: FastifyReply) => {
   viewCountCounter.inc();
 
-  return reply.header('content-type', 'text/html').status(200).send(indexFile.indexFile);
-};
-
-const isLoggedIn = async (req: FastifyRequest): Promise<boolean> => {
-  if (req.accessToken.length === 0) {
-    return false;
-  }
-
-  const validation = await validateToken(req.accessToken);
-
-  if (!validation.ok) {
-    log.warn({ msg: 'Invalid access token. Redirecting to login.', ...getTraceContext(req), data: { url: req.url } });
-  }
-
-  return validation.ok;
-};
-
-/** Wonderwall adds the access token to the Authorization header when the user has a valid session. */
-const redirectToLoginIfLoggedOut = async (req: FastifyRequest, reply: FastifyReply) => {
-  if (await isLoggedIn(req)) {
-    return;
-  }
-
-  return reply.redirect(`/oauth2/login?redirect=${encodeURIComponent(req.url)}`, 302);
+  return reply.header('content-type', 'text/html').status(200).send(indexFile.getIndexFile(200));
 };
 
 interface ServeIndexPluginOptions {

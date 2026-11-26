@@ -7,6 +7,7 @@ import { querystringParser } from '@app/helpers/query-parser';
 import { getLogger } from '@app/logger';
 import { accessTokenPlugin } from '@app/plugins/access-token';
 import { apiProxyPlugin } from '@app/plugins/api-proxy';
+import { caseFilePlugin } from '@app/plugins/case-file/case-file';
 import { clientVersionPlugin } from '@app/plugins/client-version';
 import { errorReportPlugin } from '@app/plugins/error-report';
 import { frontendLogPlugin } from '@app/plugins/frontend-log/frontend-log';
@@ -78,6 +79,7 @@ app
   .register(unleashProxyPlugin)
   .register(localDevPlugin)
   .register(redirectLegacyPathsPlugin)
+  .register(caseFilePlugin, { requireLogin: isDeployed })
   .register(serveIndexPlugin, { requireLogin: isDeployed })
   .register(notFoundPlugin)
   .register(httpLoggerPlugin)

@@ -2,7 +2,7 @@ import { describe, expect, it, mock } from 'bun:test';
 import Fastify from 'fastify';
 import fastifyPlugin from 'fastify-plugin';
 
-const INDEX_HTML = '<html>index</html>';
+const getIndexFile = (status: number) => `<html data-status="${status}">index</html>`;
 const API_PROXY_PLUGIN_ID = 'api-proxy';
 const LOCAL_DEV_PLUGIN_ID = 'local-dev';
 
@@ -18,7 +18,7 @@ mock.module('@navikt/oasis', () => ({
   validateToken: async (token: string) =>
     token === VALID_TOKEN ? { ok: true } : { ok: false, error: new Error('Invalid token') },
 }));
-mock.module('@app/index-file', () => ({ indexFile: { indexFile: INDEX_HTML } }));
+mock.module('@app/index-file', () => ({ indexFile: { getIndexFile } }));
 mock.module('@app/plugins/serve-index/counters', () => ({ viewCountCounter: { inc: () => undefined } }));
 mock.module('@app/plugins/api-proxy', () => ({ API_PROXY_PLUGIN_ID }));
 mock.module('@app/plugins/local-dev', () => ({ LOCAL_DEV_PLUGIN_ID }));
@@ -62,13 +62,13 @@ describe('serve-index', () => {
       headers: { authorization: `Bearer ${VALID_TOKEN}` },
     });
     expect(res.statusCode).toBe(200);
-    expect(res.body).toBe(INDEX_HTML);
+    expect(res.body).toBe(getIndexFile(200));
   });
 
   it('should serve anonymous pages without an access token', async () => {
     const app = await buildApp();
     const res = await app.inject({ method: 'GET', url: '/nb/klage/dagpenger' });
     expect(res.statusCode).toBe(200);
-    expect(res.body).toBe(INDEX_HTML);
+    expect(res.body).toBe(getIndexFile(200));
   });
 });

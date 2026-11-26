@@ -4,12 +4,17 @@ import { performance } from 'node:perf_hooks';
 import { frontendDistDirectoryPath } from '@app/config/config';
 import { ENVIRONMENT, isDeployedToDev, isDeployedToProd } from '@app/config/env';
 import { VERSION } from '@app/config/version';
+import { INDEX_FILE_STATUSES, type IndexFileStatus } from '@app/index-file-status';
 import { getLogger } from '@app/logger';
 import { fetchDecoratorHtml } from '@app/nav-dekoratoren/nav-dekoratoren';
 import type { DecoratorEnvProps } from '@app/nav-dekoratoren/types';
 import { EmojiIcons, sendToSlack } from '@app/slack';
 
 const log = getLogger('index-file');
+
+export type { IndexFileStatus } from '@app/index-file-status';
+
+type IndexFiles = ReadonlyMap<IndexFileStatus, string>;
 
 class IndexFile {
   private readonly INDEX_TEMPLATE = readFileSync(path.join(frontendDistDirectoryPath, 'index.html'), 'utf-8');
@@ -20,10 +25,11 @@ class IndexFile {
     return this.#isReady;
   }
 
-  #indexHtml = '';
+  #indexFiles: IndexFiles = new Map();
 
-  public get indexFile() {
-    return this.#indexHtml;
+  /** The pre-made index HTML for the given status. */
+  public getIndexFile(statusCode: IndexFileStatus): string {
+    return this.#indexFiles.get(statusCode) ?? '';
   }
 
   constructor() {
@@ -39,7 +45,7 @@ class IndexFile {
     return { env: 'dev', serviceDiscovery: isDeployedToDev };
   };
 
-  private generateFile = async (): Promise<string> => {
+  private generateFile = async (): Promise<void> => {
     try {
       const start = performance.now();
 
@@ -58,12 +64,16 @@ class IndexFile {
 
       const end = performance.now();
 
-      this.#indexHtml = this.INDEX_TEMPLATE.replace('<decorator-scripts />', DECORATOR_SCRIPTS)
+      const indexHtml = this.INDEX_TEMPLATE.replace('<decorator-scripts />', DECORATOR_SCRIPTS)
         .replace('<decorator-styles />', DECORATOR_STYLES)
         .replace('<decorator-header />', DECORATOR_HEADER)
         .replace('<decorator-footer />', DECORATOR_FOOTER)
         .replace('{{ENVIRONMENT}}', ENVIRONMENT)
         .replace('{{VERSION}}', VERSION);
+
+      this.#indexFiles = new Map(
+        INDEX_FILE_STATUSES.map((status): [IndexFileStatus, string] => [status, setStatus(indexHtml, status)]),
+      );
 
       this.#isReady = true;
 
@@ -76,9 +86,10 @@ class IndexFile {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       sendToSlack(`Error when generating index file: ${errorMessage}`, EmojiIcons.Scream);
     }
-
-    return this.#indexHtml;
   };
 }
+
+const setStatus = (html: string, statusCode: IndexFileStatus): string =>
+  html.replace('{{STATUS}}', typeof statusCode === 'number' ? statusCode.toString(10) : statusCode);
 
 export const indexFile = new IndexFile();

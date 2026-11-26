@@ -18,6 +18,12 @@ export default defineConfig({
         changeOrigin: true,
         headers: { Origin: 'https://klage.intern.dev.nav.no' },
       },
+      // Case files (attachments and case PDFs) are served by the server, which shows error pages for missing files.
+      '^/(nb|nn|en)/sak/[^/?]+/(vedlegg/[^/?]+|pdf|pdf/innsending)/?(\\?|$)': {
+        target: 'https://klage.intern.dev.nav.no',
+        changeOrigin: true,
+        headers: { Origin: 'https://klage.intern.dev.nav.no' },
+      },
       '/api': {
         target: 'https://klage.intern.dev.nav.no',
         changeOrigin: true,

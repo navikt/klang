@@ -34,7 +34,7 @@ spec:
     enabled: true
     sidecar:
       enabled: true
-      # No autoLogin: the server redirects to login only for /:lang/sak/** (see server/src/plugins/serve-index/serve-index.ts).
+      # No autoLogin: the server redirects to login only for /:lang/sak/** (see server/src/helpers/require-login.ts).
   prometheus:
     enabled: true
   accessPolicy:

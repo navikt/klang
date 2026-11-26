@@ -438,6 +438,56 @@ export const nb = {
     description: 'Siden du ble sendt til, finnes ikke.',
     go_to_nav_klage: 'Gå til Klage og anke',
   },
+  case_file_error_page: {
+    attachment: {
+      not_found: {
+        title: 'Fant ikke vedlegget',
+        description: 'Vedlegget finnes ikke. Det kan ha blitt slettet.',
+      },
+      gone: {
+        title: 'Vedlegget er ikke lenger tilgjengelig',
+        description:
+          'Saken er sendt inn, og vedleggene er derfor slettet herfra. Vedleggene ble sendt inn sammen med saken. Du finner saken din på Min side.',
+      },
+      forbidden: {
+        title: 'Du har ikke tilgang til vedlegget',
+        description: 'Du har ikke en gyldig fullmakt for personen saken gjelder.',
+      },
+      unavailable: {
+        title: 'Vedlegget kan ikke vises',
+        description: 'Saken kan ha blitt slettet eller allerede sendt inn.',
+      },
+      error: {
+        title: 'Noe gikk galt',
+        description: 'Vi kunne ikke hente vedlegget akkurat nå. Prøv igjen om litt.',
+      },
+    },
+    pdf: {
+      not_found: {
+        title: 'Fant ikke PDF-en',
+        description: 'PDF-en finnes ikke.',
+      },
+      gone: {
+        title: 'PDF-en er ikke lenger tilgjengelig',
+        description:
+          'Saken er sendt inn, og PDF-en er derfor ikke lenger tilgjengelig her. Du finner saken din på Min side.',
+      },
+      forbidden: {
+        title: 'Du har ikke tilgang til PDF-en',
+        description: 'Du har ikke en gyldig fullmakt for personen saken gjelder.',
+      },
+      unavailable: {
+        title: 'PDF-en kan ikke vises',
+        description: 'Saken kan ha blitt slettet eller allerede sendt inn.',
+      },
+      error: {
+        title: 'Noe gikk galt',
+        description: 'Vi kunne ikke hente PDF-en akkurat nå. Prøv igjen om litt.',
+      },
+    },
+    try_again: 'Prøv igjen',
+    go_to_min_side: 'Gå til Min side',
+  },
   error_messages: {
     [ErrorMessageKeys.MAX_UPLOAD_SIZE]: `Filstørrelsen kan ikke være større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,
     [ErrorMessageKeys.TOO_LARGE]: `Filstørrelsen kan ikke være større enn ${MAX_SIZE_UPLOAD_MIB_SINGLE} MB.`,

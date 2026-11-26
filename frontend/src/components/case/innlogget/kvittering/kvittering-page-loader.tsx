@@ -2,7 +2,6 @@ import { Journalpost, Kvittering } from '@app/components/case/innlogget/kvitteri
 import { KvitteringLoading } from '@app/components/case/innlogget/kvittering/kvittering-loading';
 import { useGetCaseQuery } from '@app/redux-api/case/api';
 import { CaseStatus, type CaseType } from '@app/redux-api/case/types';
-import { API_PATH } from '@app/redux-api/common';
 import { useEffect, useState } from 'react';
 
 interface Props {
@@ -39,7 +38,6 @@ export const KvitteringPageLoader = ({ type, caseId }: Props) => {
           <Journalpost
             caseId={data.id}
             finalizedDate={data.finalizedDate}
-            basePath={`${API_PATH}/klanker`}
             type={data.type}
             sakenGjelder={data.sakenGjelder}
           />

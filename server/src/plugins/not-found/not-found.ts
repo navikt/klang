@@ -35,7 +35,7 @@ const notFoundHandler = (req: FastifyRequest, reply: FastifyReply) => {
   });
 
   // The frontend renders a 404 page with a link to nav.no/klage for unknown routes.
-  return reply.status(404).header('content-type', 'text/html').send(indexFile.indexFile);
+  return reply.status(404).header('content-type', 'text/html').send(indexFile.getIndexFile(404));
 };
 
 /** Shows an overview of all ytelser and case types on the front page. */

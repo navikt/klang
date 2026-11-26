@@ -1,9 +1,11 @@
 import { InfoBox } from '@app/components/info-box/info-box';
 import { ExternalLink } from '@app/components/link/external-link';
 import { type ISODate, isoDateToPretty } from '@app/domain/date/date';
+import { getCasePdfUrl } from '@app/functions/case-file-url';
 import { useUserRequired } from '@app/hooks/use-user';
 import { Envelope } from '@app/icons/envelope';
 import type { Innsendingsytelse } from '@app/innsendingsytelser/innsendingsytelser';
+import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
@@ -50,20 +52,20 @@ export const Kvittering = ({ children, type, ytelse }: Props) => {
 interface JournalpostProps {
   caseId: string;
   finalizedDate: ISODate | null;
-  basePath: string;
   type: CaseType;
   sakenGjelder: string;
 }
 
-export const Journalpost = ({ caseId, finalizedDate, basePath, type, sakenGjelder }: JournalpostProps) => {
+export const Journalpost = ({ caseId, finalizedDate, type, sakenGjelder }: JournalpostProps) => {
   const { skjema } = useTranslation();
+  const lang = useLanguage();
   const { data } = useUserRequired();
 
   return (
     <>
       {data !== undefined && data.folkeregisteridentifikator.identifikasjonsnummer === sakenGjelder ? (
         <BodyShort>
-          <ExternalLink href={`${basePath}/${caseId}/pdf`} onClick={() => appEvent(AppEventEnum.CASE_DOWNLOAD)}>
+          <ExternalLink href={getCasePdfUrl(lang, caseId)} onClick={() => appEvent(AppEventEnum.CASE_DOWNLOAD)}>
             <DownloadIcon aria-hidden />
             <span>{skjema.kvittering.download[type]}</span>
           </ExternalLink>
