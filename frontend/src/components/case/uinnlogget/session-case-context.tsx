@@ -48,7 +48,7 @@ const RATE_LIMIT = 30_000;
 const Provider = ({ type, innsendingsytelse }: ProviderProps) => {
   const deepLinkParams = useDeepLinkParams();
   const [sessionCase, setSessionCase] = useState<ISessionCase>(() => createSessionCase(deepLinkParams));
-  const lastUpdated = useRef(0);
+  const lastEvent = useRef(0);
   const hasUnsavedChanges = useRef(false);
 
   useEffect(() => {
@@ -71,10 +71,10 @@ const Provider = ({ type, innsendingsytelse }: ProviderProps) => {
   const updateSessionCase = useCallback((update: Partial<ISessionCase>) => {
     hasUnsavedChanges.current = true;
 
-    // Rate limit updates.
-    if (Date.now() - lastUpdated.current > RATE_LIMIT) {
+    // Rate limit events.
+    if (Date.now() - lastEvent.current > RATE_LIMIT) {
       sessionEvent(SessionAction.UPDATE);
-      lastUpdated.current = Date.now();
+      lastEvent.current = Date.now();
     }
 
     setSessionCase((existing) => ({ ...existing, ...update, modifiedByUser: new Date().toISOString() }));
@@ -82,7 +82,7 @@ const Provider = ({ type, innsendingsytelse }: ProviderProps) => {
 
   const deleteSessionCase = useCallback(() => {
     sessionEvent(SessionAction.DELETE);
-    lastUpdated.current = 0;
+    lastEvent.current = 0;
     hasUnsavedChanges.current = false;
     setSessionCase(createSessionCase(deepLinkParams));
   }, [deepLinkParams]);
