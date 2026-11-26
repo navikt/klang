@@ -78,7 +78,7 @@ app
   .register(unleashProxyPlugin)
   .register(localDevPlugin)
   .register(redirectLegacyPathsPlugin)
-  .register(serveIndexPlugin)
+  .register(serveIndexPlugin, { requireLogin: isDeployed })
   .register(notFoundPlugin)
   .register(httpLoggerPlugin)
 

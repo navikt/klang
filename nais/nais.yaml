@@ -34,22 +34,7 @@ spec:
     enabled: true
     sidecar:
       enabled: true
-      autoLogin: true
-      autoLoginIgnorePaths:
-        - /api/klage-kodeverk-api/** # Innsendingsytelse names, used without login.
-        - /api/klage-dittnav-api/api/pdf/klanke # PDF download for cases sent by post, without login.
-        - /
-        - /nb/klage/**
-        - /nn/klage/**
-        - /en/klage/**
-        - /nb/anke/**
-        - /nn/anke/**
-        - /en/anke/**
-        - /nb/ettersendelse/**
-        - /nn/ettersendelse/**
-        - /en/ettersendelse/**
-        - /frontend-log
-        - /feature-toggle/**
+      # No autoLogin: the server redirects to login only for /:lang/sak/** (see server/src/plugins/serve-index/serve-index.ts).
   prometheus:
     enabled: true
   accessPolicy:
