@@ -7,6 +7,7 @@ import { CaseOppsummeringPage } from '@app/components/case/innlogget/summary/opp
 import { LanguageComponent } from '@app/language/component';
 import { DekoratorSetRedirect } from '@app/routes/dekorator-set-redirect';
 import { ErrorBoundary } from '@app/routes/error-boundary';
+import { LanguageRequired } from '@app/routes/language-required';
 import { LoginRequired } from '@app/routes/login-required';
 import { NavigationLogger } from '@app/routes/navigation-logger';
 import { NotFoundPage } from '@app/routes/not-found-page';
@@ -21,7 +22,7 @@ export const Router = () => (
         <LanguageComponent>
           <ErrorBoundary>
             <Routes>
-              <Route path="/:lang">
+              <Route path="/:lang" element={<LanguageRequired />}>
                 {/* Cases for logged in users. State lives in the case API. */}
                 <Route path="sak" element={<LoginRequired />}>
                   <Route path=":id">

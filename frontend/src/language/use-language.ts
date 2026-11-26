@@ -7,4 +7,5 @@ export const useLanguage = (): Languages => {
   return isLanguage(lang) ? lang : Languages.nb;
 };
 
-const isLanguage = (language: string | undefined): language is Languages => LANGUAGES.some((l) => l === language);
+export const isLanguage = (language: string | undefined): language is Languages =>
+  LANGUAGES.some((l) => l === language);
