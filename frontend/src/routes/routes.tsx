@@ -11,7 +11,7 @@ import { LanguageRequired } from '@app/routes/language-required';
 import { LoginRequired } from '@app/routes/login-required';
 import { NavigationLogger } from '@app/routes/navigation-logger';
 import { NotFoundPage } from '@app/routes/not-found-page';
-import { redirectEttersendelseKlageRoutes } from '@app/routes/redirect-ettersendelse-klage';
+import { RedirectEttersendelseKlage } from '@app/routes/redirect-ettersendelse-klage';
 import { sessionCaseRoutes } from '@app/routes/session-case-routes';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 
@@ -34,7 +34,7 @@ export const Router = () => (
                   </Route>
                 </Route>
 
-                {redirectEttersendelseKlageRoutes()}
+                <Route path="ettersendelse/klage/*" element={<RedirectEttersendelseKlage />} />
 
                 {sessionCaseRoutes()}
               </Route>
