@@ -1,9 +1,11 @@
 import { FileIcon } from '@app/components/attachments/file-icon';
 import { UploadButton } from '@app/components/attachments/upload-button';
 import { ExternalLink } from '@app/components/link/external-link';
+import { getAttachmentUrl } from '@app/functions/case-file-url';
 import { displayBytes } from '@app/functions/display';
 import { isApiError, isError } from '@app/functions/is-api-error';
 import { isErrorMessageKey } from '@app/language/error-messages';
+import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { AppEventEnum } from '@app/logging/action';
 import { appEvent } from '@app/logging/logger';
@@ -28,7 +30,6 @@ import { useState } from 'react';
 interface Props {
   attachments: Attachment[];
   onDelete: (attachment: DeleteAttachmentParams) => void;
-  basePath: string;
   caseId: string;
   error: string | undefined;
   isSent: boolean;
@@ -37,7 +38,7 @@ interface Props {
 const ATTACHMENTS_ID = 'attachments';
 type Errors = Record<string, string[] | FetchBaseQueryError>;
 
-export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, error, isSent }: Props) => {
+export const AttachmentsSection = ({ attachments, onDelete, caseId, error, isSent }: Props) => {
   const { skjema } = useTranslation();
   const [attachmentsLoading, setAttachmentsLoading] = useState<boolean>(false);
   const [attachmentErrors, setAttachmentErrors] = useState<Errors>({});
@@ -53,7 +54,7 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
     return (
       <>
         {title}
-        <Attachments attachments={attachments} onDelete={onDelete} basePath={basePath} caseId={caseId} isSent />
+        <Attachments attachments={attachments} onDelete={onDelete} caseId={caseId} isSent />
       </>
     );
   }
@@ -62,7 +63,7 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
     <>
       {title}
       <BodyLong>{skjema.begrunnelse.attachments.description}</BodyLong>
-      <Attachments attachments={attachments} onDelete={onDelete} basePath={basePath} caseId={caseId} isSent={false} />
+      <Attachments attachments={attachments} onDelete={onDelete} caseId={caseId} isSent={false} />
       <InlineMessage status="info">
         <BodyLong>{skjema.begrunnelse.attachments.supported_types}</BodyLong>
         <BodyLong>{skjema.begrunnelse.attachments.size_limit}</BodyLong>
@@ -82,15 +83,14 @@ export const AttachmentsSection = ({ attachments, onDelete, basePath, caseId, er
 interface AttachmentsProps {
   attachments: Attachment[];
   onDelete: (attachment: DeleteAttachmentParams) => void;
-  basePath: string;
   caseId: string;
   isSent: boolean;
 }
 
-const Attachments = ({ attachments, onDelete, basePath, caseId, isSent }: AttachmentsProps) => {
+const Attachments = ({ attachments, onDelete, caseId, isSent }: AttachmentsProps) => {
   const { common } = useTranslation();
 
-  const deleteAttachment = (attachmentId: number) => {
+  const deleteAttachment = (attachmentId: string) => {
     appEvent(AppEventEnum.ATTACHMENT_DELETE);
     onDelete({ caseId, attachmentId });
   };
@@ -99,7 +99,7 @@ const Attachments = ({ attachments, onDelete, basePath, caseId, isSent }: Attach
     <VStack as="ul" gap="space-8" margin="space-0" padding="space-0" className="list-none" id={ATTACHMENTS_ID}>
       {attachments.map((a) => (
         <HStack as="li" key={a.id} align="center" gap="space-8">
-          <AttachmentName isSent={isSent} basePath={basePath} caseId={caseId} {...a} />
+          <AttachmentName isSent={isSent} caseId={caseId} {...a} />
           {isSent ? null : (
             <Button
               data-color="danger"
@@ -120,13 +120,13 @@ interface AttachmentNameProps {
   tittel: string;
   sizeInBytes: number;
   isSent: boolean;
-  basePath: string;
   caseId: string;
-  id: number;
+  id: string;
   contentType: string;
 }
 
-const AttachmentName = ({ tittel, sizeInBytes, isSent, basePath, caseId, id, contentType }: AttachmentNameProps) => {
+const AttachmentName = ({ tittel, sizeInBytes, isSent, caseId, id, contentType }: AttachmentNameProps) => {
+  const lang = useLanguage();
   const content = (
     <>
       <span>
@@ -139,10 +139,7 @@ const AttachmentName = ({ tittel, sizeInBytes, isSent, basePath, caseId, id, con
   return isSent ? (
     content
   ) : (
-    <ExternalLink
-      href={`${basePath}/${caseId}/vedlegg/${id}`}
-      onClick={() => appEvent(AppEventEnum.ATTACHMENT_DOWNLOAD)}
-    >
+    <ExternalLink href={getAttachmentUrl(lang, caseId, id)} onClick={() => appEvent(AppEventEnum.ATTACHMENT_DOWNLOAD)}>
       <FileIcon contentType={contentType} />
       {content}
     </ExternalLink>

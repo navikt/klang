@@ -8,6 +8,7 @@
         "@fastify/cors": "11.4.3",
         "@fastify/http-proxy": "11.6.10",
         "@fastify/otel": "1.0.1",
+        "@fastify/rate-limit": "11.3.0",
         "@fastify/type-provider-typebox": "6.3.0",
         "@navikt/oasis": "4.2.3",
         "@opentelemetry/api": "1.10.0",
@@ -54,6 +55,8 @@
 
     "@fastify/proxy-addr": ["@fastify/proxy-addr@5.1.3", "", { "dependencies": { "@fastify/forwarded": "^3.0.0", "ipaddr.js": "^2.1.0" } }, "sha512-ptgIgB+abBNTs5lsKNvFaKMCauPaTOE6ZIjxJr3FxCLehmYQQKYGg4srwwNICR9QQlFrYw59jWAo+i9GalVCaw=="],
 
+    "@fastify/rate-limit": ["@fastify/rate-limit@11.3.0", "", { "dependencies": { "@lukeed/ms": "^2.0.2", "fastify-plugin": "^6.0.0", "ip-address": "^10.2.0", "toad-cache": "^3.7.0" } }, "sha512-n+gmOdTRReRA+UGI/cPAvG4bW4FCDLofInXNkTX42/rkMPy/8ii8LsLWHUU1KC+jJRdBtOD9Zs+Js8168eS/4A=="],
+
     "@fastify/reply-from": ["@fastify/reply-from@12.9.1", "", { "dependencies": { "@fastify/error": "^4.0.0", "end-of-stream": "^1.4.4", "fast-content-type-parse": "^4.0.0", "fast-querystring": "^1.1.2", "fastify-plugin": "^6.0.0", "toad-cache": "^3.7.0", "undici": "^7.0.0" } }, "sha512-hUM97W/zwETR8je0iqNyv6aJ/9AyhWC5A35wjg98f32C1U2/xHfjMV7U9H4dzz9L99lz1YJvQ/KuslqY2hQPGw=="],
 
     "@fastify/type-provider-typebox": ["@fastify/type-provider-typebox@6.3.0", "", { "peerDependencies": { "ajv-formats": "^3.0.1", "typebox": "^1.1.14" } }, "sha512-zsaoyyAdNvkuf2HOMJvf7vykRTFA/1M9J3HC0vHNtFhxNhwL36iDJl/2Tpl0XzMR0f0aATSeDV20ChH720wXYQ=="],
@@ -65,6 +68,8 @@
     "@isaacs/nonrecursive-glob-match": ["@isaacs/nonrecursive-glob-match@1.1.0", "", {}, "sha512-GPm/Dbvk5RLmhRnxXIa7nTpK0xtl4E0wj0MslsuNiJ1FIROU+2+9lgUC/dgF7Ey4QCWhfEsgxilMRMCdHPfDfw=="],
 
     "@js-sdsl/ordered-map": ["@js-sdsl/ordered-map@4.4.2", "", {}, "sha512-iUKgm52T8HOE/makSxjqoWhe95ZJA1/G1sYsGev2JDKUSS14KAgg1LHb+Ba+IPow0xflbnSkOsZcO08C7w1gYw=="],
+
+    "@lukeed/ms": ["@lukeed/ms@2.0.2", "", {}, "sha512-9I2Zn6+NJLfaGoz9jN3lpwDgAYvfGeNYdbAIjJOqzs4Tpc+VU3Jqq4IofSUBKajiDS8k9fZIg18/z13mpk1bsA=="],
 
     "@navikt/oasis": ["@navikt/oasis@4.2.3", "https://npm.pkg.github.com/download/@navikt/oasis/4.2.3/2b6f6ff6ac6c82e6ea93f5ec4e041cf5a93b4302", { "dependencies": { "@navikt/texas": "^4.2.3", "@opentelemetry/api": "^1.9.1", "@prometheus-io/client": "^0.16.1", "jose": "^6.2.17" } }, "sha512-y9jzWKAxhZZvbj6xPKSOTJMfd4Vu4raQtPheeynSFokdxFwuoo3nH7khuB/F4HKjyYeR9UYZomfnjwIjuo81OQ=="],
 
@@ -315,6 +320,8 @@
     "ignore": ["ignore@5.3.2", "", {}, "sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g=="],
 
     "import-in-the-middle": ["import-in-the-middle@3.6.0", "", { "dependencies": { "cjs-module-lexer": "^2.2.0", "es-module-lexer": "^3.0.4", "module-details-from-path": "^1.0.4" } }, "sha512-xRU7hI24S2FhucXtuZXn8EpcOjfVP6iiEQyR0USayPeaOroEmSsNlqnl95866iRdRtkHrd6Q/Z4D14R60au0+A=="],
+
+    "ip-address": ["ip-address@10.7.6", "", {}, "sha512-00LYkM6byILa9eQIx6qoaXCM40xTLd56AZ4vyaPW3YTyb49VZYPo5xsiAq4tuQ54GH4R7gVdYScJ1B7B77PuTg=="],
 
     "ipaddr.js": ["ipaddr.js@2.5.0", "", {}, "sha512-aq+t5NAc+cS6rZQQVWC2x98CPqGtKKTMDd4Gaodv0wShnItdKg/51djkGJ1hqH+Oy0ivDftCbSLCQob8zso01w=="],
 

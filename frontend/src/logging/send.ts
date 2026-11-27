@@ -20,6 +20,11 @@ export const send = async (data: LogEvent) => {
       body: JSON.stringify(data),
     });
 
+    // Rate limited. Dropping the log event is fine.
+    if (res.status === 429) {
+      return;
+    }
+
     if (!res.ok) {
       console.error('Error response sending logs', res);
     }

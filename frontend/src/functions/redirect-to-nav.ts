@@ -1,6 +1,6 @@
 import { ENVIRONMENT } from '@app/environment/environment';
-
-const NAV_URL = ENVIRONMENT.isProduction ? 'https://www.nav.no/klage' : 'https://www.ekstern.dev.nav.no/klage';
+import { getNavKlageUrl } from '@app/functions/nav-klage-url';
+import { Languages } from '@app/language/types';
 
 export const redirectToNav = () => {
   if (ENVIRONMENT.isLocal) {
@@ -9,5 +9,5 @@ export const redirectToNav = () => {
     return;
   }
 
-  location.replace(NAV_URL);
+  location.replace(getNavKlageUrl(Languages.nb));
 };

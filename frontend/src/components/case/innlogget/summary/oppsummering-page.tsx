@@ -7,12 +7,13 @@ import { FinalizeDigitalCase } from '@app/components/case/innlogget/summary/fina
 import { PdfLink } from '@app/components/case/innlogget/summary/pdf-link';
 import { InfoBox } from '@app/components/info-box/info-box';
 import { InformationPointBox } from '@app/components/information-point-box/information-point-box';
+import { getCaseInnsendingPdfUrl } from '@app/functions/case-file-url';
 import { useCaseErrors } from '@app/hooks/errors/use-case-errors';
 import { useGoToBegrunnelseOnError } from '@app/hooks/errors/use-navigate-on-error';
 import { Clipboard } from '@app/icons/clipboard';
+import { useLanguage } from '@app/language/use-language';
 import { useTranslation } from '@app/language/use-translation';
 import { type Case, CaseStatus } from '@app/redux-api/case/types';
-import { API_PATH } from '@app/redux-api/common';
 import { Section } from '@app/styled-components/summary';
 import { BodyLong, Box, Button, ErrorMessage, Heading, HStack, VStack } from '@navikt/ds-react';
 import { useState } from 'react';
@@ -26,6 +27,7 @@ interface Props {
 
 const DigitalCaseOppsummeringPage = ({ data }: Props) => {
   const { common, skjema, icons } = useTranslation();
+  const lang = useLanguage();
   const validate = useCaseErrors(data.type);
   const [isValid] = validate(data);
   const [error, setError] = useState<string | null>(null);
@@ -83,12 +85,7 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
             </VStack>
           </Section>
 
-          <AttachmentSummary
-            id={data.id}
-            status={data.status}
-            attachments={data.vedlegg}
-            basePath={`${API_PATH}/klanker`}
-          />
+          <AttachmentSummary id={data.id} status={data.status} attachments={data.vedlegg} />
         </VStack>
       </Box>
 
@@ -110,7 +107,7 @@ const DigitalCaseOppsummeringPage = ({ data }: Props) => {
       <PdfLink
         show={incompleteStatus}
         text={skjema.summary.post_link}
-        href={`${API_PATH}/klanker/${data.id}/pdf/innsending`}
+        href={getCaseInnsendingPdfUrl(lang, data.id)}
         id={data.id}
         hasVedlegg={data.hasVedlegg}
         hasUploadedVedlegg={data.vedlegg.length !== 0}

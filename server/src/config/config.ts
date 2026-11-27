@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { requiredEnvNumber, requiredEnvString } from '@app/config/env-var';
 
-const KLAGE_DITTNAV_API = 'klage-dittnav-api';
+export const KLAGE_DITTNAV_API = 'klage-dittnav-api';
 export const KLAGE_KODEVERK_API = 'klage-kodeverk-api';
 const KLAGE_UNLEASH_PROXY = 'klage-unleash-proxy';
 

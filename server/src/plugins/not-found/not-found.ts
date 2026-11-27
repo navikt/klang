@@ -1,13 +1,15 @@
-import { isDeployed, isDeployedToProd, NAV_KLAGE_URL_DEV, NAV_KLAGE_URL_PROD } from '@app/config/env';
+import { isDeployed, isDeployedToProd, NAV_KLAGE_URL_DEV } from '@app/config/env';
+import { indexFile } from '@app/index-file';
 import { INNSENDINGSYTELSER, Innsendingsytelse } from '@app/innsendingsytelser';
 import { getLogger } from '@app/logger';
 import { html } from '@app/plugins/not-found/html';
 import { overviewCss } from '@app/plugins/not-found/overview-css';
 import { generateHtml } from '@app/plugins/not-found/overview-template';
-import { externalRedirectCounter } from '@app/plugins/serve-index/counters';
+import { notFoundCounter } from '@app/plugins/serve-index/counters';
 import { removeSaksnummer } from '@app/plugins/serve-index/remove-saksnummer';
 import { CASE_TYPES, getEttersendelsePath } from '@app/plugins/serve-index/segments';
 import { SERVE_INDEX_PLUGIN_ID } from '@app/plugins/serve-index/serve-index';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import fastifyPlugin from 'fastify-plugin';
 
 const log = getLogger('not-found-plugin');
@@ -16,36 +18,43 @@ export const NOT_FOUND_PLUGIN_ID = 'not-found';
 
 const HARMLESS_NOT_FOUND_PATHS = ['/favicon.ico', '/apple-touch-icon.png', '/apple-touch-icon-precomposed.png', '/'];
 
+const notFoundHandler = (req: FastifyRequest, reply: FastifyReply) => {
+  const harmless = HARMLESS_NOT_FOUND_PATHS.includes(req.url);
+
+  log[harmless ? 'debug' : 'warn']({
+    msg: 'Invalid URL. Responding with 404 page.',
+    data: {
+      url: req.url,
+      referer: req.headers.referer ?? 'undefined',
+      referrer: req.headers.referrer ?? 'undefined',
+    },
+  });
+
+  notFoundCounter.inc({
+    url: removeSaksnummer(req.url),
+  });
+
+  // The frontend renders a 404 page with a link to nav.no/klage for unknown routes.
+  return reply.status(404).header('content-type', 'text/html').send(indexFile.getIndexFile(404));
+};
+
+/** Shows an overview of all ytelser and case types on the front page. */
+const overviewOrNotFoundHandler = (req: FastifyRequest, reply: FastifyReply) => {
+  if (isFrontPage(req.url)) {
+    return reply.status(404).header('content-type', 'text/html').send(OVERVIEW_PAGE_HTML);
+  }
+
+  return notFoundHandler(req, reply);
+};
+
 export const notFoundPlugin = fastifyPlugin(
   async (app) => {
-    if (!isDeployedToProd) {
-      app.setNotFoundHandler((_req, reply) =>
-        reply.status(404).header('content-type', 'text/html').send(OVERVIEW_PAGE_HTML),
-      );
-      return;
-    }
-
-    app.setNotFoundHandler((req, reply) => {
-      const harmless = HARMLESS_NOT_FOUND_PATHS.includes(req.url);
-
-      log[harmless ? 'debug' : 'warn']({
-        msg: `Invalid URL. Redirecting to external URL ${NAV_KLAGE_URL_PROD}`,
-        data: {
-          url: req.url,
-          referer: req.headers.referer ?? 'undefined',
-          referrer: req.headers.referrer ?? 'undefined',
-        },
-      });
-
-      externalRedirectCounter.inc({
-        url: removeSaksnummer(req.url),
-      });
-
-      return reply.redirect(NAV_KLAGE_URL_PROD);
-    });
+    app.setNotFoundHandler(isDeployedToProd ? notFoundHandler : overviewOrNotFoundHandler);
   },
   { fastify: '5', name: NOT_FOUND_PLUGIN_ID, dependencies: [SERVE_INDEX_PLUGIN_ID] },
 );
+
+const isFrontPage = (url: string): boolean => url === '/' || url.startsWith('/?');
 
 const createLink = (path: string, type: string) => html`<a class="capitalized link" href="${path}">${type}</a>`;
 

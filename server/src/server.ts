@@ -7,6 +7,7 @@ import { querystringParser } from '@app/helpers/query-parser';
 import { getLogger } from '@app/logger';
 import { accessTokenPlugin } from '@app/plugins/access-token';
 import { apiProxyPlugin } from '@app/plugins/api-proxy';
+import { caseFilePlugin } from '@app/plugins/case-file/case-file';
 import { clientVersionPlugin } from '@app/plugins/client-version';
 import { errorReportPlugin } from '@app/plugins/error-report';
 import { frontendLogPlugin } from '@app/plugins/frontend-log/frontend-log';
@@ -16,6 +17,7 @@ import { localDevPlugin } from '@app/plugins/local-dev';
 import { notFoundPlugin } from '@app/plugins/not-found/not-found';
 import { oboAccessTokenPlugin } from '@app/plugins/obo-token';
 import { proxyVersionPlugin } from '@app/plugins/proxy-version';
+import { rateLimitPlugin } from '@app/plugins/rate-limit';
 import { redirectLegacyPathsPlugin } from '@app/plugins/redirect-legacy-paths';
 import { serveIndexPlugin } from '@app/plugins/serve-index/serve-index';
 import { serveStaticFilesPlugin } from '@app/plugins/serve-static-files';
@@ -47,6 +49,8 @@ const app = fastify({
   routerOptions: {
     querystringParser,
     caseSensitive: false,
+    // Match React Router, which ignores trailing slashes.
+    ignoreTrailingSlash: true,
   },
 });
 
@@ -67,6 +71,7 @@ app
   .register(proxyVersionPlugin)
   .register(clientVersionPlugin)
   .register(serverTimingPlugin, { enableAutoTotal: true })
+  .register(rateLimitPlugin)
   .register(frontendLogPlugin)
   .register(errorReportPlugin)
   .register(accessTokenPlugin)
@@ -76,7 +81,8 @@ app
   .register(unleashProxyPlugin)
   .register(localDevPlugin)
   .register(redirectLegacyPathsPlugin)
-  .register(serveIndexPlugin)
+  .register(caseFilePlugin, { requireLogin: isDeployed })
+  .register(serveIndexPlugin, { requireLogin: isDeployed })
   .register(notFoundPlugin)
   .register(httpLoggerPlugin)
 

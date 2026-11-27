@@ -1,4 +1,4 @@
-enum Language {
+export enum Language {
   NB = 'nb',
   NN = 'nn',
   EN = 'en',
@@ -17,13 +17,13 @@ export const CASE_TYPES = Object.values(CaseType);
 export const getEttersendelsePath = (type: CaseType): string =>
   type === CaseType.KLAGE ? 'ettersendelse' : `ettersendelse/${type}`;
 
-enum Step {
+enum CommonStep {
   BEGRUNNELSE = 'begrunnelse',
   OPPSUMMERING = 'oppsummering',
   INNSENDING = 'innsending',
 }
 
-export const STEPS = Object.values(Step);
+export const COMMON_STEPS = Object.values(CommonStep);
 
 enum LoggedInStep {
   KVITTERING = 'kvittering',

@@ -5,6 +5,7 @@ import { CaseInnsendingPage } from '@app/components/case/innlogget/innsending/in
 import { CaseKvitteringPage } from '@app/components/case/innlogget/kvittering/kvittering-page';
 import { CaseOppsummeringPage } from '@app/components/case/innlogget/summary/oppsummering-page';
 import { LanguageComponent } from '@app/language/component';
+import { CaseFileErrorPage, CaseFileType } from '@app/routes/case-file-error-page';
 import { DekoratorSetRedirect } from '@app/routes/dekorator-set-redirect';
 import { ErrorBoundary } from '@app/routes/error-boundary';
 import { LanguageRequired } from '@app/routes/language-required';
@@ -23,14 +24,26 @@ export const Router = () => (
           <ErrorBoundary>
             <Routes>
               <Route path="/:lang" element={<LanguageRequired />}>
+                <Route index element={<NotFoundPage />} />
+
                 {/* Cases for logged in users. State lives in the case API. */}
-                <Route path="sak" element={<LoginRequired />}>
-                  <Route path=":id">
-                    <Route index element={<Navigate to="begrunnelse" replace />} />
-                    <Route path="begrunnelse" element={<CaseBegrunnelsePage />} />
-                    <Route path="oppsummering" element={<CaseOppsummeringPage />} />
-                    <Route path="innsending" element={<CaseInnsendingPage />} />
-                    <Route path="kvittering" element={<CaseKvitteringPage />} />
+                <Route path="sak">
+                  <Route index element={<NotFoundPage />} />
+                  <Route element={<LoginRequired />}>
+                    <Route path=":id">
+                      <Route index element={<Navigate to="begrunnelse" replace />} />
+                      <Route path="begrunnelse" element={<CaseBegrunnelsePage />} />
+                      <Route path="oppsummering" element={<CaseOppsummeringPage />} />
+                      <Route path="innsending" element={<CaseInnsendingPage />} />
+                      <Route path="kvittering" element={<CaseKvitteringPage />} />
+                      {/* Only rendered when the server cannot serve the file. */}
+                      <Route
+                        path="vedlegg/:attachmentId"
+                        element={<CaseFileErrorPage fileType={CaseFileType.ATTACHMENT} />}
+                      />
+                      <Route path="pdf" element={<CaseFileErrorPage fileType={CaseFileType.PDF} />} />
+                      <Route path="pdf/innsending" element={<CaseFileErrorPage fileType={CaseFileType.PDF} />} />
+                    </Route>
                   </Route>
                 </Route>
 

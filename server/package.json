@@ -16,6 +16,7 @@
     "@fastify/cors": "11.4.3",
     "@fastify/http-proxy": "11.6.10",
     "@fastify/otel": "1.0.1",
+    "@fastify/rate-limit": "11.3.0",
     "@fastify/type-provider-typebox": "6.3.0",
     "@navikt/oasis": "4.2.3",
     "@opentelemetry/api": "1.10.0",

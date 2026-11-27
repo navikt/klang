@@ -39,7 +39,6 @@ export const NAIS_NAMESPACE = requiredEnvString('NAIS_NAMESPACE', 'none');
 
 export const POD_NAME = requiredEnvString('OTEL_RESOURCE_ATTRIBUTES_POD_NAME', 'none');
 
-export const NAV_KLAGE_URL_PROD = 'https://www.nav.no/klage';
 export const NAV_KLAGE_URL_DEV = 'https://www.ekstern.dev.nav.no/klage';
 
 export const TEAM_LOG_PARAMS = {

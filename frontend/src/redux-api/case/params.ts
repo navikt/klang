@@ -16,7 +16,7 @@ export interface UploadAttachmentParams {
 
 export interface DeleteAttachmentParams {
   caseId: string;
-  attachmentId: number;
+  attachmentId: string;
 }
 
 export interface ResumeCaseParams extends DeepLinkParams {

@@ -18,7 +18,7 @@ export const generateHtml = ({ css, rows, url }: Values) =>
   </head>
   <body>
     <h1>Oversikt over ytelser</h1>
-    <p>I produksjon ville du ha blitt videresendt til denne siden: <a href="${url}">${url}</a>.</p>
+    <p>I produksjon ville du ha fått en 404-side med lenke til <a href="${url}">${url}</a>.</p>
     <table>
       <thead>
         <tr>
