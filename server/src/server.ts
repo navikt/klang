@@ -17,6 +17,7 @@ import { localDevPlugin } from '@app/plugins/local-dev';
 import { notFoundPlugin } from '@app/plugins/not-found/not-found';
 import { oboAccessTokenPlugin } from '@app/plugins/obo-token';
 import { proxyVersionPlugin } from '@app/plugins/proxy-version';
+import { rateLimitPlugin } from '@app/plugins/rate-limit';
 import { redirectLegacyPathsPlugin } from '@app/plugins/redirect-legacy-paths';
 import { serveIndexPlugin } from '@app/plugins/serve-index/serve-index';
 import { serveStaticFilesPlugin } from '@app/plugins/serve-static-files';
@@ -70,6 +71,7 @@ app
   .register(proxyVersionPlugin)
   .register(clientVersionPlugin)
   .register(serverTimingPlugin, { enableAutoTotal: true })
+  .register(rateLimitPlugin)
   .register(frontendLogPlugin)
   .register(errorReportPlugin)
   .register(accessTokenPlugin)

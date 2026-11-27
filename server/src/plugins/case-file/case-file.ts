@@ -4,10 +4,11 @@ import { getProxyRequestHeaders } from '@app/helpers/prepare-request-headers';
 import { getLoginUrl, redirectToLoginIfLoggedOut } from '@app/helpers/require-login';
 import { getTraceContext } from '@app/helpers/trace-context';
 import { type IndexFileStatus, indexFile } from '@app/index-file';
-import { getClientErrorIndexFileStatus, isClientErrorStatus, type UNKNOWN_CLIENT_ERROR } from '@app/index-file-status';
+import { getClientErrorIndexFileStatus, isClientErrorStatus, UNKNOWN_CLIENT_ERROR } from '@app/index-file-status';
 import { getLogger } from '@app/logger';
 import { ACCESS_TOKEN_PLUGIN_ID } from '@app/plugins/access-token';
 import { OBO_ACCESS_TOKEN_PLUGIN_ID } from '@app/plugins/obo-token';
+import { RATE_LIMIT_PLUGIN_ID, RateLimitError } from '@app/plugins/rate-limit';
 import { LANGUAGES } from '@app/plugins/serve-index/segments';
 import type { FastifyReply, FastifyRequest, RouteShorthandOptions } from 'fastify';
 import fastifyPlugin from 'fastify-plugin';
@@ -20,6 +21,10 @@ interface CaseFilePluginOptions {
   /** Redirect logged out users to login. Requires Wonderwall, so only enabled when deployed. */
   requireLogin: boolean;
 }
+
+/** Requests per IP address per time window. Generous, as users may open several files, and some share IP address. */
+const RATE_LIMIT_MAX = 60;
+const RATE_LIMIT_TIME_WINDOW = '1 minute';
 
 interface CaseParams {
   id: string;
@@ -39,7 +44,22 @@ interface CaseFileRoute<P extends CaseParams> {
  */
 export const caseFilePlugin = fastifyPlugin<CaseFilePluginOptions>(
   async (app, { requireLogin }) => {
-    const routeOptions: RouteShorthandOptions = requireLogin ? { preHandler: redirectToLoginIfLoggedOut } : {};
+    const routeOptions: RouteShorthandOptions = {
+      config: {
+        rateLimit: {
+          max: RATE_LIMIT_MAX,
+          timeWindow: RATE_LIMIT_TIME_WINDOW,
+        },
+      },
+      errorHandler: (error, _, reply) => {
+        if (error instanceof RateLimitError) {
+          return sendIndexFile(reply, 429, UNKNOWN_CLIENT_ERROR);
+        }
+
+        throw error;
+      },
+      preHandler: requireLogin ? redirectToLoginIfLoggedOut : [],
+    };
 
     for (const lang of LANGUAGES) {
       app.get<CaseFileRoute<AttachmentParams>>(`/${lang}/sak/:id/vedlegg/:attachmentId`, routeOptions, (req, reply) => {
@@ -85,7 +105,11 @@ export const caseFilePlugin = fastifyPlugin<CaseFilePluginOptions>(
       });
     }
   },
-  { fastify: '5', name: CASE_FILE_PLUGIN_ID, dependencies: [ACCESS_TOKEN_PLUGIN_ID, OBO_ACCESS_TOKEN_PLUGIN_ID] },
+  {
+    fastify: '5',
+    name: CASE_FILE_PLUGIN_ID,
+    dependencies: [ACCESS_TOKEN_PLUGIN_ID, OBO_ACCESS_TOKEN_PLUGIN_ID, RATE_LIMIT_PLUGIN_ID],
+  },
 );
 
 const ID_REGEX = /^[\w-]+$/;

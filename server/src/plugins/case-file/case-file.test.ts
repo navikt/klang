@@ -28,6 +28,7 @@ mock.module('@app/index-file', () => ({ indexFile: { getIndexFile } }));
 const { caseFilePlugin } = await import('./case-file');
 const { accessTokenPlugin } = await import('@app/plugins/access-token');
 const { OBO_ACCESS_TOKEN_PLUGIN_ID } = await import('@app/plugins/obo-token');
+const { rateLimitPlugin } = await import('@app/plugins/rate-limit');
 
 const fakeOboPlugin = fastifyPlugin(
   async (app) => {
@@ -46,6 +47,7 @@ const buildApp = async (requireLogin = false, oboPlugin = fakeOboPlugin) => {
   });
   await app.register(accessTokenPlugin);
   await app.register(oboPlugin);
+  await app.register(rateLimitPlugin);
   await app.register(caseFilePlugin, { requireLogin });
 
   return app;
@@ -302,6 +304,20 @@ describe('case-file', () => {
     expect(res.statusCode).toBe(404);
     expect(res.body).toBe(getIndexFile(404));
     expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('should serve the app with status 429 when the rate limit is exceeded', async () => {
+    const fetchSpy = mockFetch(() => new Response('file'));
+    const app = await buildApp();
+
+    const responses = await Promise.all(Array.from({ length: 61 }, () => app.inject({ method: 'GET', url: URL })));
+    const limited = responses.filter((res) => res.statusCode === 429);
+
+    expect(limited).toHaveLength(1);
+    expect(limited[0]?.body).toBe(getIndexFile('client_error'));
+    expect(limited[0]?.headers['content-type']).toBe('text/html');
+    expect(limited[0]?.headers['retry-after']).toBeDefined();
+    expect(fetchSpy).toHaveBeenCalledTimes(60);
   });
 
   it('should redirect to login when login is required and the user is logged out', async () => {

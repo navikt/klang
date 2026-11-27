@@ -1,5 +1,6 @@
 import { getLogger, getTeamLogger } from '@app/logger';
 import { FrontendEventTypes, Level, SessionAction } from '@app/plugins/frontend-log/types';
+import { RATE_LIMIT_PLUGIN_ID } from '@app/plugins/rate-limit';
 import { Type, type TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import fastifyPlugin from 'fastify-plugin';
 
@@ -72,6 +73,9 @@ const DEFAULT_PROPS = {
   message: Type.String(),
 };
 
+/** Requests per IP address per minute. Generous, as the frontend sends bursts of log events, and some users share IP address. */
+const RATE_LIMIT_MAX = 120;
+
 const Default = Type.Object(DEFAULT_PROPS);
 const TeamLogDefault = Type.Object({ ...DEFAULT_PROPS, user_id });
 
@@ -79,16 +83,26 @@ export const frontendLogPlugin = fastifyPlugin(
   async (app) => {
     app
       .withTypeProvider<TypeBoxTypeProvider>()
-      .post('/frontend-log', { schema: { body: Type.Intersect([Default, LogEvent]) } }, (req, reply) => {
-        const { level, message, ...data } = req.body;
+      .post(
+        '/frontend-log',
+        {
+          schema: { body: Type.Intersect([Default, LogEvent]) },
+          config: { rateLimit: { max: RATE_LIMIT_MAX, timeWindow: '1 minute' } },
+        },
+        (req, reply) => {
+          const { level, message, ...data } = req.body;
 
-        log[level]({ msg: message, data });
+          log[level]({ msg: message, data });
 
-        reply.status(200).send();
-      })
+          reply.status(200).send();
+        },
+      )
       .post(
         '/frontend-team-log',
-        { schema: { body: Type.Intersect([TeamLogDefault, TeamLogEvent]) } },
+        {
+          schema: { body: Type.Intersect([TeamLogDefault, TeamLogEvent]) },
+          config: { rateLimit: { max: RATE_LIMIT_MAX, timeWindow: '1 minute' } },
+        },
         (req, reply) => {
           const { level, message, ...data } = req.body;
 
@@ -98,5 +112,5 @@ export const frontendLogPlugin = fastifyPlugin(
         },
       );
   },
-  { fastify: '5', name: FRONTEND_LOG_PLUGIN_ID },
+  { fastify: '5', name: FRONTEND_LOG_PLUGIN_ID, dependencies: [RATE_LIMIT_PLUGIN_ID] },
 );
